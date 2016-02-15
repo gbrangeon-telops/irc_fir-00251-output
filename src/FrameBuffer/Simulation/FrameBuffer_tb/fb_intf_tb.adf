@@ -1,0 +1,101 @@
+[Project]
+Current Flow=Generic
+VCS=0
+version=3
+Current Config=compile
+
+[Configurations]
+compile=work
+
+[Library]
+fb_intf_tb=.\fb_intf_tb\fb_intf_tb.lib
+work=.\src\work\work.lib
+
+[Settings]
+AccessRead=0
+AccessReadWrite=0
+AccessACCB=0
+AccessACCR=0
+AccessReadWriteSLP=0
+AccessReadTopLevel=1
+DisableC=1
+ENABLE_ADV_DATAFLOW=0
+FLOW_TYPE=HDL
+LANGUAGE=VHDL
+REFRESH_FLOW=1
+FLOWTOOLS=NONE
+FAMILY=
+fileopenfolder=D:\Telops\FIR-00251-Output\src\FrameBuffer\HDL
+
+[LocalVerilogSets]
+EnableSLP=1
+EnableDebug=0
+
+[LocalVhdlSets]
+CompileWithDebug=0
+
+[$LibMap$]
+fb_intf_tb=.
+Active_lib=
+work=.
+
+[SpecTracer]
+WindowVisible=0
+
+[HierarchyViewer]
+HierarchyInformation=fb_intf_tb|fb_intf_tb|0 
+ShowHide=ShowTopLevel
+Selected=
+
+[Files]
+/..\..\..\HDL\build_FrameBuffer_intf.do=-1
+/..\..\..\HDL\datamover_wrapper.vhd=-1
+/..\..\..\HDL\fb_ctrl.vhd=-1
+/..\..\..\HDL\FB_define.vhd=-1
+/..\..\..\HDL\fb_fsm.vhd=-1
+/..\..\..\HDL\frameBuffer_intf.bde=-1
+/fb_intf_tb.bde=-1
+/fb_stim.vhd=-1
+/fb_sink.vhd=-1
+/run_sim.do=-1
+/waveform.do=-1
+/..\..\..\..\..\..\FIR-00251-Common\VHDL\tel2000pkg.vhd=-1
+/fb_axi_inter_wrap.vhd=-1
+/fb_mig_wrap.vhd=-1
+/..\..\xil_fb_tb\xil_fb_tb.srcs\sources_1\ip\core_mig_7series_0_0\core_mig_7series_0_0_funcsim.vhdl=-1
+/fb_blockRam_wrap.vhd=-1
+/..\..\xil_fb_tb\xil_fb_tb.srcs\sources_1\ip\blk_mem_gen_0\blk_mem_gen_0_funcsim.vhdl=-1
+/waveform_write.do=-1
+/waveform_read.do=-1
+/..\..\..\..\..\..\FIR-00251-Common\VHDL\axis32_pixel_cnt.vhd=-1
+/..\..\..\HDL\axis32_img_sof.vhd=-1
+
+[Files.Data]
+.\..\..\HDL\build_FrameBuffer_intf.do=Macro
+.\..\..\HDL\datamover_wrapper.vhd=VHDL Source Code
+.\..\..\HDL\fb_ctrl.vhd=VHDL Source Code
+.\..\..\HDL\FB_define.vhd=VHDL Source Code
+.\..\..\HDL\fb_fsm.vhd=VHDL Source Code
+.\..\..\HDL\frameBuffer_intf.bde=Block Diagram
+.\src\fb_intf_tb.bde=Block Diagram
+.\src\fb_stim.vhd=VHDL Source Code
+.\src\fb_sink.vhd=VHDL Source Code
+.\src\run_sim.do=Macro
+.\src\waveform.do=Macro
+.\..\..\..\..\..\FIR-00251-Common\VHDL\tel2000pkg.vhd=VHDL Source Code
+.\src\fb_axi_inter_wrap.vhd=VHDL Source Code
+.\src\fb_mig_wrap.vhd=VHDL Source Code
+.\..\xil_fb_tb\xil_fb_tb.srcs\sources_1\ip\core_mig_7series_0_0\core_mig_7series_0_0_funcsim.vhdl=VHDL Source Code
+.\src\fb_blockRam_wrap.vhd=VHDL Source Code
+.\..\xil_fb_tb\xil_fb_tb.srcs\sources_1\ip\blk_mem_gen_0\blk_mem_gen_0_funcsim.vhdl=VHDL Source Code
+.\src\waveform_write.do=Macro
+.\src\waveform_read.do=Macro
+.\..\..\..\..\..\FIR-00251-Common\VHDL\axis32_pixel_cnt.vhd=VHDL Source Code
+.\..\..\HDL\axis32_img_sof.vhd=VHDL Source Code
+
+[file_out:/..\..\..\HDL\frameBuffer_intf.bde]
+/..\compile\frameBuffer_intf.vhd=-1
+
+[file_out:/fb_intf_tb.bde]
+/..\compile\fb_intf_tb.vhd=-1
+

@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!--Product Version: Vivado v2013.4 (64-bit)-->
+<Project Version="6" Minor="14" Path="D:/Telops/FIR-00251-Output/src/FrameBuffer/Simulation/xil_fb_tb/xil_fb_tb.xpr">
+	<FileSet Dir="sources_1" File="fileset.xml"/>
+	<FileSet Dir="constrs_1" File="fileset.xml"/>
+	<FileSet Dir="sim_1" File="fileset.xml"/>
+	<FileSet Dir="core_mig_7series_0_0" File="fileset.xml"/>
+	<FileSet Dir="axi_interconnect_0" File="fileset.xml"/>
+	<FileSet Dir="blk_mem_gen_0" File="fileset.xml"/>
+	<RunSet Dir="runs" File="runs.xml"/>
+	<DefaultLaunch Dir="$PRUNDIR"/>
+	<Config>
+		<Option Name="Id" Val="1c73a763439b4c869af3b9bd10c538a5"/>
+		<Option Name="Part" Val="xc7k70tfbg676-1"/>
+		<Option Name="CompiledLibDir" Val="$PCACHEDIR/compile_simlib"/>
+		<Option Name="TargetLanguage" Val="VHDL"/>
+		<Option Name="Board" Val=""/>
+		<Option Name="ActiveSimSet" Val="sim_1"/>
+	</Config>
+</Project>
+

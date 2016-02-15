@@ -1,0 +1,13 @@
+i<>.\src\gige_frame_gen.vhd
+i<>.\..\..\HDL\Gige_Clink_phy.vhd
+i<>.\..\..\HDL\GIGE_define.vhd
+i<>.\..\..\HDL\Gige_sync_intf.vhd
+i<>.\..\..\HDL\pleora_intf.bde
+i<>.\..\..\..\..\..\FIR-00251-Common\VHDL\tel2000pkg.vhd
+i<>.\..\..\..\..\..\Common_HDL\Utilities\sync_reset.vhd
+i<>.\src\gige_stim.vhd
+i<>.\..\..\HDL\pleora_ctrl.vhd
+i<>.\src\pleora_tb.bde
+i<>.\src\gige_out_stim.vhd
+i<>.\..\..\..\FrameBuffer\HDL\frameBuffer_intf.bde
+i<>.\..\..\..\FrameBuffer\HDL\datamover_wrapper.vhd

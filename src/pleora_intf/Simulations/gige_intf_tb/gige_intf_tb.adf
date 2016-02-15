@@ -1,0 +1,99 @@
+[Project]
+Current Flow=Generic
+VCS=0
+version=3
+Current Config=compile
+
+[Configurations]
+compile=work
+
+[Library]
+gige_intf_tb=.\gige_intf_tb\gige_intf_tb.lib
+work=.\src\work\work.lib
+
+[Settings]
+AccessRead=0
+AccessReadWrite=0
+AccessACCB=0
+AccessACCR=0
+AccessReadWriteSLP=0
+AccessReadTopLevel=1
+DisableC=1
+ENABLE_ADV_DATAFLOW=0
+FLOW_TYPE=HDL
+LANGUAGE=VHDL
+REFRESH_FLOW=1
+FLOWTOOLS=NONE
+FAMILY=
+fileopenfolder=D:\Telops\FIR-00251-Output\src\FrameBuffer\HDL
+
+[LocalVerilogSets]
+EnableSLP=1
+EnableDebug=0
+
+[LocalVhdlSets]
+CompileWithDebug=0
+
+[$LibMap$]
+gige_intf_tb=.
+Active_lib=
+work=.
+
+[SpecTracer]
+WindowVisible=0
+
+[HierarchyViewer]
+HierarchyInformation=gige_clink_phy|rtl|0 gige_out_stim|sim|0 pleora_tb|pleora_tb|0 
+ShowHide=ShowTopLevel
+Selected=
+
+[ORDER]
+Synchronize=0
+
+[Files]
+/gige_frame_gen.vhd=-1
+/..\..\..\HDL\Gige_Clink_phy.vhd=-1
+/..\..\..\HDL\GIGE_define.vhd=-1
+/..\..\..\HDL\Gige_sync_intf.vhd=-1
+/..\..\..\HDL\pleora_intf.bde=-1
+/..\..\..\..\..\..\FIR-00251-Common\VHDL\tel2000pkg.vhd=-1
+/..\..\..\..\..\..\Common_HDL\Utilities\sync_reset.vhd=-1
+/gige_stim.vhd=-1
+/run_sim.do=-1
+/waveform.do=-1
+/..\..\..\HDL\build_gige_intf.do=-1
+/..\..\..\HDL\pleora_ctrl.vhd=-1
+/..\build_gige_intf_sim.do=-1
+/pleora_tb.bde=-1
+/gige_out_stim.vhd=-1
+/..\..\..\..\FrameBuffer\HDL\frameBuffer_intf.bde=-1
+/..\..\..\..\FrameBuffer\HDL\datamover_wrapper.vhd=-1
+
+[Files.Data]
+.\src\gige_frame_gen.vhd=VHDL Source Code
+.\..\..\HDL\Gige_Clink_phy.vhd=VHDL Source Code
+.\..\..\HDL\GIGE_define.vhd=VHDL Source Code
+.\..\..\HDL\Gige_sync_intf.vhd=VHDL Source Code
+.\..\..\HDL\pleora_intf.bde=Block Diagram
+.\..\..\..\..\..\FIR-00251-Common\VHDL\tel2000pkg.vhd=VHDL Source Code
+.\..\..\..\..\..\Common_HDL\Utilities\sync_reset.vhd=VHDL Source Code
+.\src\gige_stim.vhd=VHDL Source Code
+.\src\run_sim.do=Macro
+.\src\waveform.do=Macro
+.\..\..\HDL\build_gige_intf.do=Macro
+.\..\..\HDL\pleora_ctrl.vhd=VHDL Source Code
+.\build_gige_intf_sim.do=Macro
+.\src\pleora_tb.bde=Block Diagram
+.\src\gige_out_stim.vhd=VHDL Source Code
+.\..\..\..\FrameBuffer\HDL\frameBuffer_intf.bde=Block Diagram
+.\..\..\..\FrameBuffer\HDL\datamover_wrapper.vhd=VHDL Source Code
+
+[file_out:/..\..\..\HDL\pleora_intf.bde]
+/..\compile\pleora_intf.vhd=-1
+
+[file_out:/pleora_tb.bde]
+/..\compile\pleora_tb.vhd=-1
+
+[file_out:/..\..\..\..\FrameBuffer\HDL\frameBuffer_intf.bde]
+/..\compile\frameBuffer_intf.vhd=-1
+

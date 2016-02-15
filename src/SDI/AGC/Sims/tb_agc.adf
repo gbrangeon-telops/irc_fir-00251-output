@@ -1,0 +1,87 @@
+[Project]
+Current Flow=Generic
+VCS=0
+version=3
+Current Config=compile
+
+[Configurations]
+compile=work
+
+[Library]
+tb_agc=.\tb_agc\tb_agc.lib
+work=.\work\work.lib
+
+[Settings]
+AccessRead=0
+AccessReadWrite=0
+AccessACCB=0
+AccessACCR=0
+AccessReadWriteSLP=0
+AccessReadTopLevel=1
+DisableC=1
+ENABLE_ADV_DATAFLOW=0
+FLOW_TYPE=HDL
+LANGUAGE=VHDL
+REFRESH_FLOW=1
+FLOWTOOLS=NONE
+FAMILY=Xilinx VIRTEX4
+fileopenfolder=D:\Telops\FIR-00251-Output\src\SDI\AGC\Sims\src
+
+[LocalVerilogSets]
+EnableSLP=1
+EnableDebug=0
+
+[LocalVhdlSets]
+CompileWithDebug=0
+
+[$LibMap$]
+tb_agc=.
+Active_lib=VIRTEX4
+xilinxun=VIRTEX4
+UnlinkedDesignLibrary=VIRTEX4
+DESIGNS=VIRTEX4
+work=.
+
+[SpecTracer]
+WindowVisible=0
+
+[HierarchyViewer]
+HierarchyInformation=tb_agc_top|tb_agc_top|0 
+ShowHide=ShowTopLevel
+Selected=
+
+[file_out:/..\..\HDL\AGC.bde]
+/..\compile\AGC.vhd=-1
+
+[Groups]
+AGC=1
+
+[Files]
+/build_agc_sims.do=-1
+/run_sim.do=-1
+/waveform.do=-1
+/tb_agc_top.bde=-1
+/agc_tb_stim.vhd=-1
+AGC/..\..\..\HDL\build_AGC_intf.do=-1
+AGC/..\..\..\HDL\AGC.bde=-1
+AGC/..\..\..\HDL\AGC_Ctrl.vhd=-1
+AGC/..\..\..\HDL\AGC_CUMSUM.vhd=-1
+
+[Files.Data]
+.\src\build_agc_sims.do=Macro
+.\src\run_sim.do=Macro
+.\src\waveform.do=Macro
+.\src\tb_agc_top.bde=Block Diagram
+.\src\agc_tb_stim.vhd=VHDL Source Code
+.\..\HDL\build_AGC_intf.do=Macro
+.\..\HDL\AGC.bde=Block Diagram
+.\..\HDL\AGC_Ctrl.vhd=VHDL Source Code
+.\..\HDL\AGC_CUMSUM.vhd=VHDL Source Code
+.\compile\AGC.vhd=VHDL Source Code
+.\compile\tb_agc_top.vhd=VHDL Source Code
+
+
+[file_out:AGC/..\..\..\HDL\AGC.bde]
+AGC/..\..\compile\AGC.vhd=-1
+[file_out:/tb_agc_top.bde]
+/..\compile\tb_agc_top.vhd=-1

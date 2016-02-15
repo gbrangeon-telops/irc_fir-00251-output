@@ -1,0 +1,189 @@
+[Project]
+Current Flow=Generic
+VCS=0
+version=3
+Current Config=compile
+
+[Configurations]
+compile=work
+
+[Library]
+clink_tb=.\clink_tb\clink_tb.lib
+work=.\src\work\work.lib
+
+[Settings]
+AccessRead=0
+AccessReadWrite=0
+AccessACCB=0
+AccessACCR=0
+AccessReadWriteSLP=0
+AccessReadTopLevel=1
+DisableC=1
+ENABLE_ADV_DATAFLOW=0
+FLOW_TYPE=HDL
+LANGUAGE=VHDL
+REFRESH_FLOW=1
+FLOWTOOLS=NONE
+FAMILY=
+fileopenfolder=D:\Telops\FIR-00251-Output\src\Clink\Simulations\clink_tb\src
+
+[LocalVerilogSets]
+EnableSLP=1
+EnableDebug=0
+VerilogLanguage=4
+WarningPrnLevel=1
+OptimizationLevel=2
+ProtectLevel=0
+Strict=0
+VerilogNoSpecify=0
+AdditionalOptions=
+ErrorOutputLimit=0
+ForceCellDefine=0
+VerilogCompOff=0
+GenMultiplatformLib=0
+IncrementalCompilation=0
+IgnoreLineNumbers=0
+DistributedDelayMode=0
+PathDelayMode=0
+UnitDelayMode=0
+ZeroDefineMode=0
+SourceFileExt=
+VerilogDisableClocksNumbers=0
+VerilogChangeEvalAsynchronous=0
+VerilogAssertionsMessageSeverity=Error
+VerilogDisabledAssertionsProcessing=None
+VerilogDisableEmbeddedOvaPslProcessing=0
+VerilogDisablePslProcessing=0
+VerilogDisableOvaProcessing=0
+VerilogDisableSvaProcessing=0
+
+[LocalVhdlSets]
+CompileWithDebug=1
+NetlistCompilation=1
+EnableVHDL93Key=0
+EnableVHDL2002Key=1
+EnableVHDL2008Key=0
+DisableVHDL87Key=0
+Syntax RelaxLRM=1
+MaxErrorsKey=100
+OptimizationLevel=3
+DisableRangeChecks=0
+ProtectLevel=0
+IncrementalCompilation=0
+AdditionalOptions=
+ReorderOnFirstRebuild=1
+ElaborationAfterCompilation=0
+PrintErrWarnOnly=0
+GenMultiplatformLib=0
+VhdlChangeEvalAsynchronous=0
+VhdlDisableAssertionsProcessing=0
+
+[$LibMap$]
+clink_tb=.
+Active_lib=
+work=.
+
+[DefineMacro]
+Global=
+
+[LocalVerilogDirs]
+Count=0
+
+[VerilogSourceLibDirs]
+Count=0
+
+[SourceLibFiles]
+Count=0
+
+[SpecTracer]
+WindowVisible=0
+
+[HierarchyViewer]
+HierarchyInformation=clink_tb|clink_tb|0 
+ShowHide=ShowTopLevel
+Selected=
+
+[ORDER]
+Synchronize=0
+
+[Files]
+/..\..\..\Hdl\build_clink_intf.do=-1
+/run_sim.do=-1
+/waveform.do=-1
+/..\..\..\Hdl\CLINK_define.vhd=-1
+/..\..\..\Hdl\Clink_intf.bak=-1
+/..\..\..\Hdl\Clink_intf.bde=-1
+/..\..\..\Hdl\Clink_Phy.vhd=-1
+/axis_lane_stim.vhd=-1
+/..\..\..\..\..\..\FIR-00251-Common\VHDL\tel2000pkg.vhd=-1
+/clink_tb.bde=-1
+/..\..\..\Hdl\axis_lane_adj.vhd=-1
+/..\..\..\Hdl\clink_ctrl.vhd=-1
+/..\..\..\Hdl\LineFraming.vhd=-1
+/..\..\..\Hdl\CL_LineBuffer.bde=-1
+/clink_stim.vhd=-1
+/..\..\..\Hdl\clink_portmap.vhd=-1
+/clink_receiv.bde=-1
+/..\..\..\Hdl\clink_portmap_receiv.vhd=-1
+/..\..\..\..\..\..\FIR-00251-Common\VHDL\hdr_extractor\hder_extractor.vhd=-1
+/..\..\..\..\..\..\FIR-00251-Common\VHDL\axis64_lines_cnt.vhd=-1
+/..\..\..\..\..\..\FIR-00251-Common\VHDL\axis64_pixel_cnt.vhd=-1
+/..\..\..\..\..\..\FIR-00251-Common\VHDL\axis32_pixel_cnt.vhd=-1
+/..\..\..\..\..\..\Common_HDL\AXI4\axis_32_to_64.vhd=-1
+/..\..\..\..\..\IP\t_axi4_stream64_sfifo_d1024_packet\t_axi4_stream64_sfifo_d1024_packet_funcsim.vhdl=-1
+/..\..\..\..\..\..\FIR-00251-Common\IP\axis_clock_converter_div2\axis_clock_converter_div2_funcsim.vhdl=-1
+/..\..\..\..\..\..\FIR-00251-Common\VHDL\Fifo\t_axi4_stream64_fifo.vhd=-1
+/..\..\..\..\..\..\FIR-00251-Common\VHDL\Utilities\axis64_synch_clk_div2.vhd=-1
+/..\..\..\..\..\..\FIR-00251-Common\VHDL\Fifo\t_axi4_stream32_fifo.vhd=-1
+/waveform2.do=-1
+/..\..\..\Hdl\Clink_output_pix_count.vhd=-1
+/Clink_intf_noserdes.bde=-1
+
+[Files.Data]
+.\..\..\Hdl\build_clink_intf.do=Macro
+.\src\run_sim.do=Macro
+.\src\waveform.do=Macro
+.\..\..\Hdl\CLINK_define.vhd=VHDL Source Code
+.\..\..\Hdl\Clink_intf.bak=External File
+.\..\..\Hdl\Clink_intf.bde=Block Diagram
+.\..\..\Hdl\Clink_Phy.vhd=VHDL Source Code
+.\src\axis_lane_stim.vhd=VHDL Source Code
+.\..\..\..\..\..\FIR-00251-Common\VHDL\tel2000pkg.vhd=VHDL Source Code
+.\src\clink_tb.bde=Block Diagram
+.\..\..\Hdl\axis_lane_adj.vhd=VHDL Source Code
+.\..\..\Hdl\clink_ctrl.vhd=VHDL Source Code
+.\..\..\Hdl\LineFraming.vhd=VHDL Source Code
+.\..\..\Hdl\CL_LineBuffer.bde=Block Diagram
+.\src\clink_stim.vhd=VHDL Source Code
+.\..\..\Hdl\clink_portmap.vhd=VHDL Source Code
+.\src\clink_receiv.bde=Block Diagram
+.\..\..\Hdl\clink_portmap_receiv.vhd=VHDL Source Code
+.\..\..\..\..\..\FIR-00251-Common\VHDL\hdr_extractor\hder_extractor.vhd=VHDL Source Code
+.\..\..\..\..\..\FIR-00251-Common\VHDL\axis64_lines_cnt.vhd=VHDL Source Code
+.\..\..\..\..\..\FIR-00251-Common\VHDL\axis64_pixel_cnt.vhd=VHDL Source Code
+.\..\..\..\..\..\FIR-00251-Common\VHDL\axis32_pixel_cnt.vhd=VHDL Source Code
+.\..\..\..\..\..\Common_HDL\AXI4\axis_32_to_64.vhd=VHDL Source Code
+.\..\..\..\..\IP\t_axi4_stream64_sfifo_d1024_packet\t_axi4_stream64_sfifo_d1024_packet_funcsim.vhdl=VHDL Source Code
+.\..\..\..\..\..\FIR-00251-Common\IP\axis_clock_converter_div2\axis_clock_converter_div2_funcsim.vhdl=VHDL Source Code
+.\..\..\..\..\..\FIR-00251-Common\VHDL\Fifo\t_axi4_stream64_fifo.vhd=VHDL Source Code
+.\..\..\..\..\..\FIR-00251-Common\VHDL\Utilities\axis64_synch_clk_div2.vhd=VHDL Source Code
+.\..\..\..\..\..\FIR-00251-Common\VHDL\Fifo\t_axi4_stream32_fifo.vhd=VHDL Source Code
+.\src\waveform2.do=Macro
+.\..\..\Hdl\Clink_output_pix_count.vhd=VHDL Source Code
+.\src\Clink_intf_noserdes.bde=Block Diagram
+
+[file_out:/..\..\..\Hdl\Clink_intf.bde]
+/..\compile\clink_intf.vhd=-1
+
+[file_out:/clink_tb.bde]
+/..\compile\clink_tb.vhd=-1
+
+[file_out:/..\..\..\Hdl\CL_LineBuffer.bde]
+/..\compile\CL_LineBuffer.vhd=-1
+
+[file_out:/clink_receiv.bde]
+/..\compile\clink_receiv.vhd=-1
+
+[file_out:/Clink_intf_noserdes.bde]
+/..\compile\Clink_intf_noserdes.vhd=-1
+

@@ -1,0 +1,149 @@
+Active-HDL 9.3.2744.4995  2015-11-09 09:39:27
+
+Elaboration top modules:
+Architecture                  clink_tb(clink_tb)
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Entity                                                                                  | Architecture           | Library | Info | Compiler Version         | Compilation Options
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+clink_tb                                                                                | clink_tb               | work    |      | 9.3.2744.4995  (Windows) | -dbg
+clink_stim                                                                              | clink_stim             | work    |      | 9.3.2744.4995  (Windows) | -dbg
+Clink_intf_noserdes                                                                     | clink_intf_noserdes    | work    |      | 9.3.2744.4995  (Windows) | -dbg -relax
+CLINK_CTRL                                                                              | rtl                    | work    |      | 9.3.2744.4995  (Windows) | -relax -dbg
+CL_LineBuffer                                                                           | cl_linebuffer          | work    |      | 9.3.2744.4995  (Windows) | -relax -dbg
+CLINK_PORTMAP                                                                           | rtl                    | work    |      | 9.3.2744.4995  (Windows) | -relax -dbg
+CLink_Phy                                                                               | rtl                    | work    |      | 9.3.2744.4995  (Windows) | -relax -dbg
+bufr                                                                                    | bufr_v                 | kintex7 |      | 9.3.2744.4995  (Windows) | -vendor xilinx
+Clink_output_pix_count                                                                  | clink_output_pix_count | work    |      | 9.3.2744.4995  (Windows) | -relax -dbg
+sync_resetn                                                                             | rtl                    | work    |      | 9.3.2744.4995  (Windows) | -relax -dbg
+double_sync                                                                             | rtl                    | work    |      | 9.3.2744.4995  (Windows) | -relax -dbg
+double_sync_vector                                                                      | rtl                    | work    |      | 9.3.2744.4995  (Windows) | -relax -dbg
+gh_stretch                                                                              | a                      | work    |      | 9.3.2744.4995  (Windows) | -relax -dbg
+fd                                                                                      | fd_v                   | unisim  |      | 9.3.2744.4995  (Windows) | -vendor xilinx -93
+fdre                                                                                    | fdre_v                 | unisim  |      | 9.3.2744.4995  (Windows) | -vendor xilinx -93
+LineFraming                                                                             | lineframing            | work    |      | 9.3.2744.4995  (Windows) | -relax -dbg
+AXI_Stream32_to_64_output_wrapper                                                       | rtl                    | work    |      | 9.3.2744.4995  (Windows) | -relax -dbg
+t_axi4_stream64_fifo                                                                    | rtl                    | work    |      | 9.3.2744.4995  (Windows) | -relax -dbg
+AXI4_Stream32_to_64_Output                                                              | structure              | work    |      | 9.3.2744.4995  (Windows) | -relax -dbg
+gnd                                                                                     | gnd_v                  | unisim  |      | 9.3.2744.4995  (Windows) | -vendor xilinx -93
+vcc                                                                                     | vcc_v                  | unisim  |      | 9.3.2744.4995  (Windows) | -vendor xilinx -93
+AXI4_Stream32_to_64_Outputaxis_interconnect_v1_1_axis_interconnect_16x16_top            | structure              | work    |      | 9.3.2744.4995  (Windows) | -relax -dbg
+AXI4_Stream32_to_64_Outputaxis_interconnect_v1_1_axis_interconnect                      | structure              | work    |      | 9.3.2744.4995  (Windows) | -relax -dbg
+\AXI4_Stream32_to_64_Outputaxis_interconnect_v1_1_dynamic_datapath__parameterized6\     | structure              | work    |      | 9.3.2744.4995  (Windows) | -relax -dbg
+AXI4_Stream32_to_64_Outputaxis_interconnect_v1_1_dynamic_datapath                       | structure              | work    |      | 9.3.2744.4995  (Windows) | -relax -dbg
+\AXI4_Stream32_to_64_Outputaxis_interconnect_v1_1_dynamic_datapath__parameterized7\     | structure              | work    |      | 9.3.2744.4995  (Windows) | -relax -dbg
+\AXI4_Stream32_to_64_Outputaxis_interconnect_v1_1_axis_register_slice__parameterized0\  | structure              | work    |      | 9.3.2744.4995  (Windows) | -relax -dbg
+\AXI4_Stream32_to_64_Outputaxis_interconnect_v1_1_dynamic_datapath__parameterized8\     | structure              | work    |      | 9.3.2744.4995  (Windows) | -relax -dbg
+\AXI4_Stream32_to_64_Outputaxis_interconnect_v1_1_dynamic_datapath__parameterized9\     | structure              | work    |      | 9.3.2744.4995  (Windows) | -relax -dbg
+\AXI4_Stream32_to_64_Outputaxis_interconnect_v1_1_dynamic_datapath__parameterized10\    | structure              | work    |      | 9.3.2744.4995  (Windows) | -relax -dbg
+AXI4_Stream32_to_64_Outputaxis_interconnect_v1_1_axis_clock_converter                   | structure              | work    |      | 9.3.2744.4995  (Windows) | -relax -dbg
+\AXI4_Stream32_to_64_Outputaxis_interconnect_v1_1_dynamic_datapath__parameterized11\    | structure              | work    |      | 9.3.2744.4995  (Windows) | -relax -dbg
+\AXI4_Stream32_to_64_Outputaxis_interconnect_v1_1_axis_data_fifo__parameterized0\       | structure              | work    |      | 9.3.2744.4995  (Windows) | -relax -dbg
+\AXI4_Stream32_to_64_Outputfifo_generator_v10_0__parameterized0\                        | structure              | work    |      | 9.3.2744.4995  (Windows) | -relax -dbg
+lut2                                                                                    | lut2_v                 | unisim  |      | 9.3.2744.4995  (Windows) | -vendor xilinx -93
+\AXI4_Stream32_to_64_Outputfifo_generator_v10_0_synth__parameterized0\                  | structure              | work    |      | 9.3.2744.4995  (Windows) | -relax -dbg
+\AXI4_Stream32_to_64_Outputfifo_generator_top__parameterized0\                          | structure              | work    |      | 9.3.2744.4995  (Windows) | -relax -dbg
+\AXI4_Stream32_to_64_Outputfifo_generator_ramfifo__parameterized0\                      | structure              | work    |      | 9.3.2744.4995  (Windows) | -relax -dbg
+AXI4_Stream32_to_64_Outputclk_x_pntrs                                                   | structure              | work    |      | 9.3.2744.4995  (Windows) | -relax -dbg
+\AXI4_Stream32_to_64_Outputrd_logic__parameterized0\                                    | structure              | work    |      | 9.3.2744.4995  (Windows) | -relax -dbg
+\AXI4_Stream32_to_64_Outputwr_logic__parameterized0\                                    | structure              | work    |      | 9.3.2744.4995  (Windows) | -relax -dbg
+\AXI4_Stream32_to_64_Outputmemory__parameterized0\                                      | structure              | work    |      | 9.3.2744.4995  (Windows) | -relax -dbg
+\AXI4_Stream32_to_64_Outputreset_blk_ramfifo__parameterized0\                           | structure              | work    |      | 9.3.2744.4995  (Windows) | -relax -dbg
+AXI4_Stream32_to_64_Outputsynchronizer_ff                                               | structure              | work    |      | 9.3.2744.4995  (Windows) | -relax -dbg
+AXI4_Stream32_to_64_Outputsynchronizer_ff_3                                             | structure              | work    |      | 9.3.2744.4995  (Windows) | -relax -dbg
+AXI4_Stream32_to_64_Outputsynchronizer_ff_4                                             | structure              | work    |      | 9.3.2744.4995  (Windows) | -relax -dbg
+AXI4_Stream32_to_64_Outputsynchronizer_ff_5                                             | structure              | work    |      | 9.3.2744.4995  (Windows) | -relax -dbg
+lut5                                                                                    | lut5_v                 | unisim  |      | 9.3.2744.4995  (Windows) | -vendor xilinx -93
+lut4                                                                                    | lut4_v                 | unisim  |      | 9.3.2744.4995  (Windows) | -vendor xilinx -93
+fdce                                                                                    | fdce_v                 | unisim  |      | 9.3.2744.4995  (Windows) | -vendor xilinx -93
+lut3                                                                                    | lut3_v                 | unisim  |      | 9.3.2744.4995  (Windows) | -vendor xilinx -93
+AXI4_Stream32_to_64_Outputrd_fwft_6                                                     | structure              | work    |      | 9.3.2744.4995  (Windows) | -relax -dbg
+AXI4_Stream32_to_64_Outputrd_status_flags_as                                            | structure              | work    |      | 9.3.2744.4995  (Windows) | -relax -dbg
+\AXI4_Stream32_to_64_Outputrd_bin_cntr__parameterized0\                                 | structure              | work    |      | 9.3.2744.4995  (Windows) | -relax -dbg
+fdpe                                                                                    | fdpe_v                 | unisim  |      | 9.3.2744.4995  (Windows) | -vendor xilinx -93
+lut1                                                                                    | lut1_v                 | unisim  |      | 9.3.2744.4995  (Windows) | -vendor xilinx -93
+lut6                                                                                    | lut6_v                 | unisim  |      | 9.3.2744.4995  (Windows) | -vendor xilinx -93
+AXI4_Stream32_to_64_Outputwr_status_flags_as                                            | structure              | work    |      | 9.3.2744.4995  (Windows) | -relax -dbg
+\AXI4_Stream32_to_64_Outputwr_bin_cntr__parameterized0\                                 | structure              | work    |      | 9.3.2744.4995  (Windows) | -relax -dbg
+AXI4_Stream32_to_64_Outputdmem                                                          | structure              | work    |      | 9.3.2744.4995  (Windows) | -relax -dbg
+ram32m                                                                                  | ram32m_v               | unisim  |      | 9.3.2744.4995  (Windows) | -vendor xilinx -93
+AXI4_Stream32_to_64_Outputaxis_interconnect_v1_1_axis_dwidth_converter                  | structure              | work    |      | 9.3.2744.4995  (Windows) | -relax -dbg
+AXI4_Stream32_to_64_Outputaxis_interconnect_v1_1_axisc_upsizer                          | structure              | work    |      | 9.3.2744.4995  (Windows) | -relax -dbg
+fdse                                                                                    | fdse_v                 | unisim  |      | 9.3.2744.4995  (Windows) | -vendor xilinx -93
+\AXI4_Stream32_to_64_Outputaxis_interconnect_v1_1_axisc_register_slice__parameterized0\ | structure              | work    |      | 9.3.2744.4995  (Windows) | -relax -dbg
+AXI4_Stream32_to_64_Outputaxis_interconnect_v1_1_axis_data_fifo                         | structure              | work    |      | 9.3.2744.4995  (Windows) | -relax -dbg
+\AXI4_Stream32_to_64_Outputaxis_interconnect_v1_1_dynamic_datapath__parameterized0\     | structure              | work    |      | 9.3.2744.4995  (Windows) | -relax -dbg
+AXI4_Stream32_to_64_Outputfifo_generator_v10_0                                          | structure              | work    |      | 9.3.2744.4995  (Windows) | -relax -dbg
+AXI4_Stream32_to_64_Outputfifo_generator_v10_0_synth                                    | structure              | work    |      | 9.3.2744.4995  (Windows) | -relax -dbg
+AXI4_Stream32_to_64_Outputfifo_generator_top                                            | structure              | work    |      | 9.3.2744.4995  (Windows) | -relax -dbg
+AXI4_Stream32_to_64_Outputfifo_generator_ramfifo                                        | structure              | work    |      | 9.3.2744.4995  (Windows) | -relax -dbg
+AXI4_Stream32_to_64_Outputrd_logic                                                      | structure              | work    |      | 9.3.2744.4995  (Windows) | -relax -dbg
+AXI4_Stream32_to_64_Outputwr_logic                                                      | structure              | work    |      | 9.3.2744.4995  (Windows) | -relax -dbg
+AXI4_Stream32_to_64_Outputmemory                                                        | structure              | work    |      | 9.3.2744.4995  (Windows) | -relax -dbg
+AXI4_Stream32_to_64_Outputreset_blk_ramfifo                                             | structure              | work    |      | 9.3.2744.4995  (Windows) | -relax -dbg
+AXI4_Stream32_to_64_Outputdc_ss_fwft                                                    | structure              | work    |      | 9.3.2744.4995  (Windows) | -relax -dbg
+AXI4_Stream32_to_64_Outputrd_fwft                                                       | structure              | work    |      | 9.3.2744.4995  (Windows) | -relax -dbg
+AXI4_Stream32_to_64_Outputrd_status_flags_ss                                            | structure              | work    |      | 9.3.2744.4995  (Windows) | -relax -dbg
+AXI4_Stream32_to_64_Outputrd_bin_cntr                                                   | structure              | work    |      | 9.3.2744.4995  (Windows) | -relax -dbg
+AXI4_Stream32_to_64_Outputupdn_cntr                                                     | structure              | work    |      | 9.3.2744.4995  (Windows) | -relax -dbg
+carry4                                                                                  | carry4_v               | unisim  |      | 9.3.2744.4995  (Windows) | -vendor xilinx -93
+AXI4_Stream32_to_64_Outputcompare_1                                                     | structure              | work    |      | 9.3.2744.4995  (Windows) | -relax -dbg
+AXI4_Stream32_to_64_Outputcompare_2                                                     | structure              | work    |      | 9.3.2744.4995  (Windows) | -relax -dbg
+AXI4_Stream32_to_64_Outputwr_status_flags_ss                                            | structure              | work    |      | 9.3.2744.4995  (Windows) | -relax -dbg
+AXI4_Stream32_to_64_Outputwr_bin_cntr                                                   | structure              | work    |      | 9.3.2744.4995  (Windows) | -relax -dbg
+AXI4_Stream32_to_64_Outputcompare                                                       | structure              | work    |      | 9.3.2744.4995  (Windows) | -relax -dbg
+AXI4_Stream32_to_64_Outputcompare_0                                                     | structure              | work    |      | 9.3.2744.4995  (Windows) | -relax -dbg
+\AXI4_Stream32_to_64_Outputblk_mem_gen_v8_0__parameterized0\                            | structure              | work    |      | 9.3.2744.4995  (Windows) | -relax -dbg
+AXI4_Stream32_to_64_Outputblk_mem_gen_v8_0_synth                                        | structure              | work    |      | 9.3.2744.4995  (Windows) | -relax -dbg
+AXI4_Stream32_to_64_Outputblk_mem_gen_top                                               | structure              | work    |      | 9.3.2744.4995  (Windows) | -relax -dbg
+AXI4_Stream32_to_64_Outputblk_mem_gen_generic_cstr                                      | structure              | work    |      | 9.3.2744.4995  (Windows) | -relax -dbg
+AXI4_Stream32_to_64_Outputblk_mem_gen_prim_width                                        | structure              | work    |      | 9.3.2744.4995  (Windows) | -relax -dbg
+AXI4_Stream32_to_64_Outputblk_mem_gen_prim_wrapper_v6                                   | structure              | work    |      | 9.3.2744.4995  (Windows) | -relax -dbg
+ramb36e1                                                                                | ramb36e1_v             | unisim  |      | 9.3.2744.4995  (Windows) | -vendor xilinx -93
+rb36_internal_vhdl                                                                      | rb36_internal_vhdl_v   | unisim  |      | 9.3.2744.4995  (Windows) | -vendor xilinx -93
+\AXI4_Stream32_to_64_Outputaxis_interconnect_v1_1_dynamic_datapath__parameterized1\     | structure              | work    |      | 9.3.2744.4995  (Windows) | -relax -dbg
+\AXI4_Stream32_to_64_Outputaxis_interconnect_v1_1_dynamic_datapath__parameterized2\     | structure              | work    |      | 9.3.2744.4995  (Windows) | -relax -dbg
+\AXI4_Stream32_to_64_Outputaxis_interconnect_v1_1_dynamic_datapath__parameterized3\     | structure              | work    |      | 9.3.2744.4995  (Windows) | -relax -dbg
+\AXI4_Stream32_to_64_Outputaxis_interconnect_v1_1_dynamic_datapath__parameterized4\     | structure              | work    |      | 9.3.2744.4995  (Windows) | -relax -dbg
+AXI4_Stream32_to_64_Outputaxis_interconnect_v1_1_axis_register_slice                    | structure              | work    |      | 9.3.2744.4995  (Windows) | -relax -dbg
+AXI4_Stream32_to_64_Outputaxis_interconnect_v1_1_axisc_register_slice                   | structure              | work    |      | 9.3.2744.4995  (Windows) | -relax -dbg
+axis_lane_adj                                                                           | rtl                    | work    |      | 9.3.2744.4995  (Windows) | -relax -dbg
+sync_reset                                                                              | rtl                    | work    |      | 9.3.2744.4995  (Windows) | -relax -dbg
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+VHDL Package                                                                                                     | Library | Info | Compiler Version         | Compilation Options
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+standard                                                                                                         | std     |      |                          | 
+TEXTIO                                                                                                           | std     |      | 9.3.2744.4995  (Windows) |  -2008
+std_logic_1164                                                                                                   | ieee    |      | 9.3.2744.4995  (Windows) |  -2008
+NUMERIC_STD                                                                                                      | ieee    |      | 9.3.2744.4995  (Windows) |  -2008
+TEL2000                                                                                                          | work    |      | 9.3.2744.4995  (Windows) | -relax -dbg
+VITAL_Timing                                                                                                     | ieee    |      | 9.3.2744.4995  (Windows) | 
+std_logic_arith                                                                                                  | ieee    |      | 9.3.2744.4995  (Windows) | 
+VCOMPONENTS                                                                                                      | unisim  |      | 9.3.2744.4995  (Windows) | -vendor xilinx -93
+STD_LOGIC_UNSIGNED                                                                                               | ieee    |      | 9.3.2744.4995  (Windows) | 
+VITAL_Primitives                                                                                                 | ieee    |      | 9.3.2744.4995  (Windows) | 
+CLINK_Define                                                                                                     | work    |      | 9.3.2744.4995  (Windows) | -relax -dbg
+STD_LOGIC_SIGNED                                                                                                 | ieee    |      | 9.3.2744.4995  (Windows) | 
+VPKG                                                                                                             | kintex7 |      | 9.3.2744.4995  (Windows) | -vendor xilinx
+STD_LOGIC_TEXTIO                                                                                                 | ieee    |      | 9.3.2744.4995  (Windows) | 
+VPKG                                                                                                             | unisim  |      | 9.3.2744.4995  (Windows) | -vendor xilinx -93
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Library                                                                                                          | Comment
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ieee                                                                                                             | Standard IEEE packages library
+kintex7                                                                                                          | XILINX ISE 14.6, VIRTEX7, KINTEX7, ARTIX7, ZYNQ SCHEMATIC LIBRARY
+std                                                                                                              | Standard VHDL library
+unisim                                                                                                           | XILINX VIVADO 2013.3, UNISIM VHDL LIBRARY
+work                                                                                                             | None
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+Simulation Options: asim -ses +access +r clink_tb
+
+
+The performance of simulation is reduced. Version PE

@@ -1,0 +1,24 @@
+#Liste de commandes utile
+
+#Générer le projet
+write_project_tcl -force -all_properties -absolute_path -verbose "D:/telops/FIR-00251-Output/script/gen_project.tcl"
+
+#liste des fichier utile d'un ip
+get_files -all -of_objects [get_files  CH2_CLINK.xci]
+
+#Générer le bloc diagram
+write_bd_tcl -force -verbose "D:/Telops/FIR-00251-Output/scripts/gen_bd_core.tcl"
+
+#execution du script de génération
+source -verbose gen_project.tcl
+
+#sauvegarder les resultat d'une simulation ILA
+write_hw_ila_data "d:/Output_debug_ila.zip" -force [upload_hw_ila_data hw_ila_1]
+
+#restorer les resultats d'une simulation ILA
+display_hw_ila_data [read_hw_ila_data "d:/Output_debug_ila.zip"]
+
+#Ecrire le fichier bmm back annoter avec les localisations des BRAM
+write_bmm "d:/Telops/FIR-00251-Output/sdk/hw/fir-00251-output.bmm"
+write_bmm "d:/Telops/FIR-00251-Output/sdk/hw_platform_0/fir-00251-output.bmm"
+write_bmm "d:/Telops/FIR-00251-Output/mcs/fir-251-output.bmm"
