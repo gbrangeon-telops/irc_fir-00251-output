@@ -1,9 +1,9 @@
-#Liste de commandes utile
+#Liste de commandes utiles
 
 #Générer le projet
 write_project_tcl -force -all_properties -absolute_path -verbose "D:/telops/FIR-00251-Output/script/gen_project.tcl"
 
-#liste des fichier utile d'un ip
+#liste des fichiers utiles d'un ip
 get_files -all -of_objects [get_files  CH2_CLINK.xci]
 
 #Générer le bloc diagram
@@ -19,6 +19,10 @@ write_hw_ila_data "d:/Output_debug_ila.zip" -force [upload_hw_ila_data hw_ila_1]
 display_hw_ila_data [read_hw_ila_data "d:/Output_debug_ila.zip"]
 
 #Ecrire le fichier bmm back annoter avec les localisations des BRAM
-write_bmm "d:/Telops/FIR-00251-Output/sdk/hw/fir-00251-output.bmm"
-write_bmm "d:/Telops/FIR-00251-Output/sdk/hw_platform_0/fir-00251-output.bmm"
-write_bmm "d:/Telops/FIR-00251-Output/mcs/fir-251-output.bmm"
+write_bmm "d:/Telops/FIR-00251-Output/sdk/hw/fir_251_output_top_bd.bmm"
+write_bmm "d:/Telops/FIR-00251-Output/sdk/hw_platform_0/fir_251_output_top_bd.bmm"
+write_bmm "d:/Telops/FIR-00251-Output/bin/fir_251_output_top_bd.bmm"
+
+#Rapporte les nets avec les fanouts les plus élevés
+report_high_fanout_nets -timing -load_types -max_nets 25
+report_high_fanout_nets -histogram
