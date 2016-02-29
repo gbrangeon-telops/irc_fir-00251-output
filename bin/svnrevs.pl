@@ -1,5 +1,5 @@
 our $rel_out_hw_rev = 18065;
-our $rel_out_sw_rev = 18065;
+our $rel_out_sw_rev = 18132;
 our $rel_out_boot_rev = 0;
-our $rel_out_common_rev = 18059;
+our $rel_out_common_rev = 18129;
 1;
