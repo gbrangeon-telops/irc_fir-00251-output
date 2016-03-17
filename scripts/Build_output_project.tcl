@@ -1,6 +1,6 @@
 set base_dir "d:/Telops/FIR-00251-Output"
 
-
+file attributes $base_dir/xilinx/ -readonly 0
 #Build project
 source $base_dir/scripts/gen_project_output.tcl
 #generate bitstream

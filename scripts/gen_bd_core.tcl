@@ -370,7 +370,7 @@ proc create_hier_cell_MCU { parentCell nameHier } {
 
   # Create instance: microblaze_0, and set properties
   set microblaze_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:microblaze:9.2 microblaze_0 ]
-  set_property -dict [ list CONFIG.C_DEBUG_ENABLED {1} CONFIG.C_D_AXI {1} CONFIG.C_D_LMB {1} CONFIG.C_FAULT_TOLERANT {0} CONFIG.C_I_LMB {1} CONFIG.C_NUMBER_OF_RD_ADDR_BRK {1} CONFIG.C_NUMBER_OF_WR_ADDR_BRK {1} CONFIG.C_USE_BARREL {1} CONFIG.C_USE_DIV {0} CONFIG.C_USE_FPU {1} CONFIG.C_USE_HW_MUL {1} CONFIG.C_USE_INTERRUPT {2} CONFIG.C_USE_MSR_INSTR {0} CONFIG.C_USE_PCMP_INSTR {0} CONFIG.G_USE_EXCEPTIONS {0}  ] $microblaze_0
+  set_property -dict [ list CONFIG.C_DEBUG_ENABLED {1} CONFIG.C_D_AXI {1} CONFIG.C_D_LMB {1} CONFIG.C_FAULT_TOLERANT {0} CONFIG.C_I_LMB {1} CONFIG.C_NUMBER_OF_RD_ADDR_BRK {1} CONFIG.C_NUMBER_OF_WR_ADDR_BRK {1} CONFIG.C_USE_BARREL {1} CONFIG.C_USE_DIV {0} CONFIG.C_USE_FPU {1} CONFIG.C_USE_HW_MUL {1} CONFIG.C_USE_INTERRUPT {2} CONFIG.C_USE_MSR_INSTR {0} CONFIG.C_USE_PCMP_INSTR {0} CONFIG.C_USE_STACK_PROTECTION {1} CONFIG.G_USE_EXCEPTIONS {0}  ] $microblaze_0
 
   # Create instance: microblaze_0_axi_intc, and set properties
   set microblaze_0_axi_intc [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_intc:4.1 microblaze_0_axi_intc ]
@@ -538,17 +538,18 @@ proc create_root_design { parentCell } {
   set QSPI [ create_bd_intf_port -mode Master -vlnv xilinx.com:interface:spi_rtl:1.0 QSPI ]
   set SYS_CLK [ create_bd_intf_port -mode Slave -vlnv xilinx.com:interface:diff_clock_rtl:1.0 SYS_CLK ]
   set S_FB_GIGE_MM2S [ create_bd_intf_port -mode Slave -vlnv xilinx.com:interface:aximm_rtl:1.0 S_FB_GIGE_MM2S ]
-  set_property -dict [ list CONFIG.ADDR_WIDTH {32} CONFIG.ARUSER_WIDTH {0} CONFIG.AWUSER_WIDTH {0} CONFIG.BUSER_WIDTH {0} CONFIG.CLK_DOMAIN {} CONFIG.DATA_WIDTH {32} CONFIG.FREQ_HZ {100000000} CONFIG.ID_WIDTH {1} CONFIG.MAX_BURST_LENGTH {16} CONFIG.NUM_READ_OUTSTANDING {2} CONFIG.NUM_WRITE_OUTSTANDING {1} CONFIG.PHASE {0.000} CONFIG.PROTOCOL {AXI4} CONFIG.READ_WRITE_MODE {READ_ONLY} CONFIG.RUSER_WIDTH {0} CONFIG.SUPPORTS_NARROW_BURST {1} CONFIG.WUSER_WIDTH {0}  ] $S_FB_GIGE_MM2S
+  set_property -dict [ list CONFIG.ADDR_WIDTH {32} CONFIG.ARUSER_WIDTH {0} CONFIG.AWUSER_WIDTH {0} CONFIG.BUSER_WIDTH {0} CONFIG.DATA_WIDTH {32} CONFIG.ID_WIDTH {1} CONFIG.MAX_BURST_LENGTH {16} CONFIG.NUM_READ_OUTSTANDING {2} CONFIG.NUM_WRITE_OUTSTANDING {1} CONFIG.PROTOCOL {AXI4} CONFIG.READ_WRITE_MODE {READ_ONLY} CONFIG.RUSER_WIDTH {0} CONFIG.SUPPORTS_NARROW_BURST {1} CONFIG.WUSER_WIDTH {0}  ] $S_FB_GIGE_MM2S
   set S_FB_GIGE_S2MM [ create_bd_intf_port -mode Slave -vlnv xilinx.com:interface:aximm_rtl:1.0 S_FB_GIGE_S2MM ]
-  set_property -dict [ list CONFIG.ADDR_WIDTH {32} CONFIG.ARUSER_WIDTH {0} CONFIG.AWUSER_WIDTH {0} CONFIG.BUSER_WIDTH {0} CONFIG.CLK_DOMAIN {} CONFIG.DATA_WIDTH {32} CONFIG.FREQ_HZ {100000000} CONFIG.ID_WIDTH {1} CONFIG.MAX_BURST_LENGTH {32} CONFIG.NUM_READ_OUTSTANDING {1} CONFIG.NUM_WRITE_OUTSTANDING {2} CONFIG.PHASE {0.000} CONFIG.PROTOCOL {AXI4} CONFIG.READ_WRITE_MODE {WRITE_ONLY} CONFIG.RUSER_WIDTH {0} CONFIG.SUPPORTS_NARROW_BURST {1} CONFIG.WUSER_WIDTH {0}  ] $S_FB_GIGE_S2MM
+  set_property -dict [ list CONFIG.ADDR_WIDTH {32} CONFIG.ARUSER_WIDTH {0} CONFIG.AWUSER_WIDTH {0} CONFIG.BUSER_WIDTH {0} CONFIG.DATA_WIDTH {32} CONFIG.ID_WIDTH {1} CONFIG.MAX_BURST_LENGTH {32} CONFIG.NUM_READ_OUTSTANDING {1} CONFIG.NUM_WRITE_OUTSTANDING {2} CONFIG.PROTOCOL {AXI4} CONFIG.READ_WRITE_MODE {WRITE_ONLY} CONFIG.RUSER_WIDTH {0} CONFIG.SUPPORTS_NARROW_BURST {1} CONFIG.WUSER_WIDTH {0}  ] $S_FB_GIGE_S2MM
   set S_FB_SDI_MM2S [ create_bd_intf_port -mode Slave -vlnv xilinx.com:interface:aximm_rtl:1.0 S_FB_SDI_MM2S ]
-  set_property -dict [ list CONFIG.ADDR_WIDTH {32} CONFIG.ARUSER_WIDTH {0} CONFIG.AWUSER_WIDTH {0} CONFIG.BUSER_WIDTH {0} CONFIG.CLK_DOMAIN {} CONFIG.DATA_WIDTH {32} CONFIG.FREQ_HZ {100000000} CONFIG.ID_WIDTH {1} CONFIG.MAX_BURST_LENGTH {16} CONFIG.NUM_READ_OUTSTANDING {2} CONFIG.NUM_WRITE_OUTSTANDING {1} CONFIG.PHASE {0.000} CONFIG.PROTOCOL {AXI4} CONFIG.READ_WRITE_MODE {READ_ONLY} CONFIG.RUSER_WIDTH {0} CONFIG.SUPPORTS_NARROW_BURST {1} CONFIG.WUSER_WIDTH {0}  ] $S_FB_SDI_MM2S
+  set_property -dict [ list CONFIG.ADDR_WIDTH {32} CONFIG.ARUSER_WIDTH {0} CONFIG.AWUSER_WIDTH {0} CONFIG.BUSER_WIDTH {0} CONFIG.DATA_WIDTH {32} CONFIG.ID_WIDTH {1} CONFIG.MAX_BURST_LENGTH {16} CONFIG.NUM_READ_OUTSTANDING {2} CONFIG.NUM_WRITE_OUTSTANDING {1} CONFIG.PROTOCOL {AXI4} CONFIG.READ_WRITE_MODE {READ_ONLY} CONFIG.RUSER_WIDTH {0} CONFIG.SUPPORTS_NARROW_BURST {1} CONFIG.WUSER_WIDTH {0}  ] $S_FB_SDI_MM2S
   set S_FB_SDI_S2MM [ create_bd_intf_port -mode Slave -vlnv xilinx.com:interface:aximm_rtl:1.0 S_FB_SDI_S2MM ]
-  set_property -dict [ list CONFIG.ADDR_WIDTH {32} CONFIG.ARUSER_WIDTH {0} CONFIG.AWUSER_WIDTH {0} CONFIG.BUSER_WIDTH {0} CONFIG.CLK_DOMAIN {} CONFIG.DATA_WIDTH {32} CONFIG.FREQ_HZ {100000000} CONFIG.ID_WIDTH {1} CONFIG.MAX_BURST_LENGTH {32} CONFIG.NUM_READ_OUTSTANDING {1} CONFIG.NUM_WRITE_OUTSTANDING {1} CONFIG.PHASE {0.000} CONFIG.PROTOCOL {AXI4} CONFIG.READ_WRITE_MODE {WRITE_ONLY} CONFIG.RUSER_WIDTH {0} CONFIG.SUPPORTS_NARROW_BURST {1} CONFIG.WUSER_WIDTH {0}  ] $S_FB_SDI_S2MM
+  set_property -dict [ list CONFIG.ADDR_WIDTH {32} CONFIG.ARUSER_WIDTH {0} CONFIG.AWUSER_WIDTH {0} CONFIG.BUSER_WIDTH {0} CONFIG.DATA_WIDTH {32} CONFIG.ID_WIDTH {1} CONFIG.MAX_BURST_LENGTH {32} CONFIG.NUM_READ_OUTSTANDING {1} CONFIG.NUM_WRITE_OUTSTANDING {1} CONFIG.PROTOCOL {AXI4} CONFIG.READ_WRITE_MODE {WRITE_ONLY} CONFIG.RUSER_WIDTH {0} CONFIG.SUPPORTS_NARROW_BURST {1} CONFIG.WUSER_WIDTH {0}  ] $S_FB_SDI_S2MM
   set UART_STORAGE [ create_bd_intf_port -mode Master -vlnv xilinx.com:interface:uart_rtl:1.0 UART_STORAGE ]
 
   # Create ports
-  set AGC_INTR [ create_bd_port -dir I -from 0 -to 0 AGC_INTR ]
+  set AGC_INTR [ create_bd_port -dir I -from 0 -to 0 -type intr AGC_INTR ]
+  set_property -dict [ list CONFIG.SENSITIVITY {EDGE_RISING}  ] $AGC_INTR
   set AXI_ARESETN [ create_bd_port -dir O -from 0 -to 0 -type rst AXI_ARESETN ]
   set adcmuxaddr_out [ create_bd_port -dir O -from 4 -to 0 adcmuxaddr_out ]
   set clk_50 [ create_bd_port -dir O -type clk clk_50 ]
@@ -645,7 +646,7 @@ proc create_root_design { parentCell } {
   connect_bd_intf_net -intf_net sys_clk_1 [get_bd_intf_ports SYS_CLK] [get_bd_intf_pins FB_MEMORY/SYS_CLK]
 
   # Create port connections
-  connect_bd_net -net In4_1 [get_bd_ports AGC_INTR] [get_bd_pins microblaze_0_xlconcat/In4]
+  connect_bd_net -net AGC_INTR_1 [get_bd_ports AGC_INTR] [get_bd_pins microblaze_0_xlconcat/In4]
   connect_bd_net -net axi_quad_spi_0_ip2intc_irpt [get_bd_pins axi_quad_spi_0/ip2intc_irpt] [get_bd_pins microblaze_0_xlconcat/In3]
   connect_bd_net -net axi_timer_0_interrupt [get_bd_pins axi_timer_0/interrupt] [get_bd_pins microblaze_0_xlconcat/In2]
   connect_bd_net -net axi_uart16550_0_ip2intc_irpt [get_bd_pins fpga_comm_uart/ip2intc_irpt] [get_bd_pins microblaze_0_xlconcat/In1]
@@ -682,8 +683,8 @@ proc create_root_design { parentCell } {
   create_bd_addr_seg -range 0x2000 -offset 0x40400000 [get_bd_addr_spaces MCU/microblaze_0/Data] [get_bd_addr_segs fpga_comm_uart/S_AXI/Reg] SEG_axi_uart16550_0_Reg
   create_bd_addr_seg -range 0x2000 -offset 0x40402000 [get_bd_addr_spaces MCU/microblaze_0/Data] [get_bd_addr_segs axi_uart_storage/S_AXI/Reg] SEG_axi_uart_storage_Reg
   create_bd_addr_seg -range 0x10000 -offset 0x44A20000 [get_bd_addr_spaces MCU/microblaze_0/Data] [get_bd_addr_segs AXIL_MGT/Reg] SEG_core_Reg
-  create_bd_addr_seg -range 0x20000 -offset 0x0 [get_bd_addr_spaces MCU/microblaze_0/Data] [get_bd_addr_segs MCU/microblaze_0_local_memory/dlmb_bram_if_cntlr/SLMB/Mem] SEG_dlmb_bram_if_cntlr_Mem
-  create_bd_addr_seg -range 0x20000 -offset 0x0 [get_bd_addr_spaces MCU/microblaze_0/Instruction] [get_bd_addr_segs MCU/microblaze_0_local_memory/ilmb_bram_if_cntlr/SLMB/Mem] SEG_ilmb_bram_if_cntlr_Mem
+  create_bd_addr_seg -range 0x40000 -offset 0x0 [get_bd_addr_spaces MCU/microblaze_0/Data] [get_bd_addr_segs MCU/microblaze_0_local_memory/dlmb_bram_if_cntlr/SLMB/Mem] SEG_dlmb_bram_if_cntlr_Mem
+  create_bd_addr_seg -range 0x40000 -offset 0x0 [get_bd_addr_spaces MCU/microblaze_0/Instruction] [get_bd_addr_segs MCU/microblaze_0_local_memory/ilmb_bram_if_cntlr/SLMB/Mem] SEG_ilmb_bram_if_cntlr_Mem
   create_bd_addr_seg -range 0x1000 -offset 0x41400000 [get_bd_addr_spaces MCU/microblaze_0/Data] [get_bd_addr_segs MCU/mdm_1/S_AXI/Reg] SEG_mdm_1_Reg
   create_bd_addr_seg -range 0x10000 -offset 0x41200000 [get_bd_addr_spaces MCU/microblaze_0/Data] [get_bd_addr_segs MCU/microblaze_0_axi_intc/s_axi/Reg] SEG_microblaze_0_axi_intc_Reg
   create_bd_addr_seg -range 0x20000000 -offset 0x80000000 [get_bd_addr_spaces MCU/microblaze_0/Data] [get_bd_addr_segs FB_MEMORY/mig_7series_0/memmap/memaddr] SEG_mig_7series_0_memaddr
