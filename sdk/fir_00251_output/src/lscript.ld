@@ -10,14 +10,14 @@
 /*                                                                 */
 /*******************************************************************/
 
-_STACK_SIZE = DEFINED(_STACK_SIZE) ? _STACK_SIZE : 0x400;
+_STACK_SIZE = DEFINED(_STACK_SIZE) ? _STACK_SIZE : 0x800;
 _HEAP_SIZE = DEFINED(_HEAP_SIZE) ? _HEAP_SIZE : 0x100;
 
 /* Define Memories in the system */
 
 MEMORY
 {
-   MCU_microblaze_0_local_memory_ilmb_bram_if_cntlr_MCU_microblaze_0_local_memory_dlmb_bram_if_cntlr : ORIGIN = 0x00000050, LENGTH = 0x0001FF30
+   MCU_microblaze_0_local_memory_ilmb_bram_if_cntlr_MCU_microblaze_0_local_memory_dlmb_bram_if_cntlr : ORIGIN = 0x00000050, LENGTH = 0x0003FFB0
 }
 
 /* Specify the default entry point to the program */
