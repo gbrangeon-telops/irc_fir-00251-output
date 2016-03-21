@@ -18,5 +18,6 @@ report_utilization -file $base_dir/Reports/fir_0251_Output_utilization_placed_hi
 open_bd_design $base_dir/xilinx/fir_0251_Output.srcs/sources_1/bd/core/code.bd
 #Export hardware for sdk
 export_hardware [get_files $base_dir/xilinx/fir_0251_Output.srcs/sources_1/bd/core/core.bd] [get_runs impl_1] -bitstream -dir $base_dir/sdk
+exec $base_dir/scripts/updateHwSvnRev.bat
 # End of this build
 close_project 
