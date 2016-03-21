@@ -23,7 +23,7 @@
 #include "NetworkInterface.h"
 #include "FirmwareUpdater.h"
 #include "XADC.h"
-
+#include "StackUtils.h"
 
 #ifdef SIM
    #include "output_ctrl.h" // Contains the class SC_MODULE for SystemC simulation
@@ -61,11 +61,8 @@
    extern t_AGC gAgcCtrl;
    extern t_SdiIntf gSdiIntfCtrl;
    
-   // Configure stack violation exception
-   extern unsigned int *_stack_end;
-   extern unsigned int *_stack;
-   mtshr(&_stack);
-   mtslr(&_stack_end);
+   Stack_ConfigStackViolationException();
+   Stack_FillRemaining();
 
    BuiltInTest_Execute(BITID_BuiltInTestsVerification);
 
