@@ -37,6 +37,7 @@ enum builtInTestIDEnum {
    BITID_CLinkInterfaceInitialization,
    BITID_SDIInterfaceInitialization,
    BITID_NetworkHostsSynchronization,
+   BITID_DebugTerminalInitialization,
 
    // Built-in test count
    BITID_Count

@@ -20,6 +20,8 @@
 #include "IRC_Status.h"
 #include "BuiltInTests.h"
 
+#define DT_UART_TX_CIRC_BUFFER_SIZE          1024
+
 #define PROC_CI_UART_RX_CIRC_BUFFER_SIZE     (2 * F1F2_MAX_NET_PACKET_SIZE)
 #define PROC_CI_UART_TX_BUFFER_SIZE          F1F2_MAX_NET_PACKET_SIZE
 
@@ -31,12 +33,15 @@
 #define PROC_CI_CMD_QUEUE_SIZE      5
 #define STORAGE_CI_CMD_QUEUE_SIZE   5
 #define FU_CMD_QUEUE_SIZE           1
+#define DT_CMD_QUEUE_SIZE           1
 
 #define GC_EVENT_ERROR_QUEUE_SIZE   5
 
 IRC_Status_t Output_BuiltInTestsGlobalResult();
 IRC_Status_t Output_BuiltInTestsCheck();
 IRC_Status_t Output_NI_Init();
+IRC_Status_t Output_DebugTerminal_InitPhase1();
+IRC_Status_t Output_DebugTerminal_InitPhase2();
 IRC_Status_t Output_FU_Init();
 IRC_Status_t Output_GC_Init();
 IRC_Status_t Output_QSPIFlash_Init();

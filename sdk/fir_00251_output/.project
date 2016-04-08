@@ -56,6 +56,11 @@
 			<location>D:/Telops/FIR-00251-Common/Software</location>
 		</link>
 		<link>
+			<name>src/DT_CommandsDef.c</name>
+			<type>1</type>
+			<locationURI>PARENT-2-PROJECT_LOC/src/sw/DT_CommandsDef.c</locationURI>
+		</link>
+		<link>
 			<name>src/FAN</name>
 			<type>2</type>
 			<location>D:/Telops/FIR-00251-Common/VHDL/PWM_CTRL/driver</location>

@@ -34,6 +34,7 @@
 #include "frame_buffer.h"
 #include "pleora_intf.h"
 #include "led_ctrl.h"
+#include "DebugTerminal.h"
 
 
 // Global variables
@@ -65,6 +66,55 @@ IRC_Status_t Output_NI_Init()
          CB_Ctor(niCmdQueueBuffer, NI_CMD_QUEUE_SIZE, sizeof(networkCommand_t));
 
    return NetIntf_Init(&gNetworkIntf, NIA_OUTPUT_FPGA, &niCmdQueue);
+}
+
+/**
+ * Initializes debug terminal (phase 1).
+ *
+ * @return IRC_SUCCESS if successfully initialized.
+ * @return IRC_FAILURE if failed to initialize.
+ */
+IRC_Status_t Output_DebugTerminal_InitPhase1()
+{
+   static uint8_t dtTxDataCircBuffer[DT_UART_TX_CIRC_BUFFER_SIZE];
+
+   IRC_Status_t status;
+
+   // Initialize debug terminal
+   status =  DebugTerminal_Init(NULL, 0,
+         dtTxDataCircBuffer,
+         DT_UART_TX_CIRC_BUFFER_SIZE);
+   if (status != IRC_SUCCESS)
+   {
+      return IRC_FAILURE;
+   }
+
+   return IRC_SUCCESS;
+}
+
+/**
+ * Initializes debug terminal (phase 2).
+ *
+ * @return IRC_SUCCESS if successfully initialized.
+ * @return IRC_FAILURE if failed to initialize.
+ */
+IRC_Status_t Output_DebugTerminal_InitPhase2()
+{
+   static networkCommand_t dtCmdQueueBuffer[DT_CMD_QUEUE_SIZE];
+   static circBuffer_t dtCmdQueue =
+         CB_Ctor(dtCmdQueueBuffer, DT_CMD_QUEUE_SIZE, sizeof(networkCommand_t));
+
+   IRC_Status_t status;
+
+   // Connect debug terminal to network interface
+   status =  DebugTerminal_Connect(&gNetworkIntf,
+         &dtCmdQueue);
+   if (status != IRC_SUCCESS)
+   {
+      return IRC_FAILURE;
+   }
+
+   return IRC_SUCCESS;
 }
 
 /**

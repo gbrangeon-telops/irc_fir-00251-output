@@ -23,7 +23,12 @@
 #include "NetworkInterface.h"
 #include "FirmwareUpdater.h"
 #include "XADC.h"
+#include "DebugTerminal.h"
+#include "output_init.h"
 #include "StackUtils.h"
+#include "verbose.h"
+
+#define DEVICE_RUNNING_TIME_REFRESH_PERIOD_US   TIME_ONE_MINUTE_US
 
 #ifdef SIM
    #include "output_ctrl.h" // Contains the class SC_MODULE for SystemC simulation
@@ -60,9 +65,14 @@
    extern ledCtrl_t ledCtrl;
    extern t_AGC gAgcCtrl;
    extern t_SdiIntf gSdiIntfCtrl;
-   
+   uint64_t tic;
+
    Stack_ConfigStackViolationException();
    Stack_FillRemaining();
+
+   Output_DebugTerminal_InitPhase1();
+
+   FPGA_PRINT("Output FGPA starting...\n");
 
    BuiltInTest_Execute(BITID_BuiltInTestsVerification);
 
@@ -75,6 +85,7 @@
    BuiltInTest_Execute(BITID_LedControllerInitialization);
    BuiltInTest_Execute(BITID_InterruptControllerInitialization);
    BuiltInTest_Execute(BITID_NetworkInterfaceInitialization);
+   BuiltInTest_Execute(BITID_DebugTerminalInitialization);
    BuiltInTest_Execute(BITID_GenICamManagerInitialization);
    BuiltInTest_Execute(BITID_QSPIFlashInerfaceInitialization);
    BuiltInTest_Execute(BITID_FirmwareUpdaterInitialization);
@@ -84,9 +95,17 @@
    BuiltInTest_Execute(BITID_CLinkInterfaceInitialization);
    BuiltInTest_Execute(BITID_SDIInterfaceInitialization);
 
+   GETTIME(&tic);
+
    // Main loop
    while(1)
    {
+      if (elapsed_time_us(tic) > DEVICE_RUNNING_TIME_REFRESH_PERIOD_US)
+      {
+         GETTIME(&tic);
+         FPGA_PRINT("Still Alive\n");
+      }
+
       GC_Manager_SM();
       Firmware_Updater_SM();
       NetIntf_SM(&gNetworkIntf);
@@ -99,5 +118,6 @@
       SDIIntf_FlipYSM(&gSdiIntfCtrl, &gcRegsData);
       SDIIntf_ChangeInputWindowSM(&gSdiIntfCtrl, &gcRegsData);
       XADC_SM();
+      DebugTerminal_Process();
    }
 }

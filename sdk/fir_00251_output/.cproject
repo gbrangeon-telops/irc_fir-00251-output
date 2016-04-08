@@ -54,11 +54,10 @@
 								</option>
 								<option id="xilinx.gnu.compiler.symbols.defined.1552719093" name="Defined symbols (-D)" superClass="xilinx.gnu.compiler.symbols.defined" valueType="definedSymbols">
 									<listOptionValue builtIn="false" value="FPGA_OUTPUT"/>
+									<listOptionValue builtIn="false" value="ENABLE_PRINTF"/>
 									<listOptionValue builtIn="false" value="DEBUG"/>
 								</option>
-								<option id="xilinx.gnu.compiler.symbols.undefined.1345568889" name="Undefined symbols (-U)" superClass="xilinx.gnu.compiler.symbols.undefined" valueType="undefDefinedSymbols">
-									<listOptionValue builtIn="false" value="ENABLE_PRINTF"/>
-								</option>
+								<option id="xilinx.gnu.compiler.symbols.undefined.1345568889" name="Undefined symbols (-U)" superClass="xilinx.gnu.compiler.symbols.undefined"/>
 								<inputType id="xilinx.gnu.compiler.input.2081451328" name="C source files" superClass="xilinx.gnu.compiler.input"/>
 							</tool>
 							<tool id="xilinx.gnu.mb.cxx.toolchain.compiler.debug.855113469" name="MicroBlaze g++ compiler" superClass="xilinx.gnu.mb.cxx.toolchain.compiler.debug">
@@ -87,6 +86,10 @@
 									<listOptionValue builtIn="false" value="&quot;D:\Telops\FIR-00251-Output\src\FrameBuffer\Drivers&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;D:\Telops\FIR-00251-Output\src\pleora_intf\Drivers&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;D:\Telops\FIR-00251-Common\VHDL\USART\driver&quot;"/>
+								</option>
+								<option id="xilinx.gnu.compiler.symbols.defined.536402484" name="Defined symbols (-D)" superClass="xilinx.gnu.compiler.symbols.defined" valueType="definedSymbols">
+									<listOptionValue builtIn="false" value="FPGA_OUTPUT"/>
+									<listOptionValue builtIn="false" value="ENABLE_PRINTF"/>
 								</option>
 							</tool>
 							<tool id="xilinx.gnu.mb.toolchain.archiver.541092283" name="MicroBlaze archiver" superClass="xilinx.gnu.mb.toolchain.archiver"/>
@@ -173,6 +176,7 @@
 								<option id="xilinx.gnu.compiler.inferred.swplatform.includes.957446439" name="Software Platform Include Path" superClass="xilinx.gnu.compiler.inferred.swplatform.includes"/>
 								<option id="xilinx.gnu.compiler.symbols.defined.1183786907" name="Defined symbols (-D)" superClass="xilinx.gnu.compiler.symbols.defined" valueType="definedSymbols">
 									<listOptionValue builtIn="false" value="FPGA_OUTPUT"/>
+									<listOptionValue builtIn="false" value="ENABLE_PRINTF"/>
 								</option>
 								<option id="xilinx.gnu.compiler.dircategory.includes.1976150254" name="Include Paths" superClass="xilinx.gnu.compiler.dircategory.includes" valueType="includePath">
 									<listOptionValue builtIn="false" value="../../standalone_bsp_0/MCU_microblaze_0/include"/>
@@ -190,9 +194,7 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/fir_00251_output/src/BuildInfo}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/fir_00251_output/src/usart}&quot;"/>
 								</option>
-								<option id="xilinx.gnu.compiler.symbols.undefined.79049165" name="Undefined symbols (-U)" superClass="xilinx.gnu.compiler.symbols.undefined" valueType="undefDefinedSymbols">
-									<listOptionValue builtIn="false" value="ENABLE_PRINTF"/>
-								</option>
+								<option id="xilinx.gnu.compiler.symbols.undefined.79049165" name="Undefined symbols (-U)" superClass="xilinx.gnu.compiler.symbols.undefined"/>
 								<inputType id="xilinx.gnu.compiler.input.1246725104" name="C source files" superClass="xilinx.gnu.compiler.input"/>
 							</tool>
 							<tool id="xilinx.gnu.mb.cxx.toolchain.compiler.release.1805810417" name="MicroBlaze g++ compiler" superClass="xilinx.gnu.mb.cxx.toolchain.compiler.release">
@@ -221,6 +223,10 @@
 									<listOptionValue builtIn="false" value="&quot;D:\Telops\FIR-00251-Output\src\FrameBuffer\Drivers&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;D:\Telops\FIR-00251-Output\src\pleora_intf\Drivers&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;D:\Telops\FIR-00251-Common\VHDL\USART\driver&quot;"/>
+								</option>
+								<option id="xilinx.gnu.compiler.symbols.defined.1843996086" name="Defined symbols (-D)" superClass="xilinx.gnu.compiler.symbols.defined" valueType="definedSymbols">
+									<listOptionValue builtIn="false" value="FPGA_OUTPUT"/>
+									<listOptionValue builtIn="false" value="ENABLE_PRINTF"/>
 								</option>
 							</tool>
 							<tool id="xilinx.gnu.mb.toolchain.archiver.674414065" name="MicroBlaze archiver" superClass="xilinx.gnu.mb.toolchain.archiver"/>
