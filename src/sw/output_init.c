@@ -52,7 +52,6 @@ ctrlIntf_t gStorageCtrlIntf;
 qspiFlash_t gQSPIFlash;
 ledCtrl_t ledCtrl;
 
-
 /**
  * Initializes network interface
  *
@@ -77,11 +76,13 @@ IRC_Status_t Output_NI_Init()
 IRC_Status_t Output_DebugTerminal_InitPhase1()
 {
    static uint8_t dtTxDataCircBuffer[DT_UART_TX_CIRC_BUFFER_SIZE];
+   static uint8_t dtRxDataCircBuffer[DT_UART_RX_CIRC_BUFFER_SIZE];
 
    IRC_Status_t status;
 
    // Initialize debug terminal
-   status =  DebugTerminal_Init(NULL, 0,
+   status =  DebugTerminal_Init(dtRxDataCircBuffer,
+         DT_UART_RX_CIRC_BUFFER_SIZE,
          dtTxDataCircBuffer,
          DT_UART_TX_CIRC_BUFFER_SIZE);
    if (status != IRC_SUCCESS)

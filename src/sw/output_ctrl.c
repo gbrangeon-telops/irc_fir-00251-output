@@ -27,6 +27,7 @@
 #include "output_init.h"
 #include "StackUtils.h"
 #include "verbose.h"
+#include <stdbool.h>
 
 #define DEVICE_RUNNING_TIME_REFRESH_PERIOD_US   TIME_ONE_MINUTE_US
 
@@ -39,6 +40,8 @@
    //#include "xtime_l.h"
    //#include "xcache_l.h"   
 #endif
+
+bool gVerbose = true;
 
 
 /*--------------------------------------------------------------------------------------*/
@@ -103,6 +106,8 @@
       if (elapsed_time_us(tic) > DEVICE_RUNNING_TIME_REFRESH_PERIOD_US)
       {
          GETTIME(&tic);
+
+         if (gVerbose)
          FPGA_PRINT("Still Alive\n");
       }
 

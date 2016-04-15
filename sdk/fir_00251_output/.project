@@ -113,7 +113,7 @@
 		<link>
 			<name>src/output_ctrl.c</name>
 			<type>1</type>
-			<location>D:/Telops/FIR-00251-Output/src/sw/output_ctrl.c</location>
+			<locationURI>PARENT-2-PROJECT_LOC/src/sw/output_ctrl.c</locationURI>
 		</link>
 		<link>
 			<name>src/output_init.c</name>
@@ -124,6 +124,11 @@
 			<name>src/output_init.h</name>
 			<type>1</type>
 			<locationURI>PARENT-2-PROJECT_LOC/src/sw/output_init.h</locationURI>
+		</link>
+		<link>
+			<name>src/startup</name>
+			<type>2</type>
+			<locationURI>PARENT-2-PROJECT_LOC/src/startup</locationURI>
 		</link>
 		<link>
 			<name>src/tel2000_param.h</name>

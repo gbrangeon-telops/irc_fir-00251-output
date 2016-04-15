@@ -51,6 +51,7 @@
 									<listOptionValue builtIn="false" value="&quot;D:\Telops\FIR-00251-Output\src\pleora_intf\Drivers&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/fir_00251_output/src/BuildInfo}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/fir_00251_output/src/usart}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/fir_00251_output/src/startup}&quot;"/>
 								</option>
 								<option id="xilinx.gnu.compiler.symbols.defined.1552719093" name="Defined symbols (-D)" superClass="xilinx.gnu.compiler.symbols.defined" valueType="definedSymbols">
 									<listOptionValue builtIn="false" value="FPGA_OUTPUT"/>
@@ -193,6 +194,7 @@
 									<listOptionValue builtIn="false" value="&quot;D:\Telops\FIR-00251-Output\src\pleora_intf\Drivers&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/fir_00251_output/src/BuildInfo}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/fir_00251_output/src/usart}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/fir_00251_output/src/startup}&quot;"/>
 								</option>
 								<option id="xilinx.gnu.compiler.symbols.undefined.79049165" name="Undefined symbols (-U)" superClass="xilinx.gnu.compiler.symbols.undefined"/>
 								<inputType id="xilinx.gnu.compiler.input.1246725104" name="C source files" superClass="xilinx.gnu.compiler.input"/>

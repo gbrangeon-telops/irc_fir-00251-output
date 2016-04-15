@@ -20,6 +20,7 @@
 #include "IRC_Status.h"
 #include "BuiltInTests.h"
 
+#define DT_UART_RX_CIRC_BUFFER_SIZE          256
 #define DT_UART_TX_CIRC_BUFFER_SIZE          1024
 
 #define PROC_CI_UART_RX_CIRC_BUFFER_SIZE     (2 * F1F2_MAX_NET_PACKET_SIZE)
