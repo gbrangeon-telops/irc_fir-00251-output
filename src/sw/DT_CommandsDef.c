@@ -64,7 +64,7 @@ IRC_Status_t DebugTerminalParseHLP(circByteBuffer_t *cbuf)
    DT_PRINTF("Output FPGA debug terminal commands: (%d)", gDebugTerminal.txCircDataBuffer.maxLength);
    DT_PRINTF("  Read memory:        RDM address [c|u8|u16|u32|s8|s16|s32 length]");
    DT_PRINTF("  Write memory:       WRM address value");
-   DT_PRINTF("  Network status:     NET [0|1]");
+   DT_PRINTF("  Network status:     NET [0|1 [port]]");
    DT_PRINTF("  Get Stack Level:    STACK");
    DT_PRINTF("  Test Output Buffer: TOB");
    DT_PRINTF("  Set Fan Speed:      SFS value");
