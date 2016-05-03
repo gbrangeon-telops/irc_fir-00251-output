@@ -1,1 +1,0 @@
--w -s "D:\Telops\FIR-00251-Output\src\SDI\Sim\X_to_Add_Sim\library.cfg"  -j "D:\Telops\FIR-00251-Output\src\SDI\Sim\X_to_Add_Sim\X_to_Add_top_level\projlib.cfg"  -d "D:\Telops\FIR-00251-Output\src\SDI\Sim\X_to_Add_Sim\X_to_Add_top_level\compile"   -work work  -O3 -e 100 -o -2002 "D:\Telops\FIR-00251-Output\src\SDI\Sim\X_to_Add_Sim\X_to_Add_top_level\compile\x_to_add_tb.vhd"
