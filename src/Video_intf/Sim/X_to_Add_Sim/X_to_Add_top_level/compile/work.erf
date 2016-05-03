@@ -1,0 +1,7 @@
+WARNING DAGGEN_0523: "The source is compiled without the -dbg switch. Line breakpoints and assertion debug will not be available."
+MESSAGE "File: .\x_to_add_tb.vhd" 
+MESSAGE "Compile Entity "x_to_add_tb"" 
+MESSAGE "Compile Architecture "x_to_add_tb" of Entity "x_to_add_tb"" 
+MESSAGE "Top-level unit(s) detected:" 
+MESSAGE "Entity => x_to_add_tb" 
+SUCCESS "Compile success 0 Errors 0 Warnings  Analysis time :  0.1 [s]" 

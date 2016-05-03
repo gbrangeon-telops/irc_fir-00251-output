@@ -1,0 +1,109 @@
+Active-HDL 9.3.2744.sp1.09.4995  2015-03-09 14:16:02
+
+Elaboration top modules:
+Architecture                  x_to_add_tb(x_to_add_tb)
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+Entity                                                       | Architecture         | Library | Info | Compiler Version                | Compilation Options
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+x_to_add_tb                                                  | x_to_add_tb          | work    |      | 9.3.2744.sp1.09.4995  (Windows) | -O3
+colormap_top                                                 | colormap_top         | work    |      | 9.3.2744.sp1.09.4995  (Windows) | -O3
+ublaze_sim                                                   | behavioral           | work    |      | 9.3.2744.sp1.09.4995  (Windows) | -O3
+colormap_mem                                                 | rtl                  | work    |      | 9.3.2744.sp1.09.4995  (Windows) | -O3
+X_to_Add                                                     | x_to_add             | work    |      | 9.3.2744.sp1.09.4995  (Windows) | -O3
+blk_mem_gen_0                                                | structure            | work    |      | 9.3.2744.sp1.09.4995  (Windows) | -O3
+gnd                                                          | gnd_v                | unisim  |      | 9.3.2744.sp1.09.4995  (Windows) | -vendor xilinx -93
+\blk_mem_gen_0blk_mem_gen_v8_1__parameterized0\              | structure            | work    |      | 9.3.2744.sp1.09.4995  (Windows) | -O3
+blk_mem_gen_0blk_mem_gen_v8_1_synth                          | structure            | work    |      | 9.3.2744.sp1.09.4995  (Windows) | -O3
+blk_mem_gen_0blk_mem_gen_top                                 | structure            | work    |      | 9.3.2744.sp1.09.4995  (Windows) | -O3
+blk_mem_gen_0blk_mem_gen_generic_cstr                        | structure            | work    |      | 9.3.2744.sp1.09.4995  (Windows) | -O3
+blk_mem_gen_0blk_mem_gen_mux                                 | structure            | work    |      | 9.3.2744.sp1.09.4995  (Windows) | -O3
+blk_mem_gen_0blk_mem_gen_prim_width                          | structure            | work    |      | 9.3.2744.sp1.09.4995  (Windows) | -O3
+\blk_mem_gen_0blk_mem_gen_prim_width__parameterized0\        | structure            | work    |      | 9.3.2744.sp1.09.4995  (Windows) | -O3
+\blk_mem_gen_0blk_mem_gen_prim_width__parameterized1\        | structure            | work    |      | 9.3.2744.sp1.09.4995  (Windows) | -O3
+\blk_mem_gen_0blk_mem_gen_prim_width__parameterized2\        | structure            | work    |      | 9.3.2744.sp1.09.4995  (Windows) | -O3
+\blk_mem_gen_0blk_mem_gen_prim_width__parameterized3\        | structure            | work    |      | 9.3.2744.sp1.09.4995  (Windows) | -O3
+vcc                                                          | vcc_v                | unisim  |      | 9.3.2744.sp1.09.4995  (Windows) | -vendor xilinx -93
+lut5                                                         | lut5_v               | unisim  |      | 9.3.2744.sp1.09.4995  (Windows) | -vendor xilinx -93
+fdre                                                         | fdre_v               | unisim  |      | 9.3.2744.sp1.09.4995  (Windows) | -vendor xilinx -93
+blk_mem_gen_0blk_mem_gen_prim_wrapper_init                   | structure            | work    |      | 9.3.2744.sp1.09.4995  (Windows) | -O3
+ramb36e1                                                     | ramb36e1_v           | unisim  |      | 9.3.2744.sp1.09.4995  (Windows) | -vendor xilinx -93
+rb36_internal_vhdl                                           | rb36_internal_vhdl_v | unisim  |      | 9.3.2744.sp1.09.4995  (Windows) | -vendor xilinx -93
+\blk_mem_gen_0blk_mem_gen_prim_wrapper_init__parameterized0\ | structure            | work    |      | 9.3.2744.sp1.09.4995  (Windows) | -O3
+lut3                                                         | lut3_v               | unisim  |      | 9.3.2744.sp1.09.4995  (Windows) | -vendor xilinx -93
+\blk_mem_gen_0blk_mem_gen_prim_wrapper_init__parameterized1\ | structure            | work    |      | 9.3.2744.sp1.09.4995  (Windows) | -O3
+\blk_mem_gen_0blk_mem_gen_prim_wrapper_init__parameterized2\ | structure            | work    |      | 9.3.2744.sp1.09.4995  (Windows) | -O3
+lut1                                                         | lut1_v               | unisim  |      | 9.3.2744.sp1.09.4995  (Windows) | -vendor xilinx -93
+\blk_mem_gen_0blk_mem_gen_prim_wrapper_init__parameterized3\ | structure            | work    |      | 9.3.2744.sp1.09.4995  (Windows) | -O3
+axis_fp32tofi16                                              | rtl                  | work    |      | 9.3.2744.sp1.09.4995  (Windows) | -O3
+fp32_axis_mult                                               | rtl                  | work    |      | 9.3.2744.sp1.09.4995  (Windows) | -O3
+axis_fi16tofp32                                              | rtl                  | work    |      | 9.3.2744.sp1.09.4995  (Windows) | -O3
+axis_fi32tofp32                                              | rtl                  | work    |      | 9.3.2744.sp1.09.4995  (Windows) | -O3
+fp32_axis_divide                                             | rtl                  | work    |      | 9.3.2744.sp1.09.4995  (Windows) | -O3
+fi16_axis_min                                                | rtl                  | work    |      | 9.3.2744.sp1.09.4995  (Windows) | -O3
+ip_axis_fp32tofi16                                           | structure            | work    |      | 9.3.2744.sp1.09.4995  (Windows) | -O3
+\ip_axis_fp32tofi16floating_point_v7_0__parameterized0\      | structure            | work    |      | 9.3.2744.sp1.09.4995  (Windows) | -O3
+\ip_axis_fp32tofi16floating_point_v7_0_viv__parameterized0\  | structure            | work    |      | 9.3.2744.sp1.09.4995  (Windows) | -O3
+lut4                                                         | lut4_v               | unisim  |      | 9.3.2744.sp1.09.4995  (Windows) | -vendor xilinx -93
+lut2                                                         | lut2_v               | unisim  |      | 9.3.2744.sp1.09.4995  (Windows) | -vendor xilinx -93
+carry4                                                       | carry4_v             | unisim  |      | 9.3.2744.sp1.09.4995  (Windows) | -vendor xilinx -93
+fdse                                                         | fdse_v               | unisim  |      | 9.3.2744.sp1.09.4995  (Windows) | -vendor xilinx -93
+muxf7                                                        | muxf7_v              | unisim  |      | 9.3.2744.sp1.09.4995  (Windows) | -vendor xilinx -93
+muxf8                                                        | muxf8_v              | unisim  |      | 9.3.2744.sp1.09.4995  (Windows) | -vendor xilinx -93
+srl16e                                                       | srl16e_v             | unisim  |      | 9.3.2744.sp1.09.4995  (Windows) | -vendor xilinx -93
+lut6                                                         | lut6_v               | unisim  |      | 9.3.2744.sp1.09.4995  (Windows) | -vendor xilinx -93
+ip_fp32_axis_mult                                            | structure            | work    |      | 9.3.2744.sp1.09.4995  (Windows) | -O3
+\ip_fp32_axis_multfloating_point_v7_0__parameterized0\       | structure            | work    |      | 9.3.2744.sp1.09.4995  (Windows) | -O3
+\ip_fp32_axis_multfloating_point_v7_0_viv__parameterized0\   | structure            | work    |      | 9.3.2744.sp1.09.4995  (Windows) | -O3
+ip_fp32_axis_multglb_ifx_master                              | structure            | work    |      | 9.3.2744.sp1.09.4995  (Windows) | -O3
+ip_fp32_axis_multmult_gen_v12_0_viv                          | structure            | work    |      | 9.3.2744.sp1.09.4995  (Windows) | -O3
+dsp48e1                                                      | dsp48e1_v            | unisim  |      | 9.3.2744.sp1.09.4995  (Windows) | -vendor xilinx -93
+ip_axis_fi16tofp32                                           | structure            | work    |      | 9.3.2744.sp1.09.4995  (Windows) | -O3
+\ip_axis_fi16tofp32floating_point_v7_0__parameterized0\      | structure            | work    |      | 9.3.2744.sp1.09.4995  (Windows) | -O3
+\ip_axis_fi16tofp32floating_point_v7_0_viv__parameterized0\  | structure            | work    |      | 9.3.2744.sp1.09.4995  (Windows) | -O3
+ip_axis_fi32tofp32                                           | structure            | work    |      | 9.3.2744.sp1.09.4995  (Windows) | -O3
+\ip_axis_fi32tofp32floating_point_v7_0__parameterized0\      | structure            | work    |      | 9.3.2744.sp1.09.4995  (Windows) | -O3
+\ip_axis_fi32tofp32floating_point_v7_0_viv__parameterized0\  | structure            | work    |      | 9.3.2744.sp1.09.4995  (Windows) | -O3
+ip_axis_fi32tofp32glb_ifx_master                             | structure            | work    |      | 9.3.2744.sp1.09.4995  (Windows) | -O3
+ip_fp32_axis_divide                                          | structure            | work    |      | 9.3.2744.sp1.09.4995  (Windows) | -O3
+\ip_fp32_axis_dividefloating_point_v7_0__parameterized0\     | structure            | work    |      | 9.3.2744.sp1.09.4995  (Windows) | -O3
+\ip_fp32_axis_dividefloating_point_v7_0_viv__parameterized0\ | structure            | work    |      | 9.3.2744.sp1.09.4995  (Windows) | -O3
+srlc32e                                                      | srlc32e_v            | unisim  |      | 9.3.2744.sp1.09.4995  (Windows) | -vendor xilinx -93
+ip_fp32_axis_divideglb_ifx_master                            | structure            | work    |      | 9.3.2744.sp1.09.4995  (Windows) | -O3
+sync_reset                                                   | rtl                  | work    |      | 9.3.2744.sp1.09.4995  (Windows) | -O3
+axis_sync_flow                                               | rtl                  | work    |      | 9.3.2744.sp1.09.4995  (Windows) | -O3
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+VHDL Package                                                                        | Library | Info | Compiler Version                | Compilation Options
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+standard                                                                            | std     |      |                                 | 
+TEXTIO                                                                              | std     |      | 9.3.2744.sp1.09.4995  (Windows) |  -2008
+std_logic_1164                                                                      | ieee    |      | 9.3.2744.sp1.09.4995  (Windows) |  -2008
+std_logic_arith                                                                     | ieee    |      | 9.3.2744.sp1.09.4995  (Windows) | 
+STD_LOGIC_SIGNED                                                                    | ieee    |      | 9.3.2744.sp1.09.4995  (Windows) | 
+STD_LOGIC_UNSIGNED                                                                  | ieee    |      | 9.3.2744.sp1.09.4995  (Windows) | 
+NUMERIC_STD                                                                         | ieee    |      | 9.3.2744.sp1.09.4995  (Windows) |  -2008
+VCOMPONENTS                                                                         | unisim  |      | 9.3.2744.sp1.09.4995  (Windows) | -vendor xilinx -93
+VITAL_Timing                                                                        | ieee    |      | 9.3.2744.sp1.09.4995  (Windows) | 
+TEL2000                                                                             | work    |      | 9.3.2744.sp1.09.4995  (Windows) | -O3
+STD_LOGIC_TEXTIO                                                                    | ieee    |      | 9.3.2744.sp1.09.4995  (Windows) | 
+VITAL_Primitives                                                                    | ieee    |      | 9.3.2744.sp1.09.4995  (Windows) | 
+VPKG                                                                                | unisim  |      | 9.3.2744.sp1.09.4995  (Windows) | -vendor xilinx -93
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+Library                                                                             | Comment
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+ieee                                                                                | Standard IEEE packages library
+std                                                                                 | Standard VHDL library
+unisim                                                                              | XILINX VIVADO 2013.4, UNISIM VHDL LIBRARY
+work                                                                                | None
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+Simulation Options: asim -O5 +access +r +m+x_to_add_tb x_to_add_tb x_to_add_tb
+
+
+The performance of simulation is reduced. Version PE
