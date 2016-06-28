@@ -28,6 +28,16 @@ component blk_mem_gen_0
   );
 end component;
 
+component SYNC_RESETN is
+   port(
+      CLK     : in std_logic;
+      ARESETN : in std_logic;
+      SRESETN : out std_logic
+      );
+end component;
+
+signal sresetn : std_logic;
+
 signal colormap_data_i : std_logic_vector(29 downto 0);
 signal colormap_addr_i : std_logic_vector(12 downto 0);
 
@@ -37,6 +47,8 @@ signal ycb_reg_i : std_logic;
 
 begin
 
+  sync_resetn_inst : sync_resetn port map(ARESETN => aresetn, SRESETN => sresetn, CLK => clk);
+  
   colormap_bram : blk_mem_gen_0
   port map (
     clka => clk,
@@ -57,7 +69,7 @@ begin
   dataout_proc : process(clk)-- Color Map Data out
   begin
      if(rising_edge(clk)) then
-        if (aresetn = '0') then
+        if (sresetn = '0') then
 		   tvalid_reg_i <= (others => '0'); 
            tlast_reg_i <=  (others => '0'); 
 		   ycb_reg_i <= X_FLIP; -- Will reverse the YCb-YCr order if XFlip

@@ -20,6 +20,17 @@ entity tlast_generator is
 end tlast_generator;
 
 architecture rtl of tlast_generator is
+   
+   component SYNC_RESETN is
+      port(
+         CLK     : in std_logic;
+         ARESETN : in std_logic;
+         SRESETN : out std_logic
+         );
+   end component;
+   
+   signal sresetn : std_logic;
+   
    attribute KEEP : string;
 
 signal compteur_pixel :   std_logic_vector(31 downto 0);    
@@ -28,12 +39,14 @@ signal input_img_size_i : std_logic_vector(31 downto 0);
         attribute KEEP of input_img_size_i: signal is "true";
 
 begin
-	input_img_size_i <= Input_Img_Size;
+	sync_resetn_inst : sync_resetn port map(ARESETN => aresetn, SRESETN => sresetn, CLK => clk160);
+   
+   input_img_size_i <= Input_Img_Size;
 	
  	tlast_process : process(clk160) 
     begin
          if(rising_edge(clk160)) then
-             if aresetn = '0' then
+             if sresetn = '0' then
                 compteur_pixel <= x"00000000";
 				internal_tlast <= '0';
              else

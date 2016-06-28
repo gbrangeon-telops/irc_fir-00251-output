@@ -47,6 +47,16 @@ end Clink_output_pix_count;
 
 architecture Clink_output_pix_count of Clink_output_pix_count is 
 
+   component SYNC_RESET is
+      port(
+         CLK    : in std_logic;
+         ARESET : in std_logic;
+         SRESET : out std_logic
+         );
+   end component;
+
+   signal sreset : std_logic;
+
 signal pix_perline_cnt : unsigned(11 downto 0) ;
 signal pix_perframe_cnt : unsigned(23 downto 0) ;
 signal x_fval_m1 : std_logic;
@@ -61,12 +71,14 @@ attribute dont_touch of eof : signal is "TRUE";
 
 begin
    
+   sync_reset_inst : sync_reset port map(ARESET => areset, SRESET => sreset, CLK => clk80_bufr);
+   
    END_OF_FRAME <= eof;
    
    proc_frame: process(clk80_bufr)
    begin  			
       if rising_edge(clk80_bufr) then
-         if areset = '1' then
+         if sreset = '1' then
             pix_perline_cnt <= (others => '0');   
             pix_perframe_cnt <= (others => '0');
             x_fval_m1 <= '0';

@@ -19,6 +19,16 @@ end pattern_generator;
 
 architecture rtl of pattern_generator is
 
+component SYNC_RESETN is
+   port(
+      CLK     : in std_logic;
+      ARESETN : in std_logic;
+      SRESETN : out std_logic
+      );
+end component;
+
+signal sresetn : std_logic;
+
 signal compteur_test_colormap : std_logic_vector(31 downto 0); 
 signal address_test_colormap :  std_logic_vector(9 downto 0);    
 signal tvalid_test_colormap :   std_logic_vector(1 downto 0);    
@@ -26,10 +36,12 @@ signal tvalid_testcolormap_i : 	std_logic;
 
 begin
    
+   sync_resetn_inst : sync_resetn port map(ARESETN => aresetn, SRESETN => sresetn, CLK => clk160);
+   
    pattern_generation : process(clk160) --Generate Address for the Color Map ROM
    begin
        if(rising_edge(clk160)) then
-           if (aresetn = '0' or enable = '0') then
+           if (sresetn = '0' or enable = '0') then
               compteur_test_colormap <= x"00000000";
               address_test_colormap <= "0000000000";
               tvalid_test_colormap <= "00";
