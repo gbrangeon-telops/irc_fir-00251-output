@@ -28,7 +28,7 @@ add_files -norecurse $common_dir/Ram/
 add_files -norecurse $common_dir/Memory_Interface/
 add_files -norecurse $common_dir/Utilities/
 add_files -norecurse $common_dir/PWM_CTRL/HDL/
-add_files $common_dir/USART/
+add_files -norecurse $common_dir/USART/
 
 #ADD common_hdl unique file(to be added by hand)
 add_files $common_hdl_dir/Utilities/double_sync_vector.vhd
@@ -128,7 +128,7 @@ create_fileset -blockset -define_from core core
 set_property top fir_251_output_top [current_fileset]
 
 #set constraint
-remove_files -fileset constrs_1 {d:/Telops/fir-00251-Output/src/FrameBuffer/Simulation/xil_fb_tb/xil_fb_tb.runs/core_mig_7series_0_0_synth_1/.Xil/core_mig_7series_0_0_propImpl.xdc d:/Telops/fir-00251-Output/src/FrameBuffer/Simulation/xil_fb_tb/xil_fb_tb.runs/blk_mem_gen_0_synth_1/dont_touch.xdc d:/Telops/fir-00251-Output/src/FrameBuffer/Simulation/xil_fb_tb/xil_fb_tb.runs/axi_interconnect_0_synth_1/dont_touch.xdc d:/Telops/fir-00251-Output/src/FrameBuffer/Simulation/xil_fb_tb/xil_fb_tb.runs/axi_interconnect_0_synth_1/.Xil/axi_interconnect_0_propImpl.xdc}
+remove_files -fileset constrs_1 {$src_dir/FrameBuffer/Simulation/xil_fb_tb/xil_fb_tb.runs/core_mig_7series_0_0_synth_1/.Xil/core_mig_7series_0_0_propImpl.xdc $src_dir/FrameBuffer/Simulation/xil_fb_tb/xil_fb_tb.runs/blk_mem_gen_0_synth_1/dont_touch.xdc $src_dir/FrameBuffer/Simulation/xil_fb_tb/xil_fb_tb.runs/axi_interconnect_0_synth_1/dont_touch.xdc $src_dir/FrameBuffer/Simulation/xil_fb_tb/xil_fb_tb.runs/axi_interconnect_0_synth_1/.Xil/axi_interconnect_0_propImpl.xdc}
 
 
 update_compile_order -fileset sources_1
