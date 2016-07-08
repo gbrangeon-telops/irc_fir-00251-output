@@ -34,7 +34,7 @@ entity Clink_output_pix_count is
 		 z_lval : in STD_LOGIC;
 		 z_dval : in STD_LOGIC;
 		 z_fval : in STD_LOGIC;
-		 clk80_bufr : in STD_LOGIC;
+		 CLK : in STD_LOGIC;
 		 areset : in STD_LOGIC;
        
        END_OF_FRAME : out STD_LOGIC
@@ -71,13 +71,13 @@ attribute dont_touch of eof : signal is "TRUE";
 
 begin
    
-   sync_reset_inst : sync_reset port map(ARESET => areset, SRESET => sreset, CLK => clk80_bufr);
+   sync_reset_inst : sync_reset port map(ARESET => areset, SRESET => sreset, CLK => CLK);
    
    END_OF_FRAME <= eof;
    
-   proc_frame: process(clk80_bufr)
+   proc_frame: process(CLK)
    begin  			
-      if rising_edge(clk80_bufr) then
+      if rising_edge(CLK) then
          if sreset = '1' then
             pix_perline_cnt <= (others => '0');   
             pix_perframe_cnt <= (others => '0');
