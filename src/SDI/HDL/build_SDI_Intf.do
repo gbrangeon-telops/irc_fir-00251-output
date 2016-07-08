@@ -1,7 +1,7 @@
 alib work
 setActivelib work
 
-setenv SDI_INTF "D:\Telops\FIR-00251-Output\src\SDI\"
+setenv SDI_INTF "D:\Telops\FIR-00251-Output\src\SDI"
 setenv COMMON "D:\Telops\FIR-00251-Common"
 setenv COMMON_HDL "D:\Telops\Common_HDL"
 setenv OUTPUT "D:\Telops\FIR-00251-Output"

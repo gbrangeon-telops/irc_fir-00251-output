@@ -3,8 +3,8 @@ alib work
 SetActiveLib work
 
 #setenv FIR251PROC "$dsn"
-setenv FIR251OUT "D:\Telops\FIR-00251-Output\"
-setenv FIR251COMMON "D:\Telops\FIR-00251-common\"
+setenv FIR251OUT "D:\Telops\FIR-00251-Output"
+setenv FIR251COMMON "D:\Telops\FIR-00251-common"
 
 do "$FIR251OUT\src\compil_utilities.do"
 
