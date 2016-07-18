@@ -70,6 +70,8 @@ set filelist  [concat $filelist [glob  $src_dir/SDI/AGC/HDL/*.vhd]]
 read_ip "D:/Telops/FIR-00251-Output/src/SDI/AGC/HDL/netlist/hdl_netlist/histogram_axis_tmi.srcs/sources_1/ip/histogram_axis_tmi_c_counter_binary_v12_0_0/histogram_axis_tmi_c_counter_binary_v12_0_0.xci" 
 read_ip "D:/Telops/FIR-00251-Output/src/SDI/AGC/HDL/netlist/hdl_netlist/histogram_axis_tmi.srcs/sources_1/ip/histogram_axis_tmi_blk_mem_gen_v8_1_0/histogram_axis_tmi_blk_mem_gen_v8_1_0.xci" 
 read_ip "D:/Telops/FIR-00251-Output/src/SDI/AGC/HDL/netlist/hdl_netlist/histogram_axis_tmi.srcs/sources_1/ip/histogram_axis_tmi_c_addsub_v12_0_0/histogram_axis_tmi_c_addsub_v12_0_0.xci"
+#Reset Histogram IP
+reset_target all [get_files {histogram_axis_tmi_c_counter_binary_v12_0_0.xci histogram_axis_tmi_c_addsub_v12_0_0.xci histogram_axis_tmi_blk_mem_gen_v8_1_0.xci}]
 
 #SDI-ColorMap
 set filelist  [concat $filelist [glob -nocomplain $src_dir/SDI/colormap/HDL/*.vhd]]
