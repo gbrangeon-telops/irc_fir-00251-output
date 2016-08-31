@@ -238,7 +238,7 @@ static float AGC_getAlphaFactor(uint32_t timestamp, float responseTime_sec)
     timestamp_prev = timestamp;
 
     // Return alpha factor for response time of 95%
-    return pow(1.0 - 0.95, deltaT_sec / responseTime_sec);
+    return powf(1.0f - 0.95f, deltaT_sec / responseTime_sec);
 }
 
 
