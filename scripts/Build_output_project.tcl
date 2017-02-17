@@ -11,6 +11,7 @@ wait_on_run impl_1
 open_run impl_1
 #Save Report
 report_timing_summary -file $base_dir/Reports/fir_0251_Output_timing_summary_routed.rpt
+report_power -file $base_dir/Reports/fir_0251_Output_power.rpt
 report_clock_utilization -file $base_dir/Reports/fir_0251_Output_clock_utilization_placed.rpt
 report_utilization -file $base_dir/Reports/fir_0251_Output_utilization_placed.rpt
 report_utilization -file $base_dir/Reports/fir_0251_Output_utilization_placed_hier.rpt -hierarchical -hierarchical_depth 5
