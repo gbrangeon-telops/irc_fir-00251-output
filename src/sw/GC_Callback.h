@@ -20,7 +20,7 @@
 
 /* AUTO-CODE BEGIN */
 // Auto-generated GeniCam registers callback functions definition.
-// Generated from XML camera definition file version 12.0.1
+// Generated from XML camera definition file version 12.1.0
 // using updateGenICamCallback.m Matlab script.
 
 void GC_Callback_Init();
@@ -52,9 +52,14 @@ void GC_EventTelopsTimestampCallback(gcCallbackPhase_t phase, gcCallbackAccess_t
 void GC_FValSizeCallback(gcCallbackPhase_t phase, gcCallbackAccess_t access);
 void GC_HeightCallback(gcCallbackPhase_t phase, gcCallbackAccess_t access);
 void GC_LValSizeCallback(gcCallbackPhase_t phase, gcCallbackAccess_t access);
+void GC_MemoryBufferLegacyModeCallback(gcCallbackPhase_t phase, gcCallbackAccess_t access);
+void GC_MemoryBufferMOISourceCallback(gcCallbackPhase_t phase, gcCallbackAccess_t access);
 void GC_MemoryBufferModeCallback(gcCallbackPhase_t phase, gcCallbackAccess_t access);
 void GC_MemoryBufferSequenceCountCallback(gcCallbackPhase_t phase, gcCallbackAccess_t access);
 void GC_MemoryBufferSequenceDownloadModeCallback(gcCallbackPhase_t phase, gcCallbackAccess_t access);
+void GC_MemoryBufferStatusCallback(gcCallbackPhase_t phase, gcCallbackAccess_t access);
+void GC_OffsetXCallback(gcCallbackPhase_t phase, gcCallbackAccess_t access);
+void GC_OffsetYCallback(gcCallbackPhase_t phase, gcCallbackAccess_t access);
 void GC_PayloadSizeCallback(gcCallbackPhase_t phase, gcCallbackAccess_t access);
 void GC_PayloadSizeMinFGCallback(gcCallbackPhase_t phase, gcCallbackAccess_t access);
 void GC_ReverseXCallback(gcCallbackPhase_t phase, gcCallbackAccess_t access);

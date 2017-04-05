@@ -33,7 +33,7 @@
 
 /* AUTO-CODE BEGIN */
 // Auto-generated GeniCam registers callback functions definition.
-// Generated from XML camera definition file version 12.0.1
+// Generated from XML camera definition file version 12.1.0
 // using updateGenICamCallback.m Matlab script.
 
 /**
@@ -68,9 +68,14 @@ void GC_Callback_Init()
    gcRegsDef[FValSizeIdx].callback =                           &GC_FValSizeCallback;
    gcRegsDef[HeightIdx].callback =                             &GC_HeightCallback;
    gcRegsDef[LValSizeIdx].callback =                           &GC_LValSizeCallback;
+   gcRegsDef[MemoryBufferLegacyModeIdx].callback =             &GC_MemoryBufferLegacyModeCallback;
+   gcRegsDef[MemoryBufferMOISourceIdx].callback =              &GC_MemoryBufferMOISourceCallback;
    gcRegsDef[MemoryBufferModeIdx].callback =                   &GC_MemoryBufferModeCallback;
    gcRegsDef[MemoryBufferSequenceCountIdx].callback =          &GC_MemoryBufferSequenceCountCallback;
    gcRegsDef[MemoryBufferSequenceDownloadModeIdx].callback =   &GC_MemoryBufferSequenceDownloadModeCallback;
+   gcRegsDef[MemoryBufferStatusIdx].callback =                 &GC_MemoryBufferStatusCallback;
+   gcRegsDef[OffsetXIdx].callback =                            &GC_OffsetXCallback;
+   gcRegsDef[OffsetYIdx].callback =                            &GC_OffsetYCallback;
    gcRegsDef[PayloadSizeIdx].callback =                        &GC_PayloadSizeCallback;
    gcRegsDef[PayloadSizeMinFGIdx].callback =                   &GC_PayloadSizeMinFGCallback;
    gcRegsDef[ReverseXIdx].callback =                           &GC_ReverseXCallback;
@@ -547,6 +552,28 @@ void GC_LValSizeCallback(gcCallbackPhase_t phase, gcCallbackAccess_t access)
 }
 
 /**
+ * MemoryBufferLegacyMode GenICam register callback function.
+ * 
+ * @param phase indicates whether the function is called before or
+ *    after the read or write operation.
+ * @param access indicates whether the operation is read or write.
+ */
+void GC_MemoryBufferLegacyModeCallback(gcCallbackPhase_t phase, gcCallbackAccess_t access)
+{
+}
+
+/**
+ * MemoryBufferMOISource GenICam register callback function.
+ * 
+ * @param phase indicates whether the function is called before or
+ *    after the read or write operation.
+ * @param access indicates whether the operation is read or write.
+ */
+void GC_MemoryBufferMOISourceCallback(gcCallbackPhase_t phase, gcCallbackAccess_t access)
+{
+}
+
+/**
  * MemoryBufferMode GenICam register callback function.
  * 
  * @param phase indicates whether the function is called before or
@@ -583,6 +610,39 @@ void GC_MemoryBufferSequenceDownloadModeCallback(gcCallbackPhase_t phase, gcCall
       GC_UpdateFrameBuffer();
       GC_UpdateCameraLink();
    }
+}
+
+/**
+ * MemoryBufferStatus GenICam register callback function.
+ * 
+ * @param phase indicates whether the function is called before or
+ *    after the read or write operation.
+ * @param access indicates whether the operation is read or write.
+ */
+void GC_MemoryBufferStatusCallback(gcCallbackPhase_t phase, gcCallbackAccess_t access)
+{
+}
+
+/**
+ * OffsetX GenICam register callback function.
+ * 
+ * @param phase indicates whether the function is called before or
+ *    after the read or write operation.
+ * @param access indicates whether the operation is read or write.
+ */
+void GC_OffsetXCallback(gcCallbackPhase_t phase, gcCallbackAccess_t access)
+{
+}
+
+/**
+ * OffsetY GenICam register callback function.
+ * 
+ * @param phase indicates whether the function is called before or
+ *    after the read or write operation.
+ * @param access indicates whether the operation is read or write.
+ */
+void GC_OffsetYCallback(gcCallbackPhase_t phase, gcCallbackAccess_t access)
+{
 }
 
 /**

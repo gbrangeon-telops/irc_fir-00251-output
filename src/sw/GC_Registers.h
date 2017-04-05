@@ -23,10 +23,10 @@
 
 /* AUTO-CODE BEGIN */
 // Auto-generated GeniCam library.
-// Generated from XML camera definition file version 12.0.1
+// Generated from XML camera definition file version 12.1.0
 // using generateGenICamCLib.m Matlab script.
 
-#if ((GC_XMLMAJORVERSION != 12) || (GC_XMLMINORVERSION != 0) || (GC_XMLSUBMINORVERSION != 1))
+#if ((GC_XMLMAJORVERSION != 12) || (GC_XMLMINORVERSION != 1) || (GC_XMLSUBMINORVERSION != 0))
 #error "XML version mismatch."
 #endif
 
@@ -69,9 +69,14 @@ struct gcRegistersDataStruct {
    uint32_t FValSize;
    uint32_t Height;
    uint32_t LValSize;
+   uint32_t MemoryBufferLegacyMode;
+   uint32_t MemoryBufferMOISource;
    uint32_t MemoryBufferMode;
    uint32_t MemoryBufferSequenceCount;
    uint32_t MemoryBufferSequenceDownloadMode;
+   uint32_t MemoryBufferStatus;
+   uint32_t OffsetX;
+   uint32_t OffsetY;
    uint32_t PayloadSize;
    uint32_t PayloadSizeMinFG;
    uint32_t ReverseX;
