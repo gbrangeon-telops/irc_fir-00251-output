@@ -299,6 +299,7 @@ set_property PACKAGE_PIN H24 [get_ports {GIGE_DATA[22]}]
 set_property PACKAGE_PIN H23 [get_ports {GIGE_DATA[23]}]
 
 set_property PACKAGE_PIN C22 [get_ports GIGE_WATERLEVEL]
+set_property PULLDOWN TRUE [get_ports GIGE_WATERLEVEL]
 
 set_property PACKAGE_PIN D26 [get_ports {GIGE_CC[0]}]
 set_property PACKAGE_PIN C26 [get_ports {GIGE_CC[1]}]
