@@ -62,9 +62,11 @@ bool gVerbose = true;
       (*global_trans_ptr)->initialize();  // Initialize the SystemC ports
    #endif
 
+   extern ctrlIntf_t gCtrlIntf_ProcFPGA;
+   extern ctrlIntf_t gCtrlIntf_StorageFPGA;
+   extern debugTerminal_t gDebugTerminal;
+   extern IRC_Status_t gDebugTerminalStatus;
    extern netIntf_t gNetworkIntf;
-   extern ctrlIntf_t gProcCtrlIntf;
-   extern ctrlIntf_t gStorageCtrlIntf;
    extern ledCtrl_t ledCtrl;
    extern t_AGC gAgcCtrl;
    extern t_SdiIntf gSdiIntfCtrl;
@@ -73,7 +75,7 @@ bool gVerbose = true;
    Stack_ConfigStackViolationException();
    Stack_FillRemaining();
 
-   Output_DebugTerminal_InitPhase1();
+   gDebugTerminalStatus = Output_DebugTerminal_InitPhase1();
 
    FPGA_PRINT("Output FGPA starting...\n");
 
@@ -114,8 +116,8 @@ bool gVerbose = true;
       GC_Manager_SM();
       Firmware_Updater_SM();
       NetIntf_SM(&gNetworkIntf);
-      CtrlIntf_Process(&gProcCtrlIntf);
-      CtrlIntf_Process(&gStorageCtrlIntf);
+      CtrlIntf_Process(&gCtrlIntf_ProcFPGA);
+      CtrlIntf_Process(&gCtrlIntf_StorageFPGA);
       Led_ToggleDebugLedState(&ledCtrl);
       AGC_SM(&gcRegsData, &gAgcCtrl, &gSdiIntfCtrl);
       SDIIntf_ZoomSM(&gSdiIntfCtrl, &gcRegsData);
@@ -123,6 +125,6 @@ bool gVerbose = true;
       SDIIntf_FlipYSM(&gSdiIntfCtrl, &gcRegsData);
       SDIIntf_ChangeInputWindowSM(&gSdiIntfCtrl, &gcRegsData);
       XADC_SM();
-      DebugTerminal_Process();
+      DebugTerminal_Process(&gDebugTerminal);
    }
 }

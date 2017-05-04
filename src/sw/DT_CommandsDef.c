@@ -61,7 +61,8 @@ IRC_Status_t DebugTerminalParseHLP(circByteBuffer_t *cbuf)
       return IRC_FAILURE;
    }
 
-   DT_PRINTF("Output FPGA debug terminal commands: (%d)", gDebugTerminal.txCircDataBuffer.maxLength);
+   DT_PRINTF("Output FPGA debug terminal commands: (%d/%d)",
+         gDebugTerminal.txCircBuffer->maxLength, gDebugTerminal.txCircBuffer->size);
    DT_PRINTF("  Read memory:        RDM address [c|u8|u16|u32|s8|s16|s32 length]");
    DT_PRINTF("  Write memory:       WRM address value");
    DT_PRINTF("  Network status:     NET [0|1 [port]]");
@@ -83,7 +84,7 @@ IRC_Status_t DebugTerminalParseHLP(circByteBuffer_t *cbuf)
  */
 IRC_Status_t DebugTerminalParseTOB(circByteBuffer_t *cbuf) {
 
-   if (!CBB_Empty(cbuf))
+   if (!DebugTerminal_CommandIsEmpty(cbuf))
    {
       DT_ERR("Unsupported command arguments");
       return IRC_NOT_DONE;
@@ -103,17 +104,14 @@ IRC_Status_t DebugTerminalParseSFS(circByteBuffer_t *cbuf) {
    uint32_t arglen;
 
    arglen = GetNextArg(cbuf, argStr, 10);
-   if (ParseNumArg((char *)argStr, arglen, &value) != IRC_SUCCESS) {
+   if ((ParseNumArg((char *)argStr, arglen, &value) != IRC_SUCCESS) ||
+         (value > 100))
+   {
       DT_ERR("Invalid value");
       return IRC_FAILURE;
    }
 
-   if (value < 0 || value > 100) {
-      DT_ERR("Value out of range");
-      return IRC_FAILURE;
-   }
-
-   if (!CBB_Empty(cbuf)) {
+   if (!DebugTerminal_CommandIsEmpty(cbuf)) {
       DT_ERR("Unsupported command arguments");
       return IRC_FAILURE;
    }
@@ -132,13 +130,15 @@ IRC_Status_t DebugTerminalParseVRB(circByteBuffer_t *cbuf) {
    extern bool gVerbose;
 
    arglen = GetNextArg(cbuf, argStr, 10);
-   if (ParseNumArg((char *)argStr, arglen, &value) != IRC_SUCCESS) {
+   if ( (ParseNumArg((char *)argStr, arglen, &value) != IRC_SUCCESS) ||
+         ((value != 0) && (value != 1)))
+   {
       DT_ERR("Invalid value");
       return IRC_FAILURE;
    }
 
-   if ((value != 0) && (value != 1)) {
-      DT_ERR("Invalid value");
+   if (!DebugTerminal_CommandIsEmpty(cbuf)) {
+      DT_ERR("Unsupported command arguments");
       return IRC_FAILURE;
    }
 

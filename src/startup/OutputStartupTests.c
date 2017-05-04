@@ -69,21 +69,22 @@ void Startup_InstantPrint() {
 
    extern debugTerminal_t gDebugTerminal;
    extern netIntf_t gNetworkIntf;
-   extern ctrlIntf_t gProcCtrlIntf;
-   extern ctrlIntf_t gStorageCtrlIntf;
+   extern ctrlIntf_t gCtrlIntf_ProcFPGA;
+   extern ctrlIntf_t gCtrlIntf_StorageFPGA;
 
    extern IRC_Status_t NetIntf_ProcessCmd(netIntf_t *netIntf, networkCommand_t *netCmd);
 
    // Move the DebugTerminal tx buffer into the network interface f1f2 commands buffer
 
-   if (!CB_Full(gNetworkIntf.cmdQueue)) {
+   if (!CB_Full(gNetworkIntf.cmdQueue))
+   {
       DebugTerminal_SendMsgRequest(&gDebugTerminal);
    }
 
-   DebugTerminal_Process();
+   DebugTerminal_Process(&gDebugTerminal);
    NetIntf_SM(&gNetworkIntf);
-   CtrlIntf_Process(&gProcCtrlIntf);
-   CtrlIntf_Process(&gStorageCtrlIntf);
+   CtrlIntf_Process(&gCtrlIntf_ProcFPGA);
+   CtrlIntf_Process(&gCtrlIntf_StorageFPGA);
 
    return;
 }
