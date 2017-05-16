@@ -77,7 +77,7 @@ bool gVerbose = true;
 
    gDebugTerminalStatus = Output_DebugTerminal_InitPhase1();
 
-   FPGA_PRINT("Output FGPA starting...\n");
+   FPGA_PRINT("Output FPGA starting...\n");
 
    BuiltInTest_Execute(BITID_BuiltInTestsVerification);
 
