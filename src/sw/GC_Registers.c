@@ -73,6 +73,7 @@ gcRegistersData_t gcRegsDataFactory = {
    /* Height = */ 0,
    /* LValSize = */ 0,
    /* MemoryBufferLegacyMode = */ 0,
+   /* MemoryBufferMOIActivation = */ 0,
    /* MemoryBufferMOISource = */ 0,
    /* MemoryBufferMode = */ 0,
    /* MemoryBufferSequenceCount = */ 0,
@@ -172,6 +173,7 @@ void GC_Registers_Init()
    gcRegsDef[HeightIdx].p_data = &gcRegsData.Height;
    gcRegsDef[LValSizeIdx].p_data = &gcRegsData.LValSize;
    gcRegsDef[MemoryBufferLegacyModeIdx].p_data = &gcRegsData.MemoryBufferLegacyMode;
+   gcRegsDef[MemoryBufferMOIActivationIdx].p_data = &gcRegsData.MemoryBufferMOIActivation;
    gcRegsDef[MemoryBufferMOISourceIdx].p_data = &gcRegsData.MemoryBufferMOISource;
    gcRegsDef[MemoryBufferModeIdx].p_data = &gcRegsData.MemoryBufferMode;
    gcRegsDef[MemoryBufferSequenceCountIdx].p_data = &gcRegsData.MemoryBufferSequenceCount;

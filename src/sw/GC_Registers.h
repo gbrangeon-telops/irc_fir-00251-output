@@ -70,6 +70,7 @@ struct gcRegistersDataStruct {
    uint32_t Height;
    uint32_t LValSize;
    uint32_t MemoryBufferLegacyMode;
+   uint32_t MemoryBufferMOIActivation;
    uint32_t MemoryBufferMOISource;
    uint32_t MemoryBufferMode;
    uint32_t MemoryBufferSequenceCount;

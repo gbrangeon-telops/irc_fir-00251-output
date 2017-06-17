@@ -69,6 +69,7 @@ void GC_Callback_Init()
    gcRegsDef[HeightIdx].callback =                             &GC_HeightCallback;
    gcRegsDef[LValSizeIdx].callback =                           &GC_LValSizeCallback;
    gcRegsDef[MemoryBufferLegacyModeIdx].callback =             &GC_MemoryBufferLegacyModeCallback;
+   gcRegsDef[MemoryBufferMOIActivationIdx].callback =          &GC_MemoryBufferMOIActivationCallback;
    gcRegsDef[MemoryBufferMOISourceIdx].callback =              &GC_MemoryBufferMOISourceCallback;
    gcRegsDef[MemoryBufferModeIdx].callback =                   &GC_MemoryBufferModeCallback;
    gcRegsDef[MemoryBufferSequenceCountIdx].callback =          &GC_MemoryBufferSequenceCountCallback;
@@ -560,6 +561,26 @@ void GC_LValSizeCallback(gcCallbackPhase_t phase, gcCallbackAccess_t access)
  */
 void GC_MemoryBufferLegacyModeCallback(gcCallbackPhase_t phase, gcCallbackAccess_t access)
 {
+}
+
+/**
+ * MemoryBufferMOIActivation GenICam register callback function.
+ * 
+ * @param phase indicates whether the function is called before or
+ *    after the read or write operation.
+ * @param access indicates whether the operation is read or write.
+ */
+void GC_MemoryBufferMOIActivationCallback(gcCallbackPhase_t phase, gcCallbackAccess_t access)
+{
+   if ((phase == GCCP_BEFORE) && (access == GCCA_READ))
+   {
+      // Before read
+   }
+
+   if ((phase == GCCP_AFTER) && (access == GCCA_WRITE))
+   {
+      // After write
+   }
 }
 
 /**
