@@ -26,7 +26,6 @@ static IRC_Status_t DebugTerminalParseTOB(circByteBuffer_t *cbuf);
 static IRC_Status_t DebugTerminalParseSFS(circByteBuffer_t *cbuf);
 static IRC_Status_t DebugTerminalParseVRB(circByteBuffer_t *cbuf);
 
-extern debugTerminal_t gDebugTerminal;
 extern t_fan gFan;
 
 
@@ -39,10 +38,22 @@ debugTerminalCommand_t gDebugTerminalCommands[] =
    {"TOB", DebugTerminalParseTOB},
    {"SFS", DebugTerminalParseSFS},
    {"VRB", DebugTerminalParseVRB},
+   {"CI", DebugTerminalParseCI},
    {"HLP", DebugTerminalParseHLP}
 };
 
 uint32_t gDebugTerminalCommandsCount = NUM_OF(gDebugTerminalCommands);
+
+extern ctrlIntf_t gCtrlIntf_ProcFPGA;
+extern ctrlIntf_t gCtrlIntf_StorageFPGA;
+
+debugTerminalCtrlIntf_t gDebugTerminalCtrlIntfs[] =
+{
+   {"PROC", &gCtrlIntf_ProcFPGA},
+   {"STORAGE", &gCtrlIntf_StorageFPGA}
+};
+
+uint32_t gDebugTerminalCtrlIntfsCount = NUM_OF(gDebugTerminalCtrlIntfs);
 
 /**
  * Debug terminal Help command parser parser.
@@ -52,17 +63,14 @@ uint32_t gDebugTerminalCommandsCount = NUM_OF(gDebugTerminalCommands);
  */
 IRC_Status_t DebugTerminalParseHLP(circByteBuffer_t *cbuf)
 {
-   extern debugTerminal_t gDebugTerminal;
-
    // There is supposed to be no remaining bytes in the buffer
-   if (!CBB_Empty(cbuf))
+   if (!DebugTerminal_CommandIsEmpty(cbuf))
    {
       DT_ERR("Unsupported command arguments");
       return IRC_FAILURE;
    }
 
-   DT_PRINTF("Output FPGA debug terminal commands: (%d/%d)",
-         gDebugTerminal.txCircBuffer->maxLength, gDebugTerminal.txCircBuffer->size);
+   DT_PRINTF("Output FPGA debug terminal commands:");
    DT_PRINTF("  Read memory:        RDM address [c|u8|u16|u32|s8|s16|s32 length]");
    DT_PRINTF("  Write memory:       WRM address value");
    DT_PRINTF("  Network status:     NET [0|1 [port]]");
@@ -70,6 +78,7 @@ IRC_Status_t DebugTerminalParseHLP(circByteBuffer_t *cbuf)
    DT_PRINTF("  Test Output Buffer: TOB");
    DT_PRINTF("  Set Fan Speed:      SFS value");
    DT_PRINTF("  Set verbose:        VRB 0|1");
+   DT_PRINTF("  Ctrl Intf status:   CI [SB|LB PROC|STORAGE 0|1]");
    DT_PRINTF("  Print help:         HLP");
 
    return IRC_SUCCESS;
@@ -83,6 +92,8 @@ IRC_Status_t DebugTerminalParseHLP(circByteBuffer_t *cbuf)
  * @return the test result otherwise.
  */
 IRC_Status_t DebugTerminalParseTOB(circByteBuffer_t *cbuf) {
+
+   extern debugTerminal_t gDebugTerminal;
 
    if (!DebugTerminal_CommandIsEmpty(cbuf))
    {
