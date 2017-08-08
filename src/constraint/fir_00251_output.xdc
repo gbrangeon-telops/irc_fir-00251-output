@@ -110,7 +110,7 @@ set_property PACKAGE_PIN P11 [get_ports VN]
 
 
 ############## CLOCK CONSTRAINT ###################
-set_property IOSTANDARD DIFF_SSTL135 [get_ports SYS_CLK_P2]
+set_property IOSTANDARD DIFF_SSTL15 [get_ports SYS_CLK_P2]
 set_property PACKAGE_PIN AA2 [get_ports SYS_CLK_N2]
 
 ############## AURORA CHANNEL  ####################
@@ -398,28 +398,28 @@ set_property PACKAGE_PIN J19 [get_ports {B15_EXP_SPARE_N[3]}]
 
 ############## BANK 33 34 #############################
 
-set_property IOSTANDARD DIFF_SSTL135 [get_ports B34_EXP_SPARE*]
+set_property IOSTANDARD DIFF_SSTL15 [get_ports B34_EXP_SPARE*]
 
-set_property IOSTANDARD SSTL135 [get_ports FPGA_TO_FPGA0]
+set_property IOSTANDARD SSTL15 [get_ports FPGA_TO_FPGA0]
 set_property PACKAGE_PIN AB2 [get_ports FPGA_TO_FPGA0]
-set_property IOSTANDARD SSTL135 [get_ports FPGA_TO_FPGA1]
+set_property IOSTANDARD SSTL15 [get_ports FPGA_TO_FPGA1]
 set_property PACKAGE_PIN AC2 [get_ports FPGA_TO_FPGA1]
-set_property IOSTANDARD SSTL135 [get_ports FPGA_TO_FPGA2]
+set_property IOSTANDARD SSTL15 [get_ports FPGA_TO_FPGA2]
 set_property PACKAGE_PIN W1 [get_ports FPGA_TO_FPGA2]
-set_property IOSTANDARD SSTL135 [get_ports FPGA_TO_FPGA3]
+set_property IOSTANDARD SSTL15 [get_ports FPGA_TO_FPGA3]
 set_property PACKAGE_PIN Y1 [get_ports FPGA_TO_FPGA3]
-set_property IOSTANDARD SSTL135 [get_ports WATERLEVEL_TO_PROC]
+set_property IOSTANDARD SSTL15 [get_ports WATERLEVEL_TO_PROC]
 set_property PACKAGE_PIN T7 [get_ports WATERLEVEL_TO_PROC]
-set_property IOSTANDARD SSTL135 [get_ports FPGA_TO_FPGA5]
+set_property IOSTANDARD SSTL15 [get_ports FPGA_TO_FPGA5]
 set_property PACKAGE_PIN U4 [get_ports FPGA_TO_FPGA5]
-#set_property IOSTANDARD SSTL135_T_DCI [get_ports FPGA_TO_FPGA6]
-set_property IOSTANDARD SSTL135 [get_ports FPGA_TO_FPGA6]
+#set_property IOSTANDARD SSTL15_T_DCI [get_ports FPGA_TO_FPGA6]
+set_property IOSTANDARD SSTL15 [get_ports FPGA_TO_FPGA6]
 set_property PACKAGE_PIN AC8 [get_ports FPGA_TO_FPGA6]
-#set_property IOSTANDARD SSTL135_T_DCI [get_ports FPGA_TO_FPGA7]
-set_property IOSTANDARD SSTL135 [get_ports FPGA_TO_FPGA7]
+#set_property IOSTANDARD SSTL15_T_DCI [get_ports FPGA_TO_FPGA7]
+set_property IOSTANDARD SSTL15 [get_ports FPGA_TO_FPGA7]
 set_property PACKAGE_PIN AD8 [get_ports FPGA_TO_FPGA7]
-#set_property IOSTANDARD SSTL135_T_DCI [get_ports FPGA_TO_FPGA8]
-set_property IOSTANDARD SSTL135 [get_ports FPGA_TO_FPGA8]
+#set_property IOSTANDARD SSTL15_T_DCI [get_ports FPGA_TO_FPGA8]
+set_property IOSTANDARD SSTL15 [get_ports FPGA_TO_FPGA8]
 set_property PACKAGE_PIN Y11 [get_ports FPGA_TO_FPGA8]
 
 
@@ -432,13 +432,13 @@ set_property PACKAGE_PIN Y5 [get_ports {B34_EXP_SPARE_N[9]}]
 
 
 set_property PACKAGE_PIN W5 [get_ports UART_TX_TO_STORAGE]
-set_property IOSTANDARD SSTL135 [get_ports UART_TX_TO_STORAGE]
+set_property IOSTANDARD SSTL15 [get_ports UART_TX_TO_STORAGE]
 set_property PACKAGE_PIN W6 [get_ports UART_RX_FROM_STORAGE]
-set_property IOSTANDARD SSTL135 [get_ports UART_RX_FROM_STORAGE]
+set_property IOSTANDARD SSTL15 [get_ports UART_RX_FROM_STORAGE]
 set_property PACKAGE_PIN U1 [get_ports MOI_TO_STORAGE]
-set_property IOSTANDARD SSTL135 [get_ports MOI_TO_STORAGE]
+set_property IOSTANDARD SSTL15 [get_ports MOI_TO_STORAGE]
 set_property PACKAGE_PIN U2 [get_ports WATERLEVEL_TO_STORAGE]
-set_property IOSTANDARD SSTL135 [get_ports WATERLEVEL_TO_STORAGE]
+set_property IOSTANDARD SSTL15 [get_ports WATERLEVEL_TO_STORAGE]
 set_property PACKAGE_PIN AD5 [get_ports {B34_BUFFER_SPARE_N[2]}]
 set_property PACKAGE_PIN AD6 [get_ports {B34_BUFFER_SPARE_P[2]}]
 set_property PACKAGE_PIN U5 [get_ports {B34_BUFFER_SPARE_N[3]}]
@@ -451,12 +451,12 @@ set_property PACKAGE_PIN Y2 [get_ports {B34_BUFFER_SPARE_N[6]}]
 set_property PACKAGE_PIN Y3 [get_ports {B34_BUFFER_SPARE_P[6]}]
 set_property PACKAGE_PIN V6 [get_ports {B34_BUFFER_SPARE_N[7]}]
 set_property PACKAGE_PIN U7 [get_ports {B34_BUFFER_SPARE_P[7]}]
-set_property IOSTANDARD SSTL135 [get_ports B34_BUFFER_SPARE*]
+set_property IOSTANDARD SSTL15 [get_ports B34_BUFFER_SPARE*]
 
 ## WARNING: B32_BUFFER_SPARE_8 are connected on a bank at 1.5V on Buffer board
 
 ############## Temporary placement ####################
-set_property IOSTANDARD SSTL135 [get_ports ddr3_addr15_rfu]
+set_property IOSTANDARD SSTL15 [get_ports ddr3_addr15_rfu]
 set_property PACKAGE_PIN AA13 [get_ports ddr3_addr15_rfu]
 
 ############## GIGE IOB packagin ######################
