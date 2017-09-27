@@ -51,6 +51,7 @@ struct gcRegistersDataStruct {
    uint32_t AcquisitionFrameRateMode;
    uint32_t AcquisitionStart;
    uint32_t AcquisitionStop;
+   uint32_t CalibrationMode;
    uint32_t ClConfiguration;
    uint32_t DeviceBuiltInTestsResults5;
    uint32_t DeviceBuiltInTestsResults6;
@@ -97,6 +98,7 @@ struct gcRegistersDataStruct {
    uint32_t VideoDigitalZoomOffsetX;
    uint32_t VideoDigitalZoomOffsetY;
    uint32_t VideoDigitalZoomWidth;
+   uint32_t VideoFreeze;
    uint32_t VideoReverseX;
    uint32_t VideoReverseY;
    uint32_t Width;

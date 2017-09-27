@@ -47,6 +47,7 @@ void GC_Callback_Init()
    gcRegsDef[AcquisitionFrameRateModeIdx].callback =           &GC_AcquisitionFrameRateModeCallback;
    gcRegsDef[AcquisitionStartIdx].callback =                   &GC_AcquisitionStartCallback;
    gcRegsDef[AcquisitionStopIdx].callback =                    &GC_AcquisitionStopCallback;
+   gcRegsDef[CalibrationModeIdx].callback =                    &GC_CalibrationModeCallback;
    gcRegsDef[ClConfigurationIdx].callback =                    &GC_ClConfigurationCallback;
    gcRegsDef[DeviceBuiltInTestsResults5Idx].callback =         &GC_DeviceBuiltInTestsResults5Callback;
    gcRegsDef[DeviceBuiltInTestsResults6Idx].callback =         &GC_DeviceBuiltInTestsResults6Callback;
@@ -101,6 +102,7 @@ void GC_Callback_Init()
    gcRegsDef[VideoDigitalZoomOffsetXIdx].callback =            &GC_VideoDigitalZoomOffsetXCallback;
    gcRegsDef[VideoDigitalZoomOffsetYIdx].callback =            &GC_VideoDigitalZoomOffsetYCallback;
    gcRegsDef[VideoDigitalZoomWidthIdx].callback =              &GC_VideoDigitalZoomWidthCallback;
+   gcRegsDef[VideoFreezeIdx].callback =                        &GC_VideoFreezeCallback;
    gcRegsDef[VideoReverseXIdx].callback =                      &GC_VideoReverseXCallback;
    gcRegsDef[VideoReverseYIdx].callback =                      &GC_VideoReverseYCallback;
    gcRegsDef[WidthIdx].callback =                              &GC_WidthCallback;
@@ -216,6 +218,26 @@ void GC_AcquisitionStopCallback(gcCallbackPhase_t phase, gcCallbackAccess_t acce
          gAcquisitionStarted = 0;
          GC_UpdateCameraLink();
       }
+   }
+}
+
+/**
+ * CalibrationMode GenICam register callback function.
+ * 
+ * @param phase indicates whether the function is called before or
+ *    after the read or write operation.
+ * @param access indicates whether the operation is read or write.
+ */
+void GC_CalibrationModeCallback(gcCallbackPhase_t phase, gcCallbackAccess_t access)
+{
+   if ((phase == GCCP_BEFORE) && (access == GCCA_READ))
+   {
+      // Before read
+   }
+
+   if ((phase == GCCP_AFTER) && (access == GCCA_WRITE))
+   {
+      // After write
    }
 }
 
@@ -1041,6 +1063,26 @@ void GC_VideoDigitalZoomOffsetYCallback(gcCallbackPhase_t phase, gcCallbackAcces
  */
 void GC_VideoDigitalZoomWidthCallback(gcCallbackPhase_t phase, gcCallbackAccess_t access)
 {
+}
+
+/**
+ * VideoFreeze GenICam register callback function.
+ * 
+ * @param phase indicates whether the function is called before or
+ *    after the read or write operation.
+ * @param access indicates whether the operation is read or write.
+ */
+void GC_VideoFreezeCallback(gcCallbackPhase_t phase, gcCallbackAccess_t access)
+{
+   if ((phase == GCCP_BEFORE) && (access == GCCA_READ))
+   {
+      // Before read
+   }
+
+   if ((phase == GCCP_AFTER) && (access == GCCA_WRITE))
+   {
+      // After write
+   }
 }
 
 /**
