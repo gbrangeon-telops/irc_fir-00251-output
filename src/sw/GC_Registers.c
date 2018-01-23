@@ -30,7 +30,7 @@
 
 /* AUTO-CODE BEGIN */
 // Auto-generated GeniCam library.
-// Generated from XML camera definition file version 12.1.0
+// Generated from XML camera definition file version 12.2.0
 // using generateGenICamCLib.m Matlab script.
 
 // GenICam global variables definition
@@ -44,11 +44,9 @@ gcRegistersData_t gcRegsDataFactory = {
    /* AcquisitionFrameRateMaxFG = */ CL_FG_INTERRUPT_RATE_MAX,
    /* DeviceTemperature = */ 0.0F,
    /* DeviceVoltage = */ 0.0F,
-   /* VideoAGCFractionMax = */ 99.0F,
-   /* VideoAGCFractionMaxMin = */ 2.0F,
-   /* VideoAGCFractionMin = */ 1.0F,
-   /* VideoAGCFractionMinMax = */ 98.0F,
-   /* VideoAGCResponseTime = */ 0.100F,
+   /* VideoAGCFractionMax = */ 0.0F,
+   /* VideoAGCFractionMin = */ 0.0F,
+   /* VideoAGCResponseTime = */ 0.0F,
    /* DeviceFirmwareModuleRevision = */ 0,
    /* AcquisitionArm = */ 0,
    /* AcquisitionFrameRateMode = */ 0,
@@ -72,6 +70,7 @@ gcRegistersData_t gcRegsDataFactory = {
    /* EventTelopsTimestamp = */ 0,
    /* FValSize = */ 0,
    /* Height = */ 0,
+   /* IsActiveFlags = */ 0,
    /* LValSize = */ 0,
    /* MemoryBufferLegacyMode = */ 0,
    /* MemoryBufferMOIActivation = */ 0,
@@ -90,9 +89,9 @@ gcRegistersData_t gcRegsDataFactory = {
    /* SensorWidth = */ 0,
    /* TriggerMode = */ 0,
    /* TriggerSelector = */ 0,
-   /* VideoAGC = */ VAGC_Continuous,
-   /* VideoColorMap = */ VCM_Gray,
-   /* VideoColorMapMax = */ 65535,
+   /* VideoAGC = */ 0,
+   /* VideoColorMap = */ 0,
+   /* VideoColorMapMax = */ 0,
    /* VideoColorMapMin = */ 0,
    /* VideoDigitalZoomFactor = */ VDZF_x1,
    /* VideoDigitalZoomFactorMax = */ 32,
@@ -147,9 +146,7 @@ void GC_Registers_Init()
    gcRegsDef[DeviceTemperatureIdx].p_data = &gcRegsData.DeviceTemperature;
    gcRegsDef[DeviceVoltageIdx].p_data = &gcRegsData.DeviceVoltage;
    gcRegsDef[VideoAGCFractionMaxIdx].p_data = &gcRegsData.VideoAGCFractionMax;
-   gcRegsDef[VideoAGCFractionMaxMinIdx].p_data = &gcRegsData.VideoAGCFractionMaxMin;
    gcRegsDef[VideoAGCFractionMinIdx].p_data = &gcRegsData.VideoAGCFractionMin;
-   gcRegsDef[VideoAGCFractionMinMaxIdx].p_data = &gcRegsData.VideoAGCFractionMinMax;
    gcRegsDef[VideoAGCResponseTimeIdx].p_data = &gcRegsData.VideoAGCResponseTime;
    gcRegsDef[DeviceFirmwareModuleRevisionIdx].p_data = &gcRegsData.DeviceFirmwareModuleRevision;
    gcRegsDef[AcquisitionArmIdx].p_data = &gcRegsData.AcquisitionArm;
@@ -174,6 +171,7 @@ void GC_Registers_Init()
    gcRegsDef[EventTelopsTimestampIdx].p_data = &gcRegsData.EventTelopsTimestamp;
    gcRegsDef[FValSizeIdx].p_data = &gcRegsData.FValSize;
    gcRegsDef[HeightIdx].p_data = &gcRegsData.Height;
+   gcRegsDef[IsActiveFlagsIdx].p_data = &gcRegsData.IsActiveFlags;
    gcRegsDef[LValSizeIdx].p_data = &gcRegsData.LValSize;
    gcRegsDef[MemoryBufferLegacyModeIdx].p_data = &gcRegsData.MemoryBufferLegacyMode;
    gcRegsDef[MemoryBufferMOIActivationIdx].p_data = &gcRegsData.MemoryBufferMOIActivation;
@@ -223,6 +221,9 @@ void GC_UpdateLockedFlag()
 {
 /* AUTO-CODE REGLOCKED BEGIN */
    SetRegLocked(&gcRegsDef[AcquisitionFrameRateMaxFGIdx], GC_AcquisitionStarted);
+   SetRegLocked(&gcRegsDef[VideoDigitalZoomFactorIdx], GC_AutofocusIsActive);
+   SetRegLocked(&gcRegsDef[VideoReverseXIdx], GC_AutofocusIsActive);
+   SetRegLocked(&gcRegsDef[VideoReverseYIdx], GC_AutofocusIsActive);
    SetRegLocked(&gcRegsDef[ClConfigurationIdx], GC_AcquisitionStarted);
    SetRegLocked(&gcRegsDef[DeviceTapGeometryIdx], GC_AcquisitionStarted);
    SetRegLocked(&gcRegsDef[PayloadSizeMinFGIdx], GC_AcquisitionStarted);

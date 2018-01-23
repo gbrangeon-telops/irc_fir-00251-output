@@ -33,7 +33,7 @@
 
 /* AUTO-CODE BEGIN */
 // Auto-generated GeniCam registers callback functions definition.
-// Generated from XML camera definition file version 12.1.0
+// Generated from XML camera definition file version 12.2.0
 // using updateGenICamCallback.m Matlab script.
 
 /**
@@ -68,6 +68,7 @@ void GC_Callback_Init()
    gcRegsDef[EventTelopsTimestampIdx].callback =               &GC_EventTelopsTimestampCallback;
    gcRegsDef[FValSizeIdx].callback =                           &GC_FValSizeCallback;
    gcRegsDef[HeightIdx].callback =                             &GC_HeightCallback;
+   gcRegsDef[IsActiveFlagsIdx].callback =                      &GC_IsActiveFlagsCallback;
    gcRegsDef[LValSizeIdx].callback =                           &GC_LValSizeCallback;
    gcRegsDef[MemoryBufferLegacyModeIdx].callback =             &GC_MemoryBufferLegacyModeCallback;
    gcRegsDef[MemoryBufferMOIActivationIdx].callback =          &GC_MemoryBufferMOIActivationCallback;
@@ -88,9 +89,7 @@ void GC_Callback_Init()
    gcRegsDef[TriggerSelectorIdx].callback =                    &GC_TriggerSelectorCallback;
    gcRegsDef[VideoAGCIdx].callback =                           &GC_VideoAGCCallback;
    gcRegsDef[VideoAGCFractionMaxIdx].callback =                &GC_VideoAGCFractionMaxCallback;
-   gcRegsDef[VideoAGCFractionMaxMinIdx].callback =             &GC_VideoAGCFractionMaxMinCallback;
    gcRegsDef[VideoAGCFractionMinIdx].callback =                &GC_VideoAGCFractionMinCallback;
-   gcRegsDef[VideoAGCFractionMinMaxIdx].callback =             &GC_VideoAGCFractionMinMaxCallback;
    gcRegsDef[VideoAGCResponseTimeIdx].callback =               &GC_VideoAGCResponseTimeCallback;
    gcRegsDef[VideoColorMapIdx].callback =                      &GC_VideoColorMapCallback;
    gcRegsDef[VideoColorMapMaxIdx].callback =                   &GC_VideoColorMapMaxCallback;
@@ -564,6 +563,26 @@ void GC_HeightCallback(gcCallbackPhase_t phase, gcCallbackAccess_t access)
 }
 
 /**
+ * IsActiveFlags GenICam register callback function.
+ * 
+ * @param phase indicates whether the function is called before or
+ *    after the read or write operation.
+ * @param access indicates whether the operation is read or write.
+ */
+void GC_IsActiveFlagsCallback(gcCallbackPhase_t phase, gcCallbackAccess_t access)
+{
+   if ((phase == GCCP_BEFORE) && (access == GCCA_READ))
+   {
+      // Before read
+   }
+
+   if ((phase == GCCP_AFTER) && (access == GCCA_WRITE))
+   {
+      // After write
+   }
+}
+
+/**
  * LValSize GenICam register callback function.
  * 
  * @param phase indicates whether the function is called before or
@@ -859,23 +878,8 @@ void GC_VideoAGCFractionMaxCallback(gcCallbackPhase_t phase, gcCallbackAccess_t 
    if ((phase == GCCP_AFTER) && (access == GCCA_WRITE))
    {
       // After write
-
-      // Update VideoAGCFractionMinMax register
-      gcRegsData.VideoAGCFractionMinMax = gcRegsData.VideoAGCFractionMax - 1.0F;
-
       GC_UpdateVideoAGCImageFraction();
    }
-}
-
-/**
- * VideoAGCFractionMaxMin GenICam register callback function.
- * 
- * @param phase indicates whether the function is called before or
- *    after the read or write operation.
- * @param access indicates whether the operation is read or write.
- */
-void GC_VideoAGCFractionMaxMinCallback(gcCallbackPhase_t phase, gcCallbackAccess_t access)
-{
 }
 
 /**
@@ -890,23 +894,8 @@ void GC_VideoAGCFractionMinCallback(gcCallbackPhase_t phase, gcCallbackAccess_t 
    if ((phase == GCCP_AFTER) && (access == GCCA_WRITE))
    {
       // After write
-
-      // Update VideoAGCFractionMaxMin register
-      gcRegsData.VideoAGCFractionMaxMin = gcRegsData.VideoAGCFractionMin + 1.0F;
-
       GC_UpdateVideoAGCImageFraction();
    }
-}
-
-/**
- * VideoAGCFractionMinMax GenICam register callback function.
- * 
- * @param phase indicates whether the function is called before or
- *    after the read or write operation.
- * @param access indicates whether the operation is read or write.
- */
-void GC_VideoAGCFractionMinMaxCallback(gcCallbackPhase_t phase, gcCallbackAccess_t access)
-{
 }
 
 /**

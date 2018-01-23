@@ -19,14 +19,28 @@
 #include "GC_Manager.h"
 #include <stdint.h>
 
+/*
+ * IsActiveFlags register bit field definition
+ */
+#define AcquisitionStartTriggerIsActiveMask     0x00000001  /**< IsActiveFlags register bit mask for AcquisitionStartTriggerIsActive field */
+#define FlaggingTriggerIsActiveMask             0x00000002  /**< IsActiveFlags register bit mask for FlaggingTriggerIsActive field */
+#define GatingTriggerIsActiveMask               0x00000004  /**< IsActiveFlags register bit mask for GatingTriggerIsActive field */
+#define AutofocusIsActiveMask                   0x00000008  /**< IsActiveFlags register bit mask for AutofocusIsActive field */
+
+#define IsActiveFlagsSet(mask) BitMaskSet(gcRegsData.IsActiveFlags, mask)  /**< Set masked bits in IsActiveFlags register */
+#define IsActiveFlagsClr(mask) BitMaskClr(gcRegsData.IsActiveFlags, mask)  /**< Clear masked bits in IsActiveFlags register */
+#define IsActiveFlagsTst(mask) BitMaskTst(gcRegsData.IsActiveFlags, mask)  /**< Test if masked bits in IsActiveFlags register are all set */
+#define IsActiveFlagsTstAny(mask) BitMaskTstAny(gcRegsData.IsActiveFlags, mask)  /**< Test if at least one of the masked bits in IsActiveFlags register is set */
+
+
 #define GC_AcquisitionStarted    (gAcquisitionStarted == 1)
 
 /* AUTO-CODE BEGIN */
 // Auto-generated GeniCam library.
-// Generated from XML camera definition file version 12.1.0
+// Generated from XML camera definition file version 12.2.0
 // using generateGenICamCLib.m Matlab script.
 
-#if ((GC_XMLMAJORVERSION != 12) || (GC_XMLMINORVERSION != 1) || (GC_XMLSUBMINORVERSION != 0))
+#if ((GC_XMLMAJORVERSION != 12) || (GC_XMLMINORVERSION != 2) || (GC_XMLSUBMINORVERSION != 0))
 #error "XML version mismatch."
 #endif
 
@@ -42,9 +56,7 @@ struct gcRegistersDataStruct {
    float DeviceTemperature;
    float DeviceVoltage;
    float VideoAGCFractionMax;
-   float VideoAGCFractionMaxMin;
    float VideoAGCFractionMin;
-   float VideoAGCFractionMinMax;
    float VideoAGCResponseTime;
    int32_t DeviceFirmwareModuleRevision;
    uint32_t AcquisitionArm;
@@ -69,6 +81,7 @@ struct gcRegistersDataStruct {
    uint32_t EventTelopsTimestamp;
    uint32_t FValSize;
    uint32_t Height;
+   uint32_t IsActiveFlags;
    uint32_t LValSize;
    uint32_t MemoryBufferLegacyMode;
    uint32_t MemoryBufferMOIActivation;
@@ -135,8 +148,11 @@ extern uint32_t TriggerModeAry[TriggerModeAryLen];
 ////////////////////////////////////////////////////////////////////////////////
 
 #define GC_SetAcquisitionFrameRateMaxFG(val) GC_RegisterWriteFloat(&gcRegsDef[AcquisitionFrameRateMaxFGIdx], val)
-#define GC_SetVideoAGC(val) GC_RegisterWriteUI32(&gcRegsDef[VideoAGCIdx], val)
 #define GC_SetFValSize(val) GC_RegisterWriteUI32(&gcRegsDef[FValSizeIdx], val)
+
+// Locked registers utility macros
+////////////////////////////////////////////////////////////////////////////////
+#define GC_AutofocusIsActive IsActiveFlagsTst(AutofocusIsActiveMask)
 
 void GC_Registers_Init();
 
