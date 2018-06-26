@@ -100,8 +100,6 @@ struct gcRegistersDataStruct {
    uint32_t ReverseY;
    uint32_t SensorHeight;
    uint32_t SensorWidth;
-   uint32_t TriggerMode;
-   uint32_t TriggerSelector;
    uint32_t VideoAGC;
    uint32_t VideoColorMap;
    uint32_t VideoColorMapMax;
@@ -145,9 +143,6 @@ extern uint32_t EventNotificationAry[EventNotificationAryLen];
 
 #define DeviceFirmwareModuleRevisionAryLen 12
 extern int32_t DeviceFirmwareModuleRevisionAry[DeviceFirmwareModuleRevisionAryLen];
-
-#define TriggerModeAryLen 3
-extern uint32_t TriggerModeAry[TriggerModeAryLen];
 
 // Shared registers write macros
 ////////////////////////////////////////////////////////////////////////////////

@@ -87,8 +87,6 @@ void GC_Callback_Init()
    gcRegsDef[ReverseYIdx].callback =                           &GC_ReverseYCallback;
    gcRegsDef[SensorHeightIdx].callback =                       &GC_SensorHeightCallback;
    gcRegsDef[SensorWidthIdx].callback =                        &GC_SensorWidthCallback;
-   gcRegsDef[TriggerModeIdx].callback =                        &GC_TriggerModeCallback;
-   gcRegsDef[TriggerSelectorIdx].callback =                    &GC_TriggerSelectorCallback;
    gcRegsDef[VideoAGCIdx].callback =                           &GC_VideoAGCCallback;
    gcRegsDef[VideoAGCFractionMaxIdx].callback =                &GC_VideoAGCFractionMaxCallback;
    gcRegsDef[VideoAGCFractionMinIdx].callback =                &GC_VideoAGCFractionMinCallback;
@@ -300,6 +298,17 @@ void GC_DeviceBuiltInTestsResults6Callback(gcCallbackPhase_t phase, gcCallbackAc
  */
 void GC_DeviceClockFrequencyCallback(gcCallbackPhase_t phase, gcCallbackAccess_t access)
 {
+   if ((phase == GCCP_BEFORE) && (access == GCCA_READ))
+   {
+      // Before read
+      gcRegsData.DeviceClockFrequency = DeviceClockFrequencyAry[gcRegsData.DeviceClockSelector];
+   }
+
+   if ((phase == GCCP_AFTER) && (access == GCCA_WRITE))
+   {
+      // After write
+      DeviceClockFrequencyAry[gcRegsData.DeviceClockSelector] = gcRegsData.DeviceClockFrequency;
+   }
 }
 
 /**
@@ -828,47 +837,6 @@ void GC_SensorWidthCallback(gcCallbackPhase_t phase, gcCallbackAccess_t access)
       // After write
       SDIIntf_UpdateVideoOutput(&gSdiIntfCtrl, &gcRegsData);
    }
-}
-
-/**
- * TriggerMode GenICam register callback function.
- * 
- * @param phase indicates whether the function is called before or
- *    after the read or write operation.
- * @param access indicates whether the operation is read or write.
- */
-void GC_TriggerModeCallback(gcCallbackPhase_t phase, gcCallbackAccess_t access)
-{
-   extern uint8_t gAcquisitionStartTriggerIsActive;
-
-   if ((phase == GCCP_AFTER) && (access == GCCA_WRITE))
-   {
-      // After write
-      if (gcRegsData.TriggerSelector == TS_AcquisitionStart)
-      {
-         if (gcRegsData.TriggerMode == TM_On)
-         {
-            gAcquisitionStartTriggerIsActive = 1;
-         }
-         else
-         {
-            gAcquisitionStartTriggerIsActive = 0;
-         }
-
-         GC_UpdateCameraLink();
-      }
-   }
-}
-
-/**
- * TriggerSelector GenICam register callback function.
- * 
- * @param phase indicates whether the function is called before or
- *    after the read or write operation.
- * @param access indicates whether the operation is read or write.
- */
-void GC_TriggerSelectorCallback(gcCallbackPhase_t phase, gcCallbackAccess_t access)
-{
 }
 
 /**
