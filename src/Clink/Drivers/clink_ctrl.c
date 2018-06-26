@@ -61,19 +61,9 @@ void Clink_Init(t_ClinkConfig *a, const gcRegistersData_t *GCRegs)
 //--------------------------------------------------------------------------
 void Clink_SendConfigGC(t_ClinkConfig *a, const gcRegistersData_t *GCRegs)
 {     
-   if (GCRegs->ClConfiguration == CC_Full)
-   {
-      //a->CLinkMode = 1;
+   // Only CC_Full is supported for now
+   //if (GCRegs->ClConfiguration == CC_Full)
       a->CLinkMode = CL_FULL_BIT | CL_DUAL_BIT;
-   }
-   else if (GCRegs->ClConfiguration == CC_Base)
-   {
-      a->CLinkMode = 0;
-   }
-   else
-   {
-      a->CLinkMode = 0;
-   }
    
    a->HeaderVersion = HDR_VERSION; // plus tard, ce sera
    a->Img_Width = GCRegs->Width;

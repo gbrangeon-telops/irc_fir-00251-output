@@ -37,10 +37,10 @@
 
 /* AUTO-CODE BEGIN */
 // Auto-generated GeniCam library.
-// Generated from XML camera definition file version 12.2.1
+// Generated from XML camera definition file version 12.3.0
 // using generateGenICamCLib.m Matlab script.
 
-#if ((GC_XMLMAJORVERSION != 12) || (GC_XMLMINORVERSION != 2) || (GC_XMLSUBMINORVERSION != 1))
+#if ((GC_XMLMAJORVERSION != 12) || (GC_XMLMINORVERSION != 3) || (GC_XMLSUBMINORVERSION != 0))
 #error "XML version mismatch."
 #endif
 
@@ -53,6 +53,7 @@
 struct gcRegistersDataStruct {
    float AcquisitionFrameRate;
    float AcquisitionFrameRateMaxFG;
+   float DeviceClockFrequency;
    float DeviceTemperature;
    float DeviceVoltage;
    float VideoAGCFractionMax;
@@ -67,6 +68,7 @@ struct gcRegistersDataStruct {
    uint32_t ClConfiguration;
    uint32_t DeviceBuiltInTestsResults5;
    uint32_t DeviceBuiltInTestsResults6;
+   uint32_t DeviceClockSelector;
    uint32_t DeviceFirmwareModuleSelector;
    uint32_t DeviceTapGeometry;
    uint32_t DeviceTemperatureSelector;
@@ -128,6 +130,9 @@ typedef struct gcRegistersDataStruct gcRegistersData_t;
 extern gcRegistersData_t gcRegsDataFactory;
 
 extern gcRegistersData_t gcRegsData;
+
+#define DeviceClockFrequencyAryLen 3
+extern float DeviceClockFrequencyAry[DeviceClockFrequencyAryLen];
 
 #define DeviceTemperatureAryLen 13
 extern float DeviceTemperatureAry[DeviceTemperatureAryLen];

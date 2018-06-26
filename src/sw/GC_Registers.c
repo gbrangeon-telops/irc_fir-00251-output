@@ -30,7 +30,7 @@
 
 /* AUTO-CODE BEGIN */
 // Auto-generated GeniCam library.
-// Generated from XML camera definition file version 12.2.1
+// Generated from XML camera definition file version 12.3.0
 // using generateGenICamCLib.m Matlab script.
 
 // GenICam global variables definition
@@ -42,6 +42,7 @@
 gcRegistersData_t gcRegsDataFactory = {
    /* AcquisitionFrameRate = */ 0.0F,
    /* AcquisitionFrameRateMaxFG = */ CL_FG_INTERRUPT_RATE_MAX,
+   /* DeviceClockFrequency = */ 0.0F,
    /* DeviceTemperature = */ 0.0F,
    /* DeviceVoltage = */ 0.0F,
    /* VideoAGCFractionMax = */ 0.0F,
@@ -53,9 +54,10 @@ gcRegistersData_t gcRegsDataFactory = {
    /* AcquisitionStart = */ 0,
    /* AcquisitionStop = */ 0,
    /* CalibrationMode = */ 0,
-   /* ClConfiguration = */ CC_Full,
+   /* ClConfiguration = */ 0,
    /* DeviceBuiltInTestsResults5 = */ 0,
    /* DeviceBuiltInTestsResults6 = */ 0,
+   /* DeviceClockSelector = */ 0,
    /* DeviceFirmwareModuleSelector = */ 0,
    /* DeviceTapGeometry = */ DTG_Geometry_1X4_1Y,
    /* DeviceTemperatureSelector = */ 0,
@@ -112,6 +114,11 @@ gcRegistersData_t gcRegsDataFactory = {
 gcRegistersData_t gcRegsData;
 
 /**
+ * DeviceClockFrequency data array
+ */
+float DeviceClockFrequencyAry[DeviceClockFrequencyAryLen] = {0.0F, 0.0F, 0.0F};
+
+/**
  * DeviceTemperature data array
  */
 float DeviceTemperatureAry[DeviceTemperatureAryLen] = {0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F};
@@ -143,6 +150,7 @@ void GC_Registers_Init()
 {
    gcRegsDef[AcquisitionFrameRateIdx].p_data = &gcRegsData.AcquisitionFrameRate;
    gcRegsDef[AcquisitionFrameRateMaxFGIdx].p_data = &gcRegsData.AcquisitionFrameRateMaxFG;
+   gcRegsDef[DeviceClockFrequencyIdx].p_data = &gcRegsData.DeviceClockFrequency;
    gcRegsDef[DeviceTemperatureIdx].p_data = &gcRegsData.DeviceTemperature;
    gcRegsDef[DeviceVoltageIdx].p_data = &gcRegsData.DeviceVoltage;
    gcRegsDef[VideoAGCFractionMaxIdx].p_data = &gcRegsData.VideoAGCFractionMax;
@@ -157,6 +165,7 @@ void GC_Registers_Init()
    gcRegsDef[ClConfigurationIdx].p_data = &gcRegsData.ClConfiguration;
    gcRegsDef[DeviceBuiltInTestsResults5Idx].p_data = &gcRegsData.DeviceBuiltInTestsResults5;
    gcRegsDef[DeviceBuiltInTestsResults6Idx].p_data = &gcRegsData.DeviceBuiltInTestsResults6;
+   gcRegsDef[DeviceClockSelectorIdx].p_data = &gcRegsData.DeviceClockSelector;
    gcRegsDef[DeviceFirmwareModuleSelectorIdx].p_data = &gcRegsData.DeviceFirmwareModuleSelector;
    gcRegsDef[DeviceTapGeometryIdx].p_data = &gcRegsData.DeviceTapGeometry;
    gcRegsDef[DeviceTemperatureSelectorIdx].p_data = &gcRegsData.DeviceTemperatureSelector;
@@ -224,7 +233,6 @@ void GC_UpdateLockedFlag()
    SetRegLocked(&gcRegsDef[VideoDigitalZoomFactorIdx], GC_AutofocusIsActive);
    SetRegLocked(&gcRegsDef[VideoReverseXIdx], GC_AutofocusIsActive);
    SetRegLocked(&gcRegsDef[VideoReverseYIdx], GC_AutofocusIsActive);
-   SetRegLocked(&gcRegsDef[ClConfigurationIdx], GC_AcquisitionStarted);
    SetRegLocked(&gcRegsDef[DeviceTapGeometryIdx], GC_AcquisitionStarted);
    SetRegLocked(&gcRegsDef[PayloadSizeMinFGIdx], GC_AcquisitionStarted);
 /* AUTO-CODE REGLOCKED END */
@@ -258,18 +266,19 @@ void GC_UpdateCameraLink()
    GC_SetFValSize((gcRegsData.Height + 2) * frameImageCount);
    gcRegsData.PayloadSize = gcRegsData.FValSize * gcRegsData.Width * 2;
 
-   switch(gcRegsData.ClConfiguration)
+   // Only CC_Full is supported for now
+   /*switch(gcRegsData.ClConfiguration)
    {
       case CC_Base:
          gcRegsData.LValSize = gcRegsData.Width;
          gcRegsData.DeviceTapGeometry = DTG_Geometry_1X_1Y;
          break;
 
-      case CC_Full:
+      case CC_Full:*/
          gcRegsData.LValSize = gcRegsData.Width/4;
          gcRegsData.DeviceTapGeometry = DTG_Geometry_1X4_1Y;
-         break;
-   }
+         /*break;
+   }*/
 }
 
 void GC_UpdateFrameBuffer()

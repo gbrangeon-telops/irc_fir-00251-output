@@ -33,7 +33,7 @@
 
 /* AUTO-CODE BEGIN */
 // Auto-generated GeniCam registers callback functions definition.
-// Generated from XML camera definition file version 12.2.1
+// Generated from XML camera definition file version 12.3.0
 // using updateGenICamCallback.m Matlab script.
 
 /**
@@ -51,6 +51,8 @@ void GC_Callback_Init()
    gcRegsDef[ClConfigurationIdx].callback =                    &GC_ClConfigurationCallback;
    gcRegsDef[DeviceBuiltInTestsResults5Idx].callback =         &GC_DeviceBuiltInTestsResults5Callback;
    gcRegsDef[DeviceBuiltInTestsResults6Idx].callback =         &GC_DeviceBuiltInTestsResults6Callback;
+   gcRegsDef[DeviceClockFrequencyIdx].callback =               &GC_DeviceClockFrequencyCallback;
+   gcRegsDef[DeviceClockSelectorIdx].callback =                &GC_DeviceClockSelectorCallback;
    gcRegsDef[DeviceFirmwareModuleRevisionIdx].callback =       &GC_DeviceFirmwareModuleRevisionCallback;
    gcRegsDef[DeviceFirmwareModuleSelectorIdx].callback =       &GC_DeviceFirmwareModuleSelectorCallback;
    gcRegsDef[DeviceTapGeometryIdx].callback =                  &GC_DeviceTapGeometryCallback;
@@ -287,6 +289,28 @@ void GC_DeviceBuiltInTestsResults6Callback(gcCallbackPhase_t phase, gcCallbackAc
       // Before read
       gcRegsData.DeviceBuiltInTestsResults6 = BuiltInTest_FillResultRegister(1);
    }
+}
+
+/**
+ * DeviceClockFrequency GenICam register callback function.
+ * 
+ * @param phase indicates whether the function is called before or
+ *    after the read or write operation.
+ * @param access indicates whether the operation is read or write.
+ */
+void GC_DeviceClockFrequencyCallback(gcCallbackPhase_t phase, gcCallbackAccess_t access)
+{
+}
+
+/**
+ * DeviceClockSelector GenICam register callback function.
+ * 
+ * @param phase indicates whether the function is called before or
+ *    after the read or write operation.
+ * @param access indicates whether the operation is read or write.
+ */
+void GC_DeviceClockSelectorCallback(gcCallbackPhase_t phase, gcCallbackAccess_t access)
+{
 }
 
 /**
