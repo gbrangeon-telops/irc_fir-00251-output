@@ -1,0 +1,178 @@
+[Project]
+Current Flow=Generic
+VCS=0
+version=3
+Current Config=compile
+
+[Configurations]
+compile=work
+
+[Library]
+clink_tb=.\clink_tb\clink_tb.lib
+work=.\src\work\work.lib
+
+[Settings]
+AccessRead=0
+AccessReadWrite=0
+AccessACCB=0
+AccessACCR=0
+AccessReadWriteSLP=0
+AccessReadTopLevel=1
+DisableC=1
+ENABLE_ADV_DATAFLOW=0
+FLOW_TYPE=HDL
+LANGUAGE=VHDL
+REFRESH_FLOW=1
+FLOWTOOLS=NONE
+FAMILY=
+fileopenfolder=D:\Telops\FIR-00251-Output\IP\70\clink_clk_wiz
+
+[LocalVerilogSets]
+EnableSLP=1
+EnableDebug=0
+VerilogLanguage=4
+WarningPrnLevel=1
+OptimizationLevel=2
+ProtectLevel=0
+Strict=0
+VerilogNoSpecify=0
+AdditionalOptions=
+ErrorOutputLimit=0
+ForceCellDefine=0
+VerilogCompOff=0
+GenMultiplatformLib=0
+IncrementalCompilation=0
+IgnoreLineNumbers=0
+DistributedDelayMode=0
+PathDelayMode=0
+UnitDelayMode=0
+ZeroDefineMode=0
+SourceFileExt=
+VerilogDisableClocksNumbers=0
+VerilogChangeEvalAsynchronous=0
+VerilogAssertionsMessageSeverity=Error
+VerilogDisabledAssertionsProcessing=None
+VerilogDisableEmbeddedOvaPslProcessing=0
+VerilogDisablePslProcessing=0
+VerilogDisableOvaProcessing=0
+VerilogDisableSvaProcessing=0
+
+[LocalVhdlSets]
+CompileWithDebug=1
+NetlistCompilation=1
+EnableVHDL93Key=0
+EnableVHDL2002Key=1
+EnableVHDL2008Key=0
+DisableVHDL87Key=0
+Syntax RelaxLRM=1
+MaxErrorsKey=100
+OptimizationLevel=3
+DisableRangeChecks=0
+ProtectLevel=0
+IncrementalCompilation=0
+AdditionalOptions=
+ReorderOnFirstRebuild=1
+ElaborationAfterCompilation=0
+PrintErrWarnOnly=0
+GenMultiplatformLib=0
+VhdlChangeEvalAsynchronous=0
+VhdlDisableAssertionsProcessing=0
+
+[$LibMap$]
+clink_tb=.
+Active_lib=
+work=.
+
+[DefineMacro]
+Global=
+
+[LocalVerilogDirs]
+Count=0
+
+[VerilogSourceLibDirs]
+Count=0
+
+[SourceLibFiles]
+Count=0
+
+[SpecTracer]
+WindowVisible=0
+
+[HierarchyViewer]
+HierarchyInformation=clink_tb|clink_tb|0 
+ShowHide=ShowTopLevel
+Selected=
+
+[ORDER]
+Synchronize=1
+
+[Groups]
+work=1
+work\slp=1
+work\slp\logs=1
+
+[Files]
+/build_clink_sim.do=-1
+/run_sim.do=-1
+/waveform.do=-1
+/clink_stim.vhd=-1
+/clink_intf_sim.bde=-1
+/clink_tb.bde=-1
+/..\..\Hdl\LineFraming.vhd=-1
+/..\..\Hdl\CL_LineBuffer.bde=-1
+/..\..\..\..\..\FIR-00251-Common\VHDL\Fifo\t_axi4_stream64_fifo.vhd=-1
+/..\..\Hdl\clink_ctrl.vhd=-1
+/..\..\Hdl\Clink_port_mapper.vhd=-1
+/..\..\..\..\IP\70\t_axi4_stream64_afifo_d16\t_axi4_stream64_afifo_d16_funcsim.vhdl=-1
+/..\..\..\..\IP\70\t_axi4_stream64_sfifo_d1024_packet\t_axi4_stream64_sfifo_d1024_packet_funcsim.vhdl=-1
+/..\..\Hdl\Clink_Phy.vhd=-1
+/..\..\Hdl\CLINK_define.vhd=-1
+/..\..\..\..\IP\70\clink_clk_wiz\clink_clk_wiz.vhd=-1
+/..\..\..\..\IP\70\clink_clk_wiz\clink_clk_wiz_funcsim.vhdl=-1
+/..\..\..\..\IP\70\clink_clk_wiz\clink_clk_wiz_clk_wiz.vhd=-1
+/85MHz_Selected.asdb=-1
+/85MHz_Selected.awc=-1
+/C:\Users\pcouture\Desktop\PCOUTURE\2018_05_Projet_Camera_Link\Simulations\85MHZ.asdb=-1
+/C:\Users\pcouture\Desktop\PCOUTURE\2018_05_Projet_Camera_Link\Simulations\85MHZ.awc=-1
+/C:\Users\pcouture\Desktop\PCOUTURE\2018_05_Projet_Camera_Link\Simulations\50MHZ.asdb=-1
+/C:\Users\pcouture\Desktop\PCOUTURE\2018_05_Projet_Camera_Link\Simulations\50MHZ.awc=-1
+work/elaboration.log=-1
+work/work.lib=-1
+
+[Files.Data]
+.\src\build_clink_sim.do=Macro
+.\src\run_sim.do=Macro
+.\src\waveform.do=Macro
+.\src\clink_stim.vhd=VHDL Source Code
+.\src\clink_intf_sim.bde=Block Diagram
+.\src\clink_tb.bde=Block Diagram
+.\..\Hdl\LineFraming.vhd=VHDL Source Code
+.\..\Hdl\CL_LineBuffer.bde=Block Diagram
+.\..\..\..\..\FIR-00251-Common\VHDL\Fifo\t_axi4_stream64_fifo.vhd=VHDL Source Code
+.\..\Hdl\clink_ctrl.vhd=VHDL Source Code
+.\..\Hdl\Clink_port_mapper.vhd=VHDL Source Code
+.\..\..\..\IP\70\t_axi4_stream64_afifo_d16\t_axi4_stream64_afifo_d16_funcsim.vhdl=VHDL Source Code
+.\..\..\..\IP\70\t_axi4_stream64_sfifo_d1024_packet\t_axi4_stream64_sfifo_d1024_packet_funcsim.vhdl=VHDL Source Code
+.\..\Hdl\Clink_Phy.vhd=VHDL Source Code
+.\..\Hdl\CLINK_define.vhd=VHDL Source Code
+.\..\..\..\IP\70\clink_clk_wiz\clink_clk_wiz.vhd=VHDL Source Code
+.\..\..\..\IP\70\clink_clk_wiz\clink_clk_wiz_funcsim.vhdl=VHDL Source Code
+.\..\..\..\IP\70\clink_clk_wiz\clink_clk_wiz_clk_wiz.vhd=VHDL Source Code
+.\src\85MHz_Selected.asdb=Accelerated Waveform File
+.\src\85MHz_Selected.awc=Accelerated Waveform Configuration
+C:\Users\pcouture\Desktop\PCOUTURE\2018_05_Projet_Camera_Link\Simulations\85MHZ.asdb=Accelerated Waveform File
+C:\Users\pcouture\Desktop\PCOUTURE\2018_05_Projet_Camera_Link\Simulations\85MHZ.awc=Accelerated Waveform Configuration
+C:\Users\pcouture\Desktop\PCOUTURE\2018_05_Projet_Camera_Link\Simulations\50MHZ.asdb=Accelerated Waveform File
+C:\Users\pcouture\Desktop\PCOUTURE\2018_05_Projet_Camera_Link\Simulations\50MHZ.awc=Accelerated Waveform Configuration
+.\src\work\elaboration.log=Text File
+.\src\work\work.lib=External File
+
+[file_out:/clink_intf_sim.bde]
+/..\compile\clink_intf_sim.vhd=-1
+
+[file_out:/clink_tb.bde]
+/..\compile\clink_tb.vhd=-1
+
+[file_out:/..\..\Hdl\CL_LineBuffer.bde]
+/..\compile\CL_LineBuffer.vhd=-1
+

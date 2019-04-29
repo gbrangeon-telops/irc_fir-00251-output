@@ -16,7 +16,7 @@ entity sdi_datamover_wrapper is
   port (
   --Clk and Reste
   aclk : IN STD_LOGIC;
-  cmdclk : IN STD_LOGIC;
+  --cmdclk : IN STD_LOGIC;
   aresetn : in std_logic;
   
   overflow : in std_logic;
@@ -27,23 +27,23 @@ entity sdi_datamover_wrapper is
   axis_mm2s_sts_mosi : out t_axi4_stream_mosi_status;
   axis_mm2s_sts_miso : in  t_axi4_stream_miso;
   
-  axi_mm2s_mosi : out t_axi4_a32_d32_read_mosi;
-  axi_mm2s_miso :in t_axi4_a32_d32_read_miso;
+  axi_mm2s_mosi : out t_axi4_a32_read_mosi;
+  axi_mm2s_miso : in t_axi4_d32_read_miso;
   
   axis_data_read_mosi : out t_axi4_stream_mosi16;
   axis_data_read_miso : in t_axi4_stream_miso;
   
   --s2mm
   axis_s2mm_cmd_mosi : in t_axi4_stream_mosi_cmd32;
-  axis_s2mm_cmd_miso : out  t_axi4_stream_miso;
+  axis_s2mm_cmd_miso : out t_axi4_stream_miso;
   
   axis_s2mm_sts_mosi : out t_axi4_stream_mosi_status;
-  axis_s2mm_sts_miso : in t_axi4_stream_miso ;
+  axis_s2mm_sts_miso : in t_axi4_stream_miso;
   
-  axi_s2mm_mosi : out t_axi4_a32_d32_write_mosi;
-  axi_s2mm_miso : in t_axi4_a32_d32_write_miso;
+  axi_s2mm_mosi : out t_axi4_a32_d128_write_mosi;
+  axi_s2mm_miso : in t_axi4_write_miso;
   
-  axis_data_write_mosi : in t_axi4_stream_mosi32;
+  axis_data_write_mosi : in t_axi4_stream_mosi64;
   axis_data_write_miso : out t_axi4_stream_miso;
   --err
   --bytesReceived : out std_logic_vector(22 downto 0);
@@ -75,77 +75,75 @@ architecture rtl of sdi_datamover_wrapper is
 
 component axi_sdi_fb_datamover
   port (
-    m_axi_mm2s_aclk : in std_logic;
-    m_axi_mm2s_aresetn : in std_logic;
-    mm2s_err : out std_logic;
-    m_axis_mm2s_cmdsts_aclk : in std_logic;
-    m_axis_mm2s_cmdsts_aresetn : in std_logic;
-    s_axis_mm2s_cmd_tvalid : in std_logic;
-    s_axis_mm2s_cmd_tready : out std_logic;
-    s_axis_mm2s_cmd_tdata : in std_logic_vector(71 downto 0);
-    m_axis_mm2s_sts_tvalid : out std_logic;
-    m_axis_mm2s_sts_tready : in std_logic;
-    m_axis_mm2s_sts_tdata : out std_logic_vector(7 downto 0);
-    m_axis_mm2s_sts_tkeep : out std_logic_vector(0 downto 0);
-    m_axis_mm2s_sts_tlast : out std_logic;
-    m_axi_mm2s_arid : out std_logic_vector(3 downto 0);
-    m_axi_mm2s_araddr : out std_logic_vector(31 downto 0);
-    m_axi_mm2s_arlen : out std_logic_vector(7 downto 0);
-    m_axi_mm2s_arsize : out std_logic_vector(2 downto 0);
-    m_axi_mm2s_arburst : out std_logic_vector(1 downto 0);
-    m_axi_mm2s_arprot : out std_logic_vector(2 downto 0);
-    m_axi_mm2s_arcache : out std_logic_vector(3 downto 0);
-    m_axi_mm2s_aruser : out std_logic_vector(3 downto 0);
-    m_axi_mm2s_arvalid : out std_logic;
-    m_axi_mm2s_arready : in std_logic;
-    m_axi_mm2s_rdata : in std_logic_vector(31 downto 0);
-    m_axi_mm2s_rresp : in std_logic_vector(1 downto 0);
-    m_axi_mm2s_rlast : in std_logic;
-    m_axi_mm2s_rvalid : in std_logic;
-    m_axi_mm2s_rready : out std_logic;
-    m_axis_mm2s_tdata : out std_logic_vector(15 downto 0);
-    m_axis_mm2s_tkeep : out std_logic_vector(1 downto 0);
-    m_axis_mm2s_tlast : out std_logic;
-    m_axis_mm2s_tvalid : out std_logic;
-    m_axis_mm2s_tready : in std_logic;
-    m_axi_s2mm_aclk : in std_logic;
-    m_axi_s2mm_aresetn : in std_logic;
-    s2mm_err : out std_logic;
-    m_axis_s2mm_cmdsts_awclk : in std_logic;
-    m_axis_s2mm_cmdsts_aresetn : in std_logic;
-    s_axis_s2mm_cmd_tvalid : in std_logic;
-    s_axis_s2mm_cmd_tready : out std_logic;
-    s_axis_s2mm_cmd_tdata : in std_logic_vector(71 downto 0);
-    m_axis_s2mm_sts_tvalid : out std_logic;
-    m_axis_s2mm_sts_tready : in std_logic;
-    m_axis_s2mm_sts_tdata : out std_logic_vector(7 downto 0);
-    --m_axis_s2mm_sts_tdata : out std_logic_vector(31 downto 0);
-    m_axis_s2mm_sts_tkeep : out std_logic_vector(0 downto 0);
-    --m_axis_s2mm_sts_tkeep : out std_logic_vector(3 downto 0);
-    m_axis_s2mm_sts_tlast : out std_logic;
-    m_axi_s2mm_awid : out std_logic_vector(3 downto 0);
-    m_axi_s2mm_awaddr : out std_logic_vector(31 downto 0);
-    m_axi_s2mm_awlen : out std_logic_vector(7 downto 0);
-    m_axi_s2mm_awsize : out std_logic_vector(2 downto 0);
-    m_axi_s2mm_awburst : out std_logic_vector(1 downto 0);
-    m_axi_s2mm_awprot : out std_logic_vector(2 downto 0);
-    m_axi_s2mm_awcache : out std_logic_vector(3 downto 0);
-    m_axi_s2mm_awuser : out std_logic_vector(3 downto 0);
-    m_axi_s2mm_awvalid : out std_logic;
-    m_axi_s2mm_awready : in std_logic;
-    m_axi_s2mm_wdata : out std_logic_vector(31 downto 0);
-    m_axi_s2mm_wstrb : out std_logic_vector(3 downto 0);
-    m_axi_s2mm_wlast : out std_logic;
-    m_axi_s2mm_wvalid : out std_logic;
-    m_axi_s2mm_wready : in std_logic;
-    m_axi_s2mm_bresp : in std_logic_vector(1 downto 0);
-    m_axi_s2mm_bvalid : in std_logic;
-    m_axi_s2mm_bready : out std_logic;
-    s_axis_s2mm_tdata : in std_logic_vector(31 downto 0);
-    s_axis_s2mm_tkeep : in std_logic_vector(3 downto 0);
-    s_axis_s2mm_tlast : in std_logic;
-    s_axis_s2mm_tvalid : in std_logic;
-    s_axis_s2mm_tready : out std_logic
+    m_axi_mm2s_aclk : IN STD_LOGIC;
+    m_axi_mm2s_aresetn : IN STD_LOGIC;
+    mm2s_err : OUT STD_LOGIC;
+    m_axis_mm2s_cmdsts_aclk : IN STD_LOGIC;
+    m_axis_mm2s_cmdsts_aresetn : IN STD_LOGIC;
+    s_axis_mm2s_cmd_tvalid : IN STD_LOGIC;
+    s_axis_mm2s_cmd_tready : OUT STD_LOGIC;
+    s_axis_mm2s_cmd_tdata : IN STD_LOGIC_VECTOR(71 DOWNTO 0);
+    m_axis_mm2s_sts_tvalid : OUT STD_LOGIC;
+    m_axis_mm2s_sts_tready : IN STD_LOGIC;
+    m_axis_mm2s_sts_tdata : OUT STD_LOGIC_VECTOR(7 DOWNTO 0);
+    m_axis_mm2s_sts_tkeep : OUT STD_LOGIC_VECTOR(0 DOWNTO 0);
+    m_axis_mm2s_sts_tlast : OUT STD_LOGIC;
+    m_axi_mm2s_arid : OUT STD_LOGIC_VECTOR(3 DOWNTO 0);
+    m_axi_mm2s_araddr : OUT STD_LOGIC_VECTOR(31 DOWNTO 0);
+    m_axi_mm2s_arlen : OUT STD_LOGIC_VECTOR(7 DOWNTO 0);
+    m_axi_mm2s_arsize : OUT STD_LOGIC_VECTOR(2 DOWNTO 0);
+    m_axi_mm2s_arburst : OUT STD_LOGIC_VECTOR(1 DOWNTO 0);
+    m_axi_mm2s_arprot : OUT STD_LOGIC_VECTOR(2 DOWNTO 0);
+    m_axi_mm2s_arcache : OUT STD_LOGIC_VECTOR(3 DOWNTO 0);
+    m_axi_mm2s_aruser : OUT STD_LOGIC_VECTOR(3 DOWNTO 0);
+    m_axi_mm2s_arvalid : OUT STD_LOGIC;
+    m_axi_mm2s_arready : IN STD_LOGIC;
+    m_axi_mm2s_rdata : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
+    m_axi_mm2s_rresp : IN STD_LOGIC_VECTOR(1 DOWNTO 0);
+    m_axi_mm2s_rlast : IN STD_LOGIC;
+    m_axi_mm2s_rvalid : IN STD_LOGIC;
+    m_axi_mm2s_rready : OUT STD_LOGIC;
+    m_axis_mm2s_tdata : OUT STD_LOGIC_VECTOR(15 DOWNTO 0);
+    m_axis_mm2s_tkeep : OUT STD_LOGIC_VECTOR(1 DOWNTO 0);
+    m_axis_mm2s_tlast : OUT STD_LOGIC;
+    m_axis_mm2s_tvalid : OUT STD_LOGIC;
+    m_axis_mm2s_tready : IN STD_LOGIC;
+    m_axi_s2mm_aclk : IN STD_LOGIC;
+    m_axi_s2mm_aresetn : IN STD_LOGIC;
+    s2mm_err : OUT STD_LOGIC;
+    m_axis_s2mm_cmdsts_awclk : IN STD_LOGIC;
+    m_axis_s2mm_cmdsts_aresetn : IN STD_LOGIC;
+    s_axis_s2mm_cmd_tvalid : IN STD_LOGIC;
+    s_axis_s2mm_cmd_tready : OUT STD_LOGIC;
+    s_axis_s2mm_cmd_tdata : IN STD_LOGIC_VECTOR(71 DOWNTO 0);
+    m_axis_s2mm_sts_tvalid : OUT STD_LOGIC;
+    m_axis_s2mm_sts_tready : IN STD_LOGIC;
+    m_axis_s2mm_sts_tdata : OUT STD_LOGIC_VECTOR(7 DOWNTO 0);
+    m_axis_s2mm_sts_tkeep : OUT STD_LOGIC_VECTOR(0 DOWNTO 0);
+    m_axis_s2mm_sts_tlast : OUT STD_LOGIC;
+    m_axi_s2mm_awid : OUT STD_LOGIC_VECTOR(3 DOWNTO 0);
+    m_axi_s2mm_awaddr : OUT STD_LOGIC_VECTOR(31 DOWNTO 0);
+    m_axi_s2mm_awlen : OUT STD_LOGIC_VECTOR(7 DOWNTO 0);
+    m_axi_s2mm_awsize : OUT STD_LOGIC_VECTOR(2 DOWNTO 0);
+    m_axi_s2mm_awburst : OUT STD_LOGIC_VECTOR(1 DOWNTO 0);
+    m_axi_s2mm_awprot : OUT STD_LOGIC_VECTOR(2 DOWNTO 0);
+    m_axi_s2mm_awcache : OUT STD_LOGIC_VECTOR(3 DOWNTO 0);
+    m_axi_s2mm_awuser : OUT STD_LOGIC_VECTOR(3 DOWNTO 0);
+    m_axi_s2mm_awvalid : OUT STD_LOGIC;
+    m_axi_s2mm_awready : IN STD_LOGIC;
+    m_axi_s2mm_wdata : OUT STD_LOGIC_VECTOR(127 DOWNTO 0);
+    m_axi_s2mm_wstrb : OUT STD_LOGIC_VECTOR(15 DOWNTO 0);
+    m_axi_s2mm_wlast : OUT STD_LOGIC;
+    m_axi_s2mm_wvalid : OUT STD_LOGIC;
+    m_axi_s2mm_wready : IN STD_LOGIC;
+    m_axi_s2mm_bresp : IN STD_LOGIC_VECTOR(1 DOWNTO 0);
+    m_axi_s2mm_bvalid : IN STD_LOGIC;
+    m_axi_s2mm_bready : OUT STD_LOGIC;
+    s_axis_s2mm_tdata : IN STD_LOGIC_VECTOR(63 DOWNTO 0);
+    s_axis_s2mm_tkeep : IN STD_LOGIC_VECTOR(7 DOWNTO 0);
+    s_axis_s2mm_tlast : IN STD_LOGIC;
+    s_axis_s2mm_tvalid : IN STD_LOGIC;
+    s_axis_s2mm_tready : OUT STD_LOGIC
   );
 end component;	
 
@@ -194,13 +192,13 @@ fb_datamover : axi_sdi_fb_datamover
   --ACLK AND RESET
     m_axi_mm2s_aclk              => aclk,
     m_axi_mm2s_aresetn           => aresetn,
-    --m_axis_mm2s_cmdsts_aclk      => aclk,
-	m_axis_mm2s_cmdsts_aclk      => cmdclk,
+    m_axis_mm2s_cmdsts_aclk      => aclk,
+	 --m_axis_mm2s_cmdsts_aclk      => cmdclk,
     m_axis_mm2s_cmdsts_aresetn   => aresetn,
     m_axi_s2mm_aclk              => aclk,
     m_axi_s2mm_aresetn           => aresetn,
-    --m_axis_s2mm_cmdsts_awclk     => aclk,
-	m_axis_s2mm_cmdsts_awclk     => cmdclk,
+    m_axis_s2mm_cmdsts_awclk     => aclk,
+	 --m_axis_s2mm_cmdsts_awclk     => cmdclk,
     m_axis_s2mm_cmdsts_aresetn   => aresetn,
     --ERROR
     s2mm_err                     => s2mm_err,
@@ -406,8 +404,8 @@ fb_datamover : axi_sdi_fb_datamover
 	--axis_data_read_mosi.TDATA <= axis_videostream_out_mosi_lite.TDATA;
 	--axis_data_read_mosi.TKEEP <= axis_videostream_out_mosi_lite.TKEEP;
 	--axis_data_read_mosi.TLAST <= axis_videostream_out_mosi_lite.TLAST;
-	axis_data_read_mosi.TSTRB <= "11";
-	axis_data_read_mosi.TID(0) <= '0';
-	axis_data_read_mosi.TDEST <= "000";
-	axis_data_read_mosi.TUSER <= "0000";
+	axis_data_read_mosi.TSTRB <= (others => '1');
+	axis_data_read_mosi.TID <= (others => '0');
+	axis_data_read_mosi.TDEST <= (others => '0');
+	axis_data_read_mosi.TUSER <= (others => '0');
 end rtl;

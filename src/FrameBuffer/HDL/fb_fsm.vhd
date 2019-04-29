@@ -1,8 +1,8 @@
 ---------------------------------------------------------------------------------------------------
 --  Copyright (c) Telops Inc. 2014
 --
---  File: axis_lane_adj.vhd
---  Use: adjust the axis stream lane for BASE and full operations
+--  File: fb_fsm.vhd
+--  Use: MAnage cmd for the Datamover to read and write sequence to the DDR with the requiered Behavior
 --  By: Jean-Alexis Boulet
 --
 --  $Revision$
@@ -19,8 +19,7 @@ use work.FB_Define.all;
 entity FB_FSM is
    port(
       --clk and reset
-      CLK_CTRL         : in std_logic; -- at 100 MHZ
-      CLK_DATA         : in std_logic; -- at 160 MHZ
+      CLK_DATA         : in std_logic;
       ARESETN          : in std_logic;
       
       --DM interface
@@ -37,15 +36,8 @@ entity FB_FSM is
       AXIS_S2MM_STS_MISO : out t_axi4_stream_miso;
       
       --CTRL INTF
-      FB_MODE     : in STD_LOGIC_VECTOR(2 downto 0);
-      FRAME_WIDTH : in STD_LOGIC_VECTOR(15 DOWNTO 0);
-      FRAME_HEIGHT : in STD_LOGIC_VECTOR(15 DOWNTO 0);
+      FB_CONF : in FB_Config;
       
-      BASE_ADDR   : in STD_LOGIC_VECTOR(31 DOWNTO 0);
-      FRAME_SIZE : in STD_LOGIC_VECTOR(31 downto 0); -- in pixel
-      HDR_SIZE : in STD_LOGIC_VECTOR(31 downto 0); -- in pixel
-      IMG_SIZE : in STD_LOGIC_VECTOR(31 downto 0); -- in pixel
-      CONFIG_VALID : in STD_LOGIC;
       SOF : in STD_LOGIC;
       
       DATAIN_WATERLEVEL : out STD_LOGIC;
@@ -54,7 +46,7 @@ entity FB_FSM is
       S2MM_ERR : out std_logic_vector(3 downto 0);
       MM2S_ERR : out std_logic_vector(3 downto 0)
       
-      );
+   );
 end FB_FSM;
 
 architecture rtl of FB_FSM is
@@ -79,32 +71,15 @@ architecture rtl of FB_FSM is
          );
    end component double_sync;
    
-   component double_sync_vector is
-      port(
-         D : in STD_LOGIC_vector;
-         Q : out STD_LOGIC_vector;
-         CLK : in STD_LOGIC
-         );
-   end component double_sync_vector;
-   
    --RESET
-   signal sreset     : std_logic;
-   signal areset : std_logic;
+   signal sreset  : std_logic;
+   signal areset  : std_logic;
    
    --input synch
-   signal fb_mode_s :std_logic_vector(FB_MODE'length-1 downto 0);
-   signal frame_width_s :std_logic_vector(FRAME_WIDTH'length-1 downto 0);
-   signal frame_height_s :std_logic_vector(FRAME_HEIGHT'length-1 downto 0);
+   signal config_valid_s : std_logic;
+   signal dataout_waterlevel_s : std_logic;
    
-   signal baseaddr_s : std_logic_vector(BASE_ADDR'length-1 downto 0);
-   signal baseaddr_u : unsigned(BASE_ADDR'length-1 downto 0);
-   signal framesize_s :std_logic_vector(FRAME_SIZE'length-1 downto 0);
-   signal hdrsize_s :std_logic_vector(HDR_SIZE'length-1 downto 0);
-   signal imgsize_s :std_logic_vector(IMG_SIZE'length-1 downto 0);
-   signal config_valid_s :std_logic;
-   signal dataout_waterlevel_s :std_logic;
-   
-   
+   signal config : FB_Config;
    
    --CMD constant
    constant c_xCACHE : std_logic_vector(3 downto 0) := "0011"; -- Recommended dflt value
@@ -117,26 +92,27 @@ architecture rtl of FB_FSM is
    
    
    --CMD Signal
-   signal s_mm2s_cmd_tag : std_logic_vector(3 downto 0) :="0000";
-   signal s_s2mm_cmd_tag : std_logic_vector(3 downto 0) :="0000";
-   signal s_mm2s_saddr : std_logic_vector(31 downto 0) := x"00000000";
-   signal s_s2mm_saddr : std_logic_vector(31 downto 0) := x"00000000";
+   constant CMD_TAG_HDR_ID_BIT : integer := 3;  -- Tag with this bit set to '1' indicates a header
+   signal s_mm2s_cmd_tag : std_logic_vector(3 downto 0) := (others => '0');
+   signal s_s2mm_cmd_tag : std_logic_vector(3 downto 0) := (others => '0');
+   signal s_mm2s_saddr : std_logic_vector(31 downto 0) := (others => '0');
+   signal s_s2mm_saddr : std_logic_vector(31 downto 0) := (others => '0');
    signal s_mm2s_eof : std_logic := '0';
    signal s_s2mm_eof : std_logic := '0';
-   signal s_mm2s_btt : std_logic_vector(22 downto 0) := x"00000" & b"000";
-   signal s_s2mm_btt : std_logic_vector(22 downto 0) := x"00000" & b"000";  
+   signal s_mm2s_btt : std_logic_vector(22 downto 0) := (others => '0');
+   signal s_s2mm_btt : std_logic_vector(22 downto 0) := (others => '0');  
    
    --OUTPUT Signal
-   signal mm2s_err_o : std_logic_vector(3 downto 0); -- (SLVERR & DECERR &INTERR &TAGERR )
-   signal s2mm_err_o : std_logic_vector(3 downto 0); -- (SLVERR & DECERR &INTERR &TAGERR )
+   signal mm2s_err_o : std_logic_vector(3 downto 0); -- (SLVERR & DECERR & INTERR & TAGERR)
+   signal s2mm_err_o : std_logic_vector(3 downto 0); -- (SLVERR & DECERR & INTERR & TAGERR)
    
    
    --Type definition
-   type fb_write_state_t is (write_standby, write_hdr, validate_write_hdr, write_img, validate_write_img, error_write);
-   type fb_read_state_t is (read_standby,read_frame,validate_read_frame,error_read );
-   signal write_state : fb_write_state_t := write_standby;
+   type fb_write_state_t is (STANDBY_WR, WAIT_WR_HDR_CMD_ACK, WAIT_WR_IMG_CMD_ACK);
+   type fb_read_state_t is (READ_STANDBY, READ_FRAME, VALIDATE_READ_FRAME, ERROR_READ);
+   signal write_state : fb_write_state_t := STANDBY_WR;
    attribute keep of write_state : signal is "TRUE";
-   signal read_state : fb_read_state_t := read_standby;
+   signal read_state : fb_read_state_t := READ_STANDBY;
    attribute keep of read_state : signal is "TRUE";
    signal sof_i : std_logic := '0';
    signal datain_waterlevel_i : std_logic := '0';
@@ -171,18 +147,8 @@ begin
    inst_sync_reset : sync_reset port map(ARESET => areset, SRESET => sreset, CLK => CLK_DATA);
    
    -- input sync
-   fbmode_sync : double_sync_vector       port map(D => FB_MODE,        Q=> fb_mode_s,       CLK => CLK_DATA );
-   fwidth_sync : double_sync_vector       port map(D => FRAME_WIDTH,    Q=> frame_width_s,   CLK => CLK_DATA );
-   fheigth_sync : double_sync_vector      port map(D => FRAME_HEIGHT,   Q=> frame_height_s,  CLK => CLK_DATA );
-   
-   fb_baseaddr_sync : double_sync_vector  port map(D => BASE_ADDR,      Q=> baseaddr_s,      CLK => CLK_DATA );
-   fb_framesize_sync : double_sync_vector  port map(D => FRAME_SIZE,      Q=> framesize_s,      CLK => CLK_DATA );
-   fb_hdrsize_sync : double_sync_vector  port map(D => HDR_SIZE,      Q=> hdrsize_s,      CLK => CLK_DATA );
-   fb_imgsize_sync : double_sync_vector  port map(D => IMG_SIZE,      Q=> imgsize_s,      CLK => CLK_DATA );
-   fb_configvalid_sync : double_sync  port map(D => CONFIG_VALID, Q=> config_valid_s, RESET => sreset  , CLK => CLK_DATA );
+   fb_configvalid_sync : double_sync  port map(D => FB_CONF.config_valid, Q=> config_valid_s, RESET => sreset, CLK => CLK_DATA);
    dataout_waterlevel_sync : double_sync port map(D => DATAOUT_WATERLEVEL, Q => dataout_waterlevel_s, RESET => sreset, CLK => CLK_DATA);
-   
-   baseaddr_u <= unsigned(baseaddr_s);
    
    -- MAP OUTPUTS
    --Cmd structure generation
@@ -204,21 +170,25 @@ begin
    S2MM_ERR <= s2mm_err_o;
    MM2S_ERR <= mm2s_err_o;
    
+   
+   cfg_syn : process(CLK_DATA)      
+   begin  
+      if rising_edge(CLK_DATA) then
+         if sreset = '1' or config_valid_s = '0' then
+            config.config_valid <= '0';
+         else
+            config <= FB_CONF;
+         end if;
+      end if;
+   end process;
+   
    img_write : process(CLK_DATA)
    begin
       if rising_edge(CLK_DATA) then
-         if sreset = '1' or config_valid_s = '0' then
-            write_state <= write_standby;
-            --signal/output to assigned during the process
-            s_s2mm_cmd_tag <= (others => '0');
-            s_s2mm_saddr <= (others => '0');
-            s_s2mm_eof <=  '0';
-            s_s2mm_btt <= (others => '0');
+         if sreset = '1' or config.config_valid = '0' then
+            write_state <= STANDBY_WR;
             s2mm_cmd_mosi.tvalid <= '0';
-            s2mm_sts_miso.tready <= '0';
             write_img_loc <= "00";
-            next_img_read_loc <= "00";
-            s2mm_err_o <= (others => '0');
             sof_i <= '0';
          else
             if (SOF = '1') then
@@ -226,145 +196,128 @@ begin
             end if;
             
             case write_state is
-               when write_standby =>
-                  if(fb_mode_s = FBMODE_GIGE_STD_c) then --Mode Gige standard
-                     if (sof_i = '1') then --Mode Gige standard
+               when STANDBY_WR =>
+                  if(config.fb_mode = FBMODE_GIGE_STD_c) then --Mode Gige standard
+                     if (sof_i = '1') then
                         sof_i <= '0';
                         --change state
-                        write_state <= validate_write_hdr;
+                        write_state <= WAIT_WR_HDR_CMD_ACK;
                         
                         --fill the tag with the img position
-                        s_s2mm_cmd_tag <= resize(std_logic_vector(next_img_write_loc),4);                        
-                        s_s2mm_saddr <= resize(std_logic_vector(baseaddr_u + ((next_img_write_loc-1) * shift_left(unsigned(framesize_s),1))),32);
-                        s_s2mm_eof <=  '1';
-                        s_s2mm_btt <= resize(std_logic_vector(shift_left(unsigned(hdrsize_s),1)),s_s2mm_btt'length); -- Transfert the img hdr in 1 cmd (2 bytes/pix)
+                        s_s2mm_cmd_tag <= resize(std_logic_vector(next_img_write_loc), s_s2mm_cmd_tag'length);
+                        s_s2mm_cmd_tag(CMD_TAG_HDR_ID_BIT) <= '1';
+                        s_s2mm_saddr <= resize(std_logic_vector(config.base_addr + ((next_img_write_loc-1) * shift_left(config.frame_size,1))), s_s2mm_saddr'length);
+                        s_s2mm_eof <= '1';
+                        s_s2mm_btt <= resize(std_logic_vector(shift_left(config.hdr_size,1)), s_s2mm_btt'length); -- Transfert the img hdr in 1 cmd (2 bytes/pix)
                         s2mm_cmd_mosi.tvalid <= '1';
-                        s2mm_sts_miso.tready <= '0';
                         write_img_loc <= next_img_write_loc;
-                        next_img_read_loc <= next_img_read_loc;
-                        s2mm_err_o <= s2mm_err_o;
                      else
-                        write_state <= write_standby;
+                        write_state <= STANDBY_WR;
                         --signal/output to assigned during the process
-                        s_s2mm_cmd_tag <= (others => '0');
-                        s_s2mm_saddr <= (others => '0');
-                        s_s2mm_eof <='0'; 
-                        s_s2mm_btt <= (others => '0');
+                        s_s2mm_cmd_tag <= s_s2mm_cmd_tag; 
+                        s_s2mm_saddr <= s_s2mm_saddr;
+                        s_s2mm_eof <= s_s2mm_eof;
+                        s_s2mm_btt <= s_s2mm_btt;
                         s2mm_cmd_mosi.tvalid <= '0';
-                        s2mm_sts_miso.tready <= '0';
                         write_img_loc <= write_img_loc;
-                        next_img_read_loc <= next_img_read_loc;
-                        s2mm_err_o <= s2mm_err_o;
                      end if;
-                  elsif((fb_mode_s = FBMODE_GIGE_LOSSLESS_c) and ((next_img_read_loc /= "00" and next_img_write_loc /= read_img_loc and (read_img_loc /= "00" or next_img_write_loc /= "01")) or (next_img_read_loc = "00"))) then --Mode Gige Lossless standard
-                     if (sof_i = '1') then --Mode Gige standard
+                  elsif((config.fb_mode = FBMODE_GIGE_LOSSLESS_c) and ((next_img_read_loc /= "00" and next_img_write_loc /= read_img_loc and (read_img_loc /= "00" or next_img_write_loc /= "01")) or (next_img_read_loc = "00"))) then --Mode Gige Lossless standard
+                     if (sof_i = '1') then
                         sof_i <= '0';
                         --change state
-                        write_state <= validate_write_hdr;
+                        write_state <= WAIT_WR_HDR_CMD_ACK;
                         
                         --fill the tag with the img position
-                        s_s2mm_cmd_tag <= resize(std_logic_vector(next_img_write_loc),4);                        
-                        s_s2mm_saddr <= resize(std_logic_vector(baseaddr_u + ((next_img_write_loc-1) * shift_left(unsigned(framesize_s),1))),32);
-                        s_s2mm_eof <=  '1';
-                        s_s2mm_btt <= resize(std_logic_vector(shift_left(unsigned(hdrsize_s),1)),s_s2mm_btt'length); -- Transfert the img hdr in 1 cmd (2 bytes/pix)
+                        s_s2mm_cmd_tag <= resize(std_logic_vector(next_img_write_loc), s_s2mm_cmd_tag'length);
+                        s_s2mm_cmd_tag(CMD_TAG_HDR_ID_BIT) <= '1';
+                        s_s2mm_saddr <= resize(std_logic_vector(config.base_addr + ((next_img_write_loc-1) * shift_left(config.frame_size,1))), s_s2mm_saddr'length);
+                        s_s2mm_eof <= '1';
+                        s_s2mm_btt <= resize(std_logic_vector(shift_left(config.hdr_size,1)), s_s2mm_btt'length); -- Transfert the img hdr in 1 cmd (2 bytes/pix)
                         s2mm_cmd_mosi.tvalid <= '1';
-                        s2mm_sts_miso.tready <= '0';
                         write_img_loc <= next_img_write_loc;
-                        next_img_read_loc <= next_img_read_loc;
-                        s2mm_err_o <= s2mm_err_o;
                      else
-                        write_state <= write_standby;
+                        write_state <= STANDBY_WR;
                         --signal/output to assigned during the process
-                        s_s2mm_cmd_tag <= (others => '0');
-                        s_s2mm_saddr <= (others => '0');
-                        s_s2mm_eof <='0'; 
-                        s_s2mm_btt <= (others => '0');
+                        s_s2mm_cmd_tag <= s_s2mm_cmd_tag; 
+                        s_s2mm_saddr <= s_s2mm_saddr;
+                        s_s2mm_eof <= s_s2mm_eof;
+                        s_s2mm_btt <= s_s2mm_btt;
                         s2mm_cmd_mosi.tvalid <= '0';
-                        s2mm_sts_miso.tready <= '0';
                         write_img_loc <= write_img_loc;
-                        next_img_read_loc <= next_img_read_loc;
-                        s2mm_err_o <= s2mm_err_o;
                      end if;
                   else
-                     write_state <= write_standby;
+                     write_state <= STANDBY_WR;
                      --signal/output to assigned during the process
-                     s_s2mm_cmd_tag <= (others => '0');
-                     s_s2mm_saddr <= (others => '0');
-                     s_s2mm_eof <='0'; 
-                     s_s2mm_btt <= (others => '0');
-                     s2mm_cmd_mosi.tvalid <= '0';
-                     s2mm_sts_miso.tready <= '0';
-                     write_img_loc <= write_img_loc;
-                     next_img_read_loc <= next_img_read_loc;
-                     s2mm_err_o <= s2mm_err_o;
-                  end if;
-               
-               when validate_write_hdr =>
-                  if( s2mm_sts_mosi.tvalid = '1') then --wait for the transmision status
-                     --Check if the reception is valid
-                     if ( (s2mm_sts_mosi.tdata(7) = '1') and (s2mm_sts_mosi.tdata(6 downto 4) = "000") and (unsigned(s2mm_sts_mosi.tdata(3 downto 0)) = write_img_loc) ) then --transmit valid
-                        
-                        --We move to the next state
-                        write_state <= write_img;
-                        --fill the tag with the img position
-                        s_s2mm_cmd_tag <= (others => '0');                        
-                        s_s2mm_saddr <= s_s2mm_saddr;
-                        s_s2mm_eof <=  '0';
-                        s_s2mm_btt <= s_s2mm_btt; -- Transfert the entire img in 1 cmd
-                        s2mm_cmd_mosi.tvalid <= '0';
-                        s2mm_sts_miso.tready <= '0';
-                        write_img_loc <= write_img_loc;
-                        next_img_read_loc <= next_img_read_loc;
-                        s2mm_err_o <= s2mm_err_o;
-                     else -- there was an transmit error
-                        write_state <= error_write;
-                        --signal/output to assigned during the process
-                        s_s2mm_cmd_tag <= (others => '0');
-                        s_s2mm_saddr <= (others => '0');
-                        s_s2mm_eof <=  '0';
-                        s_s2mm_btt <= (others => '0');
-                        s2mm_cmd_mosi.tvalid <= '0';
-                        s2mm_sts_miso.tready <= '0';
-                        write_img_loc <= "01";
-                        next_img_read_loc <= "00";
-                        
-                        s2mm_err_o(3 downto 1) <= s2mm_sts_mosi.tdata(6 downto 4);
-                        if (unsigned(s2mm_sts_mosi.tdata(3 downto 0)) /= write_img_loc) then
-                           s2mm_err_o(0) <= '1';
-                        else
-                           s2mm_err_o(0) <= '0';
-                        end if;
-                        
-                     end if;
-                  else --wait until transmis is over
-                     write_state <= write_state;
-                     s_s2mm_cmd_tag <= (others => '0');
+                     s_s2mm_cmd_tag <= s_s2mm_cmd_tag; 
                      s_s2mm_saddr <= s_s2mm_saddr;
-                     s_s2mm_eof <='0'; 
+                     s_s2mm_eof <= s_s2mm_eof;
                      s_s2mm_btt <= s_s2mm_btt;
                      s2mm_cmd_mosi.tvalid <= '0';
-                     s2mm_sts_miso.tready <= '1';
                      write_img_loc <= write_img_loc;
-                     next_img_read_loc <= next_img_read_loc;
-                     s2mm_err_o <= s2mm_err_o;
                   end if;
                
-               when write_img =>
-                  --Send a write cmd
-                  if( s2mm_cmd_miso.tready = '1' and sof_i = '1') then --wait for the last cmd to be process then wait for the 2 cmd sts
-                     sof_i <= '0';
+--               when validate_write_hdr =>
+--                  if( s2mm_sts_mosi.tvalid = '1') then --wait for the transmision status
+--                     --Check if the reception is valid
+--                     if ( (s2mm_sts_mosi.tdata(7) = '1') and (s2mm_sts_mosi.tdata(6 downto 4) = "000") and (unsigned(s2mm_sts_mosi.tdata(3 downto 0)) = write_img_loc) ) then --transmit valid
+--                        
+--                        --We move to the next state
+--                        write_state <= WAIT_WR_HDR_CMD_ACK;
+--                        --fill the tag with the img position
+--                        s_s2mm_cmd_tag <= (others => '0');                        
+--                        s_s2mm_saddr <= s_s2mm_saddr;
+--                        s_s2mm_eof <=  '0';
+--                        s_s2mm_btt <= s_s2mm_btt; -- Transfert the entire img in 1 cmd
+--                        s2mm_cmd_mosi.tvalid <= '0';
+--                        s2mm_sts_miso.tready <= '0';
+--                        write_img_loc <= write_img_loc;
+--                        next_img_read_loc <= next_img_read_loc;
+--                        s2mm_err_o <= s2mm_err_o;
+--                     else -- there was an transmit error
+--                        write_state <= error_write;
+--                        --signal/output to assigned during the process
+--                        s_s2mm_cmd_tag <= (others => '0');
+--                        s_s2mm_saddr <= (others => '0');
+--                        s_s2mm_eof <=  '0';
+--                        s_s2mm_btt <= (others => '0');
+--                        s2mm_cmd_mosi.tvalid <= '0';
+--                        s2mm_sts_miso.tready <= '0';
+--                        write_img_loc <= "01";
+--                        next_img_read_loc <= "00";
+--                        
+--                        s2mm_err_o(3 downto 1) <= s2mm_sts_mosi.tdata(6 downto 4);
+--                        if (unsigned(s2mm_sts_mosi.tdata(3 downto 0)) /= write_img_loc) then
+--                           s2mm_err_o(0) <= '1';
+--                        else
+--                           s2mm_err_o(0) <= '0';
+--                        end if;
+--                        
+--                     end if;
+--                  else --wait until transmis is over
+--                     write_state <= write_state;
+--                     s_s2mm_cmd_tag <= (others => '0');
+--                     s_s2mm_saddr <= s_s2mm_saddr;
+--                     s_s2mm_eof <='0'; 
+--                     s_s2mm_btt <= s_s2mm_btt;
+--                     s2mm_cmd_mosi.tvalid <= '0';
+--                     s2mm_sts_miso.tready <= '1';
+--                     write_img_loc <= write_img_loc;
+--                     next_img_read_loc <= next_img_read_loc;
+--                     s2mm_err_o <= s2mm_err_o;
+--                  end if;
+               
+               when WAIT_WR_HDR_CMD_ACK =>
+                  if( s2mm_cmd_miso.tready = '1') then --wait for the last cmd to be process
                      --change state
-                     write_state <= validate_write_img;
+                     write_state <= WAIT_WR_IMG_CMD_ACK;
                      --fill the tag with the img position
-                     s_s2mm_cmd_tag <= resize(std_logic_vector(write_img_loc),4); 
+                     s_s2mm_cmd_tag <= resize(std_logic_vector(write_img_loc), s_s2mm_cmd_tag'length);
+                     s_s2mm_cmd_tag(CMD_TAG_HDR_ID_BIT) <= '0';
                      s_s2mm_saddr <= std_logic_vector(unsigned(s_s2mm_saddr) + unsigned(s_s2mm_btt));
-                     s_s2mm_eof <=  '1';
-                     s_s2mm_btt <= resize(std_logic_vector(shift_left(unsigned(imgsize_s),1)),s_s2mm_btt'length); -- Transfert of the img data in 1 cmd (2 bytes/pix)
+                     s_s2mm_eof <= '1';
+                     s_s2mm_btt <= resize(std_logic_vector(shift_left(config.img_size,1)), s_s2mm_btt'length); -- Transfert of the img data in 1 cmd (2 bytes/pix)
                      s2mm_cmd_mosi.tvalid <= '1'; --invalidate de data
-                     s2mm_sts_miso.tready <= '0';
                      write_img_loc <= write_img_loc;
-                     next_img_read_loc <= next_img_read_loc;
-                     s2mm_err_o <= s2mm_err_o;
                   else
                      --Stay there
                      write_state <= write_state;
@@ -373,151 +326,193 @@ begin
                      s_s2mm_saddr <= s_s2mm_saddr;
                      s_s2mm_eof <= s_s2mm_eof;
                      s_s2mm_btt <= s_s2mm_btt;
-                     s2mm_cmd_mosi.tvalid <= '0';
-                     s2mm_sts_miso.tready <= '0';
+                     s2mm_cmd_mosi.tvalid <= s2mm_cmd_mosi.tvalid;
                      write_img_loc <= write_img_loc;
-                     next_img_read_loc <= next_img_read_loc;
-                     s2mm_err_o <= s2mm_err_o;
                   end if;
                
-               when validate_write_img =>
-                  if( s2mm_sts_mosi.tvalid = '1') then --wait for the transmision status
-                     --Check if the reception is valid
-                     if ( (s2mm_sts_mosi.tdata(7) = '1') and (s2mm_sts_mosi.tdata(6 downto 4) = "000") and (unsigned(s2mm_sts_mosi.tdata(3 downto 0)) = write_img_loc) ) then --transmit valid
-                        
-                        --We move to standby
-                        write_state <= write_standby;
-                        s_s2mm_cmd_tag <= (others => '0');                        
-                        s_s2mm_saddr <= (others => '0');
-                        s_s2mm_eof <=  '0';
-                        s_s2mm_btt <= (others => '0'); -- Transfert the entire img in 1 cmd
-                        s2mm_cmd_mosi.tvalid <= '0';
-                        s2mm_sts_miso.tready <= '0';
-                        write_img_loc <= write_img_loc;
-                        next_img_read_loc <= write_img_loc; -- The image was succesfuly written to memory. This is the new last image valid.
-                        
-                        s2mm_err_o <= s2mm_err_o;
-                     else -- there was an transmit error
-                        write_state <= error_write;
-                        --signal/output to assigned during the process
-                        s_s2mm_cmd_tag <= (others => '0');
-                        s_s2mm_saddr <= (others => '0');
-                        s_s2mm_eof <=  '0';
-                        s_s2mm_btt <= (others => '0');
-                        s2mm_cmd_mosi.tvalid <= '0';
-                        s2mm_sts_miso.tready <= '0';
-                        write_img_loc <= "01";
-                        next_img_read_loc <= "00";
-                        s2mm_err_o(3 downto 1) <= s2mm_sts_mosi.tdata(6 downto 4);
-                        if (unsigned(s2mm_sts_mosi.tdata(3 downto 0)) /= write_img_loc) then
-                           s2mm_err_o(0) <= '1';
-                        else
-                           s2mm_err_o(0) <= '0';
-                        end if;
-                        
-                        
-                        --TODO GENERATE AN ERROR
-                        
-                     end if;
-                  else --wait until transmis is over
-                     write_state <= write_state;
-                     s_s2mm_cmd_tag <= (others => '0');
+--               when validate_write_img =>
+--                  if( s2mm_sts_mosi.tvalid = '1') then --wait for the transmision status
+--                     --Check if the reception is valid
+--                     if ( (s2mm_sts_mosi.tdata(7) = '1') and (s2mm_sts_mosi.tdata(6 downto 4) = "000") and (unsigned(s2mm_sts_mosi.tdata(3 downto 0)) = write_img_loc) ) then --transmit valid
+--                        
+--                        --We move to standby
+--                        write_state <= STANDBY_WR;
+--                        s_s2mm_cmd_tag <= (others => '0');                        
+--                        s_s2mm_saddr <= (others => '0');
+--                        s_s2mm_eof <=  '0';
+--                        s_s2mm_btt <= (others => '0'); -- Transfert the entire img in 1 cmd
+--                        s2mm_cmd_mosi.tvalid <= '0';
+--                        s2mm_sts_miso.tready <= '0';
+--                        write_img_loc <= write_img_loc;
+--                        next_img_read_loc <= write_img_loc; -- The image was succesfuly written to memory. This is the new last image valid.
+--                        
+--                        s2mm_err_o <= s2mm_err_o;
+--                     else -- there was an transmit error
+--                        write_state <= error_write;
+--                        --signal/output to assigned during the process
+--                        s_s2mm_cmd_tag <= (others => '0');
+--                        s_s2mm_saddr <= (others => '0');
+--                        s_s2mm_eof <=  '0';
+--                        s_s2mm_btt <= (others => '0');
+--                        s2mm_cmd_mosi.tvalid <= '0';
+--                        s2mm_sts_miso.tready <= '0';
+--                        write_img_loc <= "01";
+--                        next_img_read_loc <= "00";
+--                        s2mm_err_o(3 downto 1) <= s2mm_sts_mosi.tdata(6 downto 4);
+--                        if (unsigned(s2mm_sts_mosi.tdata(3 downto 0)) /= write_img_loc) then
+--                           s2mm_err_o(0) <= '1';
+--                        else
+--                           s2mm_err_o(0) <= '0';
+--                        end if;
+--                        
+--                        
+--                        --TODO GENERATE AN ERROR
+--                        
+--                     end if;
+--                  else --wait until transmis is over
+--                     write_state <= write_state;
+--                     s_s2mm_cmd_tag <= (others => '0');
+--                     s_s2mm_saddr <= s_s2mm_saddr;
+--                     s_s2mm_eof <='0'; 
+--                     s_s2mm_btt <= s_s2mm_btt;
+--                     s2mm_cmd_mosi.tvalid <= '0';
+--                     s2mm_sts_miso.tready <= '1';
+--                     write_img_loc <= write_img_loc;
+--                     next_img_read_loc <= next_img_read_loc;
+--                     s2mm_err_o <= s2mm_err_o;
+--                  end if;
+               
+               when WAIT_WR_IMG_CMD_ACK =>
+                  if( s2mm_cmd_miso.tready = '1') then --wait for the last cmd to be process
+                     --We move to standby
+                     write_state <= STANDBY_WR;
+                     --fill the tag with the img position
+                     s_s2mm_cmd_tag <= s_s2mm_cmd_tag; 
                      s_s2mm_saddr <= s_s2mm_saddr;
-                     s_s2mm_eof <='0'; 
+                     s_s2mm_eof <= s_s2mm_eof;
                      s_s2mm_btt <= s_s2mm_btt;
                      s2mm_cmd_mosi.tvalid <= '0';
-                     s2mm_sts_miso.tready <= '1';
                      write_img_loc <= write_img_loc;
-                     next_img_read_loc <= next_img_read_loc;
-                     s2mm_err_o <= s2mm_err_o;
+                  else
+                     --Stay there
+                     write_state <= write_state;
+                     --fill the tag with the img position
+                     s_s2mm_cmd_tag <= s_s2mm_cmd_tag; 
+                     s_s2mm_saddr <= s_s2mm_saddr;
+                     s_s2mm_eof <= s_s2mm_eof;
+                     s_s2mm_btt <= s_s2mm_btt;
+                     s2mm_cmd_mosi.tvalid <= s2mm_cmd_mosi.tvalid;
+                     write_img_loc <= write_img_loc;
                   end if;   
                
-               when error_write =>
-                  write_state <= write_standby;
-               s2mm_err_o <= s2mm_err_o;
                when others =>
+                  write_state <= STANDBY_WR;
+               
             end case;
          end if;
       end if;
       
    end process img_write;
    
+   img_write_status : process(CLK_DATA)
+   begin
+      if rising_edge(CLK_DATA) then
+         if sreset = '1' then
+            s2mm_err_o <= (others => '0');
+            s2mm_sts_miso.tready <= '1';
+            next_img_read_loc <= "00";
+         else
+            
+            if( s2mm_sts_mosi.tvalid = '1') then
+               
+               if(s2mm_sts_mosi.tdata(6 downto 4) /= "000") then
+                  s2mm_err_o(3 downto 1) <= s2mm_sts_mosi.tdata(6 downto 4);
+               elsif s2mm_sts_mosi.tdata(CMD_TAG_HDR_ID_BIT) = '0' then
+                  -- The image was successfully written to memory. This is the new last image valid.
+                  next_img_read_loc <= resize(unsigned(s2mm_sts_mosi.tdata(3 downto 0)), next_img_read_loc'length);
+               end if;
+            else
+               s2mm_err_o <= s2mm_err_o;
+            end if;
+            
+            if config.config_valid = '0' then
+               next_img_read_loc <= "00";
+            end if;
+            
+         end if;
+      end if;
+   end process img_write_status;
+   
    
    --We read the image frame by frame not hdr and img split in 2 for gige
    img_read : process(CLK_DATA)
    begin
       if rising_edge(CLK_DATA) then
-         if sreset = '1' or config_valid_s = '0' then
-            read_state <= read_standby;
-            --signal/output to assigned during the process
-            s_mm2s_cmd_tag <= (others => '0');
-            s_mm2s_saddr <= (others => '0');
-            s_mm2s_eof <=  '0';
-            s_mm2s_btt <= (others => '0');
+         if sreset = '1' or config.config_valid = '0' then
+            read_state <= READ_STANDBY;
             mm2s_cmd_mosi.tvalid <= '0';
             mm2s_sts_miso.tready <= '0';
             read_img_loc <= "00";
             mm2s_err_o <= (others => '0');
          else
             case read_state is
-               when read_standby =>
-                  if(fb_mode_s = FBMODE_GIGE_STD_c and read_img_loc /= next_img_read_loc and next_img_read_loc /= "00") then --Mode Gige standard and image available
+               when READ_STANDBY =>
+                  if(config.fb_mode = FBMODE_GIGE_STD_c and read_img_loc /= next_img_read_loc and next_img_read_loc /= "00") then --Mode Gige standard and image available
                      --change state
-                     read_state <= read_frame;
+                     read_state <= READ_FRAME;
                      
                      --fill the tag with the img position
-                     s_mm2s_cmd_tag <= resize(std_logic_vector(next_img_read_loc),4);                        
-                     s_mm2s_saddr <= resize(std_logic_vector(baseaddr_u + ((next_img_read_loc-1) * shift_left(unsigned(framesize_s),1))),32);
-                     s_mm2s_eof <=  '1';
-                     s_mm2s_btt <= resize(std_logic_vector(shift_left(unsigned(framesize_s),1)),s_mm2s_btt'length); -- Transfert the img hdr in 1 cmd (2 bytes/pix)
+                     s_mm2s_cmd_tag <= resize(std_logic_vector(next_img_read_loc), s_mm2s_cmd_tag'length);                        
+                     s_mm2s_saddr <= resize(std_logic_vector(config.base_addr + ((next_img_read_loc-1) * shift_left(config.frame_size,1))), s_mm2s_saddr'length);
+                     s_mm2s_eof <= '1';
+                     s_mm2s_btt <= resize(std_logic_vector(shift_left(config.frame_size,1)), s_mm2s_btt'length); -- Transfert the img hdr in 1 cmd (2 bytes/pix)
                      mm2s_cmd_mosi.tvalid <= '1';
                      mm2s_sts_miso.tready <= '0';
                      read_img_loc <= next_img_read_loc;
                      mm2s_err_o <= mm2s_err_o;
-                  elsif ((fb_mode_s = FBMODE_GIGE_LOSSLESS_c) and (dataout_waterlevel_s = '0') and read_img_loc /= next_img_read_loc and next_img_read_loc /= "00") then --Mode Gige Lossless standard
+                  elsif ((config.fb_mode = FBMODE_GIGE_LOSSLESS_c) and (dataout_waterlevel_s = '0') and read_img_loc /= next_img_read_loc and next_img_read_loc /= "00") then --Mode Gige Lossless
                      --change state
-                     read_state <= read_frame;
+                     read_state <= READ_FRAME;
                      
                      --fill the tag with the img position
                      if (read_img_loc /= "11") then
-                        s_mm2s_cmd_tag <= resize(std_logic_vector(read_img_loc + 1),4);                        
-                        s_mm2s_saddr <= resize(std_logic_vector(baseaddr_u + ((read_img_loc) * shift_left(unsigned(framesize_s),1))),32);
+                        s_mm2s_cmd_tag <= resize(std_logic_vector(read_img_loc + 1), s_mm2s_cmd_tag'length);                        
+                        s_mm2s_saddr <= resize(std_logic_vector(config.base_addr + ((read_img_loc) * shift_left(config.frame_size,1))), s_mm2s_saddr'length);
                         read_img_loc <= read_img_loc + "01";
                      else
                         s_mm2s_cmd_tag <= "0001";                        
-                        s_mm2s_saddr <= resize(std_logic_vector(baseaddr_u + (("00") * shift_left(unsigned(framesize_s),1))),32);
+                        s_mm2s_saddr <= resize(std_logic_vector(config.base_addr + (("00") * shift_left(config.frame_size,1))), s_mm2s_saddr'length);
                         read_img_loc <= "01";
                      end if;
                      
-                     s_mm2s_eof <=  '1';
-                     s_mm2s_btt <= resize(std_logic_vector(shift_left(unsigned(framesize_s),1)),s_mm2s_btt'length); -- Transfert the img hdr in 1 cmd (2 bytes/pix)
+                     s_mm2s_eof <= '1';
+                     s_mm2s_btt <= resize(std_logic_vector(shift_left(config.frame_size,1)), s_mm2s_btt'length); -- Transfert the img hdr in 1 cmd (2 bytes/pix)
                      mm2s_cmd_mosi.tvalid <= '1';
                      mm2s_sts_miso.tready <= '0';
                      mm2s_err_o <= mm2s_err_o;
                   else
-                     read_state <= read_standby;
+                     read_state <= READ_STANDBY;
                      --signal/output to assigned during the process
-                     s_mm2s_cmd_tag <= (others => '0');
-                     s_mm2s_saddr <= (others => '0');
-                     s_mm2s_eof <='0'; 
-                     s_mm2s_btt <= (others => '0');
+                     s_mm2s_cmd_tag <= s_mm2s_cmd_tag; 
+                     s_mm2s_saddr <= s_mm2s_saddr;
+                     s_mm2s_eof <= s_mm2s_eof;
+                     s_mm2s_btt <= s_mm2s_btt;
                      mm2s_cmd_mosi.tvalid <= '0';
                      mm2s_sts_miso.tready <= '0';
                      read_img_loc <= read_img_loc;
                      mm2s_err_o <= mm2s_err_o;
                   end if;
                
-               when read_frame =>
+               when READ_FRAME =>
                   --Send a read cmd
                   if( mm2s_cmd_miso.tready = '1') then --wait for the  cmd to be process then waity for status
                      --change state
-                     read_state <= validate_read_frame;
+                     read_state <= VALIDATE_READ_FRAME;
                      --fill the tag with the img position
-                     s_mm2s_cmd_tag <= (others => '0'); 
-                     s_mm2s_saddr <= (others => '0'); 
-                     s_mm2s_eof <=  '0';
-                     --s_mm2s_eof <=  '0';      --TEST DEBUG
-                     s_mm2s_btt <= (others => '0'); 
+                     s_mm2s_cmd_tag <= s_mm2s_cmd_tag; 
+                     s_mm2s_saddr <= s_mm2s_saddr;
+                     s_mm2s_eof <= s_mm2s_eof;
+                     s_mm2s_btt <= s_mm2s_btt; 
                      mm2s_cmd_mosi.tvalid <= '0'; --invalidate de data
                      mm2s_sts_miso.tready <= '1';
                      read_img_loc <= read_img_loc;
@@ -536,28 +531,28 @@ begin
                      mm2s_err_o <= mm2s_err_o;
                   end if;
                
-               when validate_read_frame =>
+               when VALIDATE_READ_FRAME =>
                   if( mm2s_sts_mosi.tvalid = '1') then --wait for the transmision status
                      --Check if the reception is valid
                      if ( (mm2s_sts_mosi.tdata(7) = '1') and (mm2s_sts_mosi.tdata(6 downto 4) = "000") and (unsigned(mm2s_sts_mosi.tdata(3 downto 0)) = read_img_loc) ) then --transmit valid
                         --We move to the next state
-                        read_state <= read_standby;
+                        read_state <= READ_STANDBY;
                         --fill the tag with the img position
-                        s_mm2s_cmd_tag <= (others => '0');                        
-                        s_mm2s_saddr <= (others => '0');
-                        s_mm2s_eof <=  '0';
-                        s_mm2s_btt <= (others => '0'); -- Transfert the entire img in 1 cmd
+                        s_mm2s_cmd_tag <= s_mm2s_cmd_tag; 
+                        s_mm2s_saddr <= s_mm2s_saddr;
+                        s_mm2s_eof <= s_mm2s_eof;
+                        s_mm2s_btt <= s_mm2s_btt;
                         mm2s_cmd_mosi.tvalid <= '0';
                         mm2s_sts_miso.tready <= '0';
                         read_img_loc <= read_img_loc;
                         mm2s_err_o <= mm2s_err_o;
                      else -- there was a transmit error
-                        read_state <= error_read;
+                        read_state <= ERROR_READ;
                         --signal/output to assigned during the process
-                        s_mm2s_cmd_tag <= (others => '0');
-                        s_mm2s_saddr <= (others => '0');
-                        s_mm2s_eof <=  '0';
-                        s_mm2s_btt <= (others => '0');
+                        s_mm2s_cmd_tag <= s_mm2s_cmd_tag; 
+                        s_mm2s_saddr <= s_mm2s_saddr;
+                        s_mm2s_eof <= s_mm2s_eof;
+                        s_mm2s_btt <= s_mm2s_btt;
                         mm2s_cmd_mosi.tvalid <= '0';
                         mm2s_sts_miso.tready <= '0';
                         read_img_loc <= "00";
@@ -573,10 +568,10 @@ begin
                      end if;
                   else --wait until transmis is over
                      read_state <= read_state;
-                     s_mm2s_cmd_tag <= (others => '0');
-                     s_mm2s_saddr <= (others => '0');
-                     s_mm2s_eof <='0'; 
-                     s_mm2s_btt <= (others => '0');
+                     s_mm2s_cmd_tag <= s_mm2s_cmd_tag; 
+                     s_mm2s_saddr <= s_mm2s_saddr;
+                     s_mm2s_eof <= s_mm2s_eof;
+                     s_mm2s_btt <= s_mm2s_btt;
                      mm2s_cmd_mosi.tvalid <= '0';
                      mm2s_sts_miso.tready <= '1';
                      read_img_loc <= read_img_loc;
@@ -584,10 +579,12 @@ begin
                      
                   end if;
                
-               when error_read =>
-                  read_state <= read_standby;
-               read_img_loc <= "00";
+               when ERROR_READ =>
+                  read_state <= READ_STANDBY;
+                  read_img_loc <= "00";
+               
                when others =>
+               
             end case;
          end if;
       end if;
@@ -597,10 +594,10 @@ begin
    wr_loc_selector : process(CLK_DATA)
    begin
       if rising_edge(CLK_DATA) then
-         if sreset = '1' or config_valid_s = '0' then
+         if sreset = '1' or config.config_valid = '0' then
             next_img_write_loc <= to_unsigned(1,next_img_write_loc'length);
          else
-            case fb_mode_s is
+            case config.fb_mode is
                when FBMODE_GIGE_STD_c =>
                   case (write_img_loc & read_img_loc) is
                      when "0000" => next_img_write_loc <= to_unsigned(1,next_img_write_loc'length);
@@ -620,7 +617,7 @@ begin
                      when "1110" => next_img_write_loc <= to_unsigned(1,next_img_write_loc'length);
                      when "1111" => next_img_write_loc <= to_unsigned(1,next_img_write_loc'length);
                      when others => next_img_write_loc <= to_unsigned(0,next_img_write_loc'length);
-               end case;
+                  end case;
                when FBMODE_GIGE_LOSSLESS_c => -- Frames FIFO
                   case write_img_loc is
                      when "00" => next_img_write_loc <= to_unsigned(1,next_img_write_loc'length);
@@ -643,10 +640,10 @@ begin
    datain_waterlevel_proc : process(CLK_DATA)
    begin
       if rising_edge(CLK_DATA) then
-         if sreset = '1' or config_valid_s = '0' then
+         if sreset = '1' or config.config_valid = '0' then
             datain_waterlevel_i <= '0';
          else
-            if (fb_mode_s = FBMODE_GIGE_LOSSLESS_c and ((next_img_write_loc = read_img_loc) or (read_img_loc = "00" and write_img_loc = "11"))) then
+            if (config.fb_mode = FBMODE_GIGE_LOSSLESS_c and ((next_img_write_loc = read_img_loc) or (read_img_loc = "00" and write_img_loc = "11"))) then
                datain_waterlevel_i <= '1';
             else
                datain_waterlevel_i <= '0';

@@ -119,12 +119,12 @@ port (
     control1 :          inout   std_logic_vector(35 downto 0);
     control2 :          inout   std_logic_vector(35 downto 0);
     
-    v_start_position : in  std_logic_vector (31 downto 0);
-    v_stop_position  : in  std_logic_vector (31 downto 0);
-    h_start_position : in  std_logic_vector (31 downto 0);
-    h_stop_position  : in  std_logic_vector (31 downto 0);
+    v_start_position : in  std_logic_vector(15 downto 0);
+    v_stop_position  : in  std_logic_vector(15 downto 0);
+    h_start_position : in  std_logic_vector(15 downto 0);
+    h_stop_position  : in  std_logic_vector(15 downto 0);
     X_FLIP           : in  std_logic;
-    SDI_720pn_1080p	 : in  std_logic;	
+    SDI_720pn_1080p	 : in  std_logic;
 
 	axis_video_mosi :    in t_axi4_stream_mosi32;
     axis_video_miso :    out t_axi4_stream_miso
@@ -328,10 +328,10 @@ port map (
     xyz         => open,
     line_num    => tx_line,
     
-    v_start_position_iv16 => v_start_position(15 downto 0),
-    v_stop_position_iv16  => v_stop_position(15 downto 0),
-    h_start_position_iv16 => h_start_position(15 downto 0),
-    h_stop_position_iv16  => h_stop_position(15 downto 0),
+    v_start_position_iv16 => v_start_position,
+    v_stop_position_iv16  => v_stop_position,
+    h_start_position_iv16 => h_start_position,
+    h_stop_position_iv16  => h_stop_position,
     y_camera_video        => y_camera_video,
     c_camera_video        => c_camera_video,
     tlast                => tlast,

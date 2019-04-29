@@ -38,7 +38,10 @@ entity AGC_CUMSUM is
       HI_IMAGE_FRACTION    : in std_logic_vector(23 downto 0); -- in pixel
       NB_BIN               : in std_logic_vector(15 downto 0);
       AGC_MODE             : in std_logic_vector(1 downto 0);
-      AGC_CTRL_CLEARMEM    : in std_logic;      
+      AGC_CTRL_CLEARMEM    : in std_logic; 
+      AGC_MSB_POS          : in std_logic_vector(1 downto 0);
+      AGC_NEW_CONFIG_FLAG  : in std_logic; 
+      
       
       --------------------------------
       -- Histogram Interface
@@ -46,7 +49,7 @@ entity AGC_CUMSUM is
       HIST_RDY       : in std_logic;   
       HIST_CLEARMEM  : out std_logic;
       AGC_RESET      : out std_logic;   
-      
+      AGC_MSB_POS_O  : out std_logic_vector(1 downto 0);
       --------------------------------
       -- TMI INTERFACE
       --------------------------------   
@@ -78,7 +81,17 @@ architecture RTL of AGC_CUMSUM is
          CLK      : in std_logic
       );
    end component;
-
+   
+   component double_sync
+   generic(
+      INIT_VALUE : BIT := '0');
+   port(
+      D : in STD_LOGIC;
+      Q : out STD_LOGIC;
+      RESET : in STD_LOGIC;
+      CLK : in STD_LOGIC);
+   end component;
+   
    signal sreset         : std_logic;
 
    -- Internal Histogram Ports 
@@ -104,7 +117,11 @@ architecture RTL of AGC_CUMSUM is
    signal tmi_error_s      : std_logic;
 
    
-   -- INTERNAL ctrl intf signal
+   -- INTERNAL ctrl intf signal    
+   signal agc_ctrl_clearmem_s       : std_logic; 
+   signal nb_bin_s                  : std_logic_vector(15 downto 0);  
+   signal agc_mode_s                : std_logic_vector(1 downto 0);
+   signal agc_msb_pos_s             : std_logic_vector(1 downto 0);
    signal lo_image_fraction_s       : unsigned(23 downto 0);
    signal lo_bin_id_prev_s          : unsigned(15 downto 0);
    signal lo_cumsum_s               : unsigned(23 downto 0);
@@ -128,8 +145,13 @@ architecture RTL of AGC_CUMSUM is
    signal TMI_add_done        : std_logic;
    signal TMI_add_out         : unsigned(9 downto 0);
    signal TMI_add_out_started : std_logic;
-   signal TMI_add_max         : unsigned(9 downto 0) := (others => '1');
-
+   signal TMI_add_max         : unsigned(9 downto 0) := (others => '1'); 
+   
+   signal  new_config_flag_sync  : std_logic;
+   signal  new_config_flag_sync_last  : std_logic;
+   signal  read_new_config       : std_logic; 
+   
+   
 begin
 
    ------------------------------------------
@@ -141,7 +163,21 @@ begin
       CLK    => CLK_DATA,
       SRESET => sreset
    );
-
+   
+   sync_new_config_flag : double_sync
+   port map(
+      D => AGC_NEW_CONFIG_FLAG,
+      Q => new_config_flag_sync,
+      RESET => '0',
+      CLK => CLK_DATA);
+      
+   sync_clearmem : double_sync
+   port map(
+      D => AGC_CTRL_CLEARMEM,
+      Q => agc_ctrl_clearmem_s,
+      RESET => '0',
+      CLK => CLK_DATA);
+         
    ----------------------------------------
    -- TMI ASSIGNATION
    ----------------------------------------
@@ -154,7 +190,7 @@ begin
    H_ready        <= HIST_RDY;
    HIST_CLEARMEM  <= H_clearmem;
    AGC_RESET      <= AGC_reseti;
-   
+   AGC_MSB_POS_O  <= agc_msb_pos_s;
    ------------------------------
    -- CTRL Intf assignation
    ------------------------------
@@ -169,6 +205,46 @@ begin
    HI_IMAGE_FRACTION_FBCK  <= std_logic_vector(resize(hi_image_fraction_fbck_s, HI_IMAGE_FRACTION_FBCK'length));
    NB_PIXEL                <= std_logic_vector(resize(hist_nb_pix_s, NB_PIXEL'length));
    
+   -- Synch new config to CLK Data. 
+   Clock_Domain_Sync : process(CLK_DATA)
+   begin
+      if rising_edge(CLK_DATA) then
+         if sreset = '1' then 
+            
+            read_new_config <= '0';
+            new_config_flag_sync_last <= '0';
+            lo_image_fraction_s  <= (others => '1');
+            hi_image_fraction_s  <= (others => '1');
+            nb_bin_s <= (others => '0'); 
+            agc_mode_s <= "00";
+            agc_msb_pos_s <= (others => '0');
+            
+         else
+      
+            new_config_flag_sync_last  <=  new_config_flag_sync;
+      
+            if new_config_flag_sync = '1' and new_config_flag_sync_last = '0' then
+               read_new_config  <= '1';
+            else  
+            
+               if ( AGC_state = IDLE and read_new_config  = '1') then  
+                  read_new_config  <= '0';   
+                  lo_image_fraction_s  <= unsigned(LO_IMAGE_FRACTION);
+                  hi_image_fraction_s  <= unsigned(HI_IMAGE_FRACTION);  
+                  nb_bin_s <= NB_BIN; 
+                  agc_msb_pos_s <= AGC_MSB_POS;
+               end if;  
+               
+               if ( read_new_config  = '1') then 
+                  agc_mode_s <= AGC_MODE;
+               end if;   
+               
+            end if;  
+         end if;
+      end if;
+   end process; 
+   
+ 
    
    AGC_SM : process(CLK_DATA)
    begin
@@ -190,7 +266,7 @@ begin
             --------------------
             -- AGC Stopped
             --------------------
-            if (AGC_MODE = "00") then 
+            if (agc_mode_s = "00") then 
                H_clearmem        <= '1';
                AGC_state         <= RESET;
                cumsum_ready_s    <= '0';
@@ -199,7 +275,7 @@ begin
             --------------------
             -- AGC Running
             --------------------
-            else --if AGC_MODE /= "00" then
+            else --if agc_mode_s /= "00" then
                AGC_reseti <= '0';
                
                case AGC_state is
@@ -222,7 +298,7 @@ begin
                      end if; 
                      
                   when DONE => -- GEN interrupt and wait for clear mem
-                     if AGC_CTRL_CLEARMEM = '1' then
+                     if agc_ctrl_clearmem_s = '1' then
                         cumsum_ready_s   <= '0';
                         H_clearmem <= '1';
                         AGC_state   <= WAIT_CLEARMEM_DONE;
@@ -259,8 +335,7 @@ begin
             hi_cumsum_s          <= (others => '0');
             hi_cumsum_prev_s     <= (others => '0');
             hist_nb_pix_s        <= (others => '0');
-            lo_image_fraction_s  <= (others => '1');
-            hi_image_fraction_s  <= (others => '1');
+
             lo_image_fraction_fbck_s  <= (others => '1');
             hi_image_fraction_fbck_s  <= (others => '1');
             TMI_add_max          <= (others => '1');
@@ -272,12 +347,11 @@ begin
             CumSum_Acc           <= (others => '0');
             CumSum_Acc_prev      <= (others => '0');
             TMI_add_out          <= (others => '0');
-            
+               
          else
             -- Check if we are processing an histogram
-            if AGC_state = IDLE then
-               lo_image_fraction_s  <= unsigned(LO_IMAGE_FRACTION);
-               hi_image_fraction_s  <= unsigned(HI_IMAGE_FRACTION);
+            if AGC_state = IDLE  then  
+               
                lo_img_fract_found   <= '0';
                hi_img_fract_found   <= '0';
                Cumsum_valid         <= '0';
@@ -286,14 +360,14 @@ begin
                
                tmi_dval_s        <= '0';
                tmi_add_s         <= (others => '0');
-               TMI_add_max       <= unsigned(NB_BIN(TMI_add_max'range)) - 1;
+               TMI_add_max       <= unsigned(nb_bin_s(TMI_add_max'range)) - 1;
                TMI_add           <= (others => '0');
                TMI_add_done      <= '0';
                TMI_add_out       <= (others => '0');
                TMI_add_out_started <= '0';
                
             elsif AGC_state = PROC_CUMSUM then
-               if (AGC_MODE(0) = '1' and Cumsum_valid ='0' )then -- AGC IS ON and processing result is not valid yet
+               if (agc_mode_s(0) = '1' and Cumsum_valid ='0' )then -- AGC IS ON and processing result is not valid yet
                   
                   -- Generate TMI adress
                   if tmi_busy_s = '0' then

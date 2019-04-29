@@ -44,8 +44,8 @@ entity bd_wrapper is
 	AXIL_SDI_CTRL_MOSI : out t_axi4_lite_mosi;
 	AXIL_SDI_CTRL_MISO : in t_axi4_lite_miso;
 
-   UART_TO_FPGA : out t_uartns550_out;
-   FPGA_TO_UART : in t_uartns550_in;
+   UART_PROC_TX : out STD_LOGIC;
+   UART_PROC_RX : in STD_LOGIC;
    
    UART_STORAGE_RX : in STD_LOGIC;
    UART_STORAGE_TX : out STD_LOGIC;
@@ -66,35 +66,32 @@ entity bd_wrapper is
    FB_DDR3_reset_n : out STD_LOGIC;
    FB_DDR3_we_n : out STD_LOGIC;
     
-   FB_GIGE_MM2S_mosi : in t_axi4_a32_d32_read_mosi;
-   FB_GIGE_MM2S_miso : out t_axi4_a32_d32_read_miso;
-   
-   FB_GIGE_S2MM_mosi : in t_axi4_a32_d32_write_mosi;
-   FB_GIGE_S2MM_miso : out t_axi4_a32_d32_write_miso;
+   FB_GIGE_MM2S_mosi : in t_axi4_a32_read_mosi;
+   FB_GIGE_MM2S_miso : out t_axi4_d32_read_miso;
+   FB_GIGE_S2MM_mosi : in t_axi4_a32_d128_write_mosi;
+   FB_GIGE_S2MM_miso : out t_axi4_write_miso;
     
-   FB_SDI_MM2S_mosi : in t_axi4_a32_d32_read_mosi;
-   FB_SDI_MM2S_miso : out t_axi4_a32_d32_read_miso;
-   
-   FB_SDI_S2MM_mosi : in t_axi4_a32_d32_write_mosi;
-   FB_SDI_S2MM_miso : out t_axi4_a32_d32_write_miso;
+   FB_SDI_MM2S_mosi : in t_axi4_a32_read_mosi;
+   FB_SDI_MM2S_miso : out t_axi4_d32_read_miso;
+   FB_SDI_S2MM_mosi : in t_axi4_a32_d128_write_mosi;
+   FB_SDI_S2MM_miso : out t_axi4_write_miso;
 
-   ADCMUXADDR_OUT : out STD_LOGIC_VECTOR ( 4 downto 0 );
+
    LED : OUT STD_LOGIC;
    
    --QSPI
-    QSPI_IO0_IO : inout STD_LOGIC;
-    QSPI_IO1_IO : inout STD_LOGIC;
-    QSPI_IO2_IO : inout STD_LOGIC;
-    QSPI_IO3_IO : inout STD_LOGIC;
-    QSPI_SS_IO : inout STD_LOGIC;
+    QSPI_PROM_IO0_IO : inout STD_LOGIC;
+    QSPI_PROM_IO1_IO : inout STD_LOGIC;
+    QSPI_PROM_IO2_IO : inout STD_LOGIC;
+    QSPI_PROM_IO3_IO : inout STD_LOGIC;
+    QSPI_PROM_SS_IO : inout STD_LOGIC;
    
    CLK_50 : out STD_LOGIC;
-   CLK_80 : out STD_LOGIC;
-   CLK80_N : out STD_LOGIC;
-   CLK_100 : out STD_LOGIC;
-   CLK_160 : out STD_LOGIC;
-   CLK_200 : out STD_LOGIC;
-   CLK_350 : out STD_LOGIC;
+   CLK_DATA : out STD_LOGIC;
+   CLK_DATA_N : out STD_LOGIC;
+   CLK_MB : out STD_LOGIC;
+   CLK_CORE_SCALER : out STD_LOGIC;
+   
    VN : in STD_LOGIC;
    VP : in STD_LOGIC;
    SYS_CLK_2_P : in STD_LOGIC;
@@ -242,20 +239,8 @@ component core_wrapper is
     FB_DDR3_ras_n : out STD_LOGIC;
     FB_DDR3_reset_n : out STD_LOGIC;
     FB_DDR3_we_n : out STD_LOGIC;
-    FPGA_COMM_baudoutn : out STD_LOGIC;
-    FPGA_COMM_ctsn : in STD_LOGIC;
-    FPGA_COMM_dcdn : in STD_LOGIC;
-    FPGA_COMM_ddis : out STD_LOGIC;
-    FPGA_COMM_dsrn : in STD_LOGIC;
-    FPGA_COMM_dtrn : out STD_LOGIC;
-    FPGA_COMM_out1n : out STD_LOGIC;
-    FPGA_COMM_out2n : out STD_LOGIC;
-    FPGA_COMM_ri : in STD_LOGIC;
-    FPGA_COMM_rtsn : out STD_LOGIC;
-    FPGA_COMM_rxd : in STD_LOGIC;
-    FPGA_COMM_rxrdyn : out STD_LOGIC;
-    FPGA_COMM_txd : out STD_LOGIC;
-    FPGA_COMM_txrdyn : out STD_LOGIC;
+    UART_PROC_RX : in STD_LOGIC;
+    UART_PROC_TX : out STD_LOGIC;
     SYS_CLK_clk_n : in STD_LOGIC;
     SYS_CLK_clk_p : in STD_LOGIC;
     S_FB_GIGE_MM2S_araddr : in STD_LOGIC_VECTOR ( 31 downto 0 );
@@ -292,10 +277,10 @@ component core_wrapper is
     S_FB_GIGE_S2MM_bready : in STD_LOGIC;
     S_FB_GIGE_S2MM_bresp : out STD_LOGIC_VECTOR ( 1 downto 0 );
     S_FB_GIGE_S2MM_bvalid : out STD_LOGIC;
-    S_FB_GIGE_S2MM_wdata : in STD_LOGIC_VECTOR ( 31 downto 0 );
+    S_FB_GIGE_S2MM_wdata : in STD_LOGIC_VECTOR ( 127 downto 0 );
     S_FB_GIGE_S2MM_wlast : in STD_LOGIC;
     S_FB_GIGE_S2MM_wready : out STD_LOGIC;
-    S_FB_GIGE_S2MM_wstrb : in STD_LOGIC_VECTOR ( 3 downto 0 );
+    S_FB_GIGE_S2MM_wstrb : in STD_LOGIC_VECTOR ( 15 downto 0 );
     S_FB_GIGE_S2MM_wvalid : in STD_LOGIC;
     S_FB_SDI_MM2S_araddr : in STD_LOGIC_VECTOR ( 31 downto 0 );
     S_FB_SDI_MM2S_arburst : in STD_LOGIC_VECTOR ( 1 downto 0 );
@@ -331,39 +316,26 @@ component core_wrapper is
     S_FB_SDI_S2MM_bready : in STD_LOGIC;
     S_FB_SDI_S2MM_bresp : out STD_LOGIC_VECTOR ( 1 downto 0 );
     S_FB_SDI_S2MM_bvalid : out STD_LOGIC;
-    S_FB_SDI_S2MM_wdata : in STD_LOGIC_VECTOR ( 31 downto 0 );
+    S_FB_SDI_S2MM_wdata : in STD_LOGIC_VECTOR ( 127 downto 0 );
     S_FB_SDI_S2MM_wlast : in STD_LOGIC;
     S_FB_SDI_S2MM_wready : out STD_LOGIC;
-    S_FB_SDI_S2MM_wstrb : in STD_LOGIC_VECTOR ( 3 downto 0 );
+    S_FB_SDI_S2MM_wstrb : in STD_LOGIC_VECTOR ( 15 downto 0 );
     S_FB_SDI_S2MM_wvalid : in STD_LOGIC;
-    UART_STORAGE_baudoutn : out STD_LOGIC;
-    UART_STORAGE_ctsn : in STD_LOGIC;
-    UART_STORAGE_dcdn : in STD_LOGIC;
-    UART_STORAGE_ddis : out STD_LOGIC;
-    UART_STORAGE_dsrn : in STD_LOGIC;
-    UART_STORAGE_dtrn : out STD_LOGIC;
-    UART_STORAGE_out1n : out STD_LOGIC;
-    UART_STORAGE_out2n : out STD_LOGIC;
-    UART_STORAGE_ri : in STD_LOGIC;
-    UART_STORAGE_rtsn : out STD_LOGIC;
-    UART_STORAGE_rxd : in STD_LOGIC;
-    UART_STORAGE_rxrdyn : out STD_LOGIC;
-    UART_STORAGE_txd : out STD_LOGIC;
-    UART_STORAGE_txrdyn : out STD_LOGIC;
-    adcmuxaddr_out : out STD_LOGIC_VECTOR ( 4 downto 0 );
-    clk_100 : out STD_LOGIC;
-    clk_160 : out STD_LOGIC;
-    clk_200 : out STD_LOGIC;
-    clk_350 : out STD_LOGIC;
+	
+    UART_STORAGE_RX : in STD_LOGIC;
+    UART_STORAGE_TX : out STD_LOGIC;
+    clk_mb : out STD_LOGIC;
+    clk_core_scaler : out STD_LOGIC;
     clk_50 : out STD_LOGIC;
-    clk_80 : out STD_LOGIC;
-    clk_80_180 : out STD_LOGIC;
+    clk_data : out STD_LOGIC;
+    clk_data_n : out STD_LOGIC;
     led_tri_o : out STD_LOGIC_VECTOR ( 0 to 0 );
-    qspi_io0_io : inout STD_LOGIC;
-    qspi_io1_io : inout STD_LOGIC;
-    qspi_io2_io : inout STD_LOGIC;
-    qspi_io3_io : inout STD_LOGIC;
-    qspi_ss_io : inout STD_LOGIC_VECTOR ( 0 to 0 );
+    QSPI_PROM_IO0_IO : inout STD_LOGIC; 
+    QSPI_PROM_IO1_IO : inout STD_LOGIC;
+    QSPI_PROM_IO2_IO : inout STD_LOGIC;
+    QSPI_PROM_IO3_IO : inout STD_LOGIC;
+    QSPI_PROM_SS_IO : inout STD_LOGIC_VECTOR ( 0 to 0 );
+
     vn : in STD_LOGIC;
     vp : in STD_LOGIC
   );
@@ -484,36 +456,15 @@ port map (
       AXIL_PLEORA_CTRL_wready(0)      => AXIL_PLEORA_CTRL_MISO.wready,
       
     --FPGA UART WRAPPER
-    FPGA_COMM_baudoutn 	    => UART_TO_FPGA.BAUDOUTN,
-    FPGA_COMM_ddis 		    => UART_TO_FPGA.DDIS,
-    FPGA_COMM_dtrn 		    => UART_TO_FPGA.DTRN,
-    FPGA_COMM_out1n 		=> UART_TO_FPGA.OUT1N,
-    FPGA_COMM_out2n 		=> UART_TO_FPGA.OUT2N,
-    FPGA_COMM_rtsn 		    => UART_TO_FPGA.RTSN,
-    FPGA_COMM_rxrdyn 		=> UART_TO_FPGA.RXRDYN,
-    FPGA_COMM_txd 			=> UART_TO_FPGA.TXD,
-    FPGA_COMM_txrdyn 		=> UART_TO_FPGA.TXRDYN,
-    FPGA_COMM_rxd 			=> FPGA_TO_UART.RXD,
-    FPGA_COMM_ctsn 		    => FPGA_TO_UART.CTSN,
-    FPGA_COMM_dcdn 		    => FPGA_TO_UART.DCDN,
-    FPGA_COMM_dsrn 		    => FPGA_TO_UART.DSRN,
-    FPGA_COMM_ri 			=> FPGA_TO_UART.RI,
+    
+    UART_PROC_TX 			=> UART_PROC_TX,
+    UART_PROC_RX			=> UART_PROC_RX,
+
     
     --STORAGE UART WRAPPER
-    UART_STORAGE_baudoutn => open,
-    UART_STORAGE_ctsn => '0',
-    UART_STORAGE_dcdn => '0',
-    UART_STORAGE_ddis => open,
-    UART_STORAGE_dsrn => '0',
-    UART_STORAGE_dtrn => open,
-    UART_STORAGE_out1n => open,
-    UART_STORAGE_out2n => open,
-    UART_STORAGE_ri => '0',
-    UART_STORAGE_rtsn => open,
-    UART_STORAGE_rxd => UART_STORAGE_RX,
-    UART_STORAGE_rxrdyn => open,
-    UART_STORAGE_txd => UART_STORAGE_TX,
-    UART_STORAGE_txrdyn => open,
+    
+    UART_STORAGE_RX => UART_STORAGE_RX,
+    UART_STORAGE_TX => UART_STORAGE_TX,
     
     --FB Mem
     FB_DDR3_addr    => FB_DDR3_addr,    
@@ -532,13 +483,11 @@ port map (
     FB_DDR3_reset_n => FB_DDR3_reset_n, 
     FB_DDR3_we_n    => FB_DDR3_we_n,
     
-    clk_50     => clk_50,
-    clk_80 => clk_80,
-    clk_80_180 => CLK80_N,
-    clk_100     => clk_100,     
-    clk_160     => clk_160,     
-    clk_200     => clk_200,
-    clk_350     => CLK_350,
+    clk_50     => CLK_50,
+    clk_data     => CLK_DATA,
+    clk_data_n   => CLK_DATA_N,
+    clk_mb    => CLK_MB,
+    clk_core_scaler    => CLK_CORE_SCALER,
 
     vn       => vn,       
     vp       => vp,
@@ -552,8 +501,6 @@ port map (
    AGC_INTR(0) => AGC_INTR,
     
     
-	--TO BE CONNECTED
-   --FB_MEMORY
    --GIGE MM2S interface
     S_FB_GIGE_MM2S_araddr       => FB_GIGE_MM2S_mosi.araddr  ,
     S_FB_GIGE_MM2S_arid(0)      => FB_GIGE_MM2S_mosi.arid(0)  ,
@@ -575,7 +522,7 @@ port map (
     S_FB_GIGE_MM2S_rresp        => FB_GIGE_MM2S_miso.rresp  ,
     S_FB_GIGE_MM2S_rvalid       => FB_GIGE_MM2S_miso.rvalid ,
 
-    --GIGE SS2MM interface
+    --GIGE S2MM interface
     S_FB_GIGE_S2MM_awaddr       => FB_GIGE_S2MM_mosi.awaddr  ,
     S_FB_GIGE_S2MM_awid(0)      => FB_GIGE_S2MM_mosi.awid(0) ,
     S_FB_GIGE_S2MM_awburst      => FB_GIGE_S2MM_mosi.awburst ,
@@ -599,11 +546,13 @@ port map (
     S_FB_GIGE_S2MM_wready       => FB_GIGE_S2MM_miso.wready,
     
     --QSPI
-    qspi_io0_io => QSPI_IO0_IO,
-    qspi_io1_io => QSPI_IO1_IO,
-    qspi_io2_io => QSPI_IO2_IO,
-    qspi_io3_io => QSPI_IO3_IO,
-    qspi_ss_io(0)  => QSPI_SS_IO,
+    QSPI_PROM_IO0_IO => QSPI_PROM_IO0_IO,
+    QSPI_PROM_IO1_IO => QSPI_PROM_IO1_IO,
+    QSPI_PROM_IO2_IO => QSPI_PROM_IO2_IO,
+    QSPI_PROM_IO3_IO => QSPI_PROM_IO3_IO,
+    QSPI_PROM_SS_IO(0) => QSPI_PROM_SS_IO,
+    
+
     
    -- SDI_CTRL
    AXIL_SDI_CTRL_araddr         => AXIL_SDI_CTRL_MOSI.araddr,

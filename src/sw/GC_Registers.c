@@ -30,7 +30,7 @@
 
 /* AUTO-CODE BEGIN */
 // Auto-generated GeniCam library.
-// Generated from XML camera definition file version 12.3.0
+// Generated from XML camera definition file version 12.5.0
 // using generateGenICamCLib.m Matlab script.
 
 // GenICam global variables definition
@@ -45,9 +45,11 @@ gcRegistersData_t gcRegsDataFactory = {
    /* DeviceClockFrequency = */ 0.0F,
    /* DeviceTemperature = */ 0.0F,
    /* DeviceVoltage = */ 0.0F,
-   /* VideoAGCFractionMax = */ 0.0F,
-   /* VideoAGCFractionMin = */ 0.0F,
-   /* VideoAGCResponseTime = */ 0.0F,
+   /* VideoAGCFractionMax = */ 99.0F,
+   /* VideoAGCFractionMaxMin = */ 2.0F,
+   /* VideoAGCFractionMin = */ 1.0F,
+   /* VideoAGCFractionMinMax = */ 98.0F,
+   /* VideoAGCResponseTime = */ 0.100F,
    /* DeviceFirmwareModuleRevision = */ 0,
    /* AcquisitionArm = */ 0,
    /* AcquisitionFrameRateMode = */ 0,
@@ -62,6 +64,7 @@ gcRegistersData_t gcRegsDataFactory = {
    /* DeviceTapGeometry = */ DTG_Geometry_1X4_1Y,
    /* DeviceTemperatureSelector = */ 0,
    /* DeviceVoltageSelector = */ 0,
+   /* EHDRINumberOfExposures = */ 0,
    /* EventError = */ 0,
    /* EventErrorCode = */ 0,
    /* EventErrorTimestamp = */ 0,
@@ -71,6 +74,7 @@ gcRegistersData_t gcRegsDataFactory = {
    /* EventTelopsCode = */ 0,
    /* EventTelopsTimestamp = */ 0,
    /* FValSize = */ 0,
+   /* FWMode = */ 0,
    /* Height = */ 0,
    /* IsActiveFlags = */ 0,
    /* LValSize = */ 0,
@@ -90,8 +94,8 @@ gcRegistersData_t gcRegsDataFactory = {
    /* SensorHeight = */ 0,
    /* SensorWidth = */ 0,
    /* VideoAGC = */ 0,
-   /* VideoColorMap = */ 0,
-   /* VideoColorMapMax = */ 0,
+   /* VideoColorMap = */ VCM_Gray,
+   /* VideoColorMapMax = */ 65535,
    /* VideoColorMapMin = */ 0,
    /* VideoDigitalZoomFactor = */ VDZF_x1,
    /* VideoDigitalZoomFactorMax = */ 32,
@@ -100,6 +104,8 @@ gcRegistersData_t gcRegsDataFactory = {
    /* VideoDigitalZoomOffsetX = */ 0,
    /* VideoDigitalZoomOffsetY = */ 0,
    /* VideoDigitalZoomWidth = */ 0,
+   /* VideoEHDRIExposureIndex = */ VEHDRIEI_Exposure1,
+   /* VideoFWPosition = */ VFWP_Filter1,
    /* VideoFreeze = */ 0,
    /* VideoReverseX = */ 1,
    /* VideoReverseY = */ 1,
@@ -158,7 +164,9 @@ void GC_Registers_Init()
    gcRegsDef[DeviceTemperatureIdx].p_data = &gcRegsData.DeviceTemperature;
    gcRegsDef[DeviceVoltageIdx].p_data = &gcRegsData.DeviceVoltage;
    gcRegsDef[VideoAGCFractionMaxIdx].p_data = &gcRegsData.VideoAGCFractionMax;
+   gcRegsDef[VideoAGCFractionMaxMinIdx].p_data = &gcRegsData.VideoAGCFractionMaxMin;
    gcRegsDef[VideoAGCFractionMinIdx].p_data = &gcRegsData.VideoAGCFractionMin;
+   gcRegsDef[VideoAGCFractionMinMaxIdx].p_data = &gcRegsData.VideoAGCFractionMinMax;
    gcRegsDef[VideoAGCResponseTimeIdx].p_data = &gcRegsData.VideoAGCResponseTime;
    gcRegsDef[DeviceFirmwareModuleRevisionIdx].p_data = &gcRegsData.DeviceFirmwareModuleRevision;
    gcRegsDef[AcquisitionArmIdx].p_data = &gcRegsData.AcquisitionArm;
@@ -174,6 +182,7 @@ void GC_Registers_Init()
    gcRegsDef[DeviceTapGeometryIdx].p_data = &gcRegsData.DeviceTapGeometry;
    gcRegsDef[DeviceTemperatureSelectorIdx].p_data = &gcRegsData.DeviceTemperatureSelector;
    gcRegsDef[DeviceVoltageSelectorIdx].p_data = &gcRegsData.DeviceVoltageSelector;
+   gcRegsDef[EHDRINumberOfExposuresIdx].p_data = &gcRegsData.EHDRINumberOfExposures;
    gcRegsDef[EventErrorIdx].p_data = &gcRegsData.EventError;
    gcRegsDef[EventErrorCodeIdx].p_data = &gcRegsData.EventErrorCode;
    gcRegsDef[EventErrorTimestampIdx].p_data = &gcRegsData.EventErrorTimestamp;
@@ -183,6 +192,7 @@ void GC_Registers_Init()
    gcRegsDef[EventTelopsCodeIdx].p_data = &gcRegsData.EventTelopsCode;
    gcRegsDef[EventTelopsTimestampIdx].p_data = &gcRegsData.EventTelopsTimestamp;
    gcRegsDef[FValSizeIdx].p_data = &gcRegsData.FValSize;
+   gcRegsDef[FWModeIdx].p_data = &gcRegsData.FWMode;
    gcRegsDef[HeightIdx].p_data = &gcRegsData.Height;
    gcRegsDef[IsActiveFlagsIdx].p_data = &gcRegsData.IsActiveFlags;
    gcRegsDef[LValSizeIdx].p_data = &gcRegsData.LValSize;
@@ -212,6 +222,8 @@ void GC_Registers_Init()
    gcRegsDef[VideoDigitalZoomOffsetXIdx].p_data = &gcRegsData.VideoDigitalZoomOffsetX;
    gcRegsDef[VideoDigitalZoomOffsetYIdx].p_data = &gcRegsData.VideoDigitalZoomOffsetY;
    gcRegsDef[VideoDigitalZoomWidthIdx].p_data = &gcRegsData.VideoDigitalZoomWidth;
+   gcRegsDef[VideoEHDRIExposureIndexIdx].p_data = &gcRegsData.VideoEHDRIExposureIndex;
+   gcRegsDef[VideoFWPositionIdx].p_data = &gcRegsData.VideoFWPosition;
    gcRegsDef[VideoFreezeIdx].p_data = &gcRegsData.VideoFreeze;
    gcRegsDef[VideoReverseXIdx].p_data = &gcRegsData.VideoReverseX;
    gcRegsDef[VideoReverseYIdx].p_data = &gcRegsData.VideoReverseY;
@@ -231,7 +243,15 @@ void GC_UpdateLockedFlag()
 {
 /* AUTO-CODE REGLOCKED BEGIN */
    SetRegLocked(&gcRegsDef[AcquisitionFrameRateMaxFGIdx], GC_AcquisitionStarted);
+   SetRegLocked(&gcRegsDef[VideoColorMapIdx], GC_AutofocusIsActive);
+   SetRegLocked(&gcRegsDef[VideoColorMapMinIdx], GC_AutofocusIsActive);
+   SetRegLocked(&gcRegsDef[VideoColorMapMaxIdx], GC_AutofocusIsActive);
    SetRegLocked(&gcRegsDef[VideoDigitalZoomFactorIdx], GC_AutofocusIsActive);
+   SetRegLocked(&gcRegsDef[VideoEHDRIExposureIndexIdx], GC_AutofocusIsActive);
+   SetRegLocked(&gcRegsDef[VideoFWPositionIdx], GC_AutofocusIsActive);
+   SetRegLocked(&gcRegsDef[VideoAGCFractionMinIdx], GC_AutofocusIsActive);
+   SetRegLocked(&gcRegsDef[VideoAGCFractionMaxIdx], GC_AutofocusIsActive);
+   SetRegLocked(&gcRegsDef[VideoAGCResponseTimeIdx], GC_AutofocusIsActive);
    SetRegLocked(&gcRegsDef[VideoReverseXIdx], GC_AutofocusIsActive);
    SetRegLocked(&gcRegsDef[VideoReverseYIdx], GC_AutofocusIsActive);
    SetRegLocked(&gcRegsDef[DeviceTapGeometryIdx], GC_AcquisitionStarted);
@@ -267,27 +287,27 @@ void GC_UpdateCameraLink()
    GC_SetFValSize((gcRegsData.Height + 2) * frameImageCount);
    gcRegsData.PayloadSize = gcRegsData.FValSize * gcRegsData.Width * 2;
 
-   // Only CC_Full is supported for now
-   /*switch(gcRegsData.ClConfiguration)
+   switch(gcRegsData.ClConfiguration)
    {
       case CC_Base:
+      case CC_DualBase:
          gcRegsData.LValSize = gcRegsData.Width;
          gcRegsData.DeviceTapGeometry = DTG_Geometry_1X_1Y;
          break;
 
-      case CC_Full:*/
+      case CC_Full:
+      default:
          gcRegsData.LValSize = gcRegsData.Width/4;
          gcRegsData.DeviceTapGeometry = DTG_Geometry_1X4_1Y;
-         /*break;
-   }*/
+         break;
+   }
 }
 
 void GC_UpdateFrameBuffer()
 {
    extern t_FrameBuffer gFrameBufferCtrl;
 
-   // TODO Check FB mode fow now all will be hardcoded
-   FrameBuffer_Enable(&gFrameBufferCtrl, FB_INVALID);
+   FrameBuffer_Enable(&gFrameBufferCtrl, FBC_INVALID);
    FrameBuffer_SendConfigGC(&gFrameBufferCtrl, &gcRegsData);
 }
 
@@ -295,25 +315,22 @@ void GC_UpdateGiGe()
 {
    extern t_PleoraIntf gPleoraIntfCtrl;
 
-   // TODO GIGE cfg hardcoded for now 
-
    PleoraIntf_SendConfigGC(&gPleoraIntfCtrl, &gcRegsData);
 }
 
 void GC_UpdateVideoConfiguration()
 {
-   extern t_SdiIntf gSdiIntfCtrl;
-
    // Check if config is valid
    if(gcRegsData.Width != 0 && gcRegsData.Height != 0)
    {
-      SDIIntf_SendConfigGC(&gSdiIntfCtrl, &gcRegsData);
+      SDIIntf_SetChangeInputWindowSM();
    }
 }
 
 void GC_UpdateVideoColorRange()
 {
    extern t_SdiIntf gSdiIntfCtrl;
+
    Cmap_UpdateRange(&gSdiIntfCtrl, gcRegsData.VideoColorMapMin, gcRegsData.VideoColorMapMax);
 }
 
@@ -321,6 +338,7 @@ void GC_UpdateVideoAGCImageFraction()
 {
    extern t_AGC gAgcCtrl;
    extern t_SdiIntf gSdiIntfCtrl;
+
    AGC_UpdateImageFraction(&gcRegsData, &gAgcCtrl, &gSdiIntfCtrl);
 }
 

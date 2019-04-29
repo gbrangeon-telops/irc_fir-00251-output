@@ -43,7 +43,7 @@ entity agc_tb_stim is
       --------------------------------
       -- MISC
       --------------------------------
-      CLK160   : out STD_LOGIC;
+      CLK85   : out STD_LOGIC;
       CLK100   : out STD_LOGIC;
       ARESETN  : out STD_LOGIC
    );
@@ -68,25 +68,26 @@ architecture rtl of agc_tb_stim is
    constant AGCMODE_ADDR                  : std_logic_vector(C_S_AXI_ADDR_WIDTH-1 downto 0) := std_logic_vector(to_unsigned(8, C_S_AXI_ADDR_WIDTH));
    constant NB_BIN_ADDR                   : std_logic_vector(C_S_AXI_ADDR_WIDTH-1 downto 0) := std_logic_vector(to_unsigned(12,C_S_AXI_ADDR_WIDTH));
    constant MSB_POS_ADDR                  : std_logic_vector(C_S_AXI_ADDR_WIDTH-1 downto 0) := std_logic_vector(to_unsigned(16,C_S_AXI_ADDR_WIDTH));
-   constant CLEARMEM_ADDR                 : std_logic_vector(C_S_AXI_ADDR_WIDTH-1 downto 0) := std_logic_vector(to_unsigned(20,C_S_AXI_ADDR_WIDTH));
-   constant HIST_LO_BINID_PREV_ADDR       : std_logic_vector(C_S_AXI_ADDR_WIDTH-1 downto 0) := std_logic_vector(to_unsigned(24,C_S_AXI_ADDR_WIDTH));
-   constant HIST_LO_CUMSUM_ADDR           : std_logic_vector(C_S_AXI_ADDR_WIDTH-1 downto 0) := std_logic_vector(to_unsigned(28,C_S_AXI_ADDR_WIDTH));
-   constant HIST_LO_CUMSUM_PREV_ADDR      : std_logic_vector(C_S_AXI_ADDR_WIDTH-1 downto 0) := std_logic_vector(to_unsigned(32,C_S_AXI_ADDR_WIDTH));
-   constant HIST_HI_BINID_PREV_ADDR       : std_logic_vector(C_S_AXI_ADDR_WIDTH-1 downto 0) := std_logic_vector(to_unsigned(36,C_S_AXI_ADDR_WIDTH));
-   constant HIST_HI_CUMSUM_ADDR           : std_logic_vector(C_S_AXI_ADDR_WIDTH-1 downto 0) := std_logic_vector(to_unsigned(40,C_S_AXI_ADDR_WIDTH));
-   constant HIST_HI_CUMSUM_PREV_ADDR      : std_logic_vector(C_S_AXI_ADDR_WIDTH-1 downto 0) := std_logic_vector(to_unsigned(44,C_S_AXI_ADDR_WIDTH));
-   constant HIST_TIMESTAMP_ADDR           : std_logic_vector(C_S_AXI_ADDR_WIDTH-1 downto 0) := std_logic_vector(to_unsigned(48,C_S_AXI_ADDR_WIDTH));
-   constant HIST_NB_PIXEL_ADDR            : std_logic_vector(C_S_AXI_ADDR_WIDTH-1 downto 0) := std_logic_vector(to_unsigned(52,C_S_AXI_ADDR_WIDTH));
-   constant LO_IMAGE_FRACTION_FBCK_ADDR   : std_logic_vector(C_S_AXI_ADDR_WIDTH-1 downto 0) := std_logic_vector(to_unsigned(56,C_S_AXI_ADDR_WIDTH));
-   constant HI_IMAGE_FRACTION_FBCK_ADDR   : std_logic_vector(C_S_AXI_ADDR_WIDTH-1 downto 0) := std_logic_vector(to_unsigned(60,C_S_AXI_ADDR_WIDTH));
-   
+   constant CLEARMEM_ADDR                 : std_logic_vector(C_S_AXI_ADDR_WIDTH-1 downto 0) := std_logic_vector(to_unsigned(20,C_S_AXI_ADDR_WIDTH)); 
+   constant NEW_CONFIG_FLAG_ADDR          : std_logic_vector(C_S_AXI_ADDR_WIDTH-1 downto 0) := std_logic_vector(to_unsigned(24,C_S_AXI_ADDR_WIDTH));
+   constant HIST_LO_BINID_PREV_ADDR       : std_logic_vector(C_S_AXI_ADDR_WIDTH-1 downto 0) := std_logic_vector(to_unsigned(28,C_S_AXI_ADDR_WIDTH));
+   constant HIST_LO_CUMSUM_ADDR           : std_logic_vector(C_S_AXI_ADDR_WIDTH-1 downto 0) := std_logic_vector(to_unsigned(32,C_S_AXI_ADDR_WIDTH));
+   constant HIST_LO_CUMSUM_PREV_ADDR      : std_logic_vector(C_S_AXI_ADDR_WIDTH-1 downto 0) := std_logic_vector(to_unsigned(36,C_S_AXI_ADDR_WIDTH));
+   constant HIST_HI_BINID_PREV_ADDR       : std_logic_vector(C_S_AXI_ADDR_WIDTH-1 downto 0) := std_logic_vector(to_unsigned(40,C_S_AXI_ADDR_WIDTH));
+   constant HIST_HI_CUMSUM_ADDR           : std_logic_vector(C_S_AXI_ADDR_WIDTH-1 downto 0) := std_logic_vector(to_unsigned(44,C_S_AXI_ADDR_WIDTH));
+   constant HIST_HI_CUMSUM_PREV_ADDR      : std_logic_vector(C_S_AXI_ADDR_WIDTH-1 downto 0) := std_logic_vector(to_unsigned(48,C_S_AXI_ADDR_WIDTH));
+   constant HIST_TIMESTAMP_ADDR           : std_logic_vector(C_S_AXI_ADDR_WIDTH-1 downto 0) := std_logic_vector(to_unsigned(52,C_S_AXI_ADDR_WIDTH));
+   constant HIST_NB_PIXEL_ADDR            : std_logic_vector(C_S_AXI_ADDR_WIDTH-1 downto 0) := std_logic_vector(to_unsigned(56,C_S_AXI_ADDR_WIDTH));
+   constant LO_IMAGE_FRACTION_FBCK_ADDR   : std_logic_vector(C_S_AXI_ADDR_WIDTH-1 downto 0) := std_logic_vector(to_unsigned(60,C_S_AXI_ADDR_WIDTH));
+   constant HI_IMAGE_FRACTION_FBCK_ADDR   : std_logic_vector(C_S_AXI_ADDR_WIDTH-1 downto 0) := std_logic_vector(to_unsigned(64,C_S_AXI_ADDR_WIDTH));
 
+   
    -- CLK and RESET
    constant clk160_per : time := 6.25 ns;
    constant clk100_per : time := 10 ns;
-   
+   constant CLK85_PERIOD : time := 11.764 ns; -- 85 MHz
    -- CLK and RESET
-   signal clk160_o : std_logic := '0';
+   signal clk85_o : std_logic := '0';
    signal clk100_o : std_logic := '0';
    signal rstn_i : std_logic := '0';
    
@@ -112,14 +113,14 @@ architecture rtl of agc_tb_stim is
 
 begin
    --! Assign clock
-   CLK160 <= clk160_o;
+   CLK85 <= clk85_o;
    CLK100 <= clk100_o;
    ARESETN <= rstn_i;
 
-   --! Clock 160MHz generation                   
-   CLK160_GEN: process(clk160_o)
+   --! Clock 85MHz generation                   
+   CLK85_GEN: process(clk85_o)
    begin
-      clk160_o <= not clk160_o after clk160_per/2;                          
+      clk85_o <= not clk85_o after CLK85_PERIOD/2;                          
    end process;
    
    --! Clock 100MHz generation 
@@ -155,11 +156,11 @@ begin
          for pxl_cnt in 1 to NB_PIXEL loop
             -- Adjust tlast if last pixel
             if pxl_cnt = NB_PIXEL then
-               write_axis16(clk160_o, std_logic_vector(to_unsigned(stream_val, AXI_STREAM_DATA_WIDTH)), '1', AXI_STREAM_MISO, AXI_STREAM_MOSI);
+               write_axis16(clk85_o, std_logic_vector(to_unsigned(stream_val, AXI_STREAM_DATA_WIDTH)), '1', AXI_STREAM_MISO, AXI_STREAM_MOSI);
                --stream_val <= stream_val + 16;
                stream_val <= 0;
             else
-               write_axis16(clk160_o, std_logic_vector(to_unsigned(stream_val, AXI_STREAM_DATA_WIDTH)), '0', AXI_STREAM_MISO, AXI_STREAM_MOSI);
+               write_axis16(clk85_o, std_logic_vector(to_unsigned(stream_val, AXI_STREAM_DATA_WIDTH)), '0', AXI_STREAM_MISO, AXI_STREAM_MOSI);
                stream_val <= stream_val + 2**AXI_STREAM_DATA_WIDTH / NB_PIXEL;
             end if;
             wait for 5 ns;
@@ -204,6 +205,19 @@ begin
       wait until rising_edge(clk100_o);
       write_axi_lite(clk100_o, AGCMODE_ADDR, std_logic_vector(to_unsigned(1, C_S_AXI_DATA_WIDTH)), AXIL_MISO, AXIL_MOSI);
       wait for 5 ns;
+      wait until rising_edge(clk100_o);
+      write_axi_lite(clk100_o, NEW_CONFIG_FLAG_ADDR, std_logic_vector(to_unsigned(0, C_S_AXI_DATA_WIDTH)), AXIL_MISO, AXIL_MOSI);
+      wait for 5 ns; 
+      
+      -- Toggle new config flag 
+      wait until rising_edge(clk100_o);
+      write_axi_lite(clk100_o, NEW_CONFIG_FLAG_ADDR, std_logic_vector(to_unsigned(1, C_S_AXI_DATA_WIDTH)), AXIL_MISO, AXIL_MOSI);
+      wait for 5 ns; 
+      wait until rising_edge(clk100_o);
+      write_axi_lite(clk100_o, NEW_CONFIG_FLAG_ADDR, std_logic_vector(to_unsigned(0, C_S_AXI_DATA_WIDTH)), AXIL_MISO, AXIL_MOSI);
+      wait for 5 ns;
+      
+      
       
       GET_VAL_LOOP : loop
          -- Wait for interrupt
@@ -229,7 +243,16 @@ begin
          wait for 5 ns;
          wait until rising_edge(clk100_o);
          write_axi_lite(clk100_o, HI_IMAGE_FRACTION_ADDR, std_logic_vector(to_unsigned(hi_image_fraction_o, C_S_AXI_DATA_WIDTH)), AXIL_MISO, AXIL_MOSI);
+         wait for 5 ns; 
+         
+         -- Toggle new config flag 
+         wait until rising_edge(clk100_o);
+         write_axi_lite(clk100_o, NEW_CONFIG_FLAG_ADDR, std_logic_vector(to_unsigned(1, C_S_AXI_DATA_WIDTH)), AXIL_MISO, AXIL_MOSI);
+         wait for 5 ns; 
+         wait until rising_edge(clk100_o);
+         write_axi_lite(clk100_o, NEW_CONFIG_FLAG_ADDR, std_logic_vector(to_unsigned(0, C_S_AXI_DATA_WIDTH)), AXIL_MISO, AXIL_MOSI);
          wait for 5 ns;
+      
          
          -- Get values
          wait until rising_edge(clk100_o);

@@ -28,7 +28,7 @@ builtInTest_t builtInTests[BITID_Count] =
    {BITID_LedControllerInitialization, "Initializing LEDs controller", Output_Led_Init, BITR_Pending},
    {BITID_QSPIFlashInerfaceInitialization, "Initializing QSPI flash interface", Output_QSPIFlash_Init, BITR_Pending},
    {BITID_FirmwareUpdaterInitialization, "Initializing firmware update", Output_FU_Init, BITR_Pending},
-   {BITID_FANControllerInitialization, "Initializing fan controller", Output_Fan_Init, BITR_Pending},
+   {BITID_FANControllerInitialization, "Initializing fan controller (obsolete)", NULL, BITR_Passed},     // Obsolete
    {BITID_ADCControllerInitialization, "Initializing ADC controller", Output_XADC_Init, BITR_Pending},
    {BITID_InterruptControllerStartup, "Starting interrupt controller", Output_Intc_Start, BITR_Pending},
    {BITID_AGCControllerInitialization, "Initializing automatic Gain Controller", Output_AGC_Init, BITR_Pending},

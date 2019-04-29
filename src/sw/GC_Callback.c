@@ -31,9 +31,12 @@
 #include "AGC.h"
 #include "output_init.h"
 
+
+extern t_SdiIntf gSdiIntfCtrl;
+
 /* AUTO-CODE BEGIN */
 // Auto-generated GeniCam registers callback functions definition.
-// Generated from XML camera definition file version 12.3.0
+// Generated from XML camera definition file version 12.5.0
 // using updateGenICamCallback.m Matlab script.
 
 /**
@@ -60,6 +63,7 @@ void GC_Callback_Init()
    gcRegsDef[DeviceTemperatureSelectorIdx].callback =          &GC_DeviceTemperatureSelectorCallback;
    gcRegsDef[DeviceVoltageIdx].callback =                      &GC_DeviceVoltageCallback;
    gcRegsDef[DeviceVoltageSelectorIdx].callback =              &GC_DeviceVoltageSelectorCallback;
+   gcRegsDef[EHDRINumberOfExposuresIdx].callback =             &GC_EHDRINumberOfExposuresCallback;
    gcRegsDef[EventErrorIdx].callback =                         &GC_EventErrorCallback;
    gcRegsDef[EventErrorCodeIdx].callback =                     &GC_EventErrorCodeCallback;
    gcRegsDef[EventErrorTimestampIdx].callback =                &GC_EventErrorTimestampCallback;
@@ -69,6 +73,7 @@ void GC_Callback_Init()
    gcRegsDef[EventTelopsCodeIdx].callback =                    &GC_EventTelopsCodeCallback;
    gcRegsDef[EventTelopsTimestampIdx].callback =               &GC_EventTelopsTimestampCallback;
    gcRegsDef[FValSizeIdx].callback =                           &GC_FValSizeCallback;
+   gcRegsDef[FWModeIdx].callback =                             &GC_FWModeCallback;
    gcRegsDef[HeightIdx].callback =                             &GC_HeightCallback;
    gcRegsDef[IsActiveFlagsIdx].callback =                      &GC_IsActiveFlagsCallback;
    gcRegsDef[LValSizeIdx].callback =                           &GC_LValSizeCallback;
@@ -89,7 +94,9 @@ void GC_Callback_Init()
    gcRegsDef[SensorWidthIdx].callback =                        &GC_SensorWidthCallback;
    gcRegsDef[VideoAGCIdx].callback =                           &GC_VideoAGCCallback;
    gcRegsDef[VideoAGCFractionMaxIdx].callback =                &GC_VideoAGCFractionMaxCallback;
+   gcRegsDef[VideoAGCFractionMaxMinIdx].callback =             &GC_VideoAGCFractionMaxMinCallback;
    gcRegsDef[VideoAGCFractionMinIdx].callback =                &GC_VideoAGCFractionMinCallback;
+   gcRegsDef[VideoAGCFractionMinMaxIdx].callback =             &GC_VideoAGCFractionMinMaxCallback;
    gcRegsDef[VideoAGCResponseTimeIdx].callback =               &GC_VideoAGCResponseTimeCallback;
    gcRegsDef[VideoColorMapIdx].callback =                      &GC_VideoColorMapCallback;
    gcRegsDef[VideoColorMapMaxIdx].callback =                   &GC_VideoColorMapMaxCallback;
@@ -101,6 +108,8 @@ void GC_Callback_Init()
    gcRegsDef[VideoDigitalZoomOffsetXIdx].callback =            &GC_VideoDigitalZoomOffsetXCallback;
    gcRegsDef[VideoDigitalZoomOffsetYIdx].callback =            &GC_VideoDigitalZoomOffsetYCallback;
    gcRegsDef[VideoDigitalZoomWidthIdx].callback =              &GC_VideoDigitalZoomWidthCallback;
+   gcRegsDef[VideoEHDRIExposureIndexIdx].callback =            &GC_VideoEHDRIExposureIndexCallback;
+   gcRegsDef[VideoFWPositionIdx].callback =                    &GC_VideoFWPositionCallback;
    gcRegsDef[VideoFreezeIdx].callback =                        &GC_VideoFreezeCallback;
    gcRegsDef[VideoReverseXIdx].callback =                      &GC_VideoReverseXCallback;
    gcRegsDef[VideoReverseYIdx].callback =                      &GC_VideoReverseYCallback;
@@ -229,14 +238,9 @@ void GC_AcquisitionStopCallback(gcCallbackPhase_t phase, gcCallbackAccess_t acce
  */
 void GC_CalibrationModeCallback(gcCallbackPhase_t phase, gcCallbackAccess_t access)
 {
-   if ((phase == GCCP_BEFORE) && (access == GCCA_READ))
-   {
-      // Before read
-   }
-
    if ((phase == GCCP_AFTER) && (access == GCCA_WRITE))
    {
-      // After write
+      SDIIntf_UpdateVideoDataHandler(&gSdiIntfCtrl, &gcRegsData);
    }
 }
 
@@ -437,6 +441,21 @@ void GC_DeviceVoltageSelectorCallback(gcCallbackPhase_t phase, gcCallbackAccess_
 }
 
 /**
+ * EHDRINumberOfExposures GenICam register callback function.
+ *
+ * @param phase indicates whether the function is called before or
+ *    after the read or write operation.
+ * @param access indicates whether the operation is read or write.
+ */
+void GC_EHDRINumberOfExposuresCallback(gcCallbackPhase_t phase, gcCallbackAccess_t access)
+{
+   if ((phase == GCCP_AFTER) && (access == GCCA_WRITE))
+   {
+      SDIIntf_UpdateVideoDataHandler(&gSdiIntfCtrl, &gcRegsData);
+   }
+}
+
+/**
  * EventError GenICam register callback function.
  * 
  * @param phase indicates whether the function is called before or
@@ -588,6 +607,21 @@ void GC_FValSizeCallback(gcCallbackPhase_t phase, gcCallbackAccess_t access)
 }
 
 /**
+ * FWMode GenICam register callback function.
+ *
+ * @param phase indicates whether the function is called before or
+ *    after the read or write operation.
+ * @param access indicates whether the operation is read or write.
+ */
+void GC_FWModeCallback(gcCallbackPhase_t phase, gcCallbackAccess_t access)
+{
+   if ((phase == GCCP_AFTER) && (access == GCCA_WRITE))
+   {
+      SDIIntf_UpdateVideoDataHandler(&gSdiIntfCtrl, &gcRegsData);
+   }
+}
+
+/**
  * Height GenICam register callback function.
  * 
  * @param phase indicates whether the function is called before or
@@ -622,15 +656,6 @@ void GC_HeightCallback(gcCallbackPhase_t phase, gcCallbackAccess_t access)
  */
 void GC_IsActiveFlagsCallback(gcCallbackPhase_t phase, gcCallbackAccess_t access)
 {
-   if ((phase == GCCP_BEFORE) && (access == GCCA_READ))
-   {
-      // Before read
-   }
-
-   if ((phase == GCCP_AFTER) && (access == GCCA_WRITE))
-   {
-      // After write
-   }
 }
 
 /**
@@ -695,6 +720,10 @@ void GC_MemoryBufferMOISourceCallback(gcCallbackPhase_t phase, gcCallbackAccess_
  */
 void GC_MemoryBufferModeCallback(gcCallbackPhase_t phase, gcCallbackAccess_t access)
 {
+   if ((phase == GCCP_AFTER) && (access == GCCA_WRITE))
+   {
+      SDIIntf_UpdateVideoDataHandler(&gSdiIntfCtrl, &gcRegsData);
+   }
 }
 
 /**
@@ -722,6 +751,7 @@ void GC_MemoryBufferSequenceDownloadModeCallback(gcCallbackPhase_t phase, gcCall
       // After write
       GC_UpdateFrameBuffer();
       GC_UpdateCameraLink();
+      SDIIntf_UpdateVideoDataHandler(&gSdiIntfCtrl, &gcRegsData);
    }
 }
 
@@ -801,7 +831,7 @@ void GC_ReverseXCallback(gcCallbackPhase_t phase, gcCallbackAccess_t access)
    if ((phase == GCCP_AFTER) && (access == GCCA_WRITE))
    {
       // After write
-      GC_RegisterWriteUI32(&gcRegsDef[VideoReverseXIdx], gcRegsData.ReverseX);
+      GC_SetVideoReverseX(gcRegsData.ReverseX);
    }
 }
 
@@ -817,7 +847,7 @@ void GC_ReverseYCallback(gcCallbackPhase_t phase, gcCallbackAccess_t access)
    if ((phase == GCCP_AFTER) && (access == GCCA_WRITE))
    {
       // After write
-      GC_RegisterWriteUI32(&gcRegsDef[VideoReverseYIdx], gcRegsData.ReverseY);
+      GC_SetVideoReverseY(gcRegsData.ReverseY);
    }
 }
 
@@ -830,8 +860,6 @@ void GC_ReverseYCallback(gcCallbackPhase_t phase, gcCallbackAccess_t access)
  */
 void GC_SensorHeightCallback(gcCallbackPhase_t phase, gcCallbackAccess_t access)
 {
-   extern t_SdiIntf gSdiIntfCtrl;
-
    if ((phase == GCCP_AFTER) && (access == GCCA_WRITE))
    {
       // After write
@@ -848,8 +876,6 @@ void GC_SensorHeightCallback(gcCallbackPhase_t phase, gcCallbackAccess_t access)
  */
 void GC_SensorWidthCallback(gcCallbackPhase_t phase, gcCallbackAccess_t access)
 {
-   extern t_SdiIntf gSdiIntfCtrl;
-
    if ((phase == GCCP_AFTER) && (access == GCCA_WRITE))
    {
       // After write
@@ -888,8 +914,23 @@ void GC_VideoAGCFractionMaxCallback(gcCallbackPhase_t phase, gcCallbackAccess_t 
    if ((phase == GCCP_AFTER) && (access == GCCA_WRITE))
    {
       // After write
+
+      // Update VideoAGCFractionMinMax register
+      gcRegsData.VideoAGCFractionMinMax = gcRegsData.VideoAGCFractionMax - 1.0F;
+
       GC_UpdateVideoAGCImageFraction();
    }
+}
+
+/**
+ * VideoAGCFractionMaxMin GenICam register callback function.
+ * 
+ * @param phase indicates whether the function is called before or
+ *    after the read or write operation.
+ * @param access indicates whether the operation is read or write.
+ */
+void GC_VideoAGCFractionMaxMinCallback(gcCallbackPhase_t phase, gcCallbackAccess_t access)
+{
 }
 
 /**
@@ -904,8 +945,23 @@ void GC_VideoAGCFractionMinCallback(gcCallbackPhase_t phase, gcCallbackAccess_t 
    if ((phase == GCCP_AFTER) && (access == GCCA_WRITE))
    {
       // After write
+
+      // Update VideoAGCFractionMaxMin register
+      gcRegsData.VideoAGCFractionMaxMin = gcRegsData.VideoAGCFractionMin + 1.0F;
+
       GC_UpdateVideoAGCImageFraction();
    }
+}
+
+/**
+ * VideoAGCFractionMinMax GenICam register callback function.
+ * 
+ * @param phase indicates whether the function is called before or
+ *    after the read or write operation.
+ * @param access indicates whether the operation is read or write.
+ */
+void GC_VideoAGCFractionMinMaxCallback(gcCallbackPhase_t phase, gcCallbackAccess_t access)
+{
 }
 
 /**
@@ -928,8 +984,6 @@ void GC_VideoAGCResponseTimeCallback(gcCallbackPhase_t phase, gcCallbackAccess_t
  */
 void GC_VideoColorMapCallback(gcCallbackPhase_t phase, gcCallbackAccess_t access)
 {
-   extern t_SdiIntf gSdiIntfCtrl;
-
    if ((phase == GCCP_AFTER) && (access == GCCA_WRITE))
    {
       // After write
@@ -984,15 +1038,12 @@ void GC_VideoColorMapMinCallback(gcCallbackPhase_t phase, gcCallbackAccess_t acc
  */
 void GC_VideoDigitalZoomFactorCallback(gcCallbackPhase_t phase, gcCallbackAccess_t access)
 {
-   extern t_SdiIntf gSdiIntfCtrl;
-
    if ((phase == GCCP_AFTER) && (access == GCCA_WRITE))
    {
       // After write
       // Check if config is valid
       if(gcRegsData.Width != 0 && gcRegsData.Height != 0)
       {
-         // SDIIntf_SendZoomConfigGC(&gSdiIntfCtrl,&gcRegsData);
          SDIIntf_SetSdiPauseZoomSM(); // start SM video zoom
       }
    }
@@ -1065,22 +1116,47 @@ void GC_VideoDigitalZoomWidthCallback(gcCallbackPhase_t phase, gcCallbackAccess_
 }
 
 /**
- * VideoFreeze GenICam register callback function.
+ * VideoEHDRIExposureIndex GenICam register callback function.
  * 
+ * @param phase indicates whether the function is called before or
+ *    after the read or write operation.
+ * @param access indicates whether the operation is read or write.
+ */
+void GC_VideoEHDRIExposureIndexCallback(gcCallbackPhase_t phase, gcCallbackAccess_t access)
+{
+   if ((phase == GCCP_AFTER) && (access == GCCA_WRITE))
+   {
+      SDIIntf_UpdateVideoDataHandler(&gSdiIntfCtrl, &gcRegsData);
+   }
+}
+
+/**
+ * VideoFWPosition GenICam register callback function.
+ *
+ * @param phase indicates whether the function is called before or
+ *    after the read or write operation.
+ * @param access indicates whether the operation is read or write.
+ */
+void GC_VideoFWPositionCallback(gcCallbackPhase_t phase, gcCallbackAccess_t access)
+{
+   if ((phase == GCCP_AFTER) && (access == GCCA_WRITE))
+   {
+      SDIIntf_UpdateVideoDataHandler(&gSdiIntfCtrl, &gcRegsData);
+   }
+}
+
+/**
+ * VideoFreeze GenICam register callback function.
+ *
  * @param phase indicates whether the function is called before or
  *    after the read or write operation.
  * @param access indicates whether the operation is read or write.
  */
 void GC_VideoFreezeCallback(gcCallbackPhase_t phase, gcCallbackAccess_t access)
 {
-   if ((phase == GCCP_BEFORE) && (access == GCCA_READ))
-   {
-      // Before read
-   }
-
    if ((phase == GCCP_AFTER) && (access == GCCA_WRITE))
    {
-      // After write
+      SDIIntf_UpdateVideoDataHandler(&gSdiIntfCtrl, &gcRegsData);
    }
 }
 
@@ -1096,7 +1172,6 @@ void GC_VideoReverseXCallback(gcCallbackPhase_t phase, gcCallbackAccess_t access
    if ((phase == GCCP_AFTER) && (access == GCCA_WRITE))
    {
       // After write
-      // TODO connect with sdi intf to flip the image
       SDIIntf_SetSdiPauseFlipXSM();
    }
 }
@@ -1113,7 +1188,6 @@ void GC_VideoReverseYCallback(gcCallbackPhase_t phase, gcCallbackAccess_t access
    if ((phase == GCCP_AFTER) && (access == GCCA_WRITE))
    {
       // After write
-      // TODO connect with sdi intf to flip the image
       SDIIntf_SetSdiPauseFlipYSM();
    }
 }

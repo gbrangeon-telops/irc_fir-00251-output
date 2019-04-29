@@ -30,7 +30,7 @@ enum builtInTestIDEnum {
    BITID_LedControllerInitialization,
    BITID_QSPIFlashInerfaceInitialization,
    BITID_FirmwareUpdaterInitialization,
-   BITID_FANControllerInitialization,
+   BITID_FANControllerInitialization,     // Obsolete
    BITID_ADCControllerInitialization,
    BITID_InterruptControllerStartup,
    BITID_AGCControllerInitialization,

@@ -141,6 +141,10 @@ extern "C" {
 #define XSCL_STSERR_CODE2_MASK   0x00FF0000  /**< code 2 */
 #define XSCL_STSERR_CODE1_MASK   0x0000FF00  /**< code 1 */
 #define XSCL_STSERR_CODE0_MASK   0x000000FF  /**< code 0 */
+
+#define XSCL_ERROR_EOL_ERROR_MASK   0x00000001  /**< bit 0 : EOL_ERROR */
+#define XSCL_ERROR_SOF_ERROR_MASK   0x00000004  /**< bit 2 : SOF_ERROR */
+#define XSCL_ERROR_COEF_WR_ERROR_MASK   0x00000010  /**< bit 4 : COEF_WR_ERROR */
 /*@}*/
 
 /** @name Done Status Register bit definition

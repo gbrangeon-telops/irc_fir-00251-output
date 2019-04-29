@@ -1,245 +1,182 @@
 #include "sdi_intf.h"
 #include <string.h>
 #include "xil_assert.h"
-#include "xscaler.h"
+#include "xscaler_hw.h"
 #include "tpg.h"
 #include "utils.h"
-#include "GC_Registers.h"
 #include "mb_axi4l_bridge.h"
 #include "colormap.h"
-#include "xscaler.h"
+#include "xparameters.h"
 
-// Used for vscaler configuration
-XScaler Scaler;
-XScalerAperture Aperture;      /* Aperture setting */
-XScalerStartFraction StartFraction;   /* Luma/Chroma Start Fraction setting*/
-XScalerCoeffBank CoeffBank;      /* Coefficient bank */
+// Private functions
+static void v_scaler_init(t_SdiIntf *pSdiCtrl);
+static void XScalerSetup(XScaler *ScalerInstPtr, int ScalerInWidth, int ScalerInHeight, int ScalerOutWidth, int ScalerOutHeight);
 
-/**
- * GenICam manager state data type.
- */
-typedef enum SDIIntf_ZoomState SDIIntf_ZoomState_t;
-typedef enum SDIIntf_FlipXState SDIIntf_FlipXState_t;
-typedef enum SDIIntf_FlipYState SDIIntf_FlipYState_t;
-typedef enum SDIIntf_ChangeInputWindow SDIIntf_ChangeInputWindow_t;
+// Global variables
+static XScaler gScaler;
+static uint32_t gScalerImgHeight;
+static uint32_t gOutputImgWidth;
+static uint32_t gOutputImgHeight;
 
 // les differents modes d'operation du controleur
-SDIIntf_ZoomState_t gZoomCurrentState = ZOOM_IDLE;
-SDIIntf_FlipXState_t gFlipxCurrentState = FLIPX_IDLE;
-SDIIntf_FlipYState_t gFlipyCurrentState = FLIPY_IDLE;
-SDIIntf_ChangeInputWindow_t gChangeInputWindowCurrentState = CHANGEINPUTWINDOW_IDLE;
+static SDIIntf_ZoomState_t gZoomCurrentState = ZOOM_IDLE;
+static SDIIntf_FlipXState_t gFlipxCurrentState = FLIPX_IDLE;
+static SDIIntf_FlipYState_t gFlipyCurrentState = FLIPY_IDLE;
+static SDIIntf_ChangeInputWindow_t gChangeInputWindowCurrentState = CHANGEINPUTWINDOW_IDLE;
 
-void SDIIntf_calculateZoom(t_SdiIntf *pSdiCtrl, gcRegistersData_t *pGCRegs);
-//void XScalerIntCallBack(void *CallBackRef, u32 EventMask);
 
-void SDIIntf_ConfigureTestPattern(t_SdiIntf * pSdiIntf)
+/**
+ * Get error values.
+ *
+ * @param pSdiCtrl Pointer to the SDI controller instance.
+ *
+ * @return error values.
+ */
+uint32_t SDIIntf_GetError(const t_SdiIntf *pSdiIntf)
 {
-   TPG_WriteReg(pSdiIntf->ADD + SDIINTF_TPGOFFSET, TPG_CONTROL, 0);
-   TPG_WriteReg(pSdiIntf->ADD + SDIINTF_TPGOFFSET, TPG_ACTIVE_SIZE, (pSdiIntf->InputImgHeight << 16) | pSdiIntf->InputImgWidth);
-   TPG_WriteReg(pSdiIntf->ADD + SDIINTF_TPGOFFSET, TPG_PATTERN_CONTROL, 0xB);
-   TPG_WriteReg(pSdiIntf->ADD + SDIINTF_TPGOFFSET, TPG_MOTION_SPEED, 9);
-
-   TPG_RegUpdateEnable(pSdiIntf->ADD + SDIINTF_TPGOFFSET);
-}
-
-void SDIIntf_ConfigureOutput(t_SdiIntf * pSdiIntf)
-{
-   uint16_t MaxWidth;
-   uint16_t MaxHeight;
-
-   uint16_t offsetX;
-   uint16_t offsetY;
-
-   if (pSdiIntf->SDI_720pN_1080p == SDI_720p)
-   {
-       MaxWidth = 1270;         //720p
-       MaxHeight = 720;
-       offsetX  = 0;
-       offsetY  = 0;
-       if (pSdiIntf->ScalerImgHeight < 64)
-       {
-          MaxWidth = 640;         //720p
-          MaxHeight = 360;
-          offsetX  = (1280 - MaxWidth) / 2;
-          offsetY  = (720 - MaxHeight) / 2;
-       }
-   }
-   else
-   {
-       MaxWidth = 1910;         //1080p
-       MaxHeight = 1080;
-       offsetX  = 0;
-       offsetY  = 0;
-       if (pSdiIntf->ScalerImgHeight < 128)
-       {
-          MaxWidth = 960;         //1080p
-          MaxHeight = 540;
-          offsetX  = (1920 - MaxWidth) / 2;
-          offsetY  = (1080 - MaxHeight) / 2;
-       }
-   }
-
-   float ScaleValueWidth = ((float) MaxWidth) / ((float) pSdiIntf->ScalerImgWidth);
-   float ScaleValueHeight = ((float) MaxHeight) / ((float) pSdiIntf->ScalerImgHeight);
-
-   if (ScaleValueWidth < ScaleValueHeight) {
-      pSdiIntf->OutputImgWidth = ScaleValueWidth * pSdiIntf->ScalerImgWidth;
-      pSdiIntf->OutputImgHeight = ScaleValueWidth * pSdiIntf->ScalerImgHeight;
-   } else {
-      pSdiIntf->OutputImgWidth = ScaleValueHeight * pSdiIntf->ScalerImgWidth;
-      pSdiIntf->OutputImgHeight = ScaleValueHeight * pSdiIntf->ScalerImgHeight;
-   }
-
-   if (pSdiIntf->OutputImgHeight < 31)
-      pSdiIntf->OutputImgHeight = 31;
-
-   if (pSdiIntf->SDI_720pN_1080p == SDI_720p)
-      pSdiIntf->VerticalImgStart = ((MaxHeight - pSdiIntf->OutputImgHeight) / 2) + 26 + offsetY;      //SMPTE 296M Standard, first active video line is always 26 (720p)
-   else
-      pSdiIntf->VerticalImgStart = ((MaxHeight - pSdiIntf->OutputImgHeight) / 2) + 42 + offsetY;      //SMPTE 274M Standard, first active video line is always 42 (1080p)
-
-   pSdiIntf->VerticalImgStop = pSdiIntf->VerticalImgStart + pSdiIntf->OutputImgHeight - 1;
-
-   pSdiIntf->HorizontalImgStart = ((MaxWidth - pSdiIntf->OutputImgWidth) / 2) + 1;
-   pSdiIntf->HorizontalImgStop = pSdiIntf->HorizontalImgStart + pSdiIntf->OutputImgWidth - 1;
-
-   if (pSdiIntf->XFlip == 0){                  //Le premier pixel doit commencer à un emplacement impair si reverseX = 0 (Ycbcr est envoyé par la color map)
-      if (pSdiIntf->HorizontalImgStart % 2){ //Impair
-         pSdiIntf->HorizontalImgStart = pSdiIntf->HorizontalImgStart + 4 + offsetX;
-         pSdiIntf->HorizontalImgStop = pSdiIntf->HorizontalImgStop + 4 + offsetX;
-      } else {
-         pSdiIntf->HorizontalImgStart = pSdiIntf->HorizontalImgStart + 3 + offsetX;
-         pSdiIntf->HorizontalImgStop = pSdiIntf->HorizontalImgStop + 3 + offsetX;
-      }
-   }else{                              //Le premier pixel doit commencer à un emplacement pair si reverseX = 1 (Ycrcb est envoyé par la color map)
-      if (pSdiIntf->HorizontalImgStop % 2){  //Impair
-         pSdiIntf->HorizontalImgStart = pSdiIntf->HorizontalImgStart + 3 + offsetX;
-         pSdiIntf->HorizontalImgStop = pSdiIntf->HorizontalImgStop + 3 + offsetX;
-      } else {
-         pSdiIntf->HorizontalImgStart = pSdiIntf->HorizontalImgStart + 4 + offsetX;
-         pSdiIntf->HorizontalImgStop = pSdiIntf->HorizontalImgStop + 4 + offsetX;
-      }
-   }
-
-   pSdiIntf->OutputImgSize = pSdiIntf->OutputImgWidth * pSdiIntf->OutputImgHeight;
-
-}
-
-void SDIIntf_Init(t_SdiIntf *pSdiCtrl,  const gcRegistersData_t *pGCRegs)
-{
-      pSdiCtrl->SDI_720pN_1080p = SDI_720p;         //Select SDI output mode
-
-      AXI4L_write32( pSdiCtrl->SDI_720pN_1080p, pSdiCtrl->ADD + SDI_720pN_1080P );
-
-      if (pSdiCtrl->SDI_720pN_1080p == SDI_720p)
-      {
-         pSdiCtrl->InputImgWidth = 640;
-         pSdiCtrl->InputImgHeight = 512;
-
-         pSdiCtrl-> ScalerImgWidth = 640;
-         pSdiCtrl-> ScalerImgHeight = 512;
-
-         pSdiCtrl-> FB_Start_Pixel = 0;
-         pSdiCtrl-> FB_Width_Pixel = 640;
-         pSdiCtrl-> FB_Start_Line = 1;
-         pSdiCtrl-> FB_Stop_Line = 512;
-      }
-      else
-      {
-         pSdiCtrl->InputImgWidth = 1280;
-         pSdiCtrl->InputImgHeight = 1024;
-
-         pSdiCtrl-> ScalerImgWidth = 1280;
-         pSdiCtrl-> ScalerImgHeight = 1024;
-
-         pSdiCtrl-> FB_Start_Pixel = 0;
-         pSdiCtrl-> FB_Width_Pixel = 1280;
-         pSdiCtrl-> FB_Start_Line = 1;
-         pSdiCtrl-> FB_Stop_Line = 1024;
-      }
-
-      if(gcRegsData.Width != 0 && gcRegsData.Height != 0)
-      {
-         pSdiCtrl->InputImgWidth = pGCRegs->Width;
-         pSdiCtrl->InputImgHeight = pGCRegs->Height;
-
-         pSdiCtrl-> ScalerImgWidth = pGCRegs->Width;
-         pSdiCtrl-> ScalerImgHeight = pGCRegs->Height;
-
-         pSdiCtrl-> FB_Start_Pixel = 0;
-         pSdiCtrl-> FB_Width_Pixel = pGCRegs->Width;
-         pSdiCtrl-> FB_Start_Line = 1;
-         pSdiCtrl-> FB_Stop_Line = pGCRegs->Height;
-      }
-
-      pSdiCtrl->InputImgSize = pSdiCtrl->InputImgWidth * pSdiCtrl->InputImgHeight;
-      pSdiCtrl-> ScalerImgSize = pSdiCtrl->ScalerImgWidth * pSdiCtrl->ScalerImgHeight;
-
-      SDIIntf_ConfigureOutput(pSdiCtrl);
-
-      pSdiCtrl->NbFrameValid = 1;
-
-      pSdiCtrl->XFlip = 1;
-      pSdiCtrl->YFlip = 1;
-
-      pSdiCtrl->FBBaseAddress = 0x90000000;
-      pSdiCtrl->FBMode = 4;
-      pSdiCtrl->FBHeaderSize = 2;
-      pSdiCtrl->PatternSelector = 0;
-
-      Cmap_init(pSdiCtrl);
-
-      pSdiCtrl->SDI_PauseResetN = SDI_NOPAUSE_RESET_BIT;
-      pSdiCtrl->ConfigValid = 0;
-
-      WriteStruct(pSdiCtrl);
-
-      //xscaler init
-      v_scaler_init(pSdiCtrl);
-
-      pSdiCtrl->SDI_PauseResetN = SDI_NOPAUSE_NORESET_BIT;
-      pSdiCtrl->ConfigValid = 1;
-
-      //Activate the sdi interface
-      AXI4L_write32( pSdiCtrl->SDI_PauseResetN , pSdiCtrl->ADD + SDI_RESET_N_OFFSET );
-      AXI4L_write32( pSdiCtrl->ConfigValid, pSdiCtrl->ADD + SDI_CONFIG_VALID_OFFSET );
-
+   uint32_t error;
+   error = AXI4L_read32(pSdiIntf->ADD + SDI_AR_ERR_LATCH);
+   return error;
 }
 
 /**
- * Start SDIIntf_ChangeInputWindowSM.
- * This function is called when a new width or height is selected in GCRegs
+ * Reset error values.
  *
- * @param void
+ * @param pSdiCtrl Pointer to the SDI controller instance.
  *
  * @return void.
  */
-void SDIIntf_SendConfigGC(t_SdiIntf *pSdiCtrl, const gcRegistersData_t *pGCRegs)
+void SDIIntf_ResetErr(const t_SdiIntf *pSdiIntf)
 {
-   SDIIntf_SetChangeInputWindowSM();
+   AXI4L_write32(1, pSdiIntf->ADD + SDI_AW_RESET_ERR);           //activate
+   AXI4L_write32(0, pSdiIntf->ADD + SDI_AW_RESET_ERR);           //deactivate
 }
 
-void SDIIntf_SendZoomConfigGC(t_SdiIntf *pSdiCtrl, const gcRegistersData_t *pGCRegs)
+void SDIIntf_Init(t_SdiIntf *pSdiCtrl, const gcRegistersData_t *pGCRegs)
 {
-   // Reset the Pixel flow
+   pSdiCtrl->SDI_720pN_1080p = SDI_720p;         //Select SDI output mode
+
+   if (pSdiCtrl->SDI_720pN_1080p == SDI_720p)
+   {
+      pSdiCtrl->FB_ImgWidth = 640;
+      pSdiCtrl->FB_ImgHeight = 512;
+
+      pSdiCtrl->ScalerImgWidth = 640;
+      gScalerImgHeight = 512;
+
+      pSdiCtrl->FB_ReadStartPix = 0;
+      pSdiCtrl->FB_ReadWidth = 640;
+      pSdiCtrl->FB_ReadStartLine = 1;
+      pSdiCtrl->FB_ReadStopLine = 512;
+   }
+   else
+   {
+      pSdiCtrl->FB_ImgWidth = 1280;
+      pSdiCtrl->FB_ImgHeight = 1024;
+
+      pSdiCtrl->ScalerImgWidth = 1280;
+      gScalerImgHeight = 1024;
+
+      pSdiCtrl->FB_ReadStartPix = 0;
+      pSdiCtrl->FB_ReadWidth = 1280;
+      pSdiCtrl->FB_ReadStartLine = 1;
+      pSdiCtrl->FB_ReadStopLine = 1024;
+   }
+
+   if(pGCRegs->Width != 0 && pGCRegs->Height != 0)
+   {
+      pSdiCtrl->FB_ImgWidth = pGCRegs->Width;
+      pSdiCtrl->FB_ImgHeight = pGCRegs->Height;
+
+      pSdiCtrl->ScalerImgWidth = pGCRegs->Width;
+      gScalerImgHeight = pGCRegs->Height;
+
+      pSdiCtrl->FB_ReadStartPix = 0;
+      pSdiCtrl->FB_ReadWidth = pGCRegs->Width;
+      pSdiCtrl->FB_ReadStartLine = 1;
+      pSdiCtrl->FB_ReadStopLine = pGCRegs->Height;
+   }
+
+   pSdiCtrl->FB_ImgSize = pSdiCtrl->FB_ImgWidth * pSdiCtrl->FB_ImgHeight;
+   pSdiCtrl->ScalerImgSize = pSdiCtrl->ScalerImgWidth * gScalerImgHeight;
+
+   pSdiCtrl->XFlip = 1;
+   pSdiCtrl->YFlip = 1;
+
+   SDIIntf_ConfigureOutput(pSdiCtrl);
+
+   pSdiCtrl->FB_BaseAddress = XPAR_FB_MEMORY_MIG_7SERIES_0_BASEADDR + 0x10000000;
+   pSdiCtrl->FB_Mode = 4;     //FBMODE_SDI_STD_c
+
+   Cmap_init(pSdiCtrl);
+
+   pSdiCtrl->SDI_PauseResetN = SDI_NOPAUSE_RESETN_BIT;
+   pSdiCtrl->FB_ConfigValid = 0;
+
+   WriteStruct(pSdiCtrl);
+
+   //xscaler init
+   v_scaler_init(pSdiCtrl);
+
+   pSdiCtrl->SDI_PauseResetN = SDI_NOPAUSE_NORESETN_BIT;
+   pSdiCtrl->FB_ConfigValid = 1;
+
+   //Activate the sdi interface
+   AXI4L_write32( pSdiCtrl->SDI_PauseResetN , pSdiCtrl->ADD + SDI_PAUSE_RESET_N_OFFSET );
+   AXI4L_write32( pSdiCtrl->FB_ConfigValid, pSdiCtrl->ADD + SDI_FB_CONFIG_VALID_OFFSET );
+
+   ///// Video data handler initialization
+   AXI4L_write32(VIDEO_EHDRI_INDEX_DEFAULT, pSdiCtrl->ADD + AW_VIDEO_EHDRIINDEX );
+   AXI4L_write32(0, pSdiCtrl->ADD + AW_VIDEO_SELECTOR_ENABLE );
+   AXI4L_write32(FALSE, pSdiCtrl->ADD + AW_VIDEO_FREEZE);
 }
 
-void  v_scaler_init(t_SdiIntf *pSdiCtrl)
+void SDIIntf_UpdateVideoDataHandler(t_SdiIntf *pSdiCtrl,  const gcRegistersData_t *pGCRegs)
+{
+   uint32_t video_selector = 0;
+   uint32_t video_freeze;
+
+   // Video selector
+   if (pGCRegs->FWMode == FWM_SynchronouslyRotating)
+   {
+      video_selector |= SDI_VIDEOSELECTOR_FWPOSITION;
+      AXI4L_write32(pGCRegs->VideoFWPosition, pSdiCtrl->ADD + AW_VIDEO_FWPOSITION );
+   }
+
+   if (pGCRegs->EHDRINumberOfExposures != 1)
+   {
+      video_selector |= SDI_VIDEOSELECTOR_EHDRI;
+      AXI4L_write32(pGCRegs->VideoEHDRIExposureIndex, pSdiCtrl->ADD + AW_VIDEO_EHDRIINDEX );
+   }
+
+   // Video freeze
+   if (pGCRegs->VideoFreeze || (pGCRegs->CalibrationMode == CM_Raw0) ||
+         ((pGCRegs->MemoryBufferMode == MBM_On) && (pGCRegs->MemoryBufferSequenceDownloadMode != MBSDM_Off)))
+      video_freeze = 1;
+   else
+      video_freeze = 0;
+
+   AXI4L_write32(video_selector, pSdiCtrl->ADD + AW_VIDEO_SELECTOR_ENABLE );
+   AXI4L_write32(video_freeze, pSdiCtrl->ADD + AW_VIDEO_FREEZE);
+}
+
+
+static void v_scaler_init(t_SdiIntf *pSdiCtrl)
 {
    // Config actuelle
-    XScaler_Config ScalerCfg;
+   XScaler_Config ScalerCfg;
    ScalerCfg.DeviceId = 0;
    ScalerCfg.HoriTapNum = 2;
    ScalerCfg.VertTapNum = 2;
    ScalerCfg.MaxPhaseNum = 4;
-    ScalerCfg.CoeffSetNum = 1;
+   ScalerCfg.CoeffSetNum = 1;
    ScalerCfg.ChromaFormat = XSCL_CHROMA_FORMAT_422;
    ScalerCfg.SeparateYcCoef = 0; // false
    ScalerCfg.SeparateHvCoef = 0; // false
 
-   XScaler_CfgInitialize(&Scaler, &ScalerCfg, (pSdiCtrl->ADD + SDIINTF_SCALEROFFSET));
+   XScaler_CfgInitialize(&gScaler, &ScalerCfg, pSdiCtrl->ADD + SDIINTF_SCALEROFFSET);
 
-   XScalerSetup(&Scaler, pSdiCtrl->ScalerImgWidth, pSdiCtrl->ScalerImgHeight, pSdiCtrl->OutputImgWidth, pSdiCtrl->OutputImgHeight);
+   XScalerSetup(&gScaler, pSdiCtrl->ScalerImgWidth, gScalerImgHeight, gOutputImgWidth, gOutputImgHeight);
 }
 
 /*****************************************************************************/
@@ -267,15 +204,16 @@ void  v_scaler_init(t_SdiIntf *pSdiCtrl)
 * @note      None.
 *
 ******************************************************************************/
-void XScalerSetup(XScaler *ScalerInstPtr,
+static void XScalerSetup(XScaler *ScalerInstPtr,
          int ScalerInWidth, int ScalerInHeight,
          int ScalerOutWidth, int ScalerOutHeight)
 {
-   // RELEASE WITHOUT SCALER
-    //int i;
    u8 ChromaFormat;
    u8 ChromaLumaShareCoeffBank;
    u8 HoriVertShareCoeffBank;
+   XScalerAperture Aperture;
+   XScalerStartFraction StartFraction;
+   XScalerCoeffBank CoeffBank;
 
    /*
     * Disable the scaler before setup and tell the device not to pick up
@@ -357,7 +295,7 @@ void XScalerSetup(XScaler *ScalerInstPtr,
    Aperture.OutHoriSize = ScalerOutWidth;
 
    Aperture.SrcVertSize = ScalerInHeight;
-    Aperture.SrcHoriSize = ScalerInWidth;
+   Aperture.SrcHoriSize = ScalerInWidth;
 
    XScaler_SetAperture(ScalerInstPtr, &Aperture);
 
@@ -391,9 +329,7 @@ void XScalerSetup(XScaler *ScalerInstPtr,
 void SDIIntf_SetSdiPauseZoomSM(void)
 {
    if (gZoomCurrentState == ZOOM_IDLE)
-         {
-         gZoomCurrentState = ZOOM_PAUSE;
-         }
+      gZoomCurrentState = ZOOM_PAUSE;
 }
 
 
@@ -413,51 +349,47 @@ void SDIIntf_ZoomSM(t_SdiIntf *pSdiCtrl, gcRegistersData_t *pGCRegs)
 
    switch (gZoomCurrentState)
    {
-         case ZOOM_IDLE:
-            break;
-
-         case ZOOM_PAUSE:
-            gZoomCurrentState = ZOOM_CONFIG;
-            GETTIME(&tic);
-            pSdiCtrl->SDI_PauseResetN = SDI_PAUSE_NORESET_BIT;   //Pause Frame Buffer output at the end of image
-            pSdiCtrl->XFlip = 0;
-            WriteStruct(pSdiCtrl);
-            break;
-
-         case ZOOM_CONFIG:
-         if (elapsed_time_us(tic) > ZOOM_RESET_US) //Wait for 2 frames
-            {
-               gZoomCurrentState = ZOOM_ENABLE;
-              // Configure Output Frame
-                 pSdiCtrl->NbFrameValid = 1;
-
-               if (pGCRegs->VideoReverseX == 0)
-                  pSdiCtrl->XFlip = 0;
-               else
-                  pSdiCtrl->XFlip = 1;
-
-               SDIIntf_calculateZoom(pSdiCtrl, pGCRegs);
-
-               SDIIntf_ConfigureOutput(pSdiCtrl);
-               WriteStruct(pSdiCtrl);
-
-               GC_UpdateVideoAGCImageFraction();
-
-               XScalerSetup(&Scaler, pSdiCtrl->ScalerImgWidth, pSdiCtrl->ScalerImgHeight, pSdiCtrl->OutputImgWidth, pSdiCtrl->OutputImgHeight);
-            }
+      case ZOOM_IDLE:
          break;
 
+      case ZOOM_PAUSE:
+         gZoomCurrentState = ZOOM_CONFIG;
+         GETTIME(&tic);
+         pSdiCtrl->SDI_PauseResetN = SDI_PAUSE_NORESETN_BIT;   //Pause Frame Buffer output at the end of image
+         pSdiCtrl->XFlip = 0;
+         WriteStruct(pSdiCtrl);
+         break;
 
-         case ZOOM_ENABLE:
-            gZoomCurrentState = ZOOM_IDLE;
-            pSdiCtrl->SDI_PauseResetN = SDI_NOPAUSE_NORESET_BIT;
+      case ZOOM_CONFIG:
+         if (elapsed_time_us(tic) > ZOOM_RESET_US) //Wait for 2 frames
+         {
+            gZoomCurrentState = ZOOM_ENABLE;
+
+            if (pGCRegs->VideoReverseX == 0)
+               pSdiCtrl->XFlip = 0;
+            else
+               pSdiCtrl->XFlip = 1;
+
+            SDIIntf_calculateZoom(pSdiCtrl, pGCRegs);
+
+            SDIIntf_ConfigureOutput(pSdiCtrl);
             WriteStruct(pSdiCtrl);
-            break;
 
-         default:
-            break;
+            GC_UpdateVideoAGCImageFraction();
+
+            XScalerSetup(&gScaler, pSdiCtrl->ScalerImgWidth, gScalerImgHeight, gOutputImgWidth, gOutputImgHeight);
+         }
+         break;
+
+      case ZOOM_ENABLE:
+         gZoomCurrentState = ZOOM_IDLE;
+         pSdiCtrl->SDI_PauseResetN = SDI_NOPAUSE_NORESETN_BIT;
+         AXI4L_write32( pSdiCtrl->SDI_PauseResetN , pSdiCtrl->ADD + SDI_PAUSE_RESET_N_OFFSET );
+         break;
+
+      default:
+         break;
    }
-
 }
 
 /**
@@ -470,9 +402,7 @@ void SDIIntf_ZoomSM(t_SdiIntf *pSdiCtrl, gcRegistersData_t *pGCRegs)
 void SDIIntf_SetSdiPauseFlipXSM(void)
 {
    if (gFlipxCurrentState == FLIPX_IDLE)
-         {
-         gFlipxCurrentState = FLIPX_PAUSE;
-         }
+      gFlipxCurrentState = FLIPX_PAUSE;
 }
 
 /**
@@ -486,51 +416,50 @@ void SDIIntf_SetSdiPauseFlipXSM(void)
 void SDIIntf_FlipXSM(t_SdiIntf *pSdiCtrl, const gcRegistersData_t *pGCRegs)
 {
    static uint64_t tic = 0;
+
    switch (gFlipxCurrentState)
    {
-         case FLIPX_IDLE:
-            break;
-
-         case FLIPX_PAUSE:
-            gFlipxCurrentState = FLIPX_CONFIG;
-            GETTIME(&tic);
-            pSdiCtrl->SDI_PauseResetN = SDI_PAUSE_NORESET_BIT;   //Pause Frame Buffer output at the end of image
-            pSdiCtrl->XFlip = 0;
-            WriteStruct(pSdiCtrl);
-            break;
-
-         case FLIPX_CONFIG:
-         if (elapsed_time_us(tic) > ZOOM_RESET_US) //Wait for 2 frames
-            {
-                  gFlipxCurrentState = FLIPX_ENABLE;
-
-                 pSdiCtrl->PatternSelector = 0;
-                 if (pGCRegs->VideoReverseX == 0)
-                  pSdiCtrl->XFlip = 0;
-               else
-                  pSdiCtrl->XFlip = 1;
-
-                 if (pGCRegs->VideoReverseY == 0)
-                  pSdiCtrl->YFlip = 0;
-               else
-                  pSdiCtrl->YFlip = 1;
-
-                 pSdiCtrl->SDI_PauseResetN = SDI_PAUSE_RESET_BIT;
-                 SDIIntf_ConfigureOutput(pSdiCtrl);      //Pour Placer le pixel au bon endroit sur le moniteur SDI
-                 WriteStruct(pSdiCtrl);
-            }
+      case FLIPX_IDLE:
          break;
 
-         case FLIPX_ENABLE:
-            gFlipxCurrentState = FLIPX_IDLE;
-            pSdiCtrl->SDI_PauseResetN = SDI_NOPAUSE_NORESET_BIT;
+      case FLIPX_PAUSE:
+         gFlipxCurrentState = FLIPX_CONFIG;
+         GETTIME(&tic);
+         pSdiCtrl->SDI_PauseResetN = SDI_PAUSE_NORESETN_BIT;   //Pause Frame Buffer output at the end of image
+         pSdiCtrl->XFlip = 0;
+         WriteStruct(pSdiCtrl);
+         break;
+
+      case FLIPX_CONFIG:
+         if (elapsed_time_us(tic) > ZOOM_RESET_US) //Wait for 2 frames
+         {
+            gFlipxCurrentState = FLIPX_ENABLE;
+
+            if (pGCRegs->VideoReverseX == 0)
+               pSdiCtrl->XFlip = 0;
+            else
+               pSdiCtrl->XFlip = 1;
+
+            if (pGCRegs->VideoReverseY == 0)
+               pSdiCtrl->YFlip = 0;
+            else
+               pSdiCtrl->YFlip = 1;
+
+            pSdiCtrl->SDI_PauseResetN = SDI_PAUSE_RESETN_BIT;
+            SDIIntf_ConfigureOutput(pSdiCtrl);      //Pour Placer le pixel au bon endroit sur le moniteur SDI
             WriteStruct(pSdiCtrl);
-            break;
+         }
+         break;
 
-         default:
-            break;
+      case FLIPX_ENABLE:
+         gFlipxCurrentState = FLIPX_IDLE;
+         pSdiCtrl->SDI_PauseResetN = SDI_NOPAUSE_NORESETN_BIT;
+         AXI4L_write32( pSdiCtrl->SDI_PauseResetN , pSdiCtrl->ADD + SDI_PAUSE_RESET_N_OFFSET );
+         break;
+
+      default:
+         break;
    }
-
 }
 
 /**
@@ -543,9 +472,7 @@ void SDIIntf_FlipXSM(t_SdiIntf *pSdiCtrl, const gcRegistersData_t *pGCRegs)
 void SDIIntf_SetSdiPauseFlipYSM(void)
 {
    if (gFlipyCurrentState == FLIPY_IDLE)
-         {
-         gFlipyCurrentState = FLIPY_PAUSE;
-         }
+      gFlipyCurrentState = FLIPY_PAUSE;
 }
 
 /**
@@ -559,53 +486,53 @@ void SDIIntf_SetSdiPauseFlipYSM(void)
 void SDIIntf_FlipYSM(t_SdiIntf *pSdiCtrl, const gcRegistersData_t *pGCRegs)
 {
    static uint64_t tic = 0;
+
    switch (gFlipyCurrentState)
    {
-         case FLIPY_IDLE:
-            break;
-
-         case FLIPY_PAUSE:
-            if (gFlipxCurrentState == FLIPX_IDLE)
-            {
-               gFlipyCurrentState = FLIPY_CONFIG;
-               GETTIME(&tic);
-               pSdiCtrl->SDI_PauseResetN = SDI_PAUSE_NORESET_BIT;   //Pause Frame Buffer output at the end of image
-               pSdiCtrl->XFlip = 0;
-               WriteStruct(pSdiCtrl);
-            }
-            break;
-
-         case FLIPY_CONFIG:
-         if (elapsed_time_us(tic) > ZOOM_RESET_US) //Wait for 2 frames
-            {
-                  gFlipyCurrentState = FLIPY_ENABLE;
-
-                     if (pGCRegs->VideoReverseX == 0)
-                     pSdiCtrl->XFlip = 0;
-                  else
-                     pSdiCtrl->XFlip = 1;
-
-                 if (pGCRegs->VideoReverseY == 0)
-                    pSdiCtrl->YFlip = 0;
-                 else
-                    pSdiCtrl->YFlip = 1;
-
-                 pSdiCtrl->SDI_PauseResetN = SDI_PAUSE_RESET_BIT;
-                 SDIIntf_ConfigureOutput(pSdiCtrl);       //Pour Placer le pixel au bon endroit sur le moniteur SDI
-                 WriteStruct(pSdiCtrl);
-            }
+      case FLIPY_IDLE:
          break;
 
-         case FLIPY_ENABLE:
-            gFlipyCurrentState = FLIPY_IDLE;
-            pSdiCtrl->SDI_PauseResetN = SDI_NOPAUSE_NORESET_BIT;
+      case FLIPY_PAUSE:
+         if (gFlipxCurrentState == FLIPX_IDLE)
+         {
+            gFlipyCurrentState = FLIPY_CONFIG;
+            GETTIME(&tic);
+            pSdiCtrl->SDI_PauseResetN = SDI_PAUSE_NORESETN_BIT;   //Pause Frame Buffer output at the end of image
+            pSdiCtrl->XFlip = 0;
             WriteStruct(pSdiCtrl);
-            break;
+         }
+         break;
 
-         default:
-            break;
+      case FLIPY_CONFIG:
+         if (elapsed_time_us(tic) > ZOOM_RESET_US) //Wait for 2 frames
+         {
+            gFlipyCurrentState = FLIPY_ENABLE;
+
+            if (pGCRegs->VideoReverseX == 0)
+               pSdiCtrl->XFlip = 0;
+            else
+               pSdiCtrl->XFlip = 1;
+
+            if (pGCRegs->VideoReverseY == 0)
+               pSdiCtrl->YFlip = 0;
+            else
+               pSdiCtrl->YFlip = 1;
+
+            pSdiCtrl->SDI_PauseResetN = SDI_PAUSE_RESETN_BIT;
+            SDIIntf_ConfigureOutput(pSdiCtrl);       //Pour Placer le pixel au bon endroit sur le moniteur SDI
+            WriteStruct(pSdiCtrl);
+         }
+         break;
+
+      case FLIPY_ENABLE:
+         gFlipyCurrentState = FLIPY_IDLE;
+         pSdiCtrl->SDI_PauseResetN = SDI_NOPAUSE_NORESETN_BIT;
+         AXI4L_write32( pSdiCtrl->SDI_PauseResetN , pSdiCtrl->ADD + SDI_PAUSE_RESET_N_OFFSET );
+         break;
+
+      default:
+         break;
    }
-
 }
 
 /**
@@ -618,9 +545,7 @@ void SDIIntf_FlipYSM(t_SdiIntf *pSdiCtrl, const gcRegistersData_t *pGCRegs)
 void SDIIntf_SetChangeInputWindowSM(void)
 {
    if (gChangeInputWindowCurrentState == CHANGEINPUTWINDOW_IDLE)
-         {
-            gChangeInputWindowCurrentState = CHANGEINPUTWINDOW_PAUSE;
-         }
+      gChangeInputWindowCurrentState = CHANGEINPUTWINDOW_PAUSE;
 }
 
 /**
@@ -640,77 +565,75 @@ void SDIIntf_ChangeInputWindowSM(t_SdiIntf *pSdiCtrl, gcRegistersData_t *pGCRegs
 
    switch (gChangeInputWindowCurrentState)
    {
-         case CHANGEINPUTWINDOW_IDLE:
-            break;
-
-         case CHANGEINPUTWINDOW_PAUSE:
-         gChangeInputWindowCurrentState = CHANGEINPUTWINDOW_CONFIG;
-            GETTIME(&tic);
-            pSdiCtrl->SDI_PauseResetN = SDI_PAUSE_NORESET_BIT;   //Pause Frame Buffer output at the end of image
-            pSdiCtrl->XFlip = 0;
-            WriteStruct(pSdiCtrl);
-            break;
-
-         case CHANGEINPUTWINDOW_CONFIG:
-         if (elapsed_time_us(tic) > ZOOM_RESET_US) //Wait for 2 frames
-            {
-            gChangeInputWindowCurrentState = CHANGEINPUTWINDOW_ENABLE;
-              // Configure Output Frame
-                 pSdiCtrl->NbFrameValid = 1;
-                 pSdiCtrl->ConfigValid = 0;
-
-                 if (pGCRegs->VideoReverseX == 0)
-                  pSdiCtrl->XFlip = 0;
-               else
-                  pSdiCtrl->XFlip = 1;
-
-                 if(gcRegsData.Width != 0 && gcRegsData.Height != 0)
-                 {
-                  imageWidth = pGCRegs->Width;
-                  imageHeight = pGCRegs->Height;
-
-                  pSdiCtrl->InputImgWidth = imageWidth;
-                  pSdiCtrl->InputImgHeight = imageHeight;
-                  pSdiCtrl->InputImgSize = imageWidth * imageHeight;
-
-                  pSdiCtrl-> ScalerImgWidth = imageWidth;
-                  pSdiCtrl-> ScalerImgHeight = imageHeight;
-                  pSdiCtrl-> ScalerImgSize = pSdiCtrl->ScalerImgWidth * pSdiCtrl->ScalerImgHeight;
-
-                  pSdiCtrl-> FB_Start_Pixel = 0;
-                  pSdiCtrl-> FB_Width_Pixel = imageWidth;
-                  pSdiCtrl-> FB_Start_Line = 1;
-                  pSdiCtrl-> FB_Stop_Line = imageHeight;
-
-                 }
-
-                 pGCRegs->VideoDigitalZoomFactor = 0;             //Remet le ZOOM numérique à 1 lorsque l'on change la fenetre
-
-                 SDIIntf_calculateZoom(pSdiCtrl, pGCRegs);        //calcul du ZOOM
-
-                 pSdiCtrl->SDI_PauseResetN = SDI_PAUSE_RESET_BIT;
-
-                 SDIIntf_ConfigureOutput(pSdiCtrl);
-                 WriteStruct(pSdiCtrl);
-
-                 GC_UpdateVideoAGCImageFraction();
-
-                 XScalerSetup(&Scaler, pSdiCtrl->ScalerImgWidth, pSdiCtrl->ScalerImgHeight, pSdiCtrl->OutputImgWidth, pSdiCtrl->OutputImgHeight);
-            }
+      case CHANGEINPUTWINDOW_IDLE:
          break;
 
+      case CHANGEINPUTWINDOW_PAUSE:
+         gChangeInputWindowCurrentState = CHANGEINPUTWINDOW_CONFIG;
+         GETTIME(&tic);
+         pSdiCtrl->SDI_PauseResetN = SDI_PAUSE_NORESETN_BIT;   //Pause Frame Buffer output at the end of image
+         pSdiCtrl->XFlip = 0;
+         WriteStruct(pSdiCtrl);
+         break;
 
-         case CHANGEINPUTWINDOW_ENABLE:
-            gChangeInputWindowCurrentState = CHANGEINPUTWINDOW_IDLE;
-            pSdiCtrl->SDI_PauseResetN = SDI_NOPAUSE_NORESET_BIT;
-            pSdiCtrl->ConfigValid = 1;
+      case CHANGEINPUTWINDOW_CONFIG:
+         if (elapsed_time_us(tic) > ZOOM_RESET_US) //Wait for 2 frames
+         {
+            gChangeInputWindowCurrentState = CHANGEINPUTWINDOW_ENABLE;
+
+            pSdiCtrl->FB_ConfigValid = 0;
+
+            if (pGCRegs->VideoReverseX == 0)
+               pSdiCtrl->XFlip = 0;
+            else
+               pSdiCtrl->XFlip = 1;
+
+            if(pGCRegs->Width != 0 && pGCRegs->Height != 0)
+            {
+               imageWidth = pGCRegs->Width;
+               imageHeight = pGCRegs->Height;
+
+               pSdiCtrl->FB_ImgWidth = imageWidth;
+               pSdiCtrl->FB_ImgHeight = imageHeight;
+               pSdiCtrl->FB_ImgSize = imageWidth * imageHeight;
+
+               pSdiCtrl->ScalerImgWidth = imageWidth;
+               gScalerImgHeight = imageHeight;
+               pSdiCtrl->ScalerImgSize = pSdiCtrl->ScalerImgWidth * gScalerImgHeight;
+
+               pSdiCtrl->FB_ReadStartPix = 0;
+               pSdiCtrl->FB_ReadWidth = imageWidth;
+               pSdiCtrl->FB_ReadStartLine = 1;
+               pSdiCtrl->FB_ReadStopLine = imageHeight;
+
+            }
+
+            pGCRegs->VideoDigitalZoomFactor = 0;             //Remet le ZOOM numérique à 1 lorsque l'on change la fenetre
+
+            SDIIntf_calculateZoom(pSdiCtrl, pGCRegs);        //calcul du ZOOM
+
+            pSdiCtrl->SDI_PauseResetN = SDI_PAUSE_RESETN_BIT;
+
+            SDIIntf_ConfigureOutput(pSdiCtrl);
             WriteStruct(pSdiCtrl);
-            break;
 
-         default:
-            break;
+            GC_UpdateVideoAGCImageFraction();
+
+            XScalerSetup(&gScaler, pSdiCtrl->ScalerImgWidth, gScalerImgHeight, gOutputImgWidth, gOutputImgHeight);
+         }
+         break;
+
+      case CHANGEINPUTWINDOW_ENABLE:
+         gChangeInputWindowCurrentState = CHANGEINPUTWINDOW_IDLE;
+         pSdiCtrl->SDI_PauseResetN = SDI_NOPAUSE_NORESETN_BIT;
+         pSdiCtrl->FB_ConfigValid = 1;
+         AXI4L_write32( pSdiCtrl->SDI_PauseResetN , pSdiCtrl->ADD + SDI_PAUSE_RESET_N_OFFSET );
+         AXI4L_write32( pSdiCtrl->FB_ConfigValid, pSdiCtrl->ADD + SDI_FB_CONFIG_VALID_OFFSET );
+         break;
+
+      default:
+         break;
    }
-
 }
 
 /**
@@ -724,7 +647,7 @@ void SDIIntf_ChangeInputWindowSM(t_SdiIntf *pSdiCtrl, gcRegistersData_t *pGCRegs
  * @return void.
  */
 void SDIIntf_calculateZoom(t_SdiIntf *pSdiCtrl, gcRegistersData_t *pGCRegs)
-   {
+{
    uint32_t currentZoomFactor = ZOOM_x1;
    uint32_t possibleZoom;
 
@@ -733,130 +656,224 @@ void SDIIntf_calculateZoom(t_SdiIntf *pSdiCtrl, gcRegistersData_t *pGCRegs)
 
    if (pSdiCtrl->SDI_720pN_1080p == SDI_720p)
    {
-       if ((imageWidth)  >=  (DIGITALZOOMMINWIDTH720P * 32) && (imageHeight  >=  (DIGITALZOOMMINHEIGHT720P * 32))){
-          possibleZoom = ZOOM_x32;
-       }
-       else if ((imageWidth)  >=  (DIGITALZOOMMINWIDTH720P * 16) && (imageHeight  >=  (DIGITALZOOMMINHEIGHT720P * 16))){
-          possibleZoom = ZOOM_x16;
-       }else if ((imageWidth)  >=  (DIGITALZOOMMINWIDTH720P * 8) && (imageHeight  >=  (DIGITALZOOMMINHEIGHT720P * 8))){
-          possibleZoom = ZOOM_x8;
-       }else if ((imageWidth)  >=  (DIGITALZOOMMINWIDTH720P * 4) && (imageHeight  >=  (DIGITALZOOMMINHEIGHT720P * 4))){
-          possibleZoom = ZOOM_x4;
-       }else if ((imageWidth)  >=  (DIGITALZOOMMINWIDTH720P * 2) && (imageHeight  >=  (DIGITALZOOMMINHEIGHT720P * 2))){
-          possibleZoom = ZOOM_x2;
-       }else{
-          possibleZoom = ZOOM_x1;
-       }
+      if ((imageWidth)  >=  (DIGITALZOOMMINWIDTH720P * 32) && (imageHeight  >=  (DIGITALZOOMMINHEIGHT720P * 32)))
+         possibleZoom = ZOOM_x32;
+      else if ((imageWidth)  >=  (DIGITALZOOMMINWIDTH720P * 16) && (imageHeight  >=  (DIGITALZOOMMINHEIGHT720P * 16)))
+         possibleZoom = ZOOM_x16;
+      else if ((imageWidth)  >=  (DIGITALZOOMMINWIDTH720P * 8) && (imageHeight  >=  (DIGITALZOOMMINHEIGHT720P * 8)))
+         possibleZoom = ZOOM_x8;
+      else if ((imageWidth)  >=  (DIGITALZOOMMINWIDTH720P * 4) && (imageHeight  >=  (DIGITALZOOMMINHEIGHT720P * 4)))
+         possibleZoom = ZOOM_x4;
+      else if ((imageWidth)  >=  (DIGITALZOOMMINWIDTH720P * 2) && (imageHeight  >=  (DIGITALZOOMMINHEIGHT720P * 2)))
+         possibleZoom = ZOOM_x2;
+      else
+         possibleZoom = ZOOM_x1;
    }
    else
    {
-      if ((imageWidth)  >=  (DIGITALZOOMMINWIDTH1080P * 32) && (imageHeight  >=  (DIGITALZOOMMINHEIGHT1080P * 32))){
-          possibleZoom = ZOOM_x32;
-       }
-       else if ((imageWidth)  >=  (DIGITALZOOMMINWIDTH1080P * 16) && (imageHeight  >=  (DIGITALZOOMMINHEIGHT1080P * 16))){
-          possibleZoom = ZOOM_x16;
-       }else if ((imageWidth)  >=  (DIGITALZOOMMINWIDTH1080P * 8) && (imageHeight  >=  (DIGITALZOOMMINHEIGHT1080P * 8))){
-          possibleZoom = ZOOM_x8;
-       }else if ((imageWidth)  >=  (DIGITALZOOMMINWIDTH1080P * 4) && (imageHeight  >=  (DIGITALZOOMMINHEIGHT1080P * 4))){
-          possibleZoom = ZOOM_x4;
-       }else if ((imageWidth)  >=  (DIGITALZOOMMINWIDTH1080P * 2) && (imageHeight  >=  (DIGITALZOOMMINHEIGHT1080P * 2))){
-          possibleZoom = ZOOM_x2;
-       }else{
-          possibleZoom = ZOOM_x1;
-       }
+      if ((imageWidth)  >=  (DIGITALZOOMMINWIDTH1080P * 32) && (imageHeight  >=  (DIGITALZOOMMINHEIGHT1080P * 32)))
+         possibleZoom = ZOOM_x32;
+      else if ((imageWidth)  >=  (DIGITALZOOMMINWIDTH1080P * 16) && (imageHeight  >=  (DIGITALZOOMMINHEIGHT1080P * 16)))
+         possibleZoom = ZOOM_x16;
+      else if ((imageWidth)  >=  (DIGITALZOOMMINWIDTH1080P * 8) && (imageHeight  >=  (DIGITALZOOMMINHEIGHT1080P * 8)))
+         possibleZoom = ZOOM_x8;
+      else if ((imageWidth)  >=  (DIGITALZOOMMINWIDTH1080P * 4) && (imageHeight  >=  (DIGITALZOOMMINHEIGHT1080P * 4)))
+         possibleZoom = ZOOM_x4;
+      else if ((imageWidth)  >=  (DIGITALZOOMMINWIDTH1080P * 2) && (imageHeight  >=  (DIGITALZOOMMINHEIGHT1080P * 2)))
+         possibleZoom = ZOOM_x2;
+      else
+         possibleZoom = ZOOM_x1;
    }
 
    pGCRegs->VideoDigitalZoomFactorMax = possibleZoom;
 
-    switch(pGCRegs->VideoDigitalZoomFactor){
-    case VDZF_x1:
-       currentZoomFactor = ZOOM_x1;
-       break;
+   switch (pGCRegs->VideoDigitalZoomFactor)
+   {
+      case VDZF_x1:
+         currentZoomFactor = ZOOM_x1;
+         break;
 
-    case VDZF_x2:
-       if(possibleZoom > ZOOM_x2)
-          currentZoomFactor = ZOOM_x2;
-      else if(possibleZoom < ZOOM_x2)
-         currentZoomFactor = possibleZoom;
-      else
-         currentZoomFactor = ZOOM_x2;
-       break;
+      case VDZF_x2:
+         if (possibleZoom > ZOOM_x2)
+            currentZoomFactor = ZOOM_x2;
+         else if (possibleZoom < ZOOM_x2)
+            currentZoomFactor = possibleZoom;
+         else
+            currentZoomFactor = ZOOM_x2;
+         break;
 
-    case VDZF_x4:
-       if(possibleZoom > ZOOM_x4)
-          currentZoomFactor = ZOOM_x4;
-      else if(possibleZoom < ZOOM_x4)
-         currentZoomFactor = possibleZoom;
-      else
-         currentZoomFactor = ZOOM_x4;
-       break;
+      case VDZF_x4:
+         if (possibleZoom > ZOOM_x4)
+            currentZoomFactor = ZOOM_x4;
+         else if (possibleZoom < ZOOM_x4)
+            currentZoomFactor = possibleZoom;
+         else
+            currentZoomFactor = ZOOM_x4;
+         break;
 
-    case VDZF_x8:
-       if(possibleZoom > ZOOM_x8)
-          currentZoomFactor = ZOOM_x8;
-      else if(possibleZoom < ZOOM_x8)
-         currentZoomFactor = possibleZoom;
-      else
-         currentZoomFactor = ZOOM_x8;
-       break;
+      case VDZF_x8:
+         if (possibleZoom > ZOOM_x8)
+            currentZoomFactor = ZOOM_x8;
+         else if (possibleZoom < ZOOM_x8)
+            currentZoomFactor = possibleZoom;
+         else
+            currentZoomFactor = ZOOM_x8;
+         break;
 
-    case VDZF_x16:
-       if(possibleZoom > ZOOM_x16)
-          currentZoomFactor = ZOOM_x16;
-      else if(possibleZoom < ZOOM_x16)
-         currentZoomFactor = possibleZoom;
-      else
-         currentZoomFactor = ZOOM_x16;
-       break;
+      case VDZF_x16:
+         if (possibleZoom > ZOOM_x16)
+            currentZoomFactor = ZOOM_x16;
+         else if (possibleZoom < ZOOM_x16)
+            currentZoomFactor = possibleZoom;
+         else
+            currentZoomFactor = ZOOM_x16;
+         break;
 
-    case VDZF_x32:
-       if(possibleZoom > ZOOM_x32)
-          currentZoomFactor = ZOOM_x32;
-      else if(possibleZoom < ZOOM_x32)
-         currentZoomFactor = possibleZoom;
-      else
-         currentZoomFactor = ZOOM_x32;
-       break;
-    }
+      case VDZF_x32:
+         if (possibleZoom > ZOOM_x32)
+            currentZoomFactor = ZOOM_x32;
+         else if (possibleZoom < ZOOM_x32)
+            currentZoomFactor = possibleZoom;
+         else
+            currentZoomFactor = ZOOM_x32;
+         break;
+   }
 
    if (currentZoomFactor == 1)
    {
-      pSdiCtrl-> ScalerImgWidth = imageWidth;
-      pSdiCtrl-> ScalerImgHeight = imageHeight;
-      pSdiCtrl-> ScalerImgSize = pSdiCtrl->ScalerImgWidth * pSdiCtrl->ScalerImgHeight;
+      pSdiCtrl->ScalerImgWidth = imageWidth;
+      gScalerImgHeight = imageHeight;
+      pSdiCtrl->ScalerImgSize = pSdiCtrl->ScalerImgWidth * gScalerImgHeight;
 
-      pSdiCtrl-> FB_Start_Pixel = 0;
-      pSdiCtrl-> FB_Width_Pixel = imageWidth;
-      pSdiCtrl-> FB_Start_Line = 1;
-      pSdiCtrl-> FB_Stop_Line = imageHeight;
+      pSdiCtrl->FB_ReadStartPix = 0;
+      pSdiCtrl->FB_ReadWidth = imageWidth;
+      pSdiCtrl->FB_ReadStartLine = 1;
+      pSdiCtrl->FB_ReadStopLine = imageHeight;
    }
    else
    {
-      pSdiCtrl-> ScalerImgWidth =  imageWidth / currentZoomFactor;
-      if(pSdiCtrl-> ScalerImgWidth % 2)//width impair, doit etre pair (YCb YCr)
-         pSdiCtrl-> ScalerImgWidth = pSdiCtrl-> ScalerImgWidth + 1;
+      pSdiCtrl->ScalerImgWidth =  imageWidth / currentZoomFactor;
+      if (pSdiCtrl->ScalerImgWidth % 2)//width impair, doit etre pair (YCb YCr)
+         pSdiCtrl->ScalerImgWidth = pSdiCtrl->ScalerImgWidth + 1;
       else
-         pSdiCtrl-> ScalerImgWidth = pSdiCtrl-> ScalerImgWidth;
+         pSdiCtrl->ScalerImgWidth = pSdiCtrl->ScalerImgWidth;
 
-      pSdiCtrl-> ScalerImgHeight = imageHeight / currentZoomFactor;
-      pSdiCtrl-> ScalerImgSize = pSdiCtrl->ScalerImgWidth * pSdiCtrl->ScalerImgHeight;
+      gScalerImgHeight = imageHeight / currentZoomFactor;
+      pSdiCtrl->ScalerImgSize = pSdiCtrl->ScalerImgWidth * gScalerImgHeight;
 
-      pSdiCtrl-> FB_Start_Pixel = ((imageWidth / 2) - ((imageWidth / currentZoomFactor) / 2) - 1);
-      if(pSdiCtrl-> FB_Start_Pixel % 2) //start pixel impair, ok
-         pSdiCtrl-> FB_Start_Pixel = pSdiCtrl-> FB_Start_Pixel;
+      pSdiCtrl->FB_ReadStartPix = ((imageWidth / 2) - ((imageWidth / currentZoomFactor) / 2) - 1);
+      if (pSdiCtrl->FB_ReadStartPix % 2) //start pixel impair, ok
+         pSdiCtrl->FB_ReadStartPix = pSdiCtrl->FB_ReadStartPix;
       else   //start pixel pair, doit toujours partir d'un pixel impair, le suivant est le bon
-         pSdiCtrl-> FB_Start_Pixel = pSdiCtrl-> FB_Start_Pixel + 1;
+         pSdiCtrl->FB_ReadStartPix = pSdiCtrl->FB_ReadStartPix + 1;
 
-      pSdiCtrl-> FB_Width_Pixel = pSdiCtrl-> ScalerImgWidth;
+      pSdiCtrl->FB_ReadWidth = pSdiCtrl->ScalerImgWidth;
 
-      if (pSdiCtrl-> ScalerImgHeight % 2){ //hauteur impair, calcul different pour la hauteur
-         pSdiCtrl-> FB_Start_Line = ((imageHeight / 2) - ((imageHeight / currentZoomFactor) / 2) + 1);
-         pSdiCtrl-> FB_Stop_Line = ((imageHeight / 2) + ((imageHeight / currentZoomFactor) / 2) + 1);
-      }else{
-         pSdiCtrl-> FB_Start_Line = ((imageHeight / 2) - ((imageHeight / currentZoomFactor) / 2) + 1);
-         pSdiCtrl-> FB_Stop_Line = ((imageHeight / 2) + ((imageHeight / currentZoomFactor) / 2));
+      if (gScalerImgHeight % 2) //hauteur impair, calcul different pour la hauteur
+      {
+         pSdiCtrl->FB_ReadStartLine = ((imageHeight / 2) - ((imageHeight / currentZoomFactor) / 2) + 1);
+         pSdiCtrl->FB_ReadStopLine = ((imageHeight / 2) + ((imageHeight / currentZoomFactor) / 2) + 1);
+      }
+      else
+      {
+         pSdiCtrl->FB_ReadStartLine = ((imageHeight / 2) - ((imageHeight / currentZoomFactor) / 2) + 1);
+         pSdiCtrl->FB_ReadStopLine = ((imageHeight / 2) + ((imageHeight / currentZoomFactor) / 2));
       }
    }
+}
+
+void SDIIntf_ConfigureOutput(t_SdiIntf *pSdiIntf)
+{
+   uint16_t MaxWidth;
+   uint16_t MaxHeight;
+
+   uint16_t offsetX;
+   uint16_t offsetY;
+
+   if (pSdiIntf->SDI_720pN_1080p == SDI_720p)
+   {
+       MaxWidth = 1270;         //720p
+       MaxHeight = 720;
+       offsetX  = 0;
+       offsetY  = 0;
+       if (gScalerImgHeight < 64)
+       {
+          MaxWidth = 640;         //720p
+          MaxHeight = 360;
+          offsetX  = (1280 - MaxWidth) / 2;
+          offsetY  = (720 - MaxHeight) / 2;
+       }
+   }
+   else
+   {
+       MaxWidth = 1910;         //1080p
+       MaxHeight = 1080;
+       offsetX  = 0;
+       offsetY  = 0;
+       if (gScalerImgHeight < 128)
+       {
+          MaxWidth = 960;         //1080p
+          MaxHeight = 540;
+          offsetX  = (1920 - MaxWidth) / 2;
+          offsetY  = (1080 - MaxHeight) / 2;
+       }
+   }
+
+   float ScaleValueWidth = ((float)MaxWidth) / ((float)pSdiIntf->ScalerImgWidth);
+   float ScaleValueHeight = ((float)MaxHeight) / ((float)gScalerImgHeight);
+
+   if (ScaleValueWidth < ScaleValueHeight)
+   {
+      gOutputImgWidth = ScaleValueWidth * pSdiIntf->ScalerImgWidth;
+      gOutputImgHeight = ScaleValueWidth * gScalerImgHeight;
+   }
+   else
+   {
+      gOutputImgWidth = ScaleValueHeight * pSdiIntf->ScalerImgWidth;
+      gOutputImgHeight = ScaleValueHeight * gScalerImgHeight;
+   }
+
+   if (gOutputImgHeight < 31)
+      gOutputImgHeight = 31;
+
+   if (pSdiIntf->SDI_720pN_1080p == SDI_720p)
+      pSdiIntf->VerticalImgStart = ((MaxHeight - gOutputImgHeight) / 2) + 26 + offsetY;      //SMPTE 296M Standard, first active video line is always 26 (720p)
+   else
+      pSdiIntf->VerticalImgStart = ((MaxHeight - gOutputImgHeight) / 2) + 42 + offsetY;      //SMPTE 274M Standard, first active video line is always 42 (1080p)
+
+   pSdiIntf->VerticalImgStop = pSdiIntf->VerticalImgStart + gOutputImgHeight - 1;
+
+   pSdiIntf->HorizontalImgStart = ((MaxWidth - gOutputImgWidth) / 2) + 1;
+   pSdiIntf->HorizontalImgStop = pSdiIntf->HorizontalImgStart + gOutputImgWidth - 1;
+
+   if (pSdiIntf->XFlip == 0)                  //Le premier pixel doit commencer à un emplacement impair si reverseX = 0 (Ycbcr est envoyé par la color map)
+   {
+      if (pSdiIntf->HorizontalImgStart % 2) //Impair
+      {
+         pSdiIntf->HorizontalImgStart = pSdiIntf->HorizontalImgStart + 4 + offsetX;
+         pSdiIntf->HorizontalImgStop = pSdiIntf->HorizontalImgStop + 4 + offsetX;
+      }
+      else
+      {
+         pSdiIntf->HorizontalImgStart = pSdiIntf->HorizontalImgStart + 3 + offsetX;
+         pSdiIntf->HorizontalImgStop = pSdiIntf->HorizontalImgStop + 3 + offsetX;
+      }
+   }
+   else                              //Le premier pixel doit commencer à un emplacement pair si reverseX = 1 (Ycrcb est envoyé par la color map)
+   {
+      if (pSdiIntf->HorizontalImgStop % 2)  //Impair
+      {
+         pSdiIntf->HorizontalImgStart = pSdiIntf->HorizontalImgStart + 3 + offsetX;
+         pSdiIntf->HorizontalImgStop = pSdiIntf->HorizontalImgStop + 3 + offsetX;
+      }
+      else
+      {
+         pSdiIntf->HorizontalImgStart = pSdiIntf->HorizontalImgStart + 4 + offsetX;
+         pSdiIntf->HorizontalImgStop = pSdiIntf->HorizontalImgStop + 4 + offsetX;
+      }
+   }
+
+   pSdiIntf->OutputImgSize = gOutputImgWidth * gOutputImgHeight;
 }
 
 /**
@@ -870,16 +887,14 @@ void SDIIntf_calculateZoom(t_SdiIntf *pSdiCtrl, gcRegistersData_t *pGCRegs)
  */
 void SDIIntf_UpdateVideoOutput(t_SdiIntf *pSdiCtrl, const gcRegistersData_t *pGCRegs)
 {
-   if(gcRegsData.SensorWidth == 0 || gcRegsData.SensorHeight == 0){
+   if (pGCRegs->SensorWidth == 0 || pGCRegs->SensorHeight == 0)
       return;
-   }
 
-   if(gcRegsData.SensorWidth >= 1280 && gcRegsData.SensorHeight >= 1024){
-     pSdiCtrl->SDI_720pN_1080p = SDI_1080p;         //Select SDI output mode
-     WriteStruct(pSdiCtrl);
-   }else{
-     pSdiCtrl->SDI_720pN_1080p = SDI_720p;         //Select SDI output mode
-     WriteStruct(pSdiCtrl);
-   }
+   if (pGCRegs->SensorWidth >= 1280 && pGCRegs->SensorHeight >= 1024)
+      pSdiCtrl->SDI_720pN_1080p = SDI_1080p;         //Select SDI output mode
+   else
+      pSdiCtrl->SDI_720pN_1080p = SDI_720p;         //Select SDI output mode
+
+   AXI4L_write32(pSdiCtrl->SDI_720pN_1080p, pSdiCtrl->ADD + SDI_720PN_1080P_OFFSET);
 }
 

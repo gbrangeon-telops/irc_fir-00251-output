@@ -326,6 +326,7 @@ void XScaler_GetAperture(XScaler *InstancePtr, XScalerAperture *AperturePtr)
 	u32 InLine;
 	u32 InPixel;
 	u32 OutSize;
+	u32 SrcSize;
 
 	/* Assert bad arguments and conditions */
 	Xil_AssertVoid(InstancePtr != NULL);
@@ -341,6 +342,8 @@ void XScaler_GetAperture(XScaler *InstancePtr, XScalerAperture *AperturePtr)
 					XSCL_APTHORI);
 	OutSize = XScaler_ReadReg((InstancePtr)->Config.BaseAddress,
 					XSCL_OUTSIZE);
+	SrcSize = XScaler_ReadReg((InstancePtr)->Config.BaseAddress,
+	            XSCL_SRCSIZE);
 
 	/* Parse the info and populate the aperture structure */
 	AperturePtr->InFirstLine = InLine & XSCL_APTVERT_FIRSTLINE_MASK;
@@ -357,6 +360,11 @@ void XScaler_GetAperture(XScaler *InstancePtr, XScalerAperture *AperturePtr)
 	AperturePtr->OutVertSize =
 		(OutSize & XSCL_OUTSIZE_NUMLINE_MASK) >>
 			XSCL_OUTSIZE_NUMLINE_SHIFT;
+
+   AperturePtr->SrcHoriSize = SrcSize & XSCL_SRCSIZE_NUMPXL_MASK;
+   AperturePtr->SrcVertSize =
+      (SrcSize & XSCL_SRCSIZE_NUMLINE_MASK) >>
+      XSCL_SRCSIZE_NUMLINE_SHIFT;
 
 	return;
 }

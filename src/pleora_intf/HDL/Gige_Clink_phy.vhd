@@ -35,20 +35,20 @@ entity GIGE_CLINK_PHY is
       --------------------------------
       -- Ports on CLK_USR domain
       -------------------------------- 
-      CLK_USR         : in  std_logic; -- User clock 
+      --CLK_USR         : in  std_logic; -- User clock 
       GIGE_CONF       : in  GIGEConfig; -- Configuration Parameters
       --------------------------------
       -- Ports on CLK_GIGE domain
       --------------------------------
       CLK_GIGE          : in  std_logic;
-      AXIS_DATA_MOSI16  : in t_axi4_stream_mosi16_lite;
+      AXIS_DATA_MOSI    : in  t_axi4_stream_mosi16_lite;
       AXIS_DATA_MISO    : out t_axi4_stream_miso;
       
       --------------------------------
       -- Error Log
       --------------------------------
-      DESYNC_ERR      : out std_logic;              
-      TC_ERR          : out std_logic;
+      DESYNC_ERR      : out std_logic;
+      
       --------------------------------
       -- Camera Link Interface Ports
       -- (also CLK_GIGE domain)
@@ -87,10 +87,10 @@ architecture rtl of GIGE_CLINK_PHY is
    end component;
    
    -- CameraLink State machine (GIGE_CLK domain)
-   type   gige_state_t is (Gige_Reset, Resync, Send_Data, Wait_For_nextline, Wait_For_nextframe);
-   signal gige_state : gige_state_t := Gige_Reset;
+   type   gige_state_t is (GIGE_RESET, RESYNC, SEND_DATA, WAIT_FOR_NEXTLINE, WAIT_FOR_NEXTFRAME);
+   signal gige_state : gige_state_t := GIGE_RESET;
    
-   signal dval,lval,fval : std_logic;
+   signal dval, lval, fval : std_logic;
    signal gige_port_a_reg, gige_port_b_reg, gige_port_c_reg :  std_logic_vector(7 downto 0);
    
    signal pix_cnt : unsigned(15 downto 0); -- pixel position on a line: (0 to width -1)
@@ -101,14 +101,11 @@ architecture rtl of GIGE_CLINK_PHY is
    signal gige_tready : std_logic;         
 
    
-   signal sreset_GIGE : std_logic;
-   signal sreset_usr : std_logic; 
+   signal sreset_gige : std_logic;
+   --signal sreset_usr : std_logic; 
 
    signal gige_conf_sync : GIGEConfig; -- resynced to GIGE clock domain
-   signal gige_conf_valid_sync : std_logic := '0';
-   
-   signal resyncing : std_logic;   
-   signal gige_cfg_hold : GIGEConfig;
+   signal gige_conf_valid_sync : std_logic := '0';   
    
 begin    
    
@@ -116,13 +113,12 @@ begin
    ---------------------------------------------
    -- Synchronisation toward CLK_GIGE domain
    ---------------------------------------------
-   -- 2 reset sources we need to resync so simply merge them together...
-   sync_RESET_GIGE : sync_reset port map(ARESET => ARESET, SRESET => sreset_GIGE, CLK => CLK_GIGE);
+   sync_RESET_GIGE : sync_reset port map(ARESET => ARESET, SRESET => sreset_gige, CLK => CLK_GIGE);
    
    ---------------------------------------------
    -- Synchronisation toward CLK_USR domain
    --------------------------------------------- 
-   sync_RESET_USR : sync_reset port map(ARESET => ARESET, SRESET => sreset_usr, CLK => CLK_USR);
+   --sync_RESET_USR : sync_reset port map(ARESET => ARESET, SRESET => sreset_usr, CLK => CLK_USR);
    
    U0 : double_sync port map(D => GIGE_CONF.Valid(0), Q => gige_conf_valid_sync,  RESET => '0', CLK => CLK_GIGE);
          
@@ -147,7 +143,9 @@ begin
    cfg_syn : process (CLK_GIGE)      
    begin  
       if rising_edge(CLK_GIGE) then
-         if gige_conf_valid_sync = '1' then
+         if sreset_gige = '1' or gige_conf_valid_sync = '0' then
+            gige_conf_sync.Valid(0) <= '0';
+         else
             gige_conf_sync <= GIGE_CONF;
          end if;
       end if;
@@ -160,7 +158,7 @@ begin
    gige_state_machine : process (CLK_GIGE)      
    begin  
       if rising_edge(CLK_GIGE) then
-         if (sreset_GIGE = '1' or gige_conf_sync.Valid(0) = '0') then
+         if (sreset_gige = '1' or gige_conf_sync.Valid(0) = '0') then
             dval <= '0';
             lval <= '0';
             fval <= '0'; 
@@ -168,22 +166,21 @@ begin
             gige_port_b_reg <= (others => '0'); 
             gige_tready <= '0';
         
-            gige_state <= Gige_Reset;
+            gige_state <= GIGE_RESET;
             
             pix_cnt <= (others => '0');
             line_cnt <= (others => '0');
             lpause_cnt <= "00000001";
             fpause_cnt <= "00000001";
             
-            DESYNC_ERR <= '0';   
-            TC_ERR <= '0';
+            DESYNC_ERR <= '0';
          else                          
 
-            DESYNC_ERR <= '0';               
-            TC_ERR <= '0';      
+            -- errors are latched, so don't reset them
+            --DESYNC_ERR <= '0';      
             
                case gige_state is
-                  when Gige_Reset =>                     
+                  when GIGE_RESET =>                     
                      dval <= '0';
                      lval <= '0';
                      fval <= '0'; 
@@ -191,37 +188,34 @@ begin
                      gige_port_b_reg <= (others => '0');
 
                  
-                     gige_state <= Send_Data;
+                     gige_state <= SEND_DATA;
                      gige_tready <= '1';
                      
                      pix_cnt <= (others => '0');
                      line_cnt <= (others => '0');            
                      lpause_cnt <= "00000001";
                      fpause_cnt <= "00000001";
-                     
-                     DESYNC_ERR <= '0';   
-                     TC_ERR <= '0';
                   
-                  when Resync => 
+                  when RESYNC => 
                      --we will wait until we saw a tlast then go to send data
-                     GIGE_tready <= '1'; 
-                     if (AXIS_DATA_MOSI16.TVALID = '1' and AXIS_DATA_MOSI16.TLAST = '1') then 
-                        gige_state <= Send_Data;
+                     gige_tready <= '1'; 
+                     if (AXIS_DATA_MOSI.TVALID = '1' and AXIS_DATA_MOSI.TLAST = '1') then 
+                        gige_state <= SEND_DATA;
                      else 
-                        gige_state <= Resync;
+                        gige_state <= RESYNC;
                      end if;                     
                   
-                  when Send_Data =>
+                  when SEND_DATA =>
                      
                      fval <= '1'; 
                      lval <= '1';
                      --Check for TC
                      
                      --Send data
-                     if (AXIS_DATA_MOSI16.TVALID = '1') then
+                     if (AXIS_DATA_MOSI.TVALID = '1') then
                         dval <= '1';
-                        gige_port_a_reg <= AXIS_DATA_MOSI16.TDATA(7 downto 0);
-                        gige_port_b_reg <= AXIS_DATA_MOSI16.TDATA(15 downto 8);
+                        gige_port_a_reg <= AXIS_DATA_MOSI.TDATA(7 downto 0);
+                        gige_port_b_reg <= AXIS_DATA_MOSI.TDATA(15 downto 8);
                         
                         --manage line change
                         if(pix_cnt >= gige_conf_sync.frame_width - 1 ) then
@@ -229,18 +223,18 @@ begin
                            pix_cnt <= (others => '0');
                            if(line_cnt >= gige_conf_sync.frame_height - 1 ) then
                               --Check for desynchronisation
-                              if(AXIS_DATA_MOSI16.TLAST = '1') then
-                                 gige_state <= Wait_For_nextframe;
+                              if(AXIS_DATA_MOSI.TLAST = '1') then
+                                 gige_state <= WAIT_FOR_NEXTFRAME;
                               else
-                                  --toggle desync error since we are not on tlast
+                                 --toggle desync error since we are not on tlast
                                  DESYNC_ERR <= '1';
-                                 gige_state <= Resync;
+                                 gige_state <= RESYNC;
                                  report "GIGE DESYNC_ERR" 
                                  severity error;
                               end if;
                               line_cnt <= (others => '0');
                            else
-                              gige_state <= Wait_For_nextline;
+                              gige_state <= WAIT_FOR_NEXTLINE;
                               line_cnt <= line_cnt + 1;
                            end if;
                         else
@@ -261,7 +255,7 @@ begin
                      end if;
                      
                   -- Wait for Horizontal Blank
-                  when Wait_For_nextline =>
+                  when WAIT_FOR_NEXTLINE =>
                      
                      dval <= '0';
                      lval <= '0';
@@ -270,14 +264,14 @@ begin
                      gige_port_b_reg <= gige_port_b_reg;
                      if (lpause_cnt >= LPauseLen) then 
                         lpause_cnt <= "00000001";
-                        gige_state <= Send_Data;
-                        GIGE_tready <= '1';
+                        gige_state <= SEND_DATA;
+                        gige_tready <= '1';
                      else
                         lpause_cnt <= lpause_cnt + 1;
-                        GIGE_tready <= '0';
+                        gige_tready <= '0';
                      end if;     
                   
-                  when  Wait_For_nextframe =>
+                  when  WAIT_FOR_NEXTFRAME =>
 
                      dval <= '0';
                      lval <= '0';
@@ -286,15 +280,15 @@ begin
                      gige_port_b_reg <= gige_port_b_reg;
                      if (fpause_cnt >= fPauseLen) then 
                         fpause_cnt <= "00000001";
-                        gige_state <= Send_Data;
-                        GIGE_tready <= '1';
+                        gige_state <= SEND_DATA;
+                        gige_tready <= '1';
                      else
                         fpause_cnt <= fpause_cnt + 1;
-                        GIGE_tready <= '0';
+                        gige_tready <= '0';
                      end if;                    
                   
                   when others =>
-                     gige_state <= Gige_Reset; 
+                     gige_state <= GIGE_RESET; 
                end case;
          end if;         
       end if; -- if rising_edge(CLK_GIGE)

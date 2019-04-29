@@ -377,7 +377,7 @@ typedef struct {
 *
 ******************************************************************************/
 #define XScaler_CheckDone(InstancePtr) \
-	((XScaler_ReadReg((InstancePtr)->Config.BaseAddress, XSCL_STSDONE) & \
+	((XScaler_ReadReg((InstancePtr)->Config.BaseAddress, XSCL_STATUS) & \
 		XSCL_STSDONE_DONE) ? TRUE : FALSE)
 
 /*****************************************************************************/
@@ -442,7 +442,7 @@ typedef struct {
 *
 ******************************************************************************/
 #define XScaler_CoeffLoadReady(InstancePtr) \
-	((XScaler_ReadReg((InstancePtr)->Config.BaseAddress, XSCL_STS) & \
+	((XScaler_ReadReg((InstancePtr)->Config.BaseAddress, XSCL_STATUS) & \
 		XSCL_STS_COEF_W_RDY_MASK) ? TRUE : FALSE)
 
 /*****************************************************************************/
@@ -461,8 +461,31 @@ typedef struct {
 *	  u32 XScaler_GetError(XScaler *InstancePtr);
 *
 ******************************************************************************/
+// Known Issue AR 52664: EOL_ERROR and COEF_WR_ERROR are always set, so
+// getting the errors is irrelevant.
 #define XScaler_GetError(InstancePtr) \
-	XScaler_ReadReg((InstancePtr)->Config.BaseAddress, XSCL_STSERR)
+	XScaler_ReadReg((InstancePtr)->Config.BaseAddress, XSCL_ERROR)
+
+/*****************************************************************************/
+/**
+*
+* This macro resets the error status of a Scaler device.
+*
+* @param  InstancePtr is a pointer to the Scaler device instance to be worked
+*    on.
+*
+* @return None.
+*
+* @note
+* C-style signature:
+*   void XScaler_ResetError(XScaler *InstancePtr);
+*
+******************************************************************************/
+// Known Issue AR 52289: resetting error by writing to this register
+// does not work.
+#define XScaler_ResetError(InstancePtr) \
+   XScaler_WriteReg((InstancePtr)->Config.BaseAddress, XSCL_ERROR, \
+      0xFFFFFFFF)
 
 /*****************************************************************************/
 /**
@@ -499,7 +522,7 @@ typedef struct {
 *
 ******************************************************************************/
 #define XScaler_IsResetDone(InstancePtr) \
-	((XScaler_ReadReg((InstancePtr)->Config.BaseAddress, XSCL_RESET) & \
+	((XScaler_ReadReg((InstancePtr)->Config.BaseAddress, XSCL_CTL) & \
 		XSCL_RESET_RESET_MASK) ? FALSE : TRUE)
 
 /*****************************************************************************/

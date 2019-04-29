@@ -20,7 +20,7 @@
 
 /* AUTO-CODE BEGIN */
 // Auto-generated GeniCam registers callback functions definition.
-// Generated from XML camera definition file version 12.3.0
+// Generated from XML camera definition file version 12.5.0
 // using updateGenICamCallback.m Matlab script.
 
 void GC_Callback_Init();
@@ -44,6 +44,7 @@ void GC_DeviceTemperatureCallback(gcCallbackPhase_t phase, gcCallbackAccess_t ac
 void GC_DeviceTemperatureSelectorCallback(gcCallbackPhase_t phase, gcCallbackAccess_t access);
 void GC_DeviceVoltageCallback(gcCallbackPhase_t phase, gcCallbackAccess_t access);
 void GC_DeviceVoltageSelectorCallback(gcCallbackPhase_t phase, gcCallbackAccess_t access);
+void GC_EHDRINumberOfExposuresCallback(gcCallbackPhase_t phase, gcCallbackAccess_t access);
 void GC_EventErrorCallback(gcCallbackPhase_t phase, gcCallbackAccess_t access);
 void GC_EventErrorCodeCallback(gcCallbackPhase_t phase, gcCallbackAccess_t access);
 void GC_EventErrorTimestampCallback(gcCallbackPhase_t phase, gcCallbackAccess_t access);
@@ -53,6 +54,7 @@ void GC_EventTelopsCallback(gcCallbackPhase_t phase, gcCallbackAccess_t access);
 void GC_EventTelopsCodeCallback(gcCallbackPhase_t phase, gcCallbackAccess_t access);
 void GC_EventTelopsTimestampCallback(gcCallbackPhase_t phase, gcCallbackAccess_t access);
 void GC_FValSizeCallback(gcCallbackPhase_t phase, gcCallbackAccess_t access);
+void GC_FWModeCallback(gcCallbackPhase_t phase, gcCallbackAccess_t access);
 void GC_HeightCallback(gcCallbackPhase_t phase, gcCallbackAccess_t access);
 void GC_IsActiveFlagsCallback(gcCallbackPhase_t phase, gcCallbackAccess_t access);
 void GC_LValSizeCallback(gcCallbackPhase_t phase, gcCallbackAccess_t access);
@@ -73,7 +75,9 @@ void GC_SensorHeightCallback(gcCallbackPhase_t phase, gcCallbackAccess_t access)
 void GC_SensorWidthCallback(gcCallbackPhase_t phase, gcCallbackAccess_t access);
 void GC_VideoAGCCallback(gcCallbackPhase_t phase, gcCallbackAccess_t access);
 void GC_VideoAGCFractionMaxCallback(gcCallbackPhase_t phase, gcCallbackAccess_t access);
+void GC_VideoAGCFractionMaxMinCallback(gcCallbackPhase_t phase, gcCallbackAccess_t access);
 void GC_VideoAGCFractionMinCallback(gcCallbackPhase_t phase, gcCallbackAccess_t access);
+void GC_VideoAGCFractionMinMaxCallback(gcCallbackPhase_t phase, gcCallbackAccess_t access);
 void GC_VideoAGCResponseTimeCallback(gcCallbackPhase_t phase, gcCallbackAccess_t access);
 void GC_VideoColorMapCallback(gcCallbackPhase_t phase, gcCallbackAccess_t access);
 void GC_VideoColorMapMaxCallback(gcCallbackPhase_t phase, gcCallbackAccess_t access);
@@ -85,6 +89,8 @@ void GC_VideoDigitalZoomModeCallback(gcCallbackPhase_t phase, gcCallbackAccess_t
 void GC_VideoDigitalZoomOffsetXCallback(gcCallbackPhase_t phase, gcCallbackAccess_t access);
 void GC_VideoDigitalZoomOffsetYCallback(gcCallbackPhase_t phase, gcCallbackAccess_t access);
 void GC_VideoDigitalZoomWidthCallback(gcCallbackPhase_t phase, gcCallbackAccess_t access);
+void GC_VideoEHDRIExposureIndexCallback(gcCallbackPhase_t phase, gcCallbackAccess_t access);
+void GC_VideoFWPositionCallback(gcCallbackPhase_t phase, gcCallbackAccess_t access);
 void GC_VideoFreezeCallback(gcCallbackPhase_t phase, gcCallbackAccess_t access);
 void GC_VideoReverseXCallback(gcCallbackPhase_t phase, gcCallbackAccess_t access);
 void GC_VideoReverseYCallback(gcCallbackPhase_t phase, gcCallbackAccess_t access);

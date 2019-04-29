@@ -27,7 +27,7 @@ package GIGE_Define is
    ------------------------------------------
    -- Constants
    ------------------------------------------      
-   constant GIGE_VERSION  : std_logic_vector(7 downto 0) := "000" & "00000";   
+   constant GIGE_VERSION  : std_logic_vector(7 downto 0) := x"00";   
    
    -- Define number of bits used      
 

@@ -16,14 +16,26 @@
 #ifndef __FRAME_BUFFER_H__
 #define __FRAME_BUFFER_H__
 
-#include <stdint.h>
-#include "xbasic_types.h"  
+
 #include "GC_Registers.h"
-#include "IRC_status.h"
 
 
-#define A_FB_STATUS 0xf0
-#define A_FB_CFG_VALID 28
+#ifdef FB_VERBOSE
+   #define FB_PRINTF(fmt, ...)  FPGA_PRINTF("FB: " fmt, ##__VA_ARGS__)
+#else
+   #define FB_PRINTF(fmt, ...)  DUMMY_PRINTF("FB: " fmt, ##__VA_ARGS__)
+#endif
+
+#define FB_ERR(fmt, ...)        FPGA_PRINTF("FB: Error: " fmt "\n", ##__VA_ARGS__)
+#define FB_INF(fmt, ...)        FPGA_PRINTF("FB: Info: " fmt "\n", ##__VA_ARGS__)
+#define FB_DBG(fmt, ...)        FB_PRINTF("Debug: " fmt "\n", ##__VA_ARGS__)
+
+
+//FRAME BUFFER ADDRESS MAP
+#define A_FB_CFG_VALID           0x14
+
+#define A_FB_ERROR               0xF0
+
 
 // structure de configuration du frame_buffer
 struct s_FrameBuffer
@@ -31,51 +43,51 @@ struct s_FrameBuffer
    uint32_t SIZE;                   // Number of config elements, excluding SIZE and ADD.
    uint32_t ADD;
    
-   uint32_t FB_mode		;           // Mode du frame buffer (0-off, 1- GIGE 2-Lossless)
-   uint32_t Frame_width;           // Number de zeros à padder (unité = pixel)					   
-   uint32_t Frame_height;               // Number d'éléments au total constituant le header (unité = pixel) 						   
-   uint32_t base_saddr;				// HeadRealLen/2-1 
-   uint32_t FrameSize;   			// ZPadLen/2-1 
-   uint32_t hdr_size;	           // dit si on a besoin de padder le header
-   uint32_t img_size;	          // dit s'il doit y avoir un TLAST à la fin du header ou pas
-   uint32_t config_valid;	          // dit s'il doit y avoir un TLAST à la fin du header ou pas
-   };
+   uint32_t FB_mode;                // FrameBuffer mode
+   uint32_t FB_base_addr;           // FrameBuffer DDR start address
+   uint32_t FB_frame_size;          // FrameBuffer frame size in pixel
+   uint32_t FB_hdr_size;            // FrameBuffer header size in pixel
+   uint32_t FB_img_size;            // FrameBuffer image size in pixel
+   uint32_t FB_config_valid;        // FrameBuffer valid configuration flag
+};
 typedef struct s_FrameBuffer t_FrameBuffer;
 
 /**
  * Frame Buffer Mode
  */
 enum FrameBuffer_mode {
-   FB_STANDBY = 0,  
-   FB_GIGE = 1,  	
-   FB_LOSSLESS = 2      
+   FBM_STANDBY = 0,
+   FBM_GIGE = 1,
+   FBM_LOSSLESS = 2
 };
-
-
-/**
- * Frame Buffer mode data type
- */
 typedef enum FrameBuffer_mode FrameBuffer_mode_t;
 
-enum  FB_Config {
-   FB_INVALID = 0,  
-   FB_VALID = 1
+enum  FrameBuffer_Config {
+   FBC_INVALID = 0,
+   FBC_VALID = 1
 };
+typedef enum FrameBuffer_Config FrameBuffer_Config_t;
 
-typedef enum FB_Config FB_Config_t;
+// structure de statut
+struct s_FrameBufferStatus
+{
+   uint32_t error;
+};
+typedef struct s_FrameBufferStatus t_FrameBufferStatus;
+
+
+
+#define FrameBuffer_Ctor(add) {sizeof(t_FrameBuffer)/4 - 2, add, 0, 0, 0, 0, 0, 0}
 
 // Function prototypes
 
-#define FrameBuffer_Ctor(add) {sizeof(t_FrameBuffer)/4 - 2, add, 0, 0, 0, 0, 0, 0, 0,0}
+//pour configurer le contrôleur du framebuffer à partir de la valeur des registres
+void FrameBuffer_SendConfigGC(t_FrameBuffer *a, const gcRegistersData_t *pGCRegs);
 
-
-//pour configurer le contrôleur du framebuffer èa partir de la valeur des registres
-void FrameBuffer_SendConfigGC(t_FrameBuffer *a, const gcRegistersData_t *pGCRegs); 
-
-//pour configurer le contrôleur du framebuffer èa partir de la valeur des registres
-void FrameBuffer_Enable(t_FrameBuffer *a, const FB_Config_t config); 
+//pour activer/désactiver la configuration
+void FrameBuffer_Enable(t_FrameBuffer *a, const FrameBuffer_Config_t config);
 
 //pour avoir les statuts
-uint32_t FrameBuffer_GetStatus(const t_FrameBuffer *a); 
+void FrameBuffer_GetStatus(const t_FrameBuffer *a, t_FrameBufferStatus *pStat);
 
 #endif // __FRAME_BUFFER_H__

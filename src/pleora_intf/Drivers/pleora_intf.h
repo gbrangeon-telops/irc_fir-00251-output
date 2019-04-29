@@ -22,8 +22,11 @@
 #include "IRC_status.h"
 
 
-#define A_PC_STATUS 240
-#define A_PLEORA_CFG_VALID 0
+//PLEORA ADDRESS MAP
+#define A_PLEORA_CFG_VALID    0x00
+
+#define A_PLEORA_ERROR        0xF0
+
 
 // structure de configuration du Pleora
 struct s_PleoraIntf
@@ -39,40 +42,33 @@ struct s_PleoraIntf
    };
 typedef struct s_PleoraIntf t_PleoraIntf;
 
-// /**
- // * Frame Buffer Mode
- // */
-// enum FrameBuffer_mode {
-   // FB_STANDBY = 0,  
-   // FB_GIGE = 1,  	
-   // FB_LOSSLESS = 2      
-// };
-
-
-/**
- * Frame Buffer mode data type
- */
-// typedef enum FrameBuffer_mode FrameBuffer_mode_t;
 
 enum  Pleora_Config {
    PC_INVALID = 0,  
    PC_VALID = 1
 };
-
 typedef enum Pleora_Config Pleora_Config_t;
 
-// Function prototypes
+// structure de statut
+struct s_PleoraStatus
+{
+   uint32_t error;
+};
+typedef struct s_PleoraStatus t_PleoraStatus;
+
+
 
 #define PleoraIntf_Ctor(add) {sizeof(t_PleoraIntf)/4 - 2, add, 0, 0, 0, 0, 0}
 
+// Function prototypes
 
 //pour configurer le contrôleur du GIGE a partir de la valeur des registres
 void PleoraIntf_SendConfigGC(t_PleoraIntf *a, const gcRegistersData_t *pGCRegs); 
 
-//pour configurer le contrôleur du GIGE èa partir de la valeur des registres
+//pour configurer le contrôleur du GIGE a partir de la valeur des registres
 void PleoraIntf_Enable(t_PleoraIntf *a, const Pleora_Config_t config); 
 
 //pour avoir les statuts
-uint32_t PleoraIntf_GetStatus(const t_PleoraIntf *a); 
+void PleoraIntf_GetStatus(const t_PleoraIntf *a, t_PleoraStatus *pStat);
 
 #endif // __PLEORA_INTF__

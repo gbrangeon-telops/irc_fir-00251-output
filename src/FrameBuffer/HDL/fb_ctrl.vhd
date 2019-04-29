@@ -25,46 +25,28 @@ entity FB_CTRL is
       AXI4_LITE_MOSI : in t_axi4_lite_mosi;
       AXI4_LITE_MISO : out t_axi4_lite_miso;
       
-      MM2S_ERR : in std_logic_vector(4 downto 0);
-      S2MM_ERR : in std_logic_vector(4 downto 0);
+      FB_ERR : in std_logic_vector(31 downto 0);
       
-      FB_MODE : out STD_LOGIC_VECTOR(2 downto 0);
-      FRAME_WIDTH : OUT STD_LOGIC_VECTOR(15 DOWNTO 0);
-      FRAME_HEIGHT : OUT STD_LOGIC_VECTOR(15 DOWNTO 0);
-      
-      BASE_ADDR : OUT STD_LOGIC_VECTOR(31 DOWNTO 0);
-      FRAME_SIZE : out std_logic_vector (31 downto 0);
-      HDR_SIZE : out std_logic_vector (31 downto 0);
-      IMG_SIZE : out std_logic_vector (31 downto 0);
-      CONFIG_VALID : out std_logic
-      );
+      FB_CONF : out FB_Config
+   );
 end FB_CTRL;
 
---}} End of automatically maintained section
 
 architecture RTL of FB_CTRL is
    
-   -- Example-specific design signals
-   -- local parameter for addressing 32 bit / 64 bit C_S_AXI_DATA_WIDTH
-   -- ADDR_LSB is used for addressing 32/64 bit registers/memories
-   -- ADDR_LSB = 2 for 32 bits (n downto 2)
-   -- ADDR_LSB = 3 for 64 bits (n downto 3)
   constant C_S_AXI_DATA_WIDTH : integer := 32;
   constant C_S_AXI_ADDR_WIDTH : integer := 32;
-  constant ADDR_LSB  : integer := 2;
-  constant OPT_MEM_ADDR_BITS : integer := 5;  --Number of supplement bit
---   
+   
    -- Address of registers
       
-   constant FB_MODE_ADDR            : std_logic_vector(ADDR_LSB + OPT_MEM_ADDR_BITS downto 0) := std_logic_vector(to_unsigned(0,ADDR_LSB + OPT_MEM_ADDR_BITS + 1));
-   constant FRAME_WIDTH_ADDR        : std_logic_vector(ADDR_LSB + OPT_MEM_ADDR_BITS downto 0) := std_logic_vector(to_unsigned(4,ADDR_LSB + OPT_MEM_ADDR_BITS + 1));
-   constant FRAME_HEIGHT_ADDR       : std_logic_vector(ADDR_LSB + OPT_MEM_ADDR_BITS downto 0) := std_logic_vector(to_unsigned(8,ADDR_LSB + OPT_MEM_ADDR_BITS + 1));
-   constant BASE_SADDR_ADDR         : std_logic_vector(ADDR_LSB + OPT_MEM_ADDR_BITS downto 0) := std_logic_vector(to_unsigned(12,ADDR_LSB + OPT_MEM_ADDR_BITS + 1));
-   constant FRAMESIZE_ADDR          : std_logic_vector(ADDR_LSB + OPT_MEM_ADDR_BITS downto 0) := std_logic_vector(to_unsigned(16,ADDR_LSB + OPT_MEM_ADDR_BITS + 1));
-   constant HDR_SIZE_ADDR           : std_logic_vector(ADDR_LSB + OPT_MEM_ADDR_BITS downto 0) := std_logic_vector(to_unsigned(20,ADDR_LSB + OPT_MEM_ADDR_BITS + 1));
-   constant IMG_SIZE_ADDR           : std_logic_vector(ADDR_LSB + OPT_MEM_ADDR_BITS downto 0) := std_logic_vector(to_unsigned(24,ADDR_LSB + OPT_MEM_ADDR_BITS + 1));
-   constant CONFIGVALID_ADDR        : std_logic_vector(ADDR_LSB + OPT_MEM_ADDR_BITS downto 0) := std_logic_vector(to_unsigned(28,ADDR_LSB + OPT_MEM_ADDR_BITS + 1));
-   constant DM_ERR_ADDR             : std_logic_vector(ADDR_LSB + OPT_MEM_ADDR_BITS downto 0) := std_logic_vector(to_unsigned(240,ADDR_LSB + OPT_MEM_ADDR_BITS + 1));
+   constant FB_MODE_ADDR                  : std_logic_vector(7 downto 0) := x"00";
+   constant FB_BASE_ADDR_ADDR             : std_logic_vector(7 downto 0) := x"04";
+   constant FB_FRAME_SIZE_ADDR            : std_logic_vector(7 downto 0) := x"08";
+   constant FB_HDR_SIZE_ADDR              : std_logic_vector(7 downto 0) := x"0C";
+   constant FB_IMG_SIZE_ADDR              : std_logic_vector(7 downto 0) := x"10";
+   constant FB_CONFIG_VALID_ADDR          : std_logic_vector(7 downto 0) := x"14";
+   
+   constant FB_ERR_ADDR                   : std_logic_vector(7 downto 0) := x"F0";
 
    component double_sync
       generic(
@@ -76,14 +58,6 @@ architecture RTL of FB_CTRL is
          CLK : in STD_LOGIC);
    end component;
    
-   component double_sync_vector is
-      port(
-         D : in std_logic_vector ;
-         Q : out std_logic_vector;
-         CLK : in STD_LOGIC
-         );
-   end component;
-   
    component sync_resetn is
       port(
          ARESETN : in STD_LOGIC;
@@ -93,20 +67,8 @@ architecture RTL of FB_CTRL is
    end component;
    
 
-   --! User Input Register Declarations
-   signal fb_mm2s_err : std_logic_vector(4 downto 0); --! mm2s fb error
-   signal fb_s2mm_err : std_logic_vector(4 downto 0); --! s2mm fb error
-
    --! User Output Register Declarations
-   signal fb_mode_o : std_logic_vector(2 downto 0); 
-   signal frame_width_o : std_logic_vector(15 downto 0); 
-   signal frame_height_o : std_logic_vector(15 downto 0);
-   
-   signal base_addr_o : std_logic_vector(31 downto 0);
-   signal frame_size_o : std_logic_vector(31 downto 0);
-   signal hdr_size_o : std_logic_vector(31 downto 0);
-   signal img_size_o : std_logic_vector(31 downto 0);
-   signal config_valid_o : std_logic_vector(0 downto 0);
+   signal fb_conf_i : FB_Config;
     
    -- AXI4LITE signals
    signal axi_awaddr	  : std_logic_vector(C_S_AXI_ADDR_WIDTH-1 downto 0);
@@ -124,7 +86,6 @@ architecture RTL of FB_CTRL is
    signal slv_reg_rden : std_logic;
    signal slv_reg_wren : std_logic;
    signal reg_data_out : std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
-   signal byte_index	  : integer;
    
    signal sresetn      : std_logic;
    
@@ -133,8 +94,6 @@ begin
    
    -- enter your statements here --
    U0A : sync_resetn port map(ARESETN => ARESETN, SRESETN => sresetn, CLK => CLK);   
-   U0B : double_sync_vector port map(D => MM2S_ERR, Q => fb_mm2s_err , CLK => CLK);   
-   U0C : double_sync_vector port map(D => S2MM_ERR, Q => fb_s2mm_err, CLK => CLK);   
 
    -- I/O Connections assignments
    AXI4_LITE_MISO.AWREADY  <= axi_awready;
@@ -147,15 +106,8 @@ begin
    AXI4_LITE_MISO.RVALID   <= axi_rvalid;
    
          
-   FB_MODE           <= fb_mode_o ;
-   FRAME_WIDTH       <= frame_width_o ;
-   FRAME_HEIGHT      <= frame_height_o;
+   FB_CONF <= fb_conf_i;
    
-   BASE_ADDR         <= base_addr_o;
-   FRAME_SIZE        <= frame_size_o;
-   HDR_SIZE          <= hdr_size_o;
-   IMG_SIZE          <= img_size_o;
-   CONFIG_VALID      <= config_valid_o(0);
    ----------------------------------------------------------------------------
    -- AXI WR : contrôle du flow 
    ---------------------------------------------------------------------------- 
@@ -194,25 +146,16 @@ begin
    begin
       if rising_edge(CLK) then 
          if sresetn = '0' then
-            fb_mode_o <= FBMODE_STANDBYT_c;
-            frame_width_o <= (others => '0');
-            frame_height_o <= (others => '0');
-            base_addr_o <= (others => '0');
-            frame_size_o <= (others => '0');
-            hdr_size_o <= (others => '0');
-            img_size_o <= (others => '0');
-            config_valid_o <= (others => '0');
+            fb_conf_i.config_valid <= '0';
          else
             if (slv_reg_wren = '1') and axi_wstrb = "1111" then
                case axi_awaddr(7 downto 0) is      
-                  when FB_MODE_ADDR       =>  fb_mode_o        <= AXI4_LITE_MOSI.WDATA(fb_mode_o'length-1 downto 0);
-                  when FRAME_WIDTH_ADDR   =>  frame_width_o    <= AXI4_LITE_MOSI.WDATA(frame_width_o'length-1 downto 0);
-                  when FRAME_HEIGHT_ADDR  =>  frame_height_o   <= AXI4_LITE_MOSI.WDATA(frame_height_o'length-1 downto 0); 
-                  when BASE_SADDR_ADDR    =>  base_addr_o      <= AXI4_LITE_MOSI.WDATA(base_addr_o'length-1 downto 0);
-                  when FRAMESIZE_ADDR     =>  frame_size_o     <= AXI4_LITE_MOSI.WDATA(frame_size_o'length-1 downto 0);
-                  when HDR_SIZE_ADDR      =>  hdr_size_o       <= AXI4_LITE_MOSI.WDATA(hdr_size_o'length-1 downto 0);
-                  when IMG_SIZE_ADDR      =>  img_size_o       <= AXI4_LITE_MOSI.WDATA(img_size_o'length-1 downto 0);
-                  when CONFIGVALID_ADDR   =>  config_valid_o   <= AXI4_LITE_MOSI.WDATA(config_valid_o'length-1 downto 0);
+                  when FB_MODE_ADDR                =>  fb_conf_i.fb_mode               <= AXI4_LITE_MOSI.WDATA(fb_conf_i.fb_mode'length-1 downto 0);
+                  when FB_BASE_ADDR_ADDR           =>  fb_conf_i.base_addr             <= unsigned(AXI4_LITE_MOSI.WDATA(fb_conf_i.base_addr'length-1 downto 0));
+                  when FB_FRAME_SIZE_ADDR          =>  fb_conf_i.frame_size            <= unsigned(AXI4_LITE_MOSI.WDATA(fb_conf_i.frame_size'length-1 downto 0));
+                  when FB_HDR_SIZE_ADDR            =>  fb_conf_i.hdr_size              <= unsigned(AXI4_LITE_MOSI.WDATA(fb_conf_i.hdr_size'length-1 downto 0));
+                  when FB_IMG_SIZE_ADDR            =>  fb_conf_i.img_size              <= unsigned(AXI4_LITE_MOSI.WDATA(fb_conf_i.img_size'length-1 downto 0));
+                  when FB_CONFIG_VALID_ADDR        =>  fb_conf_i.config_valid          <= AXI4_LITE_MOSI.WDATA(0);
                   when others  =>                  
                end case;                                                                                          
             end if;                                        
@@ -273,8 +216,7 @@ begin
             
          end if;
       end if;
-   end process; 
-   slv_reg_rden <= axi_arready and AXI4_LITE_MOSI.ARVALID and (not axi_rvalid);
+   end process;
    
    ---------------------------------------------------------------------------- 
    -- RD : données vers µBlaze                                       
@@ -283,16 +225,14 @@ begin
    begin
       if rising_edge(CLK) then         
          case axi_araddr(7 downto 0) is
-            when  FB_MODE_ADDR      => reg_data_out <= std_logic_vector(resize(fb_mode_o     , reg_data_out'length));                  
-            when  FRAME_WIDTH_ADDR  => reg_data_out <= std_logic_vector(resize(frame_width_o , reg_data_out'length));           
-            when  FRAME_HEIGHT_ADDR => reg_data_out <= std_logic_vector(resize(frame_height_o     , reg_data_out'length));       
-            when  BASE_SADDR_ADDR   => reg_data_out <= std_logic_vector(resize(base_addr_o, reg_data_out'length));    
-            when  FRAMESIZE_ADDR    => reg_data_out <= std_logic_vector(resize(frame_size_o, reg_data_out'length));
-            when  HDR_SIZE_ADDR     => reg_data_out <= std_logic_vector(resize(hdr_size_o, reg_data_out'length));
-            when  IMG_SIZE_ADDR     => reg_data_out <= std_logic_vector(resize(img_size_o, reg_data_out'length));
-            when  CONFIGVALID_ADDR  => reg_data_out <= std_logic_vector(resize(config_valid_o, reg_data_out'length));
-            when  DM_ERR_ADDR       => reg_data_out <= std_logic_vector(resize((fb_mm2s_err & fb_s2mm_err)     , reg_data_out'length)); 
-            when others             => reg_data_out <= (others => '0');
+            when FB_MODE_ADDR                => reg_data_out <= std_logic_vector(resize(fb_conf_i.fb_mode, reg_data_out'length));
+            when FB_BASE_ADDR_ADDR           => reg_data_out <= std_logic_vector(resize(fb_conf_i.base_addr, reg_data_out'length));
+            when FB_FRAME_SIZE_ADDR          => reg_data_out <= std_logic_vector(resize(fb_conf_i.frame_size, reg_data_out'length));
+            when FB_HDR_SIZE_ADDR            => reg_data_out <= std_logic_vector(resize(fb_conf_i.hdr_size, reg_data_out'length));
+            when FB_IMG_SIZE_ADDR            => reg_data_out <= std_logic_vector(resize(fb_conf_i.img_size, reg_data_out'length));
+            when FB_CONFIG_VALID_ADDR        => reg_data_out <= std_logic_vector(resize(fb_conf_i.config_valid, reg_data_out'length));
+            when FB_ERR_ADDR                 => reg_data_out <= std_logic_vector(resize(FB_ERR, reg_data_out'length));
+            when others                      => reg_data_out <= (others => '0');
          end case;        
       end if;     
    end process;  

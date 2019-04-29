@@ -1,0 +1,10 @@
+#-----------------------------------------------------------
+# Vivado v2013.4 (64-bit)
+# SW Build 353583 on Mon Dec  9 17:49:19 MST 2013
+# IP Build 208076 on Mon Dec  2 12:38:17 MST 2013
+# Start of session at: Fri Jan 20 09:25:41 2017
+# Process ID: 2340
+# Log file: D:/Telops/FIR-00251-Output/src/SDI/AGC/HDL/netlist_160/vivado.log
+# Journal file: D:/Telops/FIR-00251-Output/src/SDI/AGC/HDL/netlist_160\vivado.jou
+#-----------------------------------------------------------
+source ProjectGeneration.tcl -notrace

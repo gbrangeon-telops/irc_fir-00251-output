@@ -1,6 +1,6 @@
 -------------------------------------------------------------------------------
 --
--- Title       : BadFrameREsync
+-- Title       : video_scaler_wrapper
 -- Design      : fir-00251-camera
 -- Author      : Jean-Alexis Boulet
 -- Company     : Telops
@@ -14,40 +14,50 @@
 --
 -------------------------------------------------------------------------------
 --
--- Description : This file skip à number X of valid frame before letting the data go to the next interface
--- This should fix the issue with the video scaler
+-- Description : 
 --
 -------------------------------------------------------------------------------
 
 
 library IEEE;
 use IEEE.std_logic_1164.all;
-use ieee.std_logic_unsigned.all;
+use ieee.numeric_std.all;
 use work.TEL2000.all;
 
 entity video_scaler_wrapper is
-port(
-        video_clk : in std_logic;
-        axil_clk : in std_logic;
-        core_aresetn : in std_logic;
-        video_aresetn : in std_logic;
-        video_axil_aresetn : in std_logic;	
-		SDI_ResetN : in std_logic;
-        axis_video_in_mosi : in t_axi4_stream_mosi32;
-        axis_video_in_miso : out t_axi4_stream_miso;
-        axis_video_out_mosi : out t_axi4_stream_mosi32;
-        axis_video_out_miso : in t_axi4_stream_miso;
+   port(
+        CORE_CLK : in std_logic;
+        CORE_ARESETN : in std_logic;
         
-        axil_mosi : in t_axi4_lite_mosi;
-        axil_miso : out t_axi4_lite_miso;
+        VIDEO_IN_CLK : in std_logic;
+        VIDEO_IN_ARESETN : in std_logic;
+        AXIS_VIDEO_IN_MOSI : in t_axi4_stream_mosi32;
+        AXIS_VIDEO_IN_MISO : out t_axi4_stream_miso;
+        
+        VIDEO_OUT_CLK : in std_logic;
+        VIDEO_OUT_ARESETN : in std_logic;
+        AXIS_VIDEO_OUT_MOSI : out t_axi4_stream_mosi32;
+        AXIS_VIDEO_OUT_MISO : in t_axi4_stream_miso;
+        
+        AXIL_CLK : in std_logic;
+        AXIL_ARESETN : in std_logic;
+        AXIL_MOSI : in t_axi4_lite_mosi;
+        AXIL_MISO : out t_axi4_lite_miso;
 
-        Scaler_Input_Img_Size : in std_logic_vector(31 downto 0);
-        Scaler_Input_Img_Width : in std_logic_vector(31 downto 0)
+        SCALER_INPUT_IMG_SIZE : in std_logic_vector(31 downto 0);
+        SCALER_INPUT_IMG_WIDTH : in std_logic_vector(15 downto 0)
     );
 end video_scaler_wrapper;
 
 
 architecture rtl of video_scaler_wrapper is
+
+component sync_resetn
+   port(
+      ARESETN : in STD_LOGIC;
+      SRESETN : out STD_LOGIC;
+      CLK    : in STD_LOGIC);
+end component;
 
 component v_scaler_0
   port (
@@ -90,114 +100,109 @@ component v_scaler_0
   );
 end component;
 
-signal m_axis_scaler_fifo_tuser : std_logic;
-signal m_axis_scaler_fifo_tlast : std_logic;
-signal m_axis_scaler_fifo_tvalid : std_logic;
-signal m_axis_scaler_fifo_tready : std_logic;
-signal compteur_pixel_scaler :   std_logic_vector(31 downto 0);    
-signal compteur_line_scaler :   std_logic_vector(31 downto 0);    
-
-signal axil_mosi_i : t_axi4_lite_mosi;
-signal axil_miso_i : t_axi4_lite_miso;
+signal video_in_sresetn : std_logic;
+signal axis_video_in_tready : std_logic;
+signal start_of_frame : std_logic;
+signal end_of_line : std_logic;
+signal compteur_pixel_scaler : unsigned(SCALER_INPUT_IMG_SIZE'range);    
+signal compteur_line_scaler : unsigned(SCALER_INPUT_IMG_WIDTH'range);
 
 begin
 
-axil_mosi_i <= axil_mosi;
-axil_miso <= axil_miso_i;
+reset : sync_resetn port map(ARESETN => VIDEO_IN_ARESETN, CLK => VIDEO_IN_CLK, SRESETN => video_in_sresetn);
 
-m_axis_scaler_fifo_tvalid <= axis_video_in_mosi.TVALID;
-axis_video_in_miso.TREADY <= m_axis_scaler_fifo_tready;
+AXIS_VIDEO_IN_MISO.TREADY <= axis_video_in_tready;
 
 U1 : v_scaler_0
-      port map (
-        s_axis_video_aclk => video_clk,
-        m_axis_video_aclk => video_clk,       
-        s_axis_video_aresetn => video_aresetn,
-        m_axis_video_aresetn => video_aresetn,
-        core_clk => video_clk,
-        core_aresetn => core_aresetn,
+   port map (
+        s_axis_video_aclk => VIDEO_IN_CLK,
+        m_axis_video_aclk => VIDEO_OUT_CLK,       
+        s_axis_video_aresetn => VIDEO_IN_ARESETN,
+        m_axis_video_aresetn => VIDEO_OUT_ARESETN,
+        core_clk => CORE_CLK,
+        core_aresetn => CORE_ARESETN,
+        irq => open,
         
-        s_axis_video_tdata => axis_video_in_mosi.TDATA(23 downto 0),
-        s_axis_video_tready => m_axis_scaler_fifo_tready, 
-        s_axis_video_tvalid => axis_video_in_mosi.TVALID, --  and frame_skip_tpg,-- and frame_skip_tpg,
-        s_axis_video_tlast => m_axis_scaler_fifo_tlast,-- and frame_skip_tpg,
-        s_axis_video_tuser => m_axis_scaler_fifo_tuser,-- and frame_skip_tpg,
+        s_axis_video_tdata => AXIS_VIDEO_IN_MOSI.TDATA(23 downto 0),
+        s_axis_video_tready => axis_video_in_tready, 
+        s_axis_video_tvalid => AXIS_VIDEO_IN_MOSI.TVALID,
+        s_axis_video_tlast => end_of_line,
+        s_axis_video_tuser => start_of_frame,
                 
-        m_axis_video_tdata => axis_video_out_mosi.TDATA(23 downto 0),
-        m_axis_video_tvalid => axis_video_out_mosi.TVALID,
-        m_axis_video_tready => axis_video_out_miso.TREADY,      
-        m_axis_video_tlast => axis_video_out_mosi.TLAST,
-        m_axis_video_tuser => axis_video_out_mosi.TUSER(0),
+        m_axis_video_tdata => AXIS_VIDEO_OUT_MOSI.TDATA(23 downto 0),
+        m_axis_video_tvalid => AXIS_VIDEO_OUT_MOSI.TVALID,
+        m_axis_video_tready => AXIS_VIDEO_OUT_MISO.TREADY,      
+        m_axis_video_tlast => AXIS_VIDEO_OUT_MOSI.TLAST,
+        m_axis_video_tuser => AXIS_VIDEO_OUT_MOSI.TUSER(0),
         
         -- Axi4 Lite ports
-        s_axi_awaddr => axil_mosi_i.AWADDR(8 downto 0),
-        s_axi_aclk => axil_clk,
-        s_axi_aresetn => video_axil_aresetn,
-        s_axi_awvalid => axil_mosi_i.AWVALID,
-        s_axi_awready => axil_miso_i.AWREADY,
-        s_axi_wdata => axil_mosi_i.WDATA,
-        s_axi_wstrb => axil_mosi_i.WSTRB,
-        s_axi_wvalid => axil_mosi_i.WVALID,
-        s_axi_wready => axil_miso_i.WREADY,
-        s_axi_bresp => axil_miso_i.BRESP,
-        s_axi_bvalid => axil_miso_i.BVALID,
-        s_axi_bready => axil_mosi_i.BREADY,
-        s_axi_araddr => axil_mosi_i.ARADDR(8 downto 0),
-        s_axi_arvalid => axil_mosi_i.ARVALID,
-        s_axi_arready => axil_miso_i.ARREADY,
-        s_axi_rdata => axil_miso_i.RDATA,
-        s_axi_rresp => axil_miso_i.RRESP,
-        s_axi_rvalid => axil_miso_i.RVALID,
-        s_axi_rready => axil_mosi_i.RREADY
-      );      
+        s_axi_awaddr => AXIL_MOSI.AWADDR(8 downto 0),
+        s_axi_aclk => AXIL_CLK,
+        s_axi_aresetn => AXIL_ARESETN,
+        s_axi_awvalid => AXIL_MOSI.AWVALID,
+        s_axi_awready => AXIL_MISO.AWREADY,
+        s_axi_wdata => AXIL_MOSI.WDATA,
+        s_axi_wstrb => AXIL_MOSI.WSTRB,
+        s_axi_wvalid => AXIL_MOSI.WVALID,
+        s_axi_wready => AXIL_MISO.WREADY,
+        s_axi_bresp => AXIL_MISO.BRESP,
+        s_axi_bvalid => AXIL_MISO.BVALID,
+        s_axi_bready => AXIL_MOSI.BREADY,
+        s_axi_araddr => AXIL_MOSI.ARADDR(8 downto 0),
+        s_axi_arvalid => AXIL_MOSI.ARVALID,
+        s_axi_arready => AXIL_MISO.ARREADY,
+        s_axi_rdata => AXIL_MISO.RDATA,
+        s_axi_rresp => AXIL_MISO.RRESP,
+        s_axi_rvalid => AXIL_MISO.RVALID,
+        s_axi_rready => AXIL_MOSI.RREADY
+   );
       
-    axis_video_out_mosi.TDATA(31 downto 24) <= "00000000";
-    axis_video_out_mosi.TUSER(7 downto 1) <= "0000000";
+    AXIS_VIDEO_OUT_MOSI.TDATA(31 downto 24) <= (others => '0');
+    AXIS_VIDEO_OUT_MOSI.TUSER(7 downto 1) <= (others => '0');
+    AXIS_VIDEO_OUT_MOSI.TKEEP <= (others => '1');
+    AXIS_VIDEO_OUT_MOSI.TSTRB <= (others => '1');
+	 AXIS_VIDEO_OUT_MOSI.TID <= (others => '0');
+	 AXIS_VIDEO_OUT_MOSI.TDEST <= (others => '0');
     
-    tlast_tuser_proc : process(video_clk) --Count pixels and generate tuser (start of frame) and tlast (end of line) from the frame buffer to video scaler
+    sof_eol_proc : process(VIDEO_IN_CLK) --Count pixels and generate tuser (start of frame) and tlast (end of line) from the frame buffer to video scaler
     begin
---        if compteur_pixel_scaler = 0 and m_axis_scaler_fifo_tvalid = '1' and m_axis_scaler_fifo_tready = '1' then   --Start of frame
---           m_axis_scaler_fifo_tuser <= '1';
---        else
---           m_axis_scaler_fifo_tuser <= '0';
---        end if;
-        if(rising_edge(video_clk)) then
-            if video_aresetn = '0' then
-               compteur_pixel_scaler <= x"00000000";
-               compteur_line_scaler <= x"00000000";
-               m_axis_scaler_fifo_tlast  <= '0';
-               m_axis_scaler_fifo_tuser <= '1';
+        if rising_edge(VIDEO_IN_CLK) then
+            if video_in_sresetn = '0' then
+               compteur_pixel_scaler <= (others => '0');
+               compteur_line_scaler <= (others => '0');
+               end_of_line <= '0';
+               start_of_frame <= '1';
             else
-                if (compteur_pixel_scaler >= ((Scaler_Input_Img_Size) - 1) and m_axis_scaler_fifo_tvalid = '1' and m_axis_scaler_fifo_tready = '1') then      -- End of picture
-                    compteur_pixel_scaler <= x"00000000";
-                    compteur_line_scaler <= x"00000000";
-                    m_axis_scaler_fifo_tlast  <= '0';
-                    m_axis_scaler_fifo_tuser <= '1';
-                elsif (compteur_pixel_scaler = ((Scaler_Input_Img_Size) - 2) and m_axis_scaler_fifo_tvalid = '1' and m_axis_scaler_fifo_tready = '1') then    -- End of picture
+                if (compteur_pixel_scaler >= (unsigned(SCALER_INPUT_IMG_SIZE) - 1) and AXIS_VIDEO_IN_MOSI.TVALID = '1' and axis_video_in_tready = '1') then      -- End of picture
+                    compteur_pixel_scaler <= (others => '0');
+                    compteur_line_scaler <= (others => '0');
+                    end_of_line <= '0';
+                    start_of_frame <= '1';
+                elsif (compteur_pixel_scaler = (unsigned(SCALER_INPUT_IMG_SIZE) - 2) and AXIS_VIDEO_IN_MOSI.TVALID = '1' and axis_video_in_tready = '1') then    -- End of picture
                     compteur_pixel_scaler <= compteur_pixel_scaler + 1;
                     compteur_line_scaler  <= compteur_line_scaler + 1;
-                    m_axis_scaler_fifo_tlast  <= '1';    
-                    m_axis_scaler_fifo_tuser <= '0';
-                elsif (compteur_line_scaler >= (Scaler_Input_Img_Width - 1) and m_axis_scaler_fifo_tvalid = '1' and m_axis_scaler_fifo_tready = '1') then          -- End of line
+                    end_of_line <= '1';    
+                    start_of_frame <= '0';
+                elsif (compteur_line_scaler >= (unsigned(SCALER_INPUT_IMG_WIDTH) - 1) and AXIS_VIDEO_IN_MOSI.TVALID = '1' and axis_video_in_tready = '1') then          -- End of line
                     compteur_pixel_scaler <= compteur_pixel_scaler + 1;
-                    compteur_line_scaler  <= x"00000000";
-                    m_axis_scaler_fifo_tlast  <= '0'; 
-                    m_axis_scaler_fifo_tuser <= '0';
-                elsif (compteur_line_scaler = (Scaler_Input_Img_Width - 2) and m_axis_scaler_fifo_tvalid = '1' and m_axis_scaler_fifo_tready = '1') then           -- End of line
+                    compteur_line_scaler  <= (others => '0');
+                    end_of_line <= '0'; 
+                    start_of_frame <= '0';
+                elsif (compteur_line_scaler = (unsigned(SCALER_INPUT_IMG_WIDTH) - 2) and AXIS_VIDEO_IN_MOSI.TVALID = '1' and axis_video_in_tready = '1') then           -- End of line
                     compteur_pixel_scaler <= compteur_pixel_scaler + 1;
                     compteur_line_scaler  <= compteur_line_scaler + 1;
-                    m_axis_scaler_fifo_tlast  <= '1';
-                    m_axis_scaler_fifo_tuser <= '0';
-                elsif(m_axis_scaler_fifo_tvalid = '1' and m_axis_scaler_fifo_tready = '1') then
+                    end_of_line <= '1';
+                    start_of_frame <= '0';
+                elsif (AXIS_VIDEO_IN_MOSI.TVALID = '1' and axis_video_in_tready = '1') then
                     compteur_pixel_scaler <= compteur_pixel_scaler + 1;
                     compteur_line_scaler <= compteur_line_scaler + 1;
-                    m_axis_scaler_fifo_tlast  <= '0';
-                    m_axis_scaler_fifo_tuser <= '0';
+                    end_of_line <= '0';
+                    start_of_frame <= '0';
                 else
                     compteur_pixel_scaler <= compteur_pixel_scaler;
                     compteur_line_scaler <= compteur_line_scaler;
-                    m_axis_scaler_fifo_tlast  <= m_axis_scaler_fifo_tlast;--'0';
-                    m_axis_scaler_fifo_tuser <= m_axis_scaler_fifo_tuser;
+                    end_of_line <= end_of_line;
+                    start_of_frame <= start_of_frame;
                 end if;
             end if;
          end if;

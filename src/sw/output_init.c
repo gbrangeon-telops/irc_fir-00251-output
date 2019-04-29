@@ -29,7 +29,6 @@
 #include "AGC.h"
 #include "XADC.h"
 #include "tel2000_param.h"
-#include "fan_ctrl.h"
 #include "clink_ctrl.h"
 #include "frame_buffer.h"
 #include "pleora_intf.h"
@@ -38,12 +37,10 @@
 
 
 // Global variables
-t_fan gFan = FAN_Ctor(TEL_PAR_TEL_AXIL_FAN_CTRL_BASEADDR);
 t_ClinkConfig gClinkCtrl = ClinkConf_Ctor(TEL_PAR_TEL_AXIL_CLINK_BASEADDR);
 t_FrameBuffer gFrameBufferCtrl = FrameBuffer_Ctor(TEL_PAR_TEL_AXIL_FB_CTRL_BASEADDR);
 t_PleoraIntf gPleoraIntfCtrl = PleoraIntf_Ctor(TEL_PAR_TEL_AXIL_PLEORA_CTRL_BASEADDR);
-// TODO : XPAR_FB_MEMORY_MIG_7SERIES_0_BASEADDR + offset
-t_SdiIntf gSdiIntfCtrl = SDIIntf_Ctor(TEL_PAR_TEL_AXIL_SDI_CTRL_BASEADDR, 0x90000000);
+t_SdiIntf gSdiIntfCtrl = SDIIntf_Ctor(TEL_PAR_TEL_AXIL_SDI_CTRL_BASEADDR);
 t_AGC gAgcCtrl = AGC_Intf_Ctor(TEL_PAR_TEL_AXIL_SDI_CTRL_BASEADDR + SDIINTF_AGCOFFSET);
 
 XIntc gOutputIntc;
@@ -206,19 +203,24 @@ IRC_Status_t Output_GC_Init()
    {
       return IRC_FAILURE;
    }
-
    // Initialize Proc FPGA UART serial port
-   status = CircularUART_Init(&gCircularUART_ProcFPGA,
+   status = CircularUART_Init(&gCircularUART_ProcFPGA, //uartLite
          XPAR_FPGA_COMM_UART_DEVICE_ID,
          &gOutputIntc,
-         XPAR_MCU_MICROBLAZE_0_AXI_INTC_FPGA_COMM_UART_IP2INTC_IRPT_INTR);
+         XPAR_MCU_MICROBLAZE_0_AXI_INTC_FPGA_COMM_UART_IP2INTC_IRPT_INTR,
+         NULL,
+         NULL,
+         Ns550);
+
+		 
+		 
    if (status != IRC_SUCCESS)
    {
       return IRC_FAILURE;
    }
 
    // Configure Proc FPGA UART serial port
-   if (UART_Config(&gCircularUART_ProcFPGA.uart, 115200, 8, 'N', 1) != IRC_SUCCESS)
+   if (CircularUART_Config(&gCircularUART_ProcFPGA, 115200, 8, 'N', 1) != IRC_SUCCESS)
    {
       return IRC_FAILURE;
    }
@@ -264,23 +266,30 @@ IRC_Status_t Output_GC_Init()
          &gNetworkIntf,
          &storageCtrlIntfCmdQueue,
          NIP_UNDEFINED);
+
+
    if (status != IRC_SUCCESS)
    {
       return IRC_FAILURE;
    }
 
    // Initialize Storage FPGA UART serial port
-   status = CircularUART_Init(&gCircularUART_StorageFPGA,
+   status = CircularUART_Init(&gCircularUART_StorageFPGA,//uartLite
          XPAR_AXI_UART_STORAGE_DEVICE_ID,
          &gOutputIntc,
-         XPAR_MCU_MICROBLAZE_0_AXI_INTC_AXI_UART_STORAGE_IP2INTC_IRPT_INTR);
+         XPAR_MCU_MICROBLAZE_0_AXI_INTC_AXI_UART_STORAGE_IP2INTC_IRPT_INTR,
+         NULL,
+         NULL,
+         Ns550);
+
+
    if (status != IRC_SUCCESS)
    {
       return IRC_FAILURE;
    }
 
    // Configure Storage FPGA UART serial port
-   if (UART_Config(&gCircularUART_StorageFPGA.uart, 115200, 8, 'N', 1) != IRC_SUCCESS)
+   if (CircularUART_Config(&gCircularUART_StorageFPGA, 115200, 8, 'N', 1) != IRC_SUCCESS)
    {
       return IRC_FAILURE;
    }
@@ -463,20 +472,6 @@ IRC_Status_t Output_Timer_Init()
 IRC_Status_t Output_Led_Init()
 {
    return Led_Init(&ledCtrl, XPAR_AXI_GPIO_0_DEVICE_ID);
-}
-
-/**
- * Initializes fan controller.
- *
- * @return IRC_SUCCESS if successfully initialized.
- * @return IRC_FAILURE if failed to initialize.
- */
-IRC_Status_t Output_Fan_Init()
-{
-   FAN_Init(&gFan);
-   FAN_SET_PWM1(&gFan, FAN_PERCENT_MAX_VALUE); // FPGA FAN
-
-   return IRC_SUCCESS;
 }
 
 

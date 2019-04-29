@@ -24,6 +24,7 @@
 // #define CI_VERBOSE
 // #define DT_VERBOSE
 // #define F1F2_VERBOSE
+// #define FB_VERBOSE
 // #define FU_VERBOSE
 // #define GCM_VERBOSE
 // #define IHEX_VERBOSE

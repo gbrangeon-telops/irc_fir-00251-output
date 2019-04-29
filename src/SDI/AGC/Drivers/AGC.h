@@ -16,6 +16,7 @@
 /***************************** Include Files ********************************/
 #include "Genicam.h"
 #include "GC_Registers.h"
+#include "tel2000_param.h"
 #include "xintc.h"
 #include "sdi_intf.h"
 #include "irc_status.h"
@@ -25,7 +26,7 @@
 #define AGC_NB_BIN                          1024
 #define AGC_MAX_PIX_VAL                     0xFFFF
 #define AGC_BIN_WIDTH                       ((AGC_MAX_PIX_VAL + 1) / AGC_NB_BIN)
-#define AGC_TIMESTAMP_TO_SEC                (1.0 / 160000000.0)   /**< Convert Timestamp to seconds. */
+#define AGC_BASE_CLOCK_FREQ_HZ              CLK_DATA_FREQ_HZ
 
 // Set registers address offset
 #define AGC_LO_IMAGEFRACTION_OFFSET         0x00
@@ -34,17 +35,19 @@
 #define AGC_NB_BIN_OFFSET                   0x0C
 #define AGC_MSB_POS_OFFSET                  0x10
 #define AGC_CLEARMEM_OFFSET                 0x14
+#define AGC_NEW_CONFIG_FLAG_OFFSET          0x18
+
 // Get registers address offset
-#define AGC_LO_BINID_PREV_OFFSET            0x18
-#define AGC_LO_CUMSUM_OFFSET                0x1C
-#define AGC_LO_CUMSUM_PREV_OFFSET           0x20
-#define AGC_HI_BINID_PREV_OFFSET            0x24
-#define AGC_HI_CUMSUM_OFFSET                0x28
-#define AGC_HI_CUMSUM_PREV_OFFSET           0x2C
-#define AGC_TIMESTAMP_OFFSET                0x30
-#define AGC_NB_PIXEL_OFFSET                 0x34
-#define AGC_LO_IMAGEFRACTION_FBCK_OFFSET    0x38
-#define AGC_HI_IMAGEFRACTION_FBCK_OFFSET    0x3C
+#define AGC_LO_BINID_PREV_OFFSET            0x1C
+#define AGC_LO_CUMSUM_OFFSET                0x20
+#define AGC_LO_CUMSUM_PREV_OFFSET           0x24
+#define AGC_HI_BINID_PREV_OFFSET            0x28
+#define AGC_HI_CUMSUM_OFFSET                0x2C
+#define AGC_HI_CUMSUM_PREV_OFFSET           0x30
+#define AGC_TIMESTAMP_OFFSET                0x34
+#define AGC_NB_PIXEL_OFFSET                 0x38
+#define AGC_LO_IMAGEFRACTION_FBCK_OFFSET    0x3C
+#define AGC_HI_IMAGEFRACTION_FBCK_OFFSET    0x40
 
 
 /**************************** Type Definitions ******************************/
@@ -62,6 +65,7 @@ struct s_AGC
    uint32_t AGC_NB_Bin;             /**< NB bin de l'histogram. */
    uint32_t AGC_MSB_Pos;            /**< Nb de bit des pixels. */
    uint32_t AGC_Clearmem;           /**< Histogram Clear mem signal. */
+   uint32_t AGC_NewConfigFlag;        /**< Config. valid control signal. */
 };
 typedef struct s_AGC t_AGC;
 

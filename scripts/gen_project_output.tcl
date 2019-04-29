@@ -1,21 +1,25 @@
-set proj_name "fir_0251_Output"
+set proj_name "fir_0251_Output_$FPGA_SIZE"
 set root_dir "d:/Telops/fir-00251-Output"
 set script_dir $root_dir/scripts
 set proj_dir $root_dir/xilinx
 set src_dir $root_dir/src
 set aldec_dir $root_dir/aldec/compile
 set constr_dir $root_dir/src/constraint
-set ip_dir $root_dir/IP
+set ip_dir $root_dir/IP/$FPGA_SIZE
 set common_hdl_dir "d:/Telops/common_hdl"
 set common_dir "d:/Telops/fir-00251-Common/VHDL"
-#set common_IP "d:/Telops/fir-00251-Common/IP"
+
 
 # Create project
 create_project $proj_name $proj_dir
 
 # Set project properties
-set obj [get_projects fir_0251_Output]
-set_property "part" "xc7k70tfbg676-1" $obj
+set obj [get_projects $proj_name]
+if {$FPGA_SIZE == 70} {
+	set_property "part" "xc7k70tfbg676-1" $obj
+} elseif {$FPGA_SIZE == 160} {
+	set_property "part" "xc7k160tfbg676-1" $obj
+}
 set_property "simulator_language" "Mixed" $obj
 set_property "target_language" "VHDL" $obj
 
@@ -23,21 +27,16 @@ set_property "target_language" "VHDL" $obj
 add_files -norecurse $common_dir
 add_files -norecurse $common_dir/Fifo/
 add_files -norecurse $common_dir/hdr_extractor/
+add_files -norecurse $common_dir/Calibration/
 add_files -norecurse $common_dir/Math/
 add_files -norecurse $common_dir/Ram/
-add_files -norecurse $common_dir/Memory_Interface/
 add_files -norecurse $common_dir/Utilities/
-add_files -norecurse $common_dir/PWM_CTRL/HDL/
-add_files -norecurse $common_dir/USART/
 
 #ADD common_hdl unique file(to be added by hand)
 add_files $common_hdl_dir/Utilities/double_sync_vector.vhd
 add_files $common_hdl_dir/Utilities/double_sync.vhd
 add_files $common_hdl_dir/Utilities/sync_reset.vhd
 add_files $common_hdl_dir/Utilities/sync_resetn.vhd
-add_files $common_hdl_dir/Axi4/axis_16_to_32.vhd
-add_files $common_hdl_dir/Axi4/axis_32_to_64.vhd
-add_files $common_hdl_dir/gh_vhdl_lib/custom_MSI/gh_PWM.vhd
 add_files $common_hdl_dir/gh_vhdl_lib/custom_MSI/gh_stretch.vhd
 
 # Add IP sources
@@ -51,10 +50,9 @@ set filelist ""
 #CLINK
 set filelist  [concat $filelist [glob -nocomplain $src_dir/Clink/Hdl/*.vhd]]
 set filelist  [concat $filelist [glob -nocomplain $ip_dir/CH0_CLINK/*.vhd]]
-set filelist  [concat $filelist [glob -nocomplain $ip_dir/CH1_CLINK/*.vhd]]
-set filelist  [concat $filelist [glob -nocomplain $ip_dir/CH2_CLINK/*.vhd]]
 
 #GIGE/FB
+set filelist  [concat $filelist [glob -nocomplain $common_dir/FrameBuffer/*.vhd]]
 set filelist  [concat $filelist [glob -nocomplain $src_dir/FrameBuffer/HDL/*.vhd]]
 set filelist  [concat $filelist [glob -nocomplain $src_dir/pleora_intf/HDL/*.vhd]]
 
@@ -63,13 +61,13 @@ set filelist  [concat $filelist [glob -nocomplain $common_dir/MGT/hdl/*.vhd]]
 set filelist  [concat $filelist [glob -nocomplain $src_dir/MGT/hdl/*.vhd]]
 
 #SDI-AGC
-set filelist  [concat $filelist [glob  $src_dir/SDI/AGC/HDL/netlist/sysgen/*.vhd]]
-set filelist  [concat $filelist [glob  $src_dir/SDI/AGC/HDL/netlist/sysgen/*.coe]]
+set filelist  [concat $filelist [glob  $src_dir/SDI/AGC/HDL/netlist_$FPGA_SIZE/sysgen/*.vhd]]
+set filelist  [concat $filelist [glob  $src_dir/SDI/AGC/HDL/netlist_$FPGA_SIZE/sysgen/*.coe]]
 set filelist  [concat $filelist [glob  $src_dir/SDI/AGC/HDL/*.vhd]]
 #Add Histrogram IP
-read_ip "D:/Telops/FIR-00251-Output/src/SDI/AGC/HDL/netlist/hdl_netlist/histogram_axis_tmi.srcs/sources_1/ip/histogram_axis_tmi_c_counter_binary_v12_0_0/histogram_axis_tmi_c_counter_binary_v12_0_0.xci" 
-read_ip "D:/Telops/FIR-00251-Output/src/SDI/AGC/HDL/netlist/hdl_netlist/histogram_axis_tmi.srcs/sources_1/ip/histogram_axis_tmi_blk_mem_gen_v8_1_0/histogram_axis_tmi_blk_mem_gen_v8_1_0.xci" 
-read_ip "D:/Telops/FIR-00251-Output/src/SDI/AGC/HDL/netlist/hdl_netlist/histogram_axis_tmi.srcs/sources_1/ip/histogram_axis_tmi_c_addsub_v12_0_0/histogram_axis_tmi_c_addsub_v12_0_0.xci"
+read_ip "D:/Telops/FIR-00251-Output/src/SDI/AGC/HDL/netlist_$FPGA_SIZE/hdl_netlist/histogram_axis_tmi.srcs/sources_1/ip/histogram_axis_tmi_c_counter_binary_v12_0_0/histogram_axis_tmi_c_counter_binary_v12_0_0.xci" 
+read_ip "D:/Telops/FIR-00251-Output/src/SDI/AGC/HDL/netlist_$FPGA_SIZE/hdl_netlist/histogram_axis_tmi.srcs/sources_1/ip/histogram_axis_tmi_blk_mem_gen_v8_1_0/histogram_axis_tmi_blk_mem_gen_v8_1_0.xci" 
+read_ip "D:/Telops/FIR-00251-Output/src/SDI/AGC/HDL/netlist_$FPGA_SIZE/hdl_netlist/histogram_axis_tmi.srcs/sources_1/ip/histogram_axis_tmi_c_addsub_v12_0_0/histogram_axis_tmi_c_addsub_v12_0_0.xci"
 #Reset Histogram IP
 reset_target all [get_files {histogram_axis_tmi_c_counter_binary_v12_0_0.xci histogram_axis_tmi_c_addsub_v12_0_0.xci histogram_axis_tmi_blk_mem_gen_v8_1_0.xci}]
 
@@ -92,7 +90,6 @@ set filelist  [concat $filelist [glob -nocomplain $src_dir/SDI/HDL/*.vhd]]
 #BD
 set filelist  [concat $filelist [glob -nocomplain $src_dir/BD/*.vhd]]
 
-
 #Aldec Compilations files
 set filelist  [concat $filelist [glob -nocomplain $aldec_dir/*.vhd]]
 
@@ -101,18 +98,18 @@ add_files $filelist
 
 update_compile_order -fileset sources_1
 
-#Add constraint file
+#Add constraint files
 add_files -fileset constrs_1 $constr_dir
-
-#Set top level constraint
-set_property target_constrs_file $constr_dir/fir_00251_output.xdc [current_fileset -constrset]
+set_property target_constrs_file $constr_dir/fir_00251_output_Target.xdc [current_fileset -constrset]
+reorder_files -fileset constrs_1 -before $constr_dir/fir_00251_output_Timing.xdc $constr_dir/fir_00251_output_Physical.xdc
+reorder_files -fileset constrs_1 -before $constr_dir/fir_00251_output_Target.xdc $constr_dir/fir_00251_output_Timing.xdc
 
 #Create Block design
-source $script_dir/gen_bd_core.tcl
+source $script_dir/gen_bd_core_$FPGA_SIZE.tcl
 
 #create the bd wrapper
-make_wrapper -files [get_files $proj_dir/fir_0251_Output.srcs/sources_1/bd/core/core.bd] -top
-add_files -norecurse $proj_dir/fir_0251_Output.srcs/sources_1/bd/core/hdl/core_wrapper.vhd
+make_wrapper -files [get_files $proj_dir/${proj_name}.srcs/sources_1/bd/core/core.bd] -top
+add_files -norecurse $proj_dir/${proj_name}.srcs/sources_1/bd/core/hdl/core_wrapper.vhd
 
 #Add elf file (DO not add elf file in the .bit)
 #add_files -norecurse $root_dir/sdk/fir_00251_output/Debug/fir_00251_output.elf
@@ -127,10 +124,13 @@ close_bd_design core
 create_fileset -blockset -define_from core core
 
 #Set top level design
-set_property top fir_251_output_top [current_fileset]
-
-#set constraint
-remove_files -fileset constrs_1 {$src_dir/FrameBuffer/Simulation/xil_fb_tb/xil_fb_tb.runs/core_mig_7series_0_0_synth_1/.Xil/core_mig_7series_0_0_propImpl.xdc $src_dir/FrameBuffer/Simulation/xil_fb_tb/xil_fb_tb.runs/blk_mem_gen_0_synth_1/dont_touch.xdc $src_dir/FrameBuffer/Simulation/xil_fb_tb/xil_fb_tb.runs/axi_interconnect_0_synth_1/dont_touch.xdc $src_dir/FrameBuffer/Simulation/xil_fb_tb/xil_fb_tb.runs/axi_interconnect_0_synth_1/.Xil/axi_interconnect_0_propImpl.xdc}
-
+set_property top fir_251_output_top_$FPGA_SIZE [current_fileset]
 
 update_compile_order -fileset sources_1
+
+#Limit max fanout (see UG949 p143 for Fanout Guidelines table)
+set_property STEPS.SYNTH_DESIGN.ARGS.FANOUT_LIMIT 200 [get_runs synth_1]
+
+#Enable post-place optimization (see UG904 p87-93 for more details)
+set_property STEPS.PHYS_OPT_DESIGN.IS_ENABLED true [get_runs impl_1]
+set_property STEPS.PHYS_OPT_DESIGN.ARGS.DIRECTIVE Default [get_runs impl_1]

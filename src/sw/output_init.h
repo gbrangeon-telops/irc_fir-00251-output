@@ -51,7 +51,6 @@ IRC_Status_t Output_Intc_Start();
 IRC_Status_t Output_XADC_Init();
 IRC_Status_t Output_Timer_Init();
 IRC_Status_t Output_Led_Init();
-IRC_Status_t Output_Fan_Init();
 IRC_Status_t Output_Clink_Init();
 IRC_Status_t Output_SDI_Init();
 

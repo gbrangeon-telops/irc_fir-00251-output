@@ -25,7 +25,8 @@ entity PLEORA_CTRL is
       AXI4_LITE_MOSI : in t_axi4_lite_mosi;
       AXI4_LITE_MISO : out t_axi4_lite_miso;
       
-      GIGE_PHY_ERR : in std_logic_vector(1 downto 0);
+      GIGE_ERR : in std_logic_vector(31 downto 0);
+      
       GIGE_CONFIG : out GIGEConfig
       );
 end PLEORA_CTRL;
@@ -34,24 +35,17 @@ end PLEORA_CTRL;
 
 architecture RTL of PLEORA_CTRL is
    
-   -- Example-specific design signals
-   -- local parameter for addressing 32 bit / 64 bit C_S_AXI_DATA_WIDTH
-   -- ADDR_LSB is used for addressing 32/64 bit registers/memories
-   -- ADDR_LSB = 2 for 32 bits (n downto 2)
-   -- ADDR_LSB = 3 for 64 bits (n downto 3)
   constant C_S_AXI_DATA_WIDTH : integer := 32;
   constant C_S_AXI_ADDR_WIDTH : integer := 32;
-  constant ADDR_LSB  : integer := 2;
-  constant OPT_MEM_ADDR_BITS : integer := 5 ;  --Number of supplement bit
 --   
    -- Address of registers
       
-   constant VALID_ADDR              : std_logic_vector(ADDR_LSB + OPT_MEM_ADDR_BITS downto 0) := std_logic_vector(to_unsigned(0,ADDR_LSB + OPT_MEM_ADDR_BITS + 1));
-   constant FRAME_WIDTH_ADDR        : std_logic_vector(ADDR_LSB + OPT_MEM_ADDR_BITS downto 0) := std_logic_vector(to_unsigned(4,ADDR_LSB + OPT_MEM_ADDR_BITS + 1));
-   constant FRAME_HEIGHT_ADDR       : std_logic_vector(ADDR_LSB + OPT_MEM_ADDR_BITS downto 0) := std_logic_vector(to_unsigned(8,ADDR_LSB + OPT_MEM_ADDR_BITS + 1));
-   constant HDR_SIZE_ADDR           : std_logic_vector(ADDR_LSB + OPT_MEM_ADDR_BITS downto 0) := std_logic_vector(to_unsigned(12,ADDR_LSB + OPT_MEM_ADDR_BITS + 1));
-   constant HDR_VERSION_ADDR        : std_logic_vector(ADDR_LSB + OPT_MEM_ADDR_BITS downto 0) := std_logic_vector(to_unsigned(16,ADDR_LSB + OPT_MEM_ADDR_BITS + 1));
-   constant GIGE_PHY_ERR_ADDR       : std_logic_vector(ADDR_LSB + OPT_MEM_ADDR_BITS downto 0) := std_logic_vector(to_unsigned(240,ADDR_LSB + OPT_MEM_ADDR_BITS + 1));
+   constant VALID_ADDR              : std_logic_vector(7 downto 0) := x"00";
+   constant FRAME_WIDTH_ADDR        : std_logic_vector(7 downto 0) := x"04";
+   constant FRAME_HEIGHT_ADDR       : std_logic_vector(7 downto 0) := x"08";
+   constant HDR_SIZE_ADDR           : std_logic_vector(7 downto 0) := x"0C";
+   constant HDR_VERSION_ADDR        : std_logic_vector(7 downto 0) := x"10";
+   constant GIGE_ERR_ADDR           : std_logic_vector(7 downto 0) := x"F0";
 
 
    component double_sync
@@ -64,14 +58,6 @@ architecture RTL of PLEORA_CTRL is
          CLK : in STD_LOGIC);
    end component;
    
-   component double_sync_vector is
-      port(
-         D : in std_logic_vector ;
-         Q : out std_logic_vector;
-         CLK : in STD_LOGIC
-         );
-   end component;
-   
    component sync_resetn is
       port(
          ARESETN : in STD_LOGIC;
@@ -80,10 +66,6 @@ architecture RTL of PLEORA_CTRL is
          );
    end component;
    
-
-   --! User Input Register Declarations
-   signal gige_phy_err_i : std_logic_vector(1 downto 0); --! mm2s fb error
-
 
    --! User Output Register Declarations
    signal gige_config_o : GIGEConfig := gige_cfg_default;
@@ -105,7 +87,6 @@ architecture RTL of PLEORA_CTRL is
    signal slv_reg_rden : std_logic;
    signal slv_reg_wren : std_logic;
    signal reg_data_out : std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
-   signal byte_index	  : integer;
    
    signal sresetn      : std_logic;
    
@@ -114,7 +95,6 @@ begin
    
    -- enter your statements here --
    U0A : sync_resetn port map(ARESETN => ARESETN, SRESETN => sresetn, CLK => CLK);   
-   U0B : double_sync_vector port map(D => GIGE_PHY_ERR, Q => gige_phy_err_i , CLK => CLK);   
    
 
    -- I/O Connections assignments
@@ -253,7 +233,7 @@ begin
             when  FRAME_HEIGHT_ADDR => reg_data_out <= std_logic_vector(resize(gige_config_o.frame_height   , reg_data_out'length));       
             when  HDR_SIZE_ADDR     => reg_data_out <= std_logic_vector(resize(gige_config_o.HeaderSize     , reg_data_out'length));    
             when  HDR_VERSION_ADDR  => reg_data_out <= std_logic_vector(resize(gige_config_o.HeaderVersion  , reg_data_out'length));
-            when  GIGE_PHY_ERR_ADDR => reg_data_out <= std_logic_vector(resize(gige_phy_err_i               , reg_data_out'length));
+            when  GIGE_ERR_ADDR     => reg_data_out <= std_logic_vector(resize(GIGE_ERR                     , reg_data_out'length));
 
             when others             => reg_data_out <= (others => '0');
          end case;        

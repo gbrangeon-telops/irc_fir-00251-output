@@ -1,0 +1,28 @@
+#-----------------------------------------------------------
+# Vivado v2013.4 (64-bit)
+# SW Build 353583 on Mon Dec  9 17:49:19 MST 2013
+# IP Build 208076 on Mon Dec  2 12:38:17 MST 2013
+# Start of session at: Fri Jan 20 09:25:41 2017
+# Process ID: 2340
+# Log file: D:/Telops/FIR-00251-Output/src/SDI/AGC/HDL/netlist_160/vivado.log
+# Journal file: D:/Telops/FIR-00251-Output/src/SDI/AGC/HDL/netlist_160\vivado.jou
+#-----------------------------------------------------------
+Attempting to get a license: Implementation
+Feature available: Implementation
+Loading parts and site information from E:/Xilinx/Vivado/2013.4/data/parts/arch.xml
+Parsing RTL primitives file [E:/Xilinx/Vivado/2013.4/data/parts/xilinx/rtl/prims/rtl_prims.xml]
+Finished parsing RTL primitives file [E:/Xilinx/Vivado/2013.4/data/parts/xilinx/rtl/prims/rtl_prims.xml]
+source ProjectGeneration.tcl -notrace
+D:/Telops/FIR-00251-Output/src/SDI/AGC/HDL/netlist_160/sysgen/histogram_axis_tmi_blk_mem_gen_v8_1_0_vivado.coe
+hdl_netlist/histogram_axis_tmi.srcs/sources_1/ip
+WARNING: [Coretcl 2-176] No IPs found
+INFO: [IP_Flow 19-234] Refreshing IP repositories
+INFO: [IP_Flow 19-1704] No user IP repositories specified
+INFO: [IP_Flow 19-2313] Loaded Vivado IP repository 'E:/Xilinx/Vivado/2013.4/data/ip'.
+WARNING: [Vivado 12-3522] Attempt to change 'Component_Name' from 'histogram_axis_tmi_c_addsub_v12_0_0' to 'histogram_axis_tmi_c_addsub_v12_0_0' is not allowed and is ignored.
+WARNING: [IP_Flow 19-3374] Attempt to set value '0' on disabled parameter 'B_Value' is ignored for 'histogram_axis_tmi_c_addsub_v12_0_0'
+WARNING: [IP_Flow 19-3374] Attempt to set value 'Active_Low' on disabled parameter 'Bypass_Sense' is ignored for 'histogram_axis_tmi_c_addsub_v12_0_0'
+WARNING: [IP_Flow 19-3374] Attempt to set value 'Bypass_Overrides_CE' on disabled parameter 'Bypass_CE_Priority' is ignored for 'histogram_axis_tmi_c_addsub_v12_0_0'
+WARNING: [Vivado 12-3522] Attempt to change 'Component_Name' from 'histogram_axis_tmi_blk_mem_gen_v8_1_0' to 'histogram_axis_tmi_blk_mem_gen_v8_1_0' is not allowed and is ignored.
+WARNING: [Vivado 12-3522] Attempt to change 'Component_Name' from 'histogram_axis_tmi_c_counter_binary_v12_0_0' to 'histogram_axis_tmi_c_counter_binary_v12_0_0' is not allowed and is ignored.
+INFO: [Common 17-206] Exiting Vivado at Fri Jan 20 09:25:59 2017...

@@ -52,9 +52,15 @@ IRC_Status_t AGC_Init(XIntc *pInterruptController, gcRegistersData_t *pGCRegs, t
     pAGC_CTRL->AGC_NB_Bin = AGC_NB_BIN;
     pAGC_CTRL->AGC_MSB_Pos = AGC_16B;
     pAGC_CTRL->AGC_Clearmem = 0;        // Histogram is cleared by default during init
-
+	pAGC_CTRL->AGC_NewConfigFlag = 0;
+	
     // Write controller values to AGC
     WriteStruct(pAGC_CTRL);
+	
+	// Toggle new config flag to AGC
+	AXI4L_write32(1, pAGC_CTRL->ADD + AGC_NEW_CONFIG_FLAG_OFFSET);
+	AXI4L_write32(0, pAGC_CTRL->ADD + AGC_NEW_CONFIG_FLAG_OFFSET);
+
 
     // Register interrupt and start intc process
     status = XIntc_Connect(pInterruptController,
@@ -89,6 +95,10 @@ void AGC_UpdateImageFraction(gcRegistersData_t *pGCRegs, t_AGC *pAGC_CTRL, t_Sdi
         // Update high image fraction
         pAGC_CTRL->AGC_HiImageFraction = (uint32_t)((float)imageSize * pGCRegs->VideoAGCFractionMax / 100.0);
         AXI4L_write32(pAGC_CTRL->AGC_HiImageFraction, pAGC_CTRL->ADD + AGC_HI_IMAGEFRACTION_OFFSET);
+		
+		// Toggle new config flag to AGC
+		AXI4L_write32(1, pAGC_CTRL->ADD + AGC_NEW_CONFIG_FLAG_OFFSET);
+		AXI4L_write32(0, pAGC_CTRL->ADD + AGC_NEW_CONFIG_FLAG_OFFSET);
     }
 }
 
@@ -105,6 +115,10 @@ void AGC_UpdateMode(gcRegistersData_t *pGCRegs, t_AGC *pAGC_CTRL)
 {
     pAGC_CTRL->AGC_Mode = (pGCRegs->VideoAGC == VAGC_Off) ? AGC_OFF : AGC_ON;
     AXI4L_write32(pAGC_CTRL->AGC_Mode, pAGC_CTRL->ADD + AGC_MODE_OFFSET);
+
+    // Toggle new config flag to AGC
+     AXI4L_write32(1, pAGC_CTRL->ADD + AGC_NEW_CONFIG_FLAG_OFFSET);
+     AXI4L_write32(0, pAGC_CTRL->ADD + AGC_NEW_CONFIG_FLAG_OFFSET);
 }
 
 
@@ -230,9 +244,9 @@ static float AGC_getAlphaFactor(uint32_t timestamp, float responseTime_sec)
     // Calculate time between 2 timestamps
     // Check for overflow
     if (timestamp <= timestamp_prev)
-        deltaT_sec = (float)(0x100000000 - timestamp_prev + timestamp) * AGC_TIMESTAMP_TO_SEC;  // 2^32 - LastValue + NewValue
+        deltaT_sec = (float)(0x100000000 - timestamp_prev + timestamp) / (float)AGC_BASE_CLOCK_FREQ_HZ;  // 2^32 - LastValue + NewValue
     else
-        deltaT_sec = (float)(timestamp - timestamp_prev) * AGC_TIMESTAMP_TO_SEC;
+        deltaT_sec = (float)(timestamp - timestamp_prev) / (float)AGC_BASE_CLOCK_FREQ_HZ;
 
     // Update previous timestamp
     timestamp_prev = timestamp;

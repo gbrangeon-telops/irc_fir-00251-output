@@ -86,7 +86,6 @@ bool gVerbose = true;
    #endif
 
    WAIT_US(30);
-   BuiltInTest_Execute(BITID_FANControllerInitialization);
    BuiltInTest_Execute(BITID_LedControllerInitialization);
    BuiltInTest_Execute(BITID_InterruptControllerInitialization);
    BuiltInTest_Execute(BITID_NetworkInterfaceInitialization);

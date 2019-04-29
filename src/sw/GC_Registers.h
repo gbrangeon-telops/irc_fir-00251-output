@@ -19,28 +19,14 @@
 #include "GC_Manager.h"
 #include <stdint.h>
 
-/*
- * IsActiveFlags register bit field definition
- */
-#define AcquisitionStartTriggerIsActiveMask     0x00000001  /**< IsActiveFlags register bit mask for AcquisitionStartTriggerIsActive field */
-#define FlaggingTriggerIsActiveMask             0x00000002  /**< IsActiveFlags register bit mask for FlaggingTriggerIsActive field */
-#define GatingTriggerIsActiveMask               0x00000004  /**< IsActiveFlags register bit mask for GatingTriggerIsActive field */
-#define AutofocusIsActiveMask                   0x00000008  /**< IsActiveFlags register bit mask for AutofocusIsActive field */
-
-#define IsActiveFlagsSet(mask) BitMaskSet(gcRegsData.IsActiveFlags, mask)  /**< Set masked bits in IsActiveFlags register */
-#define IsActiveFlagsClr(mask) BitMaskClr(gcRegsData.IsActiveFlags, mask)  /**< Clear masked bits in IsActiveFlags register */
-#define IsActiveFlagsTst(mask) BitMaskTst(gcRegsData.IsActiveFlags, mask)  /**< Test if masked bits in IsActiveFlags register are all set */
-#define IsActiveFlagsTstAny(mask) BitMaskTstAny(gcRegsData.IsActiveFlags, mask)  /**< Test if at least one of the masked bits in IsActiveFlags register is set */
-
-
 #define GC_AcquisitionStarted    (gAcquisitionStarted == 1)
 
 /* AUTO-CODE BEGIN */
 // Auto-generated GeniCam library.
-// Generated from XML camera definition file version 12.3.0
+// Generated from XML camera definition file version 12.5.0
 // using generateGenICamCLib.m Matlab script.
 
-#if ((GC_XMLMAJORVERSION != 12) || (GC_XMLMINORVERSION != 3) || (GC_XMLSUBMINORVERSION != 0))
+#if ((GC_XMLMAJORVERSION != 12) || (GC_XMLMINORVERSION != 5) || (GC_XMLSUBMINORVERSION != 0))
 #error "XML version mismatch."
 #endif
 
@@ -57,7 +43,9 @@ struct gcRegistersDataStruct {
    float DeviceTemperature;
    float DeviceVoltage;
    float VideoAGCFractionMax;
+   float VideoAGCFractionMaxMin;
    float VideoAGCFractionMin;
+   float VideoAGCFractionMinMax;
    float VideoAGCResponseTime;
    int32_t DeviceFirmwareModuleRevision;
    uint32_t AcquisitionArm;
@@ -73,6 +61,7 @@ struct gcRegistersDataStruct {
    uint32_t DeviceTapGeometry;
    uint32_t DeviceTemperatureSelector;
    uint32_t DeviceVoltageSelector;
+   uint32_t EHDRINumberOfExposures;
    uint32_t EventError;
    uint32_t EventErrorCode;
    uint32_t EventErrorTimestamp;
@@ -82,6 +71,7 @@ struct gcRegistersDataStruct {
    uint32_t EventTelopsCode;
    uint32_t EventTelopsTimestamp;
    uint32_t FValSize;
+   uint32_t FWMode;
    uint32_t Height;
    uint32_t IsActiveFlags;
    uint32_t LValSize;
@@ -111,6 +101,8 @@ struct gcRegistersDataStruct {
    uint32_t VideoDigitalZoomOffsetX;
    uint32_t VideoDigitalZoomOffsetY;
    uint32_t VideoDigitalZoomWidth;
+   uint32_t VideoEHDRIExposureIndex;
+   uint32_t VideoFWPosition;
    uint32_t VideoFreeze;
    uint32_t VideoReverseX;
    uint32_t VideoReverseY;
@@ -149,9 +141,33 @@ extern int32_t DeviceFirmwareModuleRevisionAry[DeviceFirmwareModuleRevisionAryLe
 
 // Shared registers write macros
 ////////////////////////////////////////////////////////////////////////////////
-
 #define GC_SetAcquisitionFrameRateMaxFG(val) GC_RegisterWriteFloat(&gcRegsDef[AcquisitionFrameRateMaxFGIdx], val)
+#define GC_SetVideoColorMap(val) GC_RegisterWriteUI32(&gcRegsDef[VideoColorMapIdx], val)
+#define GC_SetVideoColorMapMin(val) GC_RegisterWriteUI32(&gcRegsDef[VideoColorMapMinIdx], val)
+#define GC_SetVideoColorMapMax(val) GC_RegisterWriteUI32(&gcRegsDef[VideoColorMapMaxIdx], val)
+#define GC_SetVideoDigitalZoomFactor(val) GC_RegisterWriteUI32(&gcRegsDef[VideoDigitalZoomFactorIdx], val)
+#define GC_SetVideoDigitalZoomFactorMax(val) GC_RegisterWriteUI32(&gcRegsDef[VideoDigitalZoomFactorMaxIdx], val)
+#define GC_SetVideoEHDRIExposureIndex(val) GC_RegisterWriteUI32(&gcRegsDef[VideoEHDRIExposureIndexIdx], val)
+#define GC_SetVideoFWPosition(val) GC_RegisterWriteUI32(&gcRegsDef[VideoFWPositionIdx], val)
+#define GC_SetVideoAGCFractionMin(val) GC_RegisterWriteFloat(&gcRegsDef[VideoAGCFractionMinIdx], val)
+#define GC_SetVideoAGCFractionMinMax(val) GC_RegisterWriteFloat(&gcRegsDef[VideoAGCFractionMinMaxIdx], val)
+#define GC_SetVideoAGCFractionMax(val) GC_RegisterWriteFloat(&gcRegsDef[VideoAGCFractionMaxIdx], val)
+#define GC_SetVideoAGCFractionMaxMin(val) GC_RegisterWriteFloat(&gcRegsDef[VideoAGCFractionMaxMinIdx], val)
+#define GC_SetVideoAGCResponseTime(val) GC_RegisterWriteFloat(&gcRegsDef[VideoAGCResponseTimeIdx], val)
+#define GC_SetVideoDigitalZoomMode(val) GC_RegisterWriteUI32(&gcRegsDef[VideoDigitalZoomModeIdx], val)
+#define GC_SetVideoDigitalZoomWidth(val) GC_RegisterWriteUI32(&gcRegsDef[VideoDigitalZoomWidthIdx], val)
+#define GC_SetVideoDigitalZoomHeight(val) GC_RegisterWriteUI32(&gcRegsDef[VideoDigitalZoomHeightIdx], val)
+#define GC_SetVideoDigitalZoomOffsetX(val) GC_RegisterWriteUI32(&gcRegsDef[VideoDigitalZoomOffsetXIdx], val)
+#define GC_SetVideoDigitalZoomOffsetY(val) GC_RegisterWriteUI32(&gcRegsDef[VideoDigitalZoomOffsetYIdx], val)
+#define GC_SetVideoReverseX(val) GC_RegisterWriteUI32(&gcRegsDef[VideoReverseXIdx], val)
+#define GC_SetVideoReverseY(val) GC_RegisterWriteUI32(&gcRegsDef[VideoReverseYIdx], val)
+#define GC_SetPayloadSize(val) GC_RegisterWriteUI32(&gcRegsDef[PayloadSizeIdx], val)
+#define GC_SetDeviceTapGeometry(val) GC_RegisterWriteUI32(&gcRegsDef[DeviceTapGeometryIdx], val)
 #define GC_SetFValSize(val) GC_RegisterWriteUI32(&gcRegsDef[FValSizeIdx], val)
+#define GC_SetLValSize(val) GC_RegisterWriteUI32(&gcRegsDef[LValSizeIdx], val)
+#define GC_SetPayloadSizeMinFG(val) GC_RegisterWriteUI32(&gcRegsDef[PayloadSizeMinFGIdx], val)
+#define GC_SetDeviceBuiltInTestsResults5(val) GC_RegisterWriteUI32(&gcRegsDef[DeviceBuiltInTestsResults5Idx], val)
+#define GC_SetDeviceBuiltInTestsResults6(val) GC_RegisterWriteUI32(&gcRegsDef[DeviceBuiltInTestsResults6Idx], val)
 
 // Locked registers utility macros
 ////////////////////////////////////////////////////////////////////////////////

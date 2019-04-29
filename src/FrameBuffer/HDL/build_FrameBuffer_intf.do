@@ -7,23 +7,15 @@ setenv COMMON_HDL "D:\Telops\Common_HDL"
 setenv OUTPUT "D:\Telops\FIR-00251-Output"
 
 # Package
-acom  "D:\Telops\FIR-00251-Common\VHDL\tel2000pkg.vhd"
-acom "$FB_INTF\FB_define.vhd"
-
-#common_hdl
-acom "$COMMON_HDL\Utilities\SYNC_RESET.vhd"
-acom "$COMMON_HDL\Utilities\double_sync.vhd"
-acom "$COMMON_HDL\Utilities\double_sync_vector.vhd"
-acom "$COMMON_HDL\Utilities\sync_resetn.vhd"
+acom "D:\Telops\FIR-00251-Common\VHDL\FrameBuffer\FB_define.vhd"
 
 #source
-acom "$OUTPUT\IP\axi_fb_datamover\axi_fb_datamover_funcsim.vhdl"
 acom "$FB_INTF\datamover_wrapper.vhd"
-acom "$FB_INTF\axis32_img_sof.vhd"
+acom "D:\Telops\FIR-00251-Common\VHDL\FrameBuffer\axis64_img_sof_output.vhd"
 acom -relax "$FB_INTF\fb_ctrl.vhd"
 acom -relax "$FB_INTF\fb_fsm.vhd"
 
---FB top_level
+#FB top_level
 acom "$FB_INTF\frameBuffer_intf.bde"
 
 #sim
