@@ -127,6 +127,7 @@ architecture RTL of AGC_Ctrl is
    signal sreset        : std_logic;
    
    signal new_config_flag_o         : std_logic;
+   signal cumsum_ready_s : std_logic;
    
    --! User Input Register Declarations
    signal h_lo_bin_id_prev_i           : std_logic_vector(15 downto 0);
@@ -169,7 +170,10 @@ architecture RTL of AGC_Ctrl is
 begin
   
    sreset <= not  sresetn;
-   INTERRUPT <= CUMSUM_READY;  
+   INTERRUPT <= cumsum_ready_s;
+   
+   U0 : double_sync 
+        port map (D => CUMSUM_READY, Q => cumsum_ready_s, RESET => sreset, CLK => CLK_CTRL);
    
    stretch_freset: gh_stretch    
 	generic map (
