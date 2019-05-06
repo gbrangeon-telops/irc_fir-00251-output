@@ -3,7 +3,7 @@ Copyright (c) 1995-2013 Xilinx, Inc.  All rights reserved.
 
 promgen -w -p mcs -spi -c FF -o D:\Telops\FIR-00251-Output\bin\prom\fir_00251_output_70.mcs -s 16384 -u 0 D:\Telops\FIR-00251-Output\bin\download_70.bit 
 
-PROM D:\Telops\FIR-00251-Output\bin\prom\fir_00251_output_70.prm map: Wed Mar 27 17:42:43 2019
+PROM D:\Telops\FIR-00251-Output\bin\prom\fir_00251_output_70.prm map: Mon May 06 10:30:41 2019
 
 Calculating PROM checksum with fill value ff
 
@@ -11,7 +11,7 @@ Format        Mcs86 (32-bit)
 Size          16384K
 PROM start    0000:0000
 PROM end      00ff:ffff
-PROM checksum d5f779c3
+PROM checksum d5fc5b5f
 
         Addr1        Addr2                     Date File(s)
-    0000:0000    002d:f2fb     Mar 27 17:42:39 2019 D:/Telops/FIR-00251-Output/bin/download_70.bit
+    0000:0000    002d:f2fb     May 06 10:30:39 2019 D:/Telops/FIR-00251-Output/bin/download_70.bit
