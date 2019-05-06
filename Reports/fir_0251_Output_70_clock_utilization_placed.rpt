@@ -1,8 +1,8 @@
 Copyright 1986-1999, 2001-2013 Xilinx, Inc. All Rights Reserved.
 -----------------------------------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2013.4 (win64) Build 353583 Mon Dec  9 17:49:19 MST 2013
-| Date         : Thu Apr 04 13:52:34 2019
-| Host         : TELOPSX running 64-bit Service Pack 1  (build 7601)
+| Date         : Mon May 06 10:22:18 2019
+| Host         : TELOPS258-7 running 64-bit Service Pack 1  (build 7601)
 | Command      : report_clock_utilization -file d:/Telops/FIR-00251-Output/Reports/fir_0251_Output_70_clock_utilization_placed.rpt
 | Design       : fir_251_output_top_70
 | Device       : xc7k70t
@@ -53,18 +53,18 @@ Table of Contents
 +-------+-----------------------------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------+-------+-------+--------+---------------+-----------+
 |     1 | U1/CLINK/clink_mmcm/U0/clkf_buf                                                                                             | U1/CLINK/clink_mmcm/U0/clkfbout_buf_clink_clk_wiz                                                                               |     1 |     1 |     no |         1.699 |     0.189 |
 |     2 | U1/CLINK/clink_mmcm/U0/clkout2_buf                                                                                          | U1/CLINK/clink_mmcm/U0/clk_out2                                                                                                 |    15 |    15 |     no |         1.763 |     0.236 |
-|     3 | U1/MB/core_wrapper_i/core_i/FB_MEMORY/mig_7series_0/u_core_mig_7series_0_0_mig/u_iodelay_ctrl/clk_ref_noibuf.u_bufg_clk_ref | U1/MB/core_wrapper_i/core_i/FB_MEMORY/mig_7series_0/u_core_mig_7series_0_0_mig/u_iodelay_ctrl/n_0_clk_ref_noibuf.u_bufg_clk_ref |    17 |     5 |     no |         1.715 |     0.629 |
-|     4 | U1/MB/core_wrapper_i/core_i/clk_wiz_0/U0/clkout3_buf                                                                        | U1/MB/core_wrapper_i/core_i/clk_wiz_0/U0/clk_out3                                                                               |    19 |    12 |     no |         1.540 |     0.211 |
-|     5 | U1/SDI/U16                                                                                                                  | U1/SDI/n_55_U16                                                                                                                 |   115 |    37 |     no |         1.756 |     0.322 |
-|     6 | U1/MB/core_wrapper_i/core_i/MCU/mdm_1/U0/BUFG_DRCK                                                                          | U1/MB/core_wrapper_i/core_i/MCU/mdm_1/U0/Dbg_Clk_0                                                                              |   278 |   103 |     no |         1.677 |     0.360 |
-|     7 | U1/CLINK/clink_mmcm/U0/clkout1_buf                                                                                          | U1/CLINK/clink_mmcm/U0/clk_out1                                                                                                 |   410 |   152 |     no |         1.763 |     0.474 |
-|     8 | U1/MB/core_wrapper_i/core_i/clk_wiz_0/U0/clkout1_buf                                                                        | U1/MB/core_wrapper_i/core_i/clk_wiz_0/U0/clk_out1                                                                               |   512 |   165 |     no |         1.743 |     0.436 |
-|     9 | U1/SDI/U4                                                                                                                   | U1/SDI/n_55_U4                                                                                                                  |   592 |   196 |     no |         1.755 |     0.456 |
-|    10 | U1/SDI/U10                                                                                                                  | U1/SDI/O                                                                                                                        |   686 |   228 |     no |         1.755 |     0.321 |
-|    11 | U1/MB/core_wrapper_i/core_i/clk_wiz_0/U0/clkout4_buf                                                                        | U1/MB/core_wrapper_i/core_i/clk_wiz_0/U0/clk_out4                                                                               |  1047 |   253 |     no |         1.715 |     0.420 |
-|    12 | U1/MGT/MGTS/DATA_CLOCK/user_clk_buf_i                                                                                       | U1/MGT/MGTS/DATA_CLOCK/O1                                                                                                       |  1317 |   294 |     no |         1.748 |     0.449 |
-|    13 | U1/MB/core_wrapper_i/core_i/clk_wiz_0/U0/clkout2_buf                                                                        | U1/MB/core_wrapper_i/core_i/clk_wiz_0/U0/clk_out2                                                                               | 14608 |  3122 |     no |         2.453 |     1.164 |
-|    14 | U1/MB/core_wrapper_i/core_i/FB_MEMORY/mig_7series_0/u_core_mig_7series_0_0_mig/u_ddr3_infrastructure/u_bufg_clkdiv0         | U1/MB/core_wrapper_i/core_i/FB_MEMORY/mig_7series_0/u_core_mig_7series_0_0_mig/u_ddr3_infrastructure/O1                         | 18592 |  4562 |     no |         1.756 |     0.505 |
+|     3 | U1/MB/core_wrapper_i/core_i/FB_MEMORY/mig_7series_0/u_core_mig_7series_0_0_mig/u_iodelay_ctrl/clk_ref_noibuf.u_bufg_clk_ref | U1/MB/core_wrapper_i/core_i/FB_MEMORY/mig_7series_0/u_core_mig_7series_0_0_mig/u_iodelay_ctrl/n_0_clk_ref_noibuf.u_bufg_clk_ref |    17 |     5 |     no |         1.706 |     0.620 |
+|     4 | U1/MB/core_wrapper_i/core_i/clk_wiz_0/U0/clkout3_buf                                                                        | U1/MB/core_wrapper_i/core_i/clk_wiz_0/U0/clk_out3                                                                               |    19 |     9 |     no |         1.531 |     0.191 |
+|     5 | U1/SDI/U16                                                                                                                  | U1/SDI/n_55_U16                                                                                                                 |   115 |    37 |     no |         1.756 |     0.318 |
+|     6 | U1/MB/core_wrapper_i/core_i/MCU/mdm_1/U0/BUFG_DRCK                                                                          | U1/MB/core_wrapper_i/core_i/MCU/mdm_1/U0/Dbg_Clk_0                                                                              |   278 |    96 |     no |         1.541 |     0.219 |
+|     7 | U1/CLINK/clink_mmcm/U0/clkout1_buf                                                                                          | U1/CLINK/clink_mmcm/U0/clk_out1                                                                                                 |   410 |   146 |     no |         1.763 |     0.459 |
+|     8 | U1/MB/core_wrapper_i/core_i/clk_wiz_0/U0/clkout1_buf                                                                        | U1/MB/core_wrapper_i/core_i/clk_wiz_0/U0/clk_out1                                                                               |   512 |   167 |     no |         1.701 |     0.390 |
+|     9 | U1/SDI/U4                                                                                                                   | U1/SDI/n_55_U4                                                                                                                  |   592 |   172 |     no |         1.755 |     0.448 |
+|    10 | U1/SDI/U10                                                                                                                  | U1/SDI/O                                                                                                                        |   686 |   210 |     no |         1.755 |     0.315 |
+|    11 | U1/MB/core_wrapper_i/core_i/clk_wiz_0/U0/clkout4_buf                                                                        | U1/MB/core_wrapper_i/core_i/clk_wiz_0/U0/clk_out4                                                                               |  1047 |   251 |     no |         1.755 |     0.441 |
+|    12 | U1/MGT/MGTS/DATA_CLOCK/user_clk_buf_i                                                                                       | U1/MGT/MGTS/DATA_CLOCK/O1                                                                                                       |  1317 |   335 |     no |         1.673 |     0.383 |
+|    13 | U1/MB/core_wrapper_i/core_i/clk_wiz_0/U0/clkout2_buf                                                                        | U1/MB/core_wrapper_i/core_i/clk_wiz_0/U0/clk_out2                                                                               | 14608 |  3218 |     no |         2.453 |     1.165 |
+|    14 | U1/MB/core_wrapper_i/core_i/FB_MEMORY/mig_7series_0/u_core_mig_7series_0_0_mig/u_ddr3_infrastructure/u_bufg_clkdiv0         | U1/MB/core_wrapper_i/core_i/FB_MEMORY/mig_7series_0/u_core_mig_7series_0_0_mig/u_ddr3_infrastructure/O1                         | 18594 |  4532 |     no |         1.756 |     0.505 |
 +-------+-----------------------------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------+-------+-------+--------+---------------+-----------+
 
 
@@ -120,7 +120,7 @@ Table of Contents
 |     7 | U1/MB/core_wrapper_i/core_i/FB_MEMORY/mig_7series_0/u_core_mig_7series_0_0_mig/u_memc_ui_top_axi/mem_intfc0/ddr_phy_top0/u_ddr_mc_phy_wrapper/u_ddr_mc_phy/ddr_phy_4lanes_1.u_ddr_phy_4lanes/ddr_byte_lane_B.ddr_byte_lane_B/phaser_out              | U1/MB/core_wrapper_i/core_i/FB_MEMORY/mig_7series_0/u_core_mig_7series_0_0_mig/u_memc_ui_top_axi/mem_intfc0/ddr_phy_top0/u_ddr_mc_phy_wrapper/u_ddr_mc_phy/ddr_phy_4lanes_1.u_ddr_phy_4lanes/ddr_byte_lane_B.ddr_byte_lane_B/oserdes_clk         |   11 |    11 |  yes   |         0.385 |     0.045 |
 |     8 | U1/MB/core_wrapper_i/core_i/FB_MEMORY/mig_7series_0/u_core_mig_7series_0_0_mig/u_memc_ui_top_axi/mem_intfc0/ddr_phy_top0/u_ddr_mc_phy_wrapper/u_ddr_mc_phy/ddr_phy_4lanes_0.u_ddr_phy_4lanes/ddr_byte_lane_A.ddr_byte_lane_A/phaser_out              | U1/MB/core_wrapper_i/core_i/FB_MEMORY/mig_7series_0/u_core_mig_7series_0_0_mig/u_memc_ui_top_axi/mem_intfc0/ddr_phy_top0/u_ddr_mc_phy_wrapper/u_ddr_mc_phy/ddr_phy_4lanes_0.u_ddr_phy_4lanes/ddr_byte_lane_A.ddr_byte_lane_A/oserdes_clk         |   18 |    18 |  yes   |         0.397 |     0.047 |
 |     9 | U1/MB/core_wrapper_i/core_i/FB_MEMORY/mig_7series_0/u_core_mig_7series_0_0_mig/u_memc_ui_top_axi/mem_intfc0/ddr_phy_top0/u_ddr_mc_phy_wrapper/u_ddr_mc_phy/ddr_phy_4lanes_1.u_ddr_phy_4lanes/ddr_byte_lane_A.ddr_byte_lane_A/phaser_out              | U1/MB/core_wrapper_i/core_i/FB_MEMORY/mig_7series_0/u_core_mig_7series_0_0_mig/u_memc_ui_top_axi/mem_intfc0/ddr_phy_top0/u_ddr_mc_phy_wrapper/u_ddr_mc_phy/ddr_phy_4lanes_1.u_ddr_phy_4lanes/ddr_byte_lane_A.ddr_byte_lane_A/oserdes_clk         |   18 |    18 |  yes   |         0.397 |     0.047 |
-|    10 | U1/MB/core_wrapper_i/core_i/MCU/mdm_1/U0/Use_E2.BSCANE2_I                                                                                                                                                                                            | U1/MB/core_wrapper_i/core_i/MCU/mdm_1/U0/Ext_JTAG_UPDATE                                                                                                                                                                                         |   41 |    22 |  yes   |         2.247 |     0.616 |
+|    10 | U1/MB/core_wrapper_i/core_i/MCU/mdm_1/U0/Use_E2.BSCANE2_I                                                                                                                                                                                            | U1/MB/core_wrapper_i/core_i/MCU/mdm_1/U0/Ext_JTAG_UPDATE                                                                                                                                                                                         |   41 |    18 |  yes   |         1.915 |     0.817 |
 +-------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------+-------+--------+---------------+-----------+
 
 
@@ -132,14 +132,14 @@ Table of Contents
 +-------------------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+
 | Clock Region Name | Used | Avail | Used | Avail | Used | Avail | Used | Avail | Used | Avail | Used | Avail | Used | Avail | Used | Avail | Used | Avail | Used | Avail | Used | Avail | Used | Avail | Used | Avail | Used | Avail | Used | Avail |
 +-------------------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+
-| X0Y0              |    5 |    12 |    0 |     4 |    0 |     2 |    0 |     4 |    0 |     1 |    0 |     1 |    0 |     0 |    0 |     0 |    0 |    50 |    0 |    50 | 5963 | 14400 |  633 |  2000 |    3 |    80 |    7 |    20 |    0 |    40 |
-| X1Y0              |    5 |    12 |    0 |     4 |    0 |     2 |    0 |     4 |    1 |     1 |    1 |     1 |    0 |     0 |    0 |     0 |    8 |    50 |   36 |    50 | 5023 | 10400 | 1961 |  1600 |    3 |    80 |   11 |    20 |    4 |    20 |
-| X0Y1              |    6 |    12 |    0 |     4 |    0 |     2 |    0 |     4 |    1 |     1 |    0 |     1 |    0 |     0 |    0 |     0 |    0 |    50 |    0 |    50 | 4113 |  9600 |  521 |  2000 |    2 |    80 |   19 |    20 |    6 |    40 |
-| X1Y1              |    7 |    12 |    0 |     4 |    0 |     2 |    0 |     4 |    0 |     1 |    0 |     1 |    0 |     0 |    0 |     0 |    8 |    50 |   11 |    50 | 5756 | 10400 | 1260 |  1600 |    7 |    80 |   15 |    20 |    6 |    20 |
-| X0Y2              |    8 |    12 |    0 |     4 |    0 |     2 |    0 |     4 |    0 |     1 |    0 |     1 |    0 |     0 |    0 |     0 |    0 |    50 |    0 |    50 | 3198 |  9600 |  142 |  2000 |    0 |    80 |   20 |    20 |    0 |    40 |
-| X1Y2              |    7 |    12 |    0 |     0 |    0 |     0 |    0 |     0 |    0 |     0 |    0 |     0 |    3 |     5 |    0 |     1 |    0 |     0 |    0 |     0 | 2751 |  6000 |  145 |  1000 |    0 |    20 |    5 |     5 |    0 |    20 |
-| X0Y3              |    8 |    12 |    0 |     4 |    0 |     2 |    0 |     4 |    1 |     1 |    0 |     1 |    0 |     0 |    0 |     0 |    0 |    50 |   15 |    50 | 4577 | 14400 |  220 |  2000 |    0 |    80 |   20 |    20 |    5 |    40 |
-| X1Y3              |    8 |    12 |    0 |     0 |    0 |     0 |    0 |     0 |    0 |     0 |    0 |     0 |    2 |     5 |    0 |     0 |    0 |     0 |    0 |     0 | 1650 |  7200 |   99 |  1200 |    0 |    40 |   10 |    10 |    0 |    20 |
+| X0Y0              |    4 |    12 |    0 |     4 |    0 |     2 |    0 |     4 |    0 |     1 |    0 |     1 |    0 |     0 |    0 |     0 |    0 |    50 |    0 |    50 | 6884 | 14400 | 1379 |  2000 |    3 |    80 |   12 |    20 |    0 |    40 |
+| X1Y0              |    5 |    12 |    0 |     4 |    0 |     2 |    0 |     4 |    1 |     1 |    1 |     1 |    0 |     0 |    0 |     0 |    8 |    50 |   36 |    50 | 4117 | 10400 | 1513 |  1600 |    2 |    80 |    9 |    20 |    2 |    20 |
+| X0Y1              |    9 |    12 |    0 |     4 |    0 |     2 |    0 |     4 |    1 |     1 |    0 |     1 |    0 |     0 |    0 |     0 |    0 |    50 |    0 |    50 | 4711 |  9600 |  240 |  2000 |    3 |    80 |   18 |    20 |   13 |    40 |
+| X1Y1              |    6 |    12 |    0 |     4 |    0 |     2 |    0 |     4 |    0 |     1 |    0 |     1 |    0 |     0 |    0 |     0 |    8 |    50 |   11 |    50 | 5200 | 10400 | 1177 |  1600 |    7 |    80 |   15 |    20 |    1 |    20 |
+| X0Y2              |    6 |    12 |    0 |     4 |    0 |     2 |    0 |     4 |    0 |     1 |    0 |     1 |    0 |     0 |    0 |     0 |    0 |    50 |    0 |    50 | 3231 |  9600 |  332 |  2000 |    0 |    80 |   20 |    20 |    3 |    40 |
+| X1Y2              |    5 |    12 |    0 |     0 |    0 |     0 |    0 |     0 |    0 |     0 |    0 |     0 |    3 |     5 |    0 |     1 |    0 |     0 |    0 |     0 | 2050 |  6000 |   89 |  1000 |    0 |    20 |    5 |     5 |    0 |    20 |
+| X0Y3              |    8 |    12 |    0 |     4 |    0 |     2 |    0 |     4 |    1 |     1 |    0 |     1 |    0 |     0 |    0 |     0 |    0 |    50 |   15 |    50 | 4629 | 14400 |   95 |  2000 |    0 |    80 |   19 |    20 |    0 |    40 |
+| X1Y3              |    8 |    12 |    0 |     0 |    0 |     0 |    0 |     0 |    0 |     0 |    0 |     0 |    2 |     5 |    0 |     0 |    0 |     0 |    0 |     0 | 2211 |  7200 |  156 |  1200 |    0 |    40 |    9 |    10 |    2 |    20 |
 +-------------------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+
 * RAMB36 site can be used as two RAMB18/FIFO18 sites
 
@@ -150,11 +150,10 @@ Table of Contents
 +-------------+--------+-----------+---------+-----------+---------+---------+------+-------+----------+------+---------------------------------------------------------------------------------------------------------+
 | Source Type | Locked | MMCM Pins | GT Pins | BRAM Pins | ILOGICs | OLOGICs |  FFs | LUTMs | DSP48E1s | PLLs |                                                                                          Clock Net Name |
 +-------------+--------+-----------+---------+-----------+---------+---------+------+-------+----------+------+---------------------------------------------------------------------------------------------------------+
-| BUFG        |   no   |         0 |       0 |         2 |       0 |       0 |    0 |     0 |        0 |    0 | U1/SDI/n_55_U4                                                                                          |
-| BUFG        |   no   |         0 |       0 |         0 |       0 |       0 |   44 |     0 |        0 |    0 | U1/MB/core_wrapper_i/core_i/clk_wiz_0/U0/clk_out4                                                       |
-| BUFG        |   no   |         0 |       0 |         2 |       0 |       0 |   71 |     0 |        0 |    0 | U1/MGT/MGTS/DATA_CLOCK/O1                                                                               |
-| BUFG        |   no   |         0 |       0 |        14 |       0 |       0 | 2335 |   389 |        0 |    0 | U1/MB/core_wrapper_i/core_i/clk_wiz_0/U0/clk_out2                                                       |
-| BUFG        |   no   |         0 |       0 |         0 |       0 |       0 | 3513 |   244 |        0 |    0 | U1/MB/core_wrapper_i/core_i/FB_MEMORY/mig_7series_0/u_core_mig_7series_0_0_mig/u_ddr3_infrastructure/O1 |
+| BUFG        |   no   |         0 |       0 |         7 |       0 |       0 |   33 |     0 |        0 |    0 | U1/MB/core_wrapper_i/core_i/clk_wiz_0/U0/clk_out4                                                       |
+| BUFG        |   no   |         0 |       0 |         4 |       0 |       0 |   79 |     0 |        0 |    0 | U1/SDI/n_55_U4                                                                                          |
+| BUFG        |   no   |         0 |       0 |        15 |       0 |       0 | 2309 |   262 |        0 |    0 | U1/MB/core_wrapper_i/core_i/clk_wiz_0/U0/clk_out2                                                       |
+| BUFG        |   no   |         0 |       0 |         4 |       0 |       0 | 4463 |  1117 |        0 |    0 | U1/MB/core_wrapper_i/core_i/FB_MEMORY/mig_7series_0/u_core_mig_7series_0_0_mig/u_ddr3_infrastructure/O1 |
 +-------------+--------+-----------+---------+-----------+---------+---------+------+-------+----------+------+---------------------------------------------------------------------------------------------------------+
 
 
@@ -166,9 +165,9 @@ Table of Contents
 +-------------+--------+-----------+---------+-----------+---------+---------+------+-------+----------+------+---------------------------------------------------------------------------------------------------------------------------------+
 | BUFH        |   no   |         1 |       0 |         0 |       0 |       0 |    0 |     0 |        0 |    0 | U1/MB/core_wrapper_i/core_i/FB_MEMORY/mig_7series_0/u_core_mig_7series_0_0_mig/u_ddr3_infrastructure/pll_clk3                   |
 | BUFG        |   no   |         0 |       0 |         0 |       0 |       0 |   15 |     0 |        0 |    0 | U1/MB/core_wrapper_i/core_i/FB_MEMORY/mig_7series_0/u_core_mig_7series_0_0_mig/u_iodelay_ctrl/n_0_clk_ref_noibuf.u_bufg_clk_ref |
-| BUFG        |   no   |         0 |       0 |         0 |       0 |       0 |   89 |     0 |        2 |    0 | U1/MB/core_wrapper_i/core_i/clk_wiz_0/U0/clk_out4                                                                               |
-| BUFG        |   no   |         0 |       0 |         6 |       0 |       0 |  683 |   579 |        0 |    0 | U1/MB/core_wrapper_i/core_i/clk_wiz_0/U0/clk_out2                                                                               |
-| BUFG        |   no   |         1 |       0 |        22 |       0 |       0 | 4236 |  1382 |        0 |    0 | U1/MB/core_wrapper_i/core_i/FB_MEMORY/mig_7series_0/u_core_mig_7series_0_0_mig/u_ddr3_infrastructure/O1                         |
+| BUFG        |   no   |         0 |       0 |         4 |       0 |       0 |   22 |     0 |        0 |    0 | U1/SDI/n_55_U4                                                                                                                  |
+| BUFG        |   no   |         0 |       0 |        10 |       0 |       0 |  914 |   474 |        0 |    0 | U1/MB/core_wrapper_i/core_i/clk_wiz_0/U0/clk_out2                                                                               |
+| BUFG        |   no   |         1 |       0 |         8 |       0 |       0 | 3166 |  1039 |        0 |    0 | U1/MB/core_wrapper_i/core_i/FB_MEMORY/mig_7series_0/u_core_mig_7series_0_0_mig/u_ddr3_infrastructure/O1                         |
 +-------------+--------+-----------+---------+-----------+---------+---------+------+-------+----------+------+---------------------------------------------------------------------------------------------------------------------------------+
 
 
@@ -178,12 +177,15 @@ Table of Contents
 +-------------+--------+-----------+---------+-----------+---------+---------+------+-------+----------+------+---------------------------------------------------------------------------------------------------------+
 | Source Type | Locked | MMCM Pins | GT Pins | BRAM Pins | ILOGICs | OLOGICs |  FFs | LUTMs | DSP48E1s | PLLs |                                                                                          Clock Net Name |
 +-------------+--------+-----------+---------+-----------+---------+---------+------+-------+----------+------+---------------------------------------------------------------------------------------------------------+
-| BUFG        |   no   |         0 |       0 |         0 |       0 |       0 |   17 |     0 |        0 |    0 | U1/MB/core_wrapper_i/core_i/clk_wiz_0/U0/clk_out3                                                       |
-| BUFG        |   no   |         0 |       0 |         2 |       0 |       0 |   38 |     0 |        0 |    0 | U1/MGT/MGTS/DATA_CLOCK/O1                                                                               |
-| BUFG        |   no   |         0 |       0 |         4 |       0 |       0 |  188 |     0 |        2 |    0 | U1/MB/core_wrapper_i/core_i/clk_wiz_0/U0/clk_out4                                                       |
-| BUFG        |   no   |         0 |       0 |         9 |       0 |       0 |  276 |     1 |        0 |    0 | U1/SDI/n_55_U4                                                                                          |
-| BUFG        |   no   |         1 |       0 |        16 |       0 |       0 | 1158 |    80 |        0 |    0 | U1/MB/core_wrapper_i/core_i/FB_MEMORY/mig_7series_0/u_core_mig_7series_0_0_mig/u_ddr3_infrastructure/O1 |
-| BUFG        |   no   |         0 |       0 |        10 |       0 |       0 | 2436 |   440 |        4 |    0 | U1/MB/core_wrapper_i/core_i/clk_wiz_0/U0/clk_out2                                                       |
+| BUFG        |   no   |         0 |       0 |         0 |       0 |       0 |    3 |     0 |        0 |    0 | U1/SDI/n_55_U4                                                                                          |
+| BUFG        |   no   |         0 |       0 |         0 |       0 |       0 |   19 |     0 |        0 |    0 | U1/MB/core_wrapper_i/core_i/clk_wiz_0/U0/clk_out3                                                       |
+| BUFG        |   no   |         0 |       0 |         0 |       0 |       0 |   32 |     1 |        0 |    0 | U1/MB/core_wrapper_i/core_i/clk_wiz_0/U0/clk_out1                                                       |
+| BUFG        |   no   |         0 |       0 |         0 |       0 |       0 |   49 |     4 |        0 |    0 | U1/MB/core_wrapper_i/core_i/MCU/mdm_1/U0/Dbg_Clk_0                                                      |
+| BUFG        |   no   |         0 |       0 |         2 |       0 |       0 |   62 |     0 |        0 |    0 | U1/CLINK/clink_mmcm/U0/clk_out1                                                                         |
+| BUFG        |   no   |         0 |       0 |         1 |       0 |       0 |   70 |     0 |        0 |    0 | U1/MGT/MGTS/DATA_CLOCK/O1                                                                               |
+| BUFG        |   no   |         1 |       0 |        20 |       0 |       0 |  927 |   145 |        2 |    0 | U1/MB/core_wrapper_i/core_i/FB_MEMORY/mig_7series_0/u_core_mig_7series_0_0_mig/u_ddr3_infrastructure/O1 |
+| BUFG        |   no   |         0 |       0 |         8 |       0 |       0 |  972 |    22 |        9 |    0 | U1/MB/core_wrapper_i/core_i/clk_wiz_0/U0/clk_out4                                                       |
+| BUFG        |   no   |         0 |       0 |        11 |       0 |       0 | 2556 |    68 |        2 |    0 | U1/MB/core_wrapper_i/core_i/clk_wiz_0/U0/clk_out2                                                       |
 +-------------+--------+-----------+---------+-----------+---------+---------+------+-------+----------+------+---------------------------------------------------------------------------------------------------------+
 
 
@@ -193,12 +195,11 @@ Table of Contents
 +-------------+--------+-----------+---------+-----------+---------+---------+------+-------+----------+------+---------------------------------------------------------------------------------------------------------+
 | Source Type | Locked | MMCM Pins | GT Pins | BRAM Pins | ILOGICs | OLOGICs |  FFs | LUTMs | DSP48E1s | PLLs |                                                                                          Clock Net Name |
 +-------------+--------+-----------+---------+-----------+---------+---------+------+-------+----------+------+---------------------------------------------------------------------------------------------------------+
-| BUFG        |   no   |         0 |       0 |         3 |       0 |       0 |    0 |     0 |        0 |    0 | U1/CLINK/clink_mmcm/U0/clk_out1                                                                         |
-| BUFG        |   no   |         0 |       0 |         0 |       0 |       0 |    2 |     0 |        0 |    0 | U1/MB/core_wrapper_i/core_i/clk_wiz_0/U0/clk_out3                                                       |
-| BUFG        |   no   |         0 |       0 |         0 |       0 |       0 |   32 |     0 |        0 |    0 | U1/MGT/MGTS/DATA_CLOCK/O1                                                                               |
-| BUFG        |   no   |         0 |       0 |        11 |       0 |       0 |  651 |    21 |        5 |    0 | U1/MB/core_wrapper_i/core_i/clk_wiz_0/U0/clk_out4                                                       |
-| BUFG        |   no   |         0 |       0 |         8 |       0 |       0 | 1822 |  1017 |        0 |    0 | U1/MB/core_wrapper_i/core_i/FB_MEMORY/mig_7series_0/u_core_mig_7series_0_0_mig/u_ddr3_infrastructure/O1 |
-| BUFG        |   no   |         0 |       0 |        22 |       0 |       0 | 3249 |   222 |        0 |    0 | U1/MB/core_wrapper_i/core_i/clk_wiz_0/U0/clk_out2                                                       |
+| BUFG        |   no   |         0 |       0 |         2 |       0 |       0 |    0 |     0 |        0 |    0 | U1/CLINK/clink_mmcm/U0/clk_out1                                                                         |
+| BUFG        |   no   |         0 |       0 |         3 |       0 |       0 |   76 |     0 |        0 |    0 | U1/MGT/MGTS/DATA_CLOCK/O1                                                                               |
+| BUFG        |   no   |         0 |       0 |         3 |       0 |       0 |  263 |     8 |        0 |    0 | U1/SDI/n_55_U4                                                                                          |
+| BUFG        |   no   |         0 |       0 |        16 |       0 |       0 | 2087 |   422 |        0 |    0 | U1/MB/core_wrapper_i/core_i/FB_MEMORY/mig_7series_0/u_core_mig_7series_0_0_mig/u_ddr3_infrastructure/O1 |
+| BUFG        |   no   |         0 |       0 |        17 |       0 |       0 | 2774 |   747 |        0 |    0 | U1/MB/core_wrapper_i/core_i/clk_wiz_0/U0/clk_out2                                                       |
 +-------------+--------+-----------+---------+-----------+---------+---------+------+-------+----------+------+---------------------------------------------------------------------------------------------------------+
 
 
@@ -208,31 +209,27 @@ Table of Contents
 +-------------+--------+-----------+---------+-----------+---------+---------+------+-------+----------+------+---------------------------------------------------------------------------------------------------------+
 | Source Type | Locked | MMCM Pins | GT Pins | BRAM Pins | ILOGICs | OLOGICs |  FFs | LUTMs | DSP48E1s | PLLs |                                                                                          Clock Net Name |
 +-------------+--------+-----------+---------+-----------+---------+---------+------+-------+----------+------+---------------------------------------------------------------------------------------------------------+
-| BUFG        |   no   |         0 |       0 |         0 |       0 |       0 |    4 |     1 |        0 |    0 | U1/MB/core_wrapper_i/core_i/clk_wiz_0/U0/clk_out1                                                       |
-| BUFG        |   no   |         0 |       0 |         0 |       0 |       0 |    6 |     1 |        0 |    0 | U1/MB/core_wrapper_i/core_i/clk_wiz_0/U0/clk_out4                                                       |
-| BUFG        |   no   |         0 |       0 |         0 |       0 |       0 |    8 |    32 |        0 |    0 | U1/MB/core_wrapper_i/core_i/MCU/mdm_1/U0/Dbg_Clk_0                                                      |
-| BUFG        |   no   |         0 |       0 |         0 |       0 |       0 |   24 |     3 |        0 |    0 | U1/MGT/MGTS/DATA_CLOCK/O1                                                                               |
-| BUFG        |   no   |         0 |       0 |         0 |       0 |       0 |  262 |    15 |        0 |    0 | U1/SDI/n_55_U4                                                                                          |
-| BUFG        |   no   |         0 |       0 |         5 |       0 |       0 |  386 |     0 |        0 |    0 | U1/CLINK/clink_mmcm/U0/clk_out1                                                                         |
-| BUFG        |   no   |         0 |       0 |         1 |       0 |       0 | 1177 |    39 |        0 |    0 | U1/MB/core_wrapper_i/core_i/clk_wiz_0/U0/clk_out2                                                       |
-| BUFG        |   no   |         0 |       0 |        34 |       0 |       0 | 1331 |    51 |        0 |    0 | U1/MB/core_wrapper_i/core_i/FB_MEMORY/mig_7series_0/u_core_mig_7series_0_0_mig/u_ddr3_infrastructure/O1 |
+| BUFG        |   no   |         0 |       0 |         0 |       0 |       0 |    1 |     0 |        0 |    0 | U1/MB/core_wrapper_i/core_i/clk_wiz_0/U0/clk_out1                                                       |
+| BUFG        |   no   |         0 |       0 |         0 |       0 |       0 |   59 |     0 |        0 |    0 | U1/CLINK/clink_mmcm/U0/clk_out1                                                                         |
+| BUFG        |   no   |         0 |       0 |         0 |       0 |       0 |  123 |     1 |        0 |    0 | U1/MGT/MGTS/DATA_CLOCK/O1                                                                               |
+| BUFG        |   no   |         0 |       0 |         0 |       0 |       0 |  171 |    54 |        0 |    0 | U1/MB/core_wrapper_i/core_i/MCU/mdm_1/U0/Dbg_Clk_0                                                      |
+| BUFG        |   no   |         0 |       0 |         0 |       0 |       0 |  638 |     0 |        0 |    0 | U1/MB/core_wrapper_i/core_i/clk_wiz_0/U0/clk_out2                                                       |
+| BUFG        |   no   |         0 |       0 |        40 |       0 |       0 | 2220 |   277 |        3 |    0 | U1/MB/core_wrapper_i/core_i/FB_MEMORY/mig_7series_0/u_core_mig_7series_0_0_mig/u_ddr3_infrastructure/O1 |
 +-------------+--------+-----------+---------+-----------+---------+---------+------+-------+----------+------+---------------------------------------------------------------------------------------------------------+
 
 
 13. Net wise resources used in clock region X1Y2
 ------------------------------------------------
 
-+-------------+--------+-----------+---------+-----------+---------+---------+------+-------+----------+------+---------------------------------------------------------------------------------------------------------+
-| Source Type | Locked | MMCM Pins | GT Pins | BRAM Pins | ILOGICs | OLOGICs |  FFs | LUTMs | DSP48E1s | PLLs |                                                                                          Clock Net Name |
-+-------------+--------+-----------+---------+-----------+---------+---------+------+-------+----------+------+---------------------------------------------------------------------------------------------------------+
-| BUFG        |   no   |         0 |       0 |         0 |       0 |       0 |    1 |     0 |        0 |    0 | U1/MB/core_wrapper_i/core_i/MCU/mdm_1/U0/Dbg_Clk_0                                                      |
-| BUFG        |   no   |         0 |       0 |         0 |       0 |       0 |    7 |     0 |        0 |    0 | U1/SDI/n_55_U4                                                                                          |
-| BUFG        |   no   |         0 |       0 |         0 |       0 |       0 |   27 |     0 |        0 |    0 | U1/MB/core_wrapper_i/core_i/clk_wiz_0/U0/clk_out4                                                       |
-| BUFG        |   no   |         0 |       3 |         0 |       0 |       0 |   70 |     0 |        0 |    0 | U1/MB/core_wrapper_i/core_i/clk_wiz_0/U0/clk_out1                                                       |
-| BUFG        |   no   |         0 |       0 |         0 |       0 |       0 |  663 |     1 |        0 |    0 | U1/MB/core_wrapper_i/core_i/clk_wiz_0/U0/clk_out2                                                       |
-| BUFG        |   no   |         0 |       0 |        10 |       0 |       0 |  977 |    64 |        0 |    0 | U1/MB/core_wrapper_i/core_i/FB_MEMORY/mig_7series_0/u_core_mig_7series_0_0_mig/u_ddr3_infrastructure/O1 |
-| BUFG        |   no   |         0 |       8 |         0 |       0 |       0 | 1006 |    80 |        0 |    0 | U1/MGT/MGTS/DATA_CLOCK/O1                                                                               |
-+-------------+--------+-----------+---------+-----------+---------+---------+------+-------+----------+------+---------------------------------------------------------------------------------------------------------+
++-------------+--------+-----------+---------+-----------+---------+---------+-----+-------+----------+------+---------------------------------------------------------------------------------------------------------+
+| Source Type | Locked | MMCM Pins | GT Pins | BRAM Pins | ILOGICs | OLOGICs | FFs | LUTMs | DSP48E1s | PLLs |                                                                                          Clock Net Name |
++-------------+--------+-----------+---------+-----------+---------+---------+-----+-------+----------+------+---------------------------------------------------------------------------------------------------------+
+| BUFG        |   no   |         0 |       3 |         0 |       0 |       0 |  63 |     0 |        0 |    0 | U1/MB/core_wrapper_i/core_i/clk_wiz_0/U0/clk_out1                                                       |
+| BUFG        |   no   |         0 |       0 |         0 |       0 |       0 |  85 |     0 |        0 |    0 | U1/MB/core_wrapper_i/core_i/clk_wiz_0/U0/clk_out2                                                       |
+| BUFG        |   no   |         0 |       0 |         0 |       0 |       0 | 187 |     8 |        0 |    0 | U1/SDI/n_55_U4                                                                                          |
+| BUFG        |   no   |         0 |       8 |         0 |       0 |       0 | 839 |    81 |        0 |    0 | U1/MGT/MGTS/DATA_CLOCK/O1                                                                               |
+| BUFG        |   no   |         0 |       0 |        10 |       0 |       0 | 876 |     0 |        0 |    0 | U1/MB/core_wrapper_i/core_i/FB_MEMORY/mig_7series_0/u_core_mig_7series_0_0_mig/u_ddr3_infrastructure/O1 |
++-------------+--------+-----------+---------+-----------+---------+---------+-----+-------+----------+------+---------------------------------------------------------------------------------------------------------+
 
 
 14. Net wise resources used in clock region X0Y3
@@ -243,30 +240,30 @@ Table of Contents
 +-------------+--------+-----------+---------+-----------+---------+---------+------+-------+----------+------+---------------------------------------------------------------------------------------------------------+
 | BUFG        |   no   |         0 |       0 |         0 |       0 |      15 |    0 |     0 |        0 |    0 | U1/CLINK/clink_mmcm/U0/clk_out2                                                                         |
 | BUFG        |   no   |         1 |       0 |         0 |       0 |       0 |    0 |     0 |        0 |    0 | U1/CLINK/clink_mmcm/U0/clkfbout_buf_clink_clk_wiz                                                       |
-| BUFG        |   no   |         0 |       0 |         0 |       0 |      15 |    4 |     0 |        0 |    0 | U1/CLINK/clink_mmcm/U0/clk_out1                                                                         |
-| BUFG        |   no   |         0 |       0 |         0 |       0 |       0 |   58 |     4 |        0 |    0 | U1/MB/core_wrapper_i/core_i/MCU/mdm_1/U0/Dbg_Clk_0                                                      |
-| BUFG        |   no   |         0 |       0 |         0 |       0 |       0 |  158 |     0 |        0 |    0 | U1/SDI/O                                                                                                |
-| BUFG        |   no   |         1 |       0 |         0 |       0 |       0 |  242 |    16 |        0 |    0 | U1/MB/core_wrapper_i/core_i/clk_wiz_0/U0/clk_out1                                                       |
-| BUFG        |   no   |         0 |       0 |        40 |       0 |       0 | 2020 |   174 |        5 |    0 | U1/MB/core_wrapper_i/core_i/FB_MEMORY/mig_7series_0/u_core_mig_7series_0_0_mig/u_ddr3_infrastructure/O1 |
-| BUFG        |   no   |         1 |       0 |         0 |       0 |       0 | 2095 |    26 |        0 |    0 | U1/MB/core_wrapper_i/core_i/clk_wiz_0/U0/clk_out2                                                       |
+| BUFG        |   no   |         0 |       0 |         0 |       0 |       0 |   77 |     2 |        0 |    0 | U1/MGT/MGTS/DATA_CLOCK/O1                                                                               |
+| BUFG        |   no   |         1 |       0 |         0 |       0 |       0 |  100 |     1 |        0 |    0 | U1/MB/core_wrapper_i/core_i/clk_wiz_0/U0/clk_out1                                                       |
+| BUFG        |   no   |         0 |       0 |         0 |       0 |      15 |  269 |     0 |        0 |    0 | U1/CLINK/clink_mmcm/U0/clk_out1                                                                         |
+| BUFG        |   no   |         0 |       0 |         0 |       0 |       0 |  544 |     1 |        0 |    0 | U1/SDI/O                                                                                                |
+| BUFG        |   no   |         0 |       0 |        38 |       0 |       0 | 1076 |    27 |        0 |    0 | U1/MB/core_wrapper_i/core_i/FB_MEMORY/mig_7series_0/u_core_mig_7series_0_0_mig/u_ddr3_infrastructure/O1 |
+| BUFG        |   no   |         1 |       0 |         0 |       0 |       0 | 2563 |    64 |        0 |    0 | U1/MB/core_wrapper_i/core_i/clk_wiz_0/U0/clk_out2                                                       |
 +-------------+--------+-----------+---------+-----------+---------+---------+------+-------+----------+------+---------------------------------------------------------------------------------------------------------+
 
 
 15. Net wise resources used in clock region X1Y3
 ------------------------------------------------
 
-+-------------+--------+-----------+---------+-----------+---------+---------+-----+-------+----------+------+---------------------------------------------------------------------------------------------------------+
-| Source Type | Locked | MMCM Pins | GT Pins | BRAM Pins | ILOGICs | OLOGICs | FFs | LUTMs | DSP48E1s | PLLs |                                                                                          Clock Net Name |
-+-------------+--------+-----------+---------+-----------+---------+---------+-----+-------+----------+------+---------------------------------------------------------------------------------------------------------+
-| BUFG        |   no   |         0 |       2 |         0 |       0 |       0 |  21 |     0 |        0 |    0 | U1/SDI/n_55_U4                                                                                          |
-| BUFG        |   no   |         0 |       0 |         0 |       0 |       0 |  56 |     1 |        0 |    0 | U1/MGT/MGTS/DATA_CLOCK/O1                                                                               |
-| BUFG        |   no   |         0 |       3 |         0 |       0 |       0 | 106 |     7 |        0 |    0 | U1/SDI/n_55_U16                                                                                         |
-| BUFG        |   no   |         0 |       0 |         0 |       0 |       0 | 153 |    22 |        0 |    0 | U1/MB/core_wrapper_i/core_i/MCU/mdm_1/U0/Dbg_Clk_0                                                      |
-| BUFG        |   no   |         0 |       0 |         0 |       0 |       0 | 174 |     1 |        0 |    0 | U1/MB/core_wrapper_i/core_i/clk_wiz_0/U0/clk_out1                                                       |
-| BUFG        |   no   |         0 |       0 |         0 |       0 |       0 | 217 |    16 |        0 |    0 | U1/MB/core_wrapper_i/core_i/clk_wiz_0/U0/clk_out2                                                       |
-| BUFG        |   no   |         0 |       0 |        20 |       0 |       0 | 357 |    51 |        0 |    0 | U1/MB/core_wrapper_i/core_i/FB_MEMORY/mig_7series_0/u_core_mig_7series_0_0_mig/u_ddr3_infrastructure/O1 |
-| BUFG        |   no   |         0 |       2 |         0 |       0 |       0 | 526 |     1 |        0 |    0 | U1/SDI/O                                                                                                |
-+-------------+--------+-----------+---------+-----------+---------+---------+-----+-------+----------+------+---------------------------------------------------------------------------------------------------------+
++-------------+--------+-----------+---------+-----------+---------+---------+------+-------+----------+------+---------------------------------------------------------------------------------------------------------+
+| Source Type | Locked | MMCM Pins | GT Pins | BRAM Pins | ILOGICs | OLOGICs |  FFs | LUTMs | DSP48E1s | PLLs |                                                                                          Clock Net Name |
++-------------+--------+-----------+---------+-----------+---------+---------+------+-------+----------+------+---------------------------------------------------------------------------------------------------------+
+| BUFG        |   no   |         0 |       0 |         4 |       0 |       0 |    0 |     0 |        0 |    0 | U1/CLINK/clink_mmcm/U0/clk_out1                                                                         |
+| BUFG        |   no   |         0 |       2 |         0 |       0 |       0 |   12 |     0 |        0 |    0 | U1/SDI/n_55_U4                                                                                          |
+| BUFG        |   no   |         0 |       0 |         0 |       0 |       0 |   42 |     0 |        0 |    0 | U1/MGT/MGTS/DATA_CLOCK/O1                                                                               |
+| BUFG        |   no   |         0 |       3 |         0 |       0 |       0 |  106 |     7 |        0 |    0 | U1/SDI/n_55_U16                                                                                         |
+| BUFG        |   no   |         0 |       2 |         0 |       0 |       0 |  140 |     0 |        0 |    0 | U1/SDI/O                                                                                                |
+| BUFG        |   no   |         0 |       0 |         0 |       0 |       0 |  294 |    16 |        0 |    0 | U1/MB/core_wrapper_i/core_i/clk_wiz_0/U0/clk_out1                                                       |
+| BUFG        |   no   |         0 |       0 |        14 |       0 |       0 |  601 |    36 |        0 |    0 | U1/MB/core_wrapper_i/core_i/FB_MEMORY/mig_7series_0/u_core_mig_7series_0_0_mig/u_ddr3_infrastructure/O1 |
+| BUFG        |   no   |         0 |       0 |         0 |       0 |       0 | 1016 |    97 |        2 |    0 | U1/MB/core_wrapper_i/core_i/clk_wiz_0/U0/clk_out2                                                       |
++-------------+--------+-----------+---------+-----------+---------+---------+------+-------+----------+------+---------------------------------------------------------------------------------------------------------+
 
 
 
@@ -304,7 +301,7 @@ set_property LOC BUFHCE_X1Y0 [get_cells U1/MB/core_wrapper_i/core_i/FB_MEMORY/mi
 set_property LOC PLLE2_ADV_X1Y0 [get_cells U1/MB/core_wrapper_i/core_i/FB_MEMORY/mig_7series_0/u_core_mig_7series_0_0_mig/u_ddr3_infrastructure/plle2_i]
 
 # Location of IO Primitives which is load of clock spine
-set_property LOC IOB_X0Y57 [get_cells OBUF_2]
+set_property LOC IOB_X0Y57 [get_cells OBUF_3]
 
 # Location of clock ports
 set_property LOC IPAD_X0Y39 [get_ports SDI_CLK_N]
@@ -316,7 +313,7 @@ set_property LOC IOB_X1Y76 [get_ports SYS_CLK_P2]
 #startgroup
 create_pblock CLKAG_U1/CLINK/clink_mmcm/U0/clk_out1
 add_cells_to_pblock [get_pblocks  CLKAG_U1/CLINK/clink_mmcm/U0/clk_out1] [get_cells  -filter { IS_PRIMITIVE==1 && PRIMITIVE_LEVEL !=INTERNAL } -of_object [get_pins -filter {DIRECTION==IN} -of_objects [get_nets -hierarchical -filter {PARENT=="U1/CLINK/clink_mmcm/U0/clk_out1"}]]]
-resize_pblock [get_pblocks CLKAG_U1/CLINK/clink_mmcm/U0/clk_out1] -add {CLOCKREGION_X0Y2:CLOCKREGION_X0Y2 CLOCKREGION_X0Y3:CLOCKREGION_X0Y3 CLOCKREGION_X1Y1:CLOCKREGION_X1Y1}
+resize_pblock [get_pblocks CLKAG_U1/CLINK/clink_mmcm/U0/clk_out1] -add {CLOCKREGION_X0Y1:CLOCKREGION_X0Y1 CLOCKREGION_X0Y2:CLOCKREGION_X0Y2 CLOCKREGION_X0Y3:CLOCKREGION_X0Y3 CLOCKREGION_X1Y1:CLOCKREGION_X1Y1 CLOCKREGION_X1Y3:CLOCKREGION_X1Y3}
 #endgroup
 
 # Clock net "U1/CLINK/clink_mmcm/U0/clk_out2" driven by instance "U1/CLINK/clink_mmcm/U0/clkout2_buf" located at site "BUFGCTRL_X0Y21"
@@ -344,20 +341,20 @@ resize_pblock [get_pblocks CLKAG_U1/MB/core_wrapper_i/core_i/FB_MEMORY/mig_7seri
 #startgroup
 create_pblock CLKAG_U1/MB/core_wrapper_i/core_i/MCU/mdm_1/U0/Dbg_Clk_0
 add_cells_to_pblock [get_pblocks  CLKAG_U1/MB/core_wrapper_i/core_i/MCU/mdm_1/U0/Dbg_Clk_0] [get_cells  -filter { IS_PRIMITIVE==1 && PRIMITIVE_LEVEL !=INTERNAL } -of_object [get_pins -filter {DIRECTION==IN} -of_objects [get_nets -hierarchical -filter {PARENT=="U1/MB/core_wrapper_i/core_i/MCU/mdm_1/U0/Dbg_Clk_0"}]]]
-resize_pblock [get_pblocks CLKAG_U1/MB/core_wrapper_i/core_i/MCU/mdm_1/U0/Dbg_Clk_0] -add {CLOCKREGION_X0Y2:CLOCKREGION_X0Y2 CLOCKREGION_X0Y3:CLOCKREGION_X0Y3 CLOCKREGION_X1Y2:CLOCKREGION_X1Y2 CLOCKREGION_X1Y3:CLOCKREGION_X1Y3}
+resize_pblock [get_pblocks CLKAG_U1/MB/core_wrapper_i/core_i/MCU/mdm_1/U0/Dbg_Clk_0] -add {CLOCKREGION_X0Y1:CLOCKREGION_X0Y1 CLOCKREGION_X0Y2:CLOCKREGION_X0Y2}
 #endgroup
 
 # Clock net "U1/MB/core_wrapper_i/core_i/clk_wiz_0/U0/clk_out1" driven by instance "U1/MB/core_wrapper_i/core_i/clk_wiz_0/U0/clkout1_buf" located at site "BUFGCTRL_X0Y2"
 #startgroup
 create_pblock CLKAG_U1/MB/core_wrapper_i/core_i/clk_wiz_0/U0/clk_out1
 add_cells_to_pblock [get_pblocks  CLKAG_U1/MB/core_wrapper_i/core_i/clk_wiz_0/U0/clk_out1] [get_cells  -filter { IS_PRIMITIVE==1 && PRIMITIVE_LEVEL !=INTERNAL && NAME!=U1/CLINK/clink_mmcm/U0/mmcm_adv_inst} -of_object [get_pins -filter {DIRECTION==IN} -of_objects [get_nets -hierarchical -filter {PARENT=="U1/MB/core_wrapper_i/core_i/clk_wiz_0/U0/clk_out1"}]]]
-resize_pblock [get_pblocks CLKAG_U1/MB/core_wrapper_i/core_i/clk_wiz_0/U0/clk_out1] -add {CLOCKREGION_X0Y2:CLOCKREGION_X0Y2 CLOCKREGION_X0Y3:CLOCKREGION_X0Y3 CLOCKREGION_X1Y2:CLOCKREGION_X1Y2 CLOCKREGION_X1Y3:CLOCKREGION_X1Y3}
+resize_pblock [get_pblocks CLKAG_U1/MB/core_wrapper_i/core_i/clk_wiz_0/U0/clk_out1] -add {CLOCKREGION_X0Y1:CLOCKREGION_X0Y1 CLOCKREGION_X0Y2:CLOCKREGION_X0Y2 CLOCKREGION_X0Y3:CLOCKREGION_X0Y3 CLOCKREGION_X1Y2:CLOCKREGION_X1Y2 CLOCKREGION_X1Y3:CLOCKREGION_X1Y3}
 #endgroup
 
 # Clock net "U1/MB/core_wrapper_i/core_i/clk_wiz_0/U0/clk_out2" driven by instance "U1/MB/core_wrapper_i/core_i/clk_wiz_0/U0/clkout2_buf" located at site "BUFGCTRL_X0Y1"
 #startgroup
 create_pblock CLKAG_U1/MB/core_wrapper_i/core_i/clk_wiz_0/U0/clk_out2
-add_cells_to_pblock [get_pblocks  CLKAG_U1/MB/core_wrapper_i/core_i/clk_wiz_0/U0/clk_out2] [get_cells  -filter { IS_PRIMITIVE==1 && PRIMITIVE_LEVEL !=INTERNAL && NAME!=U1/CLINK/clink_mmcm/U0/mmcm_adv_inst && NAME!=OBUF_2} -of_object [get_pins -filter {DIRECTION==IN} -of_objects [get_nets -hierarchical -filter {PARENT=="U1/MB/core_wrapper_i/core_i/clk_wiz_0/U0/clk_out2"}]]]
+add_cells_to_pblock [get_pblocks  CLKAG_U1/MB/core_wrapper_i/core_i/clk_wiz_0/U0/clk_out2] [get_cells  -filter { IS_PRIMITIVE==1 && PRIMITIVE_LEVEL !=INTERNAL && NAME!=U1/CLINK/clink_mmcm/U0/mmcm_adv_inst && NAME!=OBUF_3} -of_object [get_pins -filter {DIRECTION==IN} -of_objects [get_nets -hierarchical -filter {PARENT=="U1/MB/core_wrapper_i/core_i/clk_wiz_0/U0/clk_out2"}]]]
 resize_pblock [get_pblocks CLKAG_U1/MB/core_wrapper_i/core_i/clk_wiz_0/U0/clk_out2] -add {CLOCKREGION_X0Y0:CLOCKREGION_X0Y0 CLOCKREGION_X0Y1:CLOCKREGION_X0Y1 CLOCKREGION_X0Y2:CLOCKREGION_X0Y2 CLOCKREGION_X0Y3:CLOCKREGION_X0Y3 CLOCKREGION_X1Y0:CLOCKREGION_X1Y0 CLOCKREGION_X1Y1:CLOCKREGION_X1Y1 CLOCKREGION_X1Y2:CLOCKREGION_X1Y2 CLOCKREGION_X1Y3:CLOCKREGION_X1Y3}
 #endgroup
 
@@ -365,21 +362,21 @@ resize_pblock [get_pblocks CLKAG_U1/MB/core_wrapper_i/core_i/clk_wiz_0/U0/clk_ou
 #startgroup
 create_pblock CLKAG_U1/MB/core_wrapper_i/core_i/clk_wiz_0/U0/clk_out3
 add_cells_to_pblock [get_pblocks  CLKAG_U1/MB/core_wrapper_i/core_i/clk_wiz_0/U0/clk_out3] [get_cells  -filter { IS_PRIMITIVE==1 && PRIMITIVE_LEVEL !=INTERNAL } -of_object [get_pins -filter {DIRECTION==IN} -of_objects [get_nets -hierarchical -filter {PARENT=="U1/MB/core_wrapper_i/core_i/clk_wiz_0/U0/clk_out3"}]]]
-resize_pblock [get_pblocks CLKAG_U1/MB/core_wrapper_i/core_i/clk_wiz_0/U0/clk_out3] -add {CLOCKREGION_X0Y1:CLOCKREGION_X0Y1 CLOCKREGION_X1Y1:CLOCKREGION_X1Y1}
+resize_pblock [get_pblocks CLKAG_U1/MB/core_wrapper_i/core_i/clk_wiz_0/U0/clk_out3] -add {CLOCKREGION_X0Y1:CLOCKREGION_X0Y1}
 #endgroup
 
 # Clock net "U1/MB/core_wrapper_i/core_i/clk_wiz_0/U0/clk_out4" driven by instance "U1/MB/core_wrapper_i/core_i/clk_wiz_0/U0/clkout4_buf" located at site "BUFGCTRL_X0Y4"
 #startgroup
 create_pblock CLKAG_U1/MB/core_wrapper_i/core_i/clk_wiz_0/U0/clk_out4
 add_cells_to_pblock [get_pblocks  CLKAG_U1/MB/core_wrapper_i/core_i/clk_wiz_0/U0/clk_out4] [get_cells  -filter { IS_PRIMITIVE==1 && PRIMITIVE_LEVEL !=INTERNAL } -of_object [get_pins -filter {DIRECTION==IN} -of_objects [get_nets -hierarchical -filter {PARENT=="U1/MB/core_wrapper_i/core_i/clk_wiz_0/U0/clk_out4"}]]]
-resize_pblock [get_pblocks CLKAG_U1/MB/core_wrapper_i/core_i/clk_wiz_0/U0/clk_out4] -add {CLOCKREGION_X0Y0:CLOCKREGION_X0Y0 CLOCKREGION_X0Y1:CLOCKREGION_X0Y1 CLOCKREGION_X0Y2:CLOCKREGION_X0Y2 CLOCKREGION_X1Y0:CLOCKREGION_X1Y0 CLOCKREGION_X1Y1:CLOCKREGION_X1Y1 CLOCKREGION_X1Y2:CLOCKREGION_X1Y2}
+resize_pblock [get_pblocks CLKAG_U1/MB/core_wrapper_i/core_i/clk_wiz_0/U0/clk_out4] -add {CLOCKREGION_X0Y0:CLOCKREGION_X0Y0 CLOCKREGION_X0Y1:CLOCKREGION_X0Y1}
 #endgroup
 
 # Clock net "U1/MGT/MGTS/DATA_CLOCK/O1" driven by instance "U1/MGT/MGTS/DATA_CLOCK/user_clk_buf_i" located at site "BUFGCTRL_X0Y16"
 #startgroup
 create_pblock CLKAG_U1/MGT/MGTS/DATA_CLOCK/O1
 add_cells_to_pblock [get_pblocks  CLKAG_U1/MGT/MGTS/DATA_CLOCK/O1] [get_cells  -filter { IS_PRIMITIVE==1 && PRIMITIVE_LEVEL !=INTERNAL } -of_object [get_pins -filter {DIRECTION==IN} -of_objects [get_nets -hierarchical -filter {PARENT=="U1/MGT/MGTS/DATA_CLOCK/O1"}]]]
-resize_pblock [get_pblocks CLKAG_U1/MGT/MGTS/DATA_CLOCK/O1] -add {CLOCKREGION_X0Y0:CLOCKREGION_X0Y0 CLOCKREGION_X0Y1:CLOCKREGION_X0Y1 CLOCKREGION_X0Y2:CLOCKREGION_X0Y2 CLOCKREGION_X1Y1:CLOCKREGION_X1Y1 CLOCKREGION_X1Y2:CLOCKREGION_X1Y2 CLOCKREGION_X1Y3:CLOCKREGION_X1Y3}
+resize_pblock [get_pblocks CLKAG_U1/MGT/MGTS/DATA_CLOCK/O1] -add {CLOCKREGION_X0Y1:CLOCKREGION_X0Y1 CLOCKREGION_X0Y2:CLOCKREGION_X0Y2 CLOCKREGION_X0Y3:CLOCKREGION_X0Y3 CLOCKREGION_X1Y1:CLOCKREGION_X1Y1 CLOCKREGION_X1Y2:CLOCKREGION_X1Y2 CLOCKREGION_X1Y3:CLOCKREGION_X1Y3}
 #endgroup
 
 # Clock net "U1/SDI/O" driven by instance "U1/SDI/U10" located at site "BUFGCTRL_X0Y17"
@@ -400,7 +397,7 @@ resize_pblock [get_pblocks CLKAG_U1/SDI/n_55_U16] -add {CLOCKREGION_X1Y3:CLOCKRE
 #startgroup
 create_pblock CLKAG_U1/SDI/n_55_U4
 add_cells_to_pblock [get_pblocks  CLKAG_U1/SDI/n_55_U4] [get_cells  -filter { IS_PRIMITIVE==1 && PRIMITIVE_LEVEL !=INTERNAL } -of_object [get_pins -filter {DIRECTION==IN} -of_objects [get_nets -hierarchical -filter {PARENT=="U1/SDI/n_55_U4"}]]]
-resize_pblock [get_pblocks CLKAG_U1/SDI/n_55_U4] -add {CLOCKREGION_X0Y0:CLOCKREGION_X0Y0 CLOCKREGION_X0Y1:CLOCKREGION_X0Y1 CLOCKREGION_X0Y2:CLOCKREGION_X0Y2 CLOCKREGION_X1Y2:CLOCKREGION_X1Y2 CLOCKREGION_X1Y3:CLOCKREGION_X1Y3}
+resize_pblock [get_pblocks CLKAG_U1/SDI/n_55_U4] -add {CLOCKREGION_X0Y0:CLOCKREGION_X0Y0 CLOCKREGION_X0Y1:CLOCKREGION_X0Y1 CLOCKREGION_X1Y0:CLOCKREGION_X1Y0 CLOCKREGION_X1Y1:CLOCKREGION_X1Y1 CLOCKREGION_X1Y2:CLOCKREGION_X1Y2 CLOCKREGION_X1Y3:CLOCKREGION_X1Y3}
 #endgroup
 
 # Clock net "U1/MB/core_wrapper_i/core_i/FB_MEMORY/mig_7series_0/u_core_mig_7series_0_0_mig/u_ddr3_infrastructure/pll_clkfbout" driven by instance "U1/MB/core_wrapper_i/core_i/FB_MEMORY/mig_7series_0/u_core_mig_7series_0_0_mig/u_ddr3_infrastructure/plle2_i" located at site "PLLE2_ADV_X1Y0"
@@ -438,32 +435,11 @@ add_cells_to_pblock [get_pblocks  CLKAG_U1/MB/core_wrapper_i/core_i/FB_MEMORY/mi
 resize_pblock [get_pblocks CLKAG_U1/MB/core_wrapper_i/core_i/FB_MEMORY/mig_7series_0/u_core_mig_7series_0_0_mig/u_ddr3_infrastructure/pll_locked_i] -add {CLOCKREGION_X1Y0:CLOCKREGION_X1Y0}
 #endgroup
 
-# Clock net "U1/MB/core_wrapper_i/core_i/FB_MEMORY/mig_7series_0/u_core_mig_7series_0_0_mig/u_memc_ui_top_axi/mem_intfc0/ddr_phy_top0/u_ddr_mc_phy_wrapper/u_ddr_mc_phy/ddr_phy_4lanes_1.u_ddr_phy_4lanes/ddr_byte_lane_C.ddr_byte_lane_C/oserdes_clk" driven by instance "U1/MB/core_wrapper_i/core_i/FB_MEMORY/mig_7series_0/u_core_mig_7series_0_0_mig/u_memc_ui_top_axi/mem_intfc0/ddr_phy_top0/u_ddr_mc_phy_wrapper/u_ddr_mc_phy/ddr_phy_4lanes_1.u_ddr_phy_4lanes/ddr_byte_lane_C.ddr_byte_lane_C/phaser_out" located at site "PHASER_OUT_PHY_X1Y2"
+# Clock net "U1/MB/core_wrapper_i/core_i/FB_MEMORY/mig_7series_0/u_core_mig_7series_0_0_mig/u_memc_ui_top_axi/mem_intfc0/ddr_phy_top0/u_ddr_mc_phy_wrapper/u_ddr_mc_phy/ddr_phy_4lanes_0.u_ddr_phy_4lanes/ddr_byte_lane_A.ddr_byte_lane_A/oserdes_clk_delayed" driven by instance "U1/MB/core_wrapper_i/core_i/FB_MEMORY/mig_7series_0/u_core_mig_7series_0_0_mig/u_memc_ui_top_axi/mem_intfc0/ddr_phy_top0/u_ddr_mc_phy_wrapper/u_ddr_mc_phy/ddr_phy_4lanes_0.u_ddr_phy_4lanes/ddr_byte_lane_A.ddr_byte_lane_A/phaser_out" located at site "PHASER_OUT_PHY_X1Y4"
 #startgroup
-create_pblock CLKAG_U1/MB/core_wrapper_i/core_i/FB_MEMORY/mig_7series_0/u_core_mig_7series_0_0_mig/u_memc_ui_top_axi/mem_intfc0/ddr_phy_top0/u_ddr_mc_phy_wrapper/u_ddr_mc_phy/ddr_phy_4lanes_1.u_ddr_phy_4lanes/ddr_byte_lane_C.ddr_byte_lane_C/oserdes_clk
-add_cells_to_pblock [get_pblocks  CLKAG_U1/MB/core_wrapper_i/core_i/FB_MEMORY/mig_7series_0/u_core_mig_7series_0_0_mig/u_memc_ui_top_axi/mem_intfc0/ddr_phy_top0/u_ddr_mc_phy_wrapper/u_ddr_mc_phy/ddr_phy_4lanes_1.u_ddr_phy_4lanes/ddr_byte_lane_C.ddr_byte_lane_C/oserdes_clk] [get_cells  -filter { IS_PRIMITIVE==1 && PRIMITIVE_LEVEL !=INTERNAL } -of_object [get_pins -filter {DIRECTION==IN} -of_objects [get_nets -hierarchical -filter {PARENT=="U1/MB/core_wrapper_i/core_i/FB_MEMORY/mig_7series_0/u_core_mig_7series_0_0_mig/u_memc_ui_top_axi/mem_intfc0/ddr_phy_top0/u_ddr_mc_phy_wrapper/u_ddr_mc_phy/ddr_phy_4lanes_1.u_ddr_phy_4lanes/ddr_byte_lane_C.ddr_byte_lane_C/oserdes_clk"}]]]
-resize_pblock [get_pblocks CLKAG_U1/MB/core_wrapper_i/core_i/FB_MEMORY/mig_7series_0/u_core_mig_7series_0_0_mig/u_memc_ui_top_axi/mem_intfc0/ddr_phy_top0/u_ddr_mc_phy_wrapper/u_ddr_mc_phy/ddr_phy_4lanes_1.u_ddr_phy_4lanes/ddr_byte_lane_C.ddr_byte_lane_C/oserdes_clk] -add {CLOCKREGION_X1Y0:CLOCKREGION_X1Y0}
-#endgroup
-
-# Clock net "U1/MB/core_wrapper_i/core_i/FB_MEMORY/mig_7series_0/u_core_mig_7series_0_0_mig/u_memc_ui_top_axi/mem_intfc0/ddr_phy_top0/u_ddr_mc_phy_wrapper/u_ddr_mc_phy/ddr_phy_4lanes_1.u_ddr_phy_4lanes/ddr_byte_lane_D.ddr_byte_lane_D/oserdes_clk" driven by instance "U1/MB/core_wrapper_i/core_i/FB_MEMORY/mig_7series_0/u_core_mig_7series_0_0_mig/u_memc_ui_top_axi/mem_intfc0/ddr_phy_top0/u_ddr_mc_phy_wrapper/u_ddr_mc_phy/ddr_phy_4lanes_1.u_ddr_phy_4lanes/ddr_byte_lane_D.ddr_byte_lane_D/phaser_out" located at site "PHASER_OUT_PHY_X1Y3"
-#startgroup
-create_pblock CLKAG_U1/MB/core_wrapper_i/core_i/FB_MEMORY/mig_7series_0/u_core_mig_7series_0_0_mig/u_memc_ui_top_axi/mem_intfc0/ddr_phy_top0/u_ddr_mc_phy_wrapper/u_ddr_mc_phy/ddr_phy_4lanes_1.u_ddr_phy_4lanes/ddr_byte_lane_D.ddr_byte_lane_D/oserdes_clk
-add_cells_to_pblock [get_pblocks  CLKAG_U1/MB/core_wrapper_i/core_i/FB_MEMORY/mig_7series_0/u_core_mig_7series_0_0_mig/u_memc_ui_top_axi/mem_intfc0/ddr_phy_top0/u_ddr_mc_phy_wrapper/u_ddr_mc_phy/ddr_phy_4lanes_1.u_ddr_phy_4lanes/ddr_byte_lane_D.ddr_byte_lane_D/oserdes_clk] [get_cells  -filter { IS_PRIMITIVE==1 && PRIMITIVE_LEVEL !=INTERNAL } -of_object [get_pins -filter {DIRECTION==IN} -of_objects [get_nets -hierarchical -filter {PARENT=="U1/MB/core_wrapper_i/core_i/FB_MEMORY/mig_7series_0/u_core_mig_7series_0_0_mig/u_memc_ui_top_axi/mem_intfc0/ddr_phy_top0/u_ddr_mc_phy_wrapper/u_ddr_mc_phy/ddr_phy_4lanes_1.u_ddr_phy_4lanes/ddr_byte_lane_D.ddr_byte_lane_D/oserdes_clk"}]]]
-resize_pblock [get_pblocks CLKAG_U1/MB/core_wrapper_i/core_i/FB_MEMORY/mig_7series_0/u_core_mig_7series_0_0_mig/u_memc_ui_top_axi/mem_intfc0/ddr_phy_top0/u_ddr_mc_phy_wrapper/u_ddr_mc_phy/ddr_phy_4lanes_1.u_ddr_phy_4lanes/ddr_byte_lane_D.ddr_byte_lane_D/oserdes_clk] -add {CLOCKREGION_X1Y0:CLOCKREGION_X1Y0}
-#endgroup
-
-# Clock net "U1/MB/core_wrapper_i/core_i/FB_MEMORY/mig_7series_0/u_core_mig_7series_0_0_mig/u_memc_ui_top_axi/mem_intfc0/ddr_phy_top0/u_ddr_mc_phy_wrapper/u_ddr_mc_phy/ddr_phy_4lanes_0.u_ddr_phy_4lanes/ddr_byte_lane_A.ddr_byte_lane_A/oserdes_clk" driven by instance "U1/MB/core_wrapper_i/core_i/FB_MEMORY/mig_7series_0/u_core_mig_7series_0_0_mig/u_memc_ui_top_axi/mem_intfc0/ddr_phy_top0/u_ddr_mc_phy_wrapper/u_ddr_mc_phy/ddr_phy_4lanes_0.u_ddr_phy_4lanes/ddr_byte_lane_A.ddr_byte_lane_A/phaser_out" located at site "PHASER_OUT_PHY_X1Y4"
-#startgroup
-create_pblock CLKAG_U1/MB/core_wrapper_i/core_i/FB_MEMORY/mig_7series_0/u_core_mig_7series_0_0_mig/u_memc_ui_top_axi/mem_intfc0/ddr_phy_top0/u_ddr_mc_phy_wrapper/u_ddr_mc_phy/ddr_phy_4lanes_0.u_ddr_phy_4lanes/ddr_byte_lane_A.ddr_byte_lane_A/oserdes_clk
-add_cells_to_pblock [get_pblocks  CLKAG_U1/MB/core_wrapper_i/core_i/FB_MEMORY/mig_7series_0/u_core_mig_7series_0_0_mig/u_memc_ui_top_axi/mem_intfc0/ddr_phy_top0/u_ddr_mc_phy_wrapper/u_ddr_mc_phy/ddr_phy_4lanes_0.u_ddr_phy_4lanes/ddr_byte_lane_A.ddr_byte_lane_A/oserdes_clk] [get_cells  -filter { IS_PRIMITIVE==1 && PRIMITIVE_LEVEL !=INTERNAL } -of_object [get_pins -filter {DIRECTION==IN} -of_objects [get_nets -hierarchical -filter {PARENT=="U1/MB/core_wrapper_i/core_i/FB_MEMORY/mig_7series_0/u_core_mig_7series_0_0_mig/u_memc_ui_top_axi/mem_intfc0/ddr_phy_top0/u_ddr_mc_phy_wrapper/u_ddr_mc_phy/ddr_phy_4lanes_0.u_ddr_phy_4lanes/ddr_byte_lane_A.ddr_byte_lane_A/oserdes_clk"}]]]
-resize_pblock [get_pblocks CLKAG_U1/MB/core_wrapper_i/core_i/FB_MEMORY/mig_7series_0/u_core_mig_7series_0_0_mig/u_memc_ui_top_axi/mem_intfc0/ddr_phy_top0/u_ddr_mc_phy_wrapper/u_ddr_mc_phy/ddr_phy_4lanes_0.u_ddr_phy_4lanes/ddr_byte_lane_A.ddr_byte_lane_A/oserdes_clk] -add {CLOCKREGION_X1Y1:CLOCKREGION_X1Y1}
-#endgroup
-
-# Clock net "U1/MB/core_wrapper_i/core_i/FB_MEMORY/mig_7series_0/u_core_mig_7series_0_0_mig/u_memc_ui_top_axi/mem_intfc0/ddr_phy_top0/u_ddr_mc_phy_wrapper/u_ddr_mc_phy/ddr_phy_4lanes_1.u_ddr_phy_4lanes/ddr_byte_lane_A.ddr_byte_lane_A/oserdes_clk" driven by instance "U1/MB/core_wrapper_i/core_i/FB_MEMORY/mig_7series_0/u_core_mig_7series_0_0_mig/u_memc_ui_top_axi/mem_intfc0/ddr_phy_top0/u_ddr_mc_phy_wrapper/u_ddr_mc_phy/ddr_phy_4lanes_1.u_ddr_phy_4lanes/ddr_byte_lane_A.ddr_byte_lane_A/phaser_out" located at site "PHASER_OUT_PHY_X1Y0"
-#startgroup
-create_pblock CLKAG_U1/MB/core_wrapper_i/core_i/FB_MEMORY/mig_7series_0/u_core_mig_7series_0_0_mig/u_memc_ui_top_axi/mem_intfc0/ddr_phy_top0/u_ddr_mc_phy_wrapper/u_ddr_mc_phy/ddr_phy_4lanes_1.u_ddr_phy_4lanes/ddr_byte_lane_A.ddr_byte_lane_A/oserdes_clk
-add_cells_to_pblock [get_pblocks  CLKAG_U1/MB/core_wrapper_i/core_i/FB_MEMORY/mig_7series_0/u_core_mig_7series_0_0_mig/u_memc_ui_top_axi/mem_intfc0/ddr_phy_top0/u_ddr_mc_phy_wrapper/u_ddr_mc_phy/ddr_phy_4lanes_1.u_ddr_phy_4lanes/ddr_byte_lane_A.ddr_byte_lane_A/oserdes_clk] [get_cells  -filter { IS_PRIMITIVE==1 && PRIMITIVE_LEVEL !=INTERNAL } -of_object [get_pins -filter {DIRECTION==IN} -of_objects [get_nets -hierarchical -filter {PARENT=="U1/MB/core_wrapper_i/core_i/FB_MEMORY/mig_7series_0/u_core_mig_7series_0_0_mig/u_memc_ui_top_axi/mem_intfc0/ddr_phy_top0/u_ddr_mc_phy_wrapper/u_ddr_mc_phy/ddr_phy_4lanes_1.u_ddr_phy_4lanes/ddr_byte_lane_A.ddr_byte_lane_A/oserdes_clk"}]]]
-resize_pblock [get_pblocks CLKAG_U1/MB/core_wrapper_i/core_i/FB_MEMORY/mig_7series_0/u_core_mig_7series_0_0_mig/u_memc_ui_top_axi/mem_intfc0/ddr_phy_top0/u_ddr_mc_phy_wrapper/u_ddr_mc_phy/ddr_phy_4lanes_1.u_ddr_phy_4lanes/ddr_byte_lane_A.ddr_byte_lane_A/oserdes_clk] -add {CLOCKREGION_X1Y0:CLOCKREGION_X1Y0}
+create_pblock CLKAG_U1/MB/core_wrapper_i/core_i/FB_MEMORY/mig_7series_0/u_core_mig_7series_0_0_mig/u_memc_ui_top_axi/mem_intfc0/ddr_phy_top0/u_ddr_mc_phy_wrapper/u_ddr_mc_phy/ddr_phy_4lanes_0.u_ddr_phy_4lanes/ddr_byte_lane_A.ddr_byte_lane_A/oserdes_clk_delayed
+add_cells_to_pblock [get_pblocks  CLKAG_U1/MB/core_wrapper_i/core_i/FB_MEMORY/mig_7series_0/u_core_mig_7series_0_0_mig/u_memc_ui_top_axi/mem_intfc0/ddr_phy_top0/u_ddr_mc_phy_wrapper/u_ddr_mc_phy/ddr_phy_4lanes_0.u_ddr_phy_4lanes/ddr_byte_lane_A.ddr_byte_lane_A/oserdes_clk_delayed] [get_cells  -filter { IS_PRIMITIVE==1 && PRIMITIVE_LEVEL !=INTERNAL } -of_object [get_pins -filter {DIRECTION==IN} -of_objects [get_nets -hierarchical -filter {PARENT=="U1/MB/core_wrapper_i/core_i/FB_MEMORY/mig_7series_0/u_core_mig_7series_0_0_mig/u_memc_ui_top_axi/mem_intfc0/ddr_phy_top0/u_ddr_mc_phy_wrapper/u_ddr_mc_phy/ddr_phy_4lanes_0.u_ddr_phy_4lanes/ddr_byte_lane_A.ddr_byte_lane_A/oserdes_clk_delayed"}]]]
+resize_pblock [get_pblocks CLKAG_U1/MB/core_wrapper_i/core_i/FB_MEMORY/mig_7series_0/u_core_mig_7series_0_0_mig/u_memc_ui_top_axi/mem_intfc0/ddr_phy_top0/u_ddr_mc_phy_wrapper/u_ddr_mc_phy/ddr_phy_4lanes_0.u_ddr_phy_4lanes/ddr_byte_lane_A.ddr_byte_lane_A/oserdes_clk_delayed] -add {CLOCKREGION_X1Y1:CLOCKREGION_X1Y1}
 #endgroup
 
 # Clock net "U1/MB/core_wrapper_i/core_i/FB_MEMORY/mig_7series_0/u_core_mig_7series_0_0_mig/u_memc_ui_top_axi/mem_intfc0/ddr_phy_top0/u_ddr_mc_phy_wrapper/u_ddr_mc_phy/ddr_phy_4lanes_1.u_ddr_phy_4lanes/ddr_byte_lane_B.ddr_byte_lane_B/oserdes_clk" driven by instance "U1/MB/core_wrapper_i/core_i/FB_MEMORY/mig_7series_0/u_core_mig_7series_0_0_mig/u_memc_ui_top_axi/mem_intfc0/ddr_phy_top0/u_ddr_mc_phy_wrapper/u_ddr_mc_phy/ddr_phy_4lanes_1.u_ddr_phy_4lanes/ddr_byte_lane_B.ddr_byte_lane_B/phaser_out" located at site "PHASER_OUT_PHY_X1Y1"
@@ -471,6 +447,13 @@ resize_pblock [get_pblocks CLKAG_U1/MB/core_wrapper_i/core_i/FB_MEMORY/mig_7seri
 create_pblock CLKAG_U1/MB/core_wrapper_i/core_i/FB_MEMORY/mig_7series_0/u_core_mig_7series_0_0_mig/u_memc_ui_top_axi/mem_intfc0/ddr_phy_top0/u_ddr_mc_phy_wrapper/u_ddr_mc_phy/ddr_phy_4lanes_1.u_ddr_phy_4lanes/ddr_byte_lane_B.ddr_byte_lane_B/oserdes_clk
 add_cells_to_pblock [get_pblocks  CLKAG_U1/MB/core_wrapper_i/core_i/FB_MEMORY/mig_7series_0/u_core_mig_7series_0_0_mig/u_memc_ui_top_axi/mem_intfc0/ddr_phy_top0/u_ddr_mc_phy_wrapper/u_ddr_mc_phy/ddr_phy_4lanes_1.u_ddr_phy_4lanes/ddr_byte_lane_B.ddr_byte_lane_B/oserdes_clk] [get_cells  -filter { IS_PRIMITIVE==1 && PRIMITIVE_LEVEL !=INTERNAL } -of_object [get_pins -filter {DIRECTION==IN} -of_objects [get_nets -hierarchical -filter {PARENT=="U1/MB/core_wrapper_i/core_i/FB_MEMORY/mig_7series_0/u_core_mig_7series_0_0_mig/u_memc_ui_top_axi/mem_intfc0/ddr_phy_top0/u_ddr_mc_phy_wrapper/u_ddr_mc_phy/ddr_phy_4lanes_1.u_ddr_phy_4lanes/ddr_byte_lane_B.ddr_byte_lane_B/oserdes_clk"}]]]
 resize_pblock [get_pblocks CLKAG_U1/MB/core_wrapper_i/core_i/FB_MEMORY/mig_7series_0/u_core_mig_7series_0_0_mig/u_memc_ui_top_axi/mem_intfc0/ddr_phy_top0/u_ddr_mc_phy_wrapper/u_ddr_mc_phy/ddr_phy_4lanes_1.u_ddr_phy_4lanes/ddr_byte_lane_B.ddr_byte_lane_B/oserdes_clk] -add {CLOCKREGION_X1Y0:CLOCKREGION_X1Y0}
+#endgroup
+
+# Clock net "U1/MB/core_wrapper_i/core_i/FB_MEMORY/mig_7series_0/u_core_mig_7series_0_0_mig/u_memc_ui_top_axi/mem_intfc0/ddr_phy_top0/u_ddr_mc_phy_wrapper/u_ddr_mc_phy/ddr_phy_4lanes_1.u_ddr_phy_4lanes/ddr_byte_lane_D.ddr_byte_lane_D/oserdes_clk" driven by instance "U1/MB/core_wrapper_i/core_i/FB_MEMORY/mig_7series_0/u_core_mig_7series_0_0_mig/u_memc_ui_top_axi/mem_intfc0/ddr_phy_top0/u_ddr_mc_phy_wrapper/u_ddr_mc_phy/ddr_phy_4lanes_1.u_ddr_phy_4lanes/ddr_byte_lane_D.ddr_byte_lane_D/phaser_out" located at site "PHASER_OUT_PHY_X1Y3"
+#startgroup
+create_pblock CLKAG_U1/MB/core_wrapper_i/core_i/FB_MEMORY/mig_7series_0/u_core_mig_7series_0_0_mig/u_memc_ui_top_axi/mem_intfc0/ddr_phy_top0/u_ddr_mc_phy_wrapper/u_ddr_mc_phy/ddr_phy_4lanes_1.u_ddr_phy_4lanes/ddr_byte_lane_D.ddr_byte_lane_D/oserdes_clk
+add_cells_to_pblock [get_pblocks  CLKAG_U1/MB/core_wrapper_i/core_i/FB_MEMORY/mig_7series_0/u_core_mig_7series_0_0_mig/u_memc_ui_top_axi/mem_intfc0/ddr_phy_top0/u_ddr_mc_phy_wrapper/u_ddr_mc_phy/ddr_phy_4lanes_1.u_ddr_phy_4lanes/ddr_byte_lane_D.ddr_byte_lane_D/oserdes_clk] [get_cells  -filter { IS_PRIMITIVE==1 && PRIMITIVE_LEVEL !=INTERNAL } -of_object [get_pins -filter {DIRECTION==IN} -of_objects [get_nets -hierarchical -filter {PARENT=="U1/MB/core_wrapper_i/core_i/FB_MEMORY/mig_7series_0/u_core_mig_7series_0_0_mig/u_memc_ui_top_axi/mem_intfc0/ddr_phy_top0/u_ddr_mc_phy_wrapper/u_ddr_mc_phy/ddr_phy_4lanes_1.u_ddr_phy_4lanes/ddr_byte_lane_D.ddr_byte_lane_D/oserdes_clk"}]]]
+resize_pblock [get_pblocks CLKAG_U1/MB/core_wrapper_i/core_i/FB_MEMORY/mig_7series_0/u_core_mig_7series_0_0_mig/u_memc_ui_top_axi/mem_intfc0/ddr_phy_top0/u_ddr_mc_phy_wrapper/u_ddr_mc_phy/ddr_phy_4lanes_1.u_ddr_phy_4lanes/ddr_byte_lane_D.ddr_byte_lane_D/oserdes_clk] -add {CLOCKREGION_X1Y0:CLOCKREGION_X1Y0}
 #endgroup
 
 # Clock net "U1/MB/core_wrapper_i/core_i/FB_MEMORY/mig_7series_0/u_core_mig_7series_0_0_mig/u_memc_ui_top_axi/mem_intfc0/ddr_phy_top0/u_ddr_mc_phy_wrapper/u_ddr_mc_phy/ddr_phy_4lanes_0.u_ddr_phy_4lanes/ddr_byte_lane_A.ddr_byte_lane_A/O1" driven by instance "U1/MB/core_wrapper_i/core_i/FB_MEMORY/mig_7series_0/u_core_mig_7series_0_0_mig/u_memc_ui_top_axi/mem_intfc0/ddr_phy_top0/u_ddr_mc_phy_wrapper/u_ddr_mc_phy/ddr_phy_4lanes_0.u_ddr_phy_4lanes/ddr_byte_lane_A.ddr_byte_lane_A/phaser_in_gen.phaser_in" located at site "PHASER_IN_PHY_X1Y4"
@@ -487,11 +470,11 @@ add_cells_to_pblock [get_pblocks  CLKAG_U1/MB/core_wrapper_i/core_i/FB_MEMORY/mi
 resize_pblock [get_pblocks CLKAG_U1/MB/core_wrapper_i/core_i/FB_MEMORY/mig_7series_0/u_core_mig_7series_0_0_mig/u_memc_ui_top_axi/mem_intfc0/ddr_phy_top0/u_ddr_mc_phy_wrapper/u_ddr_mc_phy/ddr_phy_4lanes_1.u_ddr_phy_4lanes/ddr_byte_lane_A.ddr_byte_lane_A/O1] -add {CLOCKREGION_X1Y0:CLOCKREGION_X1Y0}
 #endgroup
 
-# Clock net "U1/MB/core_wrapper_i/core_i/FB_MEMORY/mig_7series_0/u_core_mig_7series_0_0_mig/u_memc_ui_top_axi/mem_intfc0/ddr_phy_top0/u_ddr_mc_phy_wrapper/u_ddr_mc_phy/ddr_phy_4lanes_0.u_ddr_phy_4lanes/ddr_byte_lane_A.ddr_byte_lane_A/oserdes_clk_delayed" driven by instance "U1/MB/core_wrapper_i/core_i/FB_MEMORY/mig_7series_0/u_core_mig_7series_0_0_mig/u_memc_ui_top_axi/mem_intfc0/ddr_phy_top0/u_ddr_mc_phy_wrapper/u_ddr_mc_phy/ddr_phy_4lanes_0.u_ddr_phy_4lanes/ddr_byte_lane_A.ddr_byte_lane_A/phaser_out" located at site "PHASER_OUT_PHY_X1Y4"
+# Clock net "U1/MB/core_wrapper_i/core_i/MCU/mdm_1/U0/Ext_JTAG_UPDATE" driven by instance "U1/MB/core_wrapper_i/core_i/MCU/mdm_1/U0/Use_E2.BSCANE2_I" located at site "BSCAN_X0Y1"
 #startgroup
-create_pblock CLKAG_U1/MB/core_wrapper_i/core_i/FB_MEMORY/mig_7series_0/u_core_mig_7series_0_0_mig/u_memc_ui_top_axi/mem_intfc0/ddr_phy_top0/u_ddr_mc_phy_wrapper/u_ddr_mc_phy/ddr_phy_4lanes_0.u_ddr_phy_4lanes/ddr_byte_lane_A.ddr_byte_lane_A/oserdes_clk_delayed
-add_cells_to_pblock [get_pblocks  CLKAG_U1/MB/core_wrapper_i/core_i/FB_MEMORY/mig_7series_0/u_core_mig_7series_0_0_mig/u_memc_ui_top_axi/mem_intfc0/ddr_phy_top0/u_ddr_mc_phy_wrapper/u_ddr_mc_phy/ddr_phy_4lanes_0.u_ddr_phy_4lanes/ddr_byte_lane_A.ddr_byte_lane_A/oserdes_clk_delayed] [get_cells  -filter { IS_PRIMITIVE==1 && PRIMITIVE_LEVEL !=INTERNAL } -of_object [get_pins -filter {DIRECTION==IN} -of_objects [get_nets -hierarchical -filter {PARENT=="U1/MB/core_wrapper_i/core_i/FB_MEMORY/mig_7series_0/u_core_mig_7series_0_0_mig/u_memc_ui_top_axi/mem_intfc0/ddr_phy_top0/u_ddr_mc_phy_wrapper/u_ddr_mc_phy/ddr_phy_4lanes_0.u_ddr_phy_4lanes/ddr_byte_lane_A.ddr_byte_lane_A/oserdes_clk_delayed"}]]]
-resize_pblock [get_pblocks CLKAG_U1/MB/core_wrapper_i/core_i/FB_MEMORY/mig_7series_0/u_core_mig_7series_0_0_mig/u_memc_ui_top_axi/mem_intfc0/ddr_phy_top0/u_ddr_mc_phy_wrapper/u_ddr_mc_phy/ddr_phy_4lanes_0.u_ddr_phy_4lanes/ddr_byte_lane_A.ddr_byte_lane_A/oserdes_clk_delayed] -add {CLOCKREGION_X1Y1:CLOCKREGION_X1Y1}
+create_pblock CLKAG_U1/MB/core_wrapper_i/core_i/MCU/mdm_1/U0/Ext_JTAG_UPDATE
+add_cells_to_pblock [get_pblocks  CLKAG_U1/MB/core_wrapper_i/core_i/MCU/mdm_1/U0/Ext_JTAG_UPDATE] [get_cells  -filter { IS_PRIMITIVE==1 && PRIMITIVE_LEVEL !=INTERNAL } -of_object [get_pins -filter {DIRECTION==IN} -of_objects [get_nets -hierarchical -filter {PARENT=="U1/MB/core_wrapper_i/core_i/MCU/mdm_1/U0/Ext_JTAG_UPDATE"}]]]
+resize_pblock [get_pblocks CLKAG_U1/MB/core_wrapper_i/core_i/MCU/mdm_1/U0/Ext_JTAG_UPDATE] -add {CLOCKREGION_X0Y1:CLOCKREGION_X0Y1 CLOCKREGION_X0Y2:CLOCKREGION_X0Y2}
 #endgroup
 
 # Clock net "U1/MB/core_wrapper_i/core_i/FB_MEMORY/mig_7series_0/u_core_mig_7series_0_0_mig/u_memc_ui_top_axi/mem_intfc0/ddr_phy_top0/u_ddr_mc_phy_wrapper/u_ddr_mc_phy/ddr_phy_4lanes_1.u_ddr_phy_4lanes/ddr_byte_lane_A.ddr_byte_lane_A/oserdes_clk_delayed" driven by instance "U1/MB/core_wrapper_i/core_i/FB_MEMORY/mig_7series_0/u_core_mig_7series_0_0_mig/u_memc_ui_top_axi/mem_intfc0/ddr_phy_top0/u_ddr_mc_phy_wrapper/u_ddr_mc_phy/ddr_phy_4lanes_1.u_ddr_phy_4lanes/ddr_byte_lane_A.ddr_byte_lane_A/phaser_out" located at site "PHASER_OUT_PHY_X1Y0"
@@ -501,9 +484,23 @@ add_cells_to_pblock [get_pblocks  CLKAG_U1/MB/core_wrapper_i/core_i/FB_MEMORY/mi
 resize_pblock [get_pblocks CLKAG_U1/MB/core_wrapper_i/core_i/FB_MEMORY/mig_7series_0/u_core_mig_7series_0_0_mig/u_memc_ui_top_axi/mem_intfc0/ddr_phy_top0/u_ddr_mc_phy_wrapper/u_ddr_mc_phy/ddr_phy_4lanes_1.u_ddr_phy_4lanes/ddr_byte_lane_A.ddr_byte_lane_A/oserdes_clk_delayed] -add {CLOCKREGION_X1Y0:CLOCKREGION_X1Y0}
 #endgroup
 
-# Clock net "U1/MB/core_wrapper_i/core_i/MCU/mdm_1/U0/Ext_JTAG_UPDATE" driven by instance "U1/MB/core_wrapper_i/core_i/MCU/mdm_1/U0/Use_E2.BSCANE2_I" located at site "BSCAN_X0Y1"
+# Clock net "U1/MB/core_wrapper_i/core_i/FB_MEMORY/mig_7series_0/u_core_mig_7series_0_0_mig/u_memc_ui_top_axi/mem_intfc0/ddr_phy_top0/u_ddr_mc_phy_wrapper/u_ddr_mc_phy/ddr_phy_4lanes_0.u_ddr_phy_4lanes/ddr_byte_lane_A.ddr_byte_lane_A/oserdes_clk" driven by instance "U1/MB/core_wrapper_i/core_i/FB_MEMORY/mig_7series_0/u_core_mig_7series_0_0_mig/u_memc_ui_top_axi/mem_intfc0/ddr_phy_top0/u_ddr_mc_phy_wrapper/u_ddr_mc_phy/ddr_phy_4lanes_0.u_ddr_phy_4lanes/ddr_byte_lane_A.ddr_byte_lane_A/phaser_out" located at site "PHASER_OUT_PHY_X1Y4"
 #startgroup
-create_pblock CLKAG_U1/MB/core_wrapper_i/core_i/MCU/mdm_1/U0/Ext_JTAG_UPDATE
-add_cells_to_pblock [get_pblocks  CLKAG_U1/MB/core_wrapper_i/core_i/MCU/mdm_1/U0/Ext_JTAG_UPDATE] [get_cells  -filter { IS_PRIMITIVE==1 && PRIMITIVE_LEVEL !=INTERNAL } -of_object [get_pins -filter {DIRECTION==IN} -of_objects [get_nets -hierarchical -filter {PARENT=="U1/MB/core_wrapper_i/core_i/MCU/mdm_1/U0/Ext_JTAG_UPDATE"}]]]
-resize_pblock [get_pblocks CLKAG_U1/MB/core_wrapper_i/core_i/MCU/mdm_1/U0/Ext_JTAG_UPDATE] -add {CLOCKREGION_X1Y3:CLOCKREGION_X1Y3}
+create_pblock CLKAG_U1/MB/core_wrapper_i/core_i/FB_MEMORY/mig_7series_0/u_core_mig_7series_0_0_mig/u_memc_ui_top_axi/mem_intfc0/ddr_phy_top0/u_ddr_mc_phy_wrapper/u_ddr_mc_phy/ddr_phy_4lanes_0.u_ddr_phy_4lanes/ddr_byte_lane_A.ddr_byte_lane_A/oserdes_clk
+add_cells_to_pblock [get_pblocks  CLKAG_U1/MB/core_wrapper_i/core_i/FB_MEMORY/mig_7series_0/u_core_mig_7series_0_0_mig/u_memc_ui_top_axi/mem_intfc0/ddr_phy_top0/u_ddr_mc_phy_wrapper/u_ddr_mc_phy/ddr_phy_4lanes_0.u_ddr_phy_4lanes/ddr_byte_lane_A.ddr_byte_lane_A/oserdes_clk] [get_cells  -filter { IS_PRIMITIVE==1 && PRIMITIVE_LEVEL !=INTERNAL } -of_object [get_pins -filter {DIRECTION==IN} -of_objects [get_nets -hierarchical -filter {PARENT=="U1/MB/core_wrapper_i/core_i/FB_MEMORY/mig_7series_0/u_core_mig_7series_0_0_mig/u_memc_ui_top_axi/mem_intfc0/ddr_phy_top0/u_ddr_mc_phy_wrapper/u_ddr_mc_phy/ddr_phy_4lanes_0.u_ddr_phy_4lanes/ddr_byte_lane_A.ddr_byte_lane_A/oserdes_clk"}]]]
+resize_pblock [get_pblocks CLKAG_U1/MB/core_wrapper_i/core_i/FB_MEMORY/mig_7series_0/u_core_mig_7series_0_0_mig/u_memc_ui_top_axi/mem_intfc0/ddr_phy_top0/u_ddr_mc_phy_wrapper/u_ddr_mc_phy/ddr_phy_4lanes_0.u_ddr_phy_4lanes/ddr_byte_lane_A.ddr_byte_lane_A/oserdes_clk] -add {CLOCKREGION_X1Y1:CLOCKREGION_X1Y1}
+#endgroup
+
+# Clock net "U1/MB/core_wrapper_i/core_i/FB_MEMORY/mig_7series_0/u_core_mig_7series_0_0_mig/u_memc_ui_top_axi/mem_intfc0/ddr_phy_top0/u_ddr_mc_phy_wrapper/u_ddr_mc_phy/ddr_phy_4lanes_1.u_ddr_phy_4lanes/ddr_byte_lane_A.ddr_byte_lane_A/oserdes_clk" driven by instance "U1/MB/core_wrapper_i/core_i/FB_MEMORY/mig_7series_0/u_core_mig_7series_0_0_mig/u_memc_ui_top_axi/mem_intfc0/ddr_phy_top0/u_ddr_mc_phy_wrapper/u_ddr_mc_phy/ddr_phy_4lanes_1.u_ddr_phy_4lanes/ddr_byte_lane_A.ddr_byte_lane_A/phaser_out" located at site "PHASER_OUT_PHY_X1Y0"
+#startgroup
+create_pblock CLKAG_U1/MB/core_wrapper_i/core_i/FB_MEMORY/mig_7series_0/u_core_mig_7series_0_0_mig/u_memc_ui_top_axi/mem_intfc0/ddr_phy_top0/u_ddr_mc_phy_wrapper/u_ddr_mc_phy/ddr_phy_4lanes_1.u_ddr_phy_4lanes/ddr_byte_lane_A.ddr_byte_lane_A/oserdes_clk
+add_cells_to_pblock [get_pblocks  CLKAG_U1/MB/core_wrapper_i/core_i/FB_MEMORY/mig_7series_0/u_core_mig_7series_0_0_mig/u_memc_ui_top_axi/mem_intfc0/ddr_phy_top0/u_ddr_mc_phy_wrapper/u_ddr_mc_phy/ddr_phy_4lanes_1.u_ddr_phy_4lanes/ddr_byte_lane_A.ddr_byte_lane_A/oserdes_clk] [get_cells  -filter { IS_PRIMITIVE==1 && PRIMITIVE_LEVEL !=INTERNAL } -of_object [get_pins -filter {DIRECTION==IN} -of_objects [get_nets -hierarchical -filter {PARENT=="U1/MB/core_wrapper_i/core_i/FB_MEMORY/mig_7series_0/u_core_mig_7series_0_0_mig/u_memc_ui_top_axi/mem_intfc0/ddr_phy_top0/u_ddr_mc_phy_wrapper/u_ddr_mc_phy/ddr_phy_4lanes_1.u_ddr_phy_4lanes/ddr_byte_lane_A.ddr_byte_lane_A/oserdes_clk"}]]]
+resize_pblock [get_pblocks CLKAG_U1/MB/core_wrapper_i/core_i/FB_MEMORY/mig_7series_0/u_core_mig_7series_0_0_mig/u_memc_ui_top_axi/mem_intfc0/ddr_phy_top0/u_ddr_mc_phy_wrapper/u_ddr_mc_phy/ddr_phy_4lanes_1.u_ddr_phy_4lanes/ddr_byte_lane_A.ddr_byte_lane_A/oserdes_clk] -add {CLOCKREGION_X1Y0:CLOCKREGION_X1Y0}
+#endgroup
+
+# Clock net "U1/MB/core_wrapper_i/core_i/FB_MEMORY/mig_7series_0/u_core_mig_7series_0_0_mig/u_memc_ui_top_axi/mem_intfc0/ddr_phy_top0/u_ddr_mc_phy_wrapper/u_ddr_mc_phy/ddr_phy_4lanes_1.u_ddr_phy_4lanes/ddr_byte_lane_C.ddr_byte_lane_C/oserdes_clk" driven by instance "U1/MB/core_wrapper_i/core_i/FB_MEMORY/mig_7series_0/u_core_mig_7series_0_0_mig/u_memc_ui_top_axi/mem_intfc0/ddr_phy_top0/u_ddr_mc_phy_wrapper/u_ddr_mc_phy/ddr_phy_4lanes_1.u_ddr_phy_4lanes/ddr_byte_lane_C.ddr_byte_lane_C/phaser_out" located at site "PHASER_OUT_PHY_X1Y2"
+#startgroup
+create_pblock CLKAG_U1/MB/core_wrapper_i/core_i/FB_MEMORY/mig_7series_0/u_core_mig_7series_0_0_mig/u_memc_ui_top_axi/mem_intfc0/ddr_phy_top0/u_ddr_mc_phy_wrapper/u_ddr_mc_phy/ddr_phy_4lanes_1.u_ddr_phy_4lanes/ddr_byte_lane_C.ddr_byte_lane_C/oserdes_clk
+add_cells_to_pblock [get_pblocks  CLKAG_U1/MB/core_wrapper_i/core_i/FB_MEMORY/mig_7series_0/u_core_mig_7series_0_0_mig/u_memc_ui_top_axi/mem_intfc0/ddr_phy_top0/u_ddr_mc_phy_wrapper/u_ddr_mc_phy/ddr_phy_4lanes_1.u_ddr_phy_4lanes/ddr_byte_lane_C.ddr_byte_lane_C/oserdes_clk] [get_cells  -filter { IS_PRIMITIVE==1 && PRIMITIVE_LEVEL !=INTERNAL } -of_object [get_pins -filter {DIRECTION==IN} -of_objects [get_nets -hierarchical -filter {PARENT=="U1/MB/core_wrapper_i/core_i/FB_MEMORY/mig_7series_0/u_core_mig_7series_0_0_mig/u_memc_ui_top_axi/mem_intfc0/ddr_phy_top0/u_ddr_mc_phy_wrapper/u_ddr_mc_phy/ddr_phy_4lanes_1.u_ddr_phy_4lanes/ddr_byte_lane_C.ddr_byte_lane_C/oserdes_clk"}]]]
+resize_pblock [get_pblocks CLKAG_U1/MB/core_wrapper_i/core_i/FB_MEMORY/mig_7series_0/u_core_mig_7series_0_0_mig/u_memc_ui_top_axi/mem_intfc0/ddr_phy_top0/u_ddr_mc_phy_wrapper/u_ddr_mc_phy/ddr_phy_4lanes_1.u_ddr_phy_4lanes/ddr_byte_lane_C.ddr_byte_lane_C/oserdes_clk] -add {CLOCKREGION_X1Y0:CLOCKREGION_X1Y0}
 #endgroup
