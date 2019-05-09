@@ -1,7 +1,7 @@
 Copyright 1986-1999, 2001-2013 Xilinx, Inc. All Rights Reserved.
 -----------------------------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2013.4 (win64) Build 353583 Mon Dec  9 17:49:19 MST 2013
-| Date         : Mon May 06 10:20:44 2019
+| Date         : Thu May 09 15:32:21 2019
 | Host         : TELOPS258-7 running 64-bit Service Pack 1  (build 7601)
 | Command      : report_timing_summary -file d:/Telops/FIR-00251-Output/Reports/fir_0251_Output_70_timing_summary_routed.rpt
 | Design       : fir_251_output_top_70
@@ -171,7 +171,7 @@ U1/CLINK/clink_mmcm/clk_in2                                                     
 U1/MGT/MGTS/DATA/U0/gt_wrapper_i/data_mgt_multi_gt_i/gt0_data_mgt_i/gtxe2_i/TXOUTCLK                                                                                   3.963        0.000                      0                 1986        0.036        0.000                      0                 1986        4.220        0.000                       0                  1325  
 U1/SDI/SDI_GTX/gt0_k7gtx_sdi_wrapper_i/gtxe2_i/RXOUTCLK                                                                                                                7.236        0.000                      0                 1053        0.052        0.000                      0                 1053        5.954        0.000                       0                   689  
 U1/SDI/SDI_GTX/gt0_k7gtx_sdi_wrapper_i/gtxe2_i/TXOUTCLK                                                                                                                5.568        0.000                      0                 1050        0.053        0.000                      0                 1050        5.954        0.000                       0                   597  
-UPDATE_core_mdm_1_0                                                                                                                                                   12.728        0.000                      0                   48        0.242        0.000                      0                   48       16.267        0.000                       0                    41  
+UPDATE_core_mdm_1_0                                                                                                                                                   12.728        0.000                      0                   48        0.242        0.000                      0                   48       16.266        0.000                       0                    41  
 aurora_clk                                                                                                                                                                                                                                                                                                         6.462        0.000                       0                     4  
 clk100                                                                                                                                                                 0.805        0.000                      0                50281        0.040        0.000                      0                50281        3.000        0.000                       0                 18675  
   CLKFBOUT_1                                                                                                                                                                                                                                                                                                      18.751        0.000                       0                     2  
@@ -2874,7 +2874,7 @@ From Clock:  UPDATE_core_mdm_1_0
 
 Setup :            0  Failing Endpoints,  Worst Slack       12.728ns,  Total Violation        0.000ns
 Hold  :            0  Failing Endpoints,  Worst Slack        0.242ns,  Total Violation        0.000ns
-PW    :            0  Failing Endpoints,  Worst Slack       16.267ns,  Total Violation        0.000ns
+PW    :            0  Failing Endpoints,  Worst Slack       16.266ns,  Total Violation        0.000ns
 ---------------------------------------------------------------------------------------------------
 
 
