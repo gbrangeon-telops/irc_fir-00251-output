@@ -23,10 +23,10 @@
 
 /* AUTO-CODE BEGIN */
 // Auto-generated GeniCam library.
-// Generated from XML camera definition file version 12.5.0
+// Generated from XML camera definition file version 12.5.1
 // using generateGenICamCLib.m Matlab script.
 
-#if ((GC_XMLMAJORVERSION != 12) || (GC_XMLMINORVERSION != 5) || (GC_XMLSUBMINORVERSION != 0))
+#if ((GC_XMLMAJORVERSION != 12) || (GC_XMLMINORVERSION != 5) || (GC_XMLSUBMINORVERSION != 1))
 #error "XML version mismatch."
 #endif
 
@@ -90,6 +90,7 @@ struct gcRegistersDataStruct {
    uint32_t ReverseY;
    uint32_t SensorHeight;
    uint32_t SensorWidth;
+   uint32_t TDCStatus;
    uint32_t VideoAGC;
    uint32_t VideoColorMap;
    uint32_t VideoColorMapMax;
