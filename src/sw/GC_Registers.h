@@ -90,7 +90,6 @@ struct gcRegistersDataStruct {
    uint32_t ReverseY;
    uint32_t SensorHeight;
    uint32_t SensorWidth;
-   uint32_t TDCStatus;
    uint32_t VideoAGC;
    uint32_t VideoColorMap;
    uint32_t VideoColorMapMax;

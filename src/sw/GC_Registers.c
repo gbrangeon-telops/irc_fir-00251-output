@@ -93,7 +93,6 @@ gcRegistersData_t gcRegsDataFactory = {
    /* ReverseY = */ 0,
    /* SensorHeight = */ 0,
    /* SensorWidth = */ 0,
-   /* TDCStatus = */ 0,
    /* VideoAGC = */ 0,
    /* VideoColorMap = */ VCM_Gray,
    /* VideoColorMapMax = */ 65535,
@@ -212,7 +211,6 @@ void GC_Registers_Init()
    gcRegsDef[ReverseYIdx].p_data = &gcRegsData.ReverseY;
    gcRegsDef[SensorHeightIdx].p_data = &gcRegsData.SensorHeight;
    gcRegsDef[SensorWidthIdx].p_data = &gcRegsData.SensorWidth;
-   gcRegsDef[TDCStatusIdx].p_data = &gcRegsData.TDCStatus;
    gcRegsDef[VideoAGCIdx].p_data = &gcRegsData.VideoAGC;
    gcRegsDef[VideoColorMapIdx].p_data = &gcRegsData.VideoColorMap;
    gcRegsDef[VideoColorMapMaxIdx].p_data = &gcRegsData.VideoColorMapMax;

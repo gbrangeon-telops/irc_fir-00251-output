@@ -92,7 +92,6 @@ void GC_Callback_Init()
    gcRegsDef[ReverseYIdx].callback =                           &GC_ReverseYCallback;
    gcRegsDef[SensorHeightIdx].callback =                       &GC_SensorHeightCallback;
    gcRegsDef[SensorWidthIdx].callback =                        &GC_SensorWidthCallback;
-   gcRegsDef[TDCStatusIdx].callback =                          &GC_TDCStatusCallback;
    gcRegsDef[VideoAGCIdx].callback =                           &GC_VideoAGCCallback;
    gcRegsDef[VideoAGCFractionMaxIdx].callback =                &GC_VideoAGCFractionMaxCallback;
    gcRegsDef[VideoAGCFractionMaxMinIdx].callback =             &GC_VideoAGCFractionMaxMinCallback;
@@ -690,15 +689,6 @@ void GC_MemoryBufferLegacyModeCallback(gcCallbackPhase_t phase, gcCallbackAccess
  */
 void GC_MemoryBufferMOIActivationCallback(gcCallbackPhase_t phase, gcCallbackAccess_t access)
 {
-   if ((phase == GCCP_BEFORE) && (access == GCCA_READ))
-   {
-      // Before read
-   }
-
-   if ((phase == GCCP_AFTER) && (access == GCCA_WRITE))
-   {
-      // After write
-   }
 }
 
 /**
@@ -798,10 +788,6 @@ void GC_OffsetYCallback(gcCallbackPhase_t phase, gcCallbackAccess_t access)
  */
 void GC_PayloadSizeCallback(gcCallbackPhase_t phase, gcCallbackAccess_t access)
 {
-   if ((phase == GCCP_BEFORE) && (access == GCCA_READ))
-   {
-      // Before read
-   }
 }
 
 /**
@@ -882,17 +868,6 @@ void GC_SensorWidthCallback(gcCallbackPhase_t phase, gcCallbackAccess_t access)
       // After write
       SDIIntf_UpdateVideoOutput(&gSdiIntfCtrl, &gcRegsData);
    }
-}
-
-/**
- * TDCStatus GenICam register callback function.
- * 
- * @param phase indicates whether the function is called before or
- *    after the read or write operation.
- * @param access indicates whether the operation is read or write.
- */
-void GC_TDCStatusCallback(gcCallbackPhase_t phase, gcCallbackAccess_t access)
-{
 }
 
 /**
