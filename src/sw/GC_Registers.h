@@ -19,6 +19,7 @@
 #include "GC_Manager.h"
 #include <stdint.h>
 
+extern uint8_t gAcquisitionStarted;
 #define GC_AcquisitionStarted    (gAcquisitionStarted == 1)
 
 /* AUTO-CODE BEGIN */

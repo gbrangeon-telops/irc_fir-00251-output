@@ -201,7 +201,6 @@ void GC_AcquisitionStartCallback(gcCallbackPhase_t phase, gcCallbackAccess_t acc
       // After write
       if (gcRegsData.AcquisitionStart)
       {
-         extern uint8_t gAcquisitionStarted;
          gAcquisitionStarted = 1;
       }
    }
@@ -222,7 +221,6 @@ void GC_AcquisitionStopCallback(gcCallbackPhase_t phase, gcCallbackAccess_t acce
 
       if (gcRegsData.AcquisitionStop)
       {
-         extern uint8_t gAcquisitionStarted;
          gAcquisitionStarted = 0;
          GC_UpdateCameraLink();
       }
