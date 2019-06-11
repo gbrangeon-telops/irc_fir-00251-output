@@ -419,7 +419,7 @@ IRC_Status_t Output_Intc_Start()
    /*
     * Enable the interrupt for the AGC instance.
     */
-   XIntc_Enable(&gOutputIntc, XPAR_MCU_MICROBLAZE_0_AXI_INTC_SYSTEM_AGC_INTR_0_INTR);
+   XIntc_Enable(&gOutputIntc, XPAR_MCU_MICROBLAZE_0_AXI_INTC_SYSTEM_AGC_INTR_INTR);
 
    /*
     * Initialize the exception table.

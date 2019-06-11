@@ -27,7 +27,7 @@ REFRESH_FLOW=1
 FAMILY=
 IMPL_TOOL=
 SYNTH_TOOL=
-fileopenfolder=D:\Telops\FIR-00251-Output\src
+fileopenfolder=D:\Telops\FIR-00251-Common\VHDL
 
 [LocalVerilogSets]
 EnableSLP=1
@@ -98,6 +98,8 @@ work=1
 /..\..\src\fir_00251_output_build.do=-1
 /..\..\src\fir_251_output_top_70.bde=-1
 /..\..\src\fir_251_output_top_160.bde=-1
+/axis16_frame_pix_cnt_lite.vhd=-1
+/axis16_frame_rate_lite.vhd=-1
 BD/..\..\..\src\BD\bd_wrapper.vhd=-1
 Clink/..\..\..\src\Clink\Hdl\CLINK_define.vhd=-1
 Clink/..\..\..\src\Clink\Hdl\Clink_intf.bde=-1
@@ -168,6 +170,8 @@ work/work.lib=-1
 .\..\src\fir_00251_output_build.do=Macro
 .\..\src\fir_251_output_top_70.bde=Block Diagram
 .\..\src\fir_251_output_top_160.bde=Block Diagram
+.\src\axis16_frame_pix_cnt_lite.vhd=VHDL Source Code
+.\src\axis16_frame_rate_lite.vhd=VHDL Source Code
 .\..\src\BD\bd_wrapper.vhd=VHDL Source Code
 .\..\src\Clink\Hdl\CLINK_define.vhd=VHDL Source Code
 .\..\src\Clink\Hdl\Clink_intf.bde=Block Diagram

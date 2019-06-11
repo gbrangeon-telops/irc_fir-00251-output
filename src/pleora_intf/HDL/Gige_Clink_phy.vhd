@@ -105,11 +105,10 @@ architecture rtl of GIGE_CLINK_PHY is
    --signal sreset_usr : std_logic; 
 
    signal gige_conf_sync : GIGEConfig; -- resynced to GIGE clock domain
-   signal gige_conf_valid_sync : std_logic := '0';   
+   signal gige_conf_valid_sync : std_logic := '0'; 
    
 begin    
-   
-   
+    
    ---------------------------------------------
    -- Synchronisation toward CLK_GIGE domain
    ---------------------------------------------
@@ -238,12 +237,14 @@ begin
                               line_cnt <= line_cnt + 1;
                            end if;
                         else
+                            gige_state <= SEND_DATA;
                             gige_tready <= '1';
                            pix_cnt <= pix_cnt + 1;
                            line_cnt <= line_cnt;
                         end if;
                         
                      else
+                        gige_state <= SEND_DATA;
                         gige_tready <= '1';
                         dval <= '0';
                         lval <= lval;                         

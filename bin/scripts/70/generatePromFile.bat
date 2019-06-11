@@ -2,18 +2,23 @@ call D:\Telops\FIR-00251-Output\bin\scripts\setEnvironment.bat 70
 
 rem Clean up
 del %binDir%\download_70.bit
-del %binDir%\_data2mem_70.log
 del %binDir%\_promgen_70.log
 
 rem Fetch hw and sw files
 call %scriptsDir%\70\fetchHwSwFiles.bat
 
 rem Integrate software elf file to bit file
-%x_data2mem% -bm %bmmFile% -bt %bitFile% -bd %elfFile% -o b %binDir%\download_70.bit -log %binDir%\_data2mem_70.log
+set mcuInstPath=U1/MB/core_wrapper_i/core_i/MCU/microblaze_0
+echo %mmiFile%
+echo %bitFile%
+echo %elfFile%
+echo %mcuInstPath%
+echo %binDir%\download_70.bit
+pause
+call %x_updatemem% --meminfo %mmiFile% --bit %bitFile% --data %elfFile% --proc %mcuInstPath% --out %binDir%\download_70.bit -force
 if errorlevel 1 (
 	echo ELF anb bit file integration failed!
 	pause
-	exit
 )
 
 rem Generate PROM file
@@ -22,3 +27,4 @@ if errorlevel 1 (
 	echo PROM file generation failed!
 	pause
 )
+

@@ -5,14 +5,14 @@ set config=Release
 rem Clean up
 del %elfFile%
 del %bitFile%
-del %bmmFile%
+del %mmiFile%
 
 rem Fetch hw and sw files
 copy %sdkDir%\%baseName%\%config%\%baseName%.elf %elfFile%
 if errorlevel 1 goto err
-copy %sdkDir%\hw_platform_%fpgaSize%\fir_251_output_top_%fpgaSize%.bit %bitFile%
+copy %projectDir%\xilinx\fir_0251_Output_70.runs\impl_1\fir_251_output_top_%fpgaSize%.bit %bitFile%
 if errorlevel 1 goto err
-copy %sdkDir%\hw_platform_%fpgaSize%\fir_251_output_top_%fpgaSize%_bd.bmm %bmmFile%
+copy %projectDir%\xilinx\fir_0251_Output_70.runs\impl_1\fir_251_output_top_%fpgaSize%.mmi %mmiFile%
 if errorlevel 1 goto err
 goto end
 

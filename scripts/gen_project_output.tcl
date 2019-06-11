@@ -6,6 +6,7 @@ set src_dir $root_dir/src
 set aldec_dir $root_dir/aldec/compile
 set constr_dir $root_dir/src/constraint
 set ip_dir $root_dir/IP/$FPGA_SIZE
+set ip_2013_dir $root_dir/IP/2013/$FPGA_SIZE
 set common_hdl_dir "d:/Telops/common_hdl"
 set common_dir "d:/Telops/fir-00251-Common/VHDL"
 
@@ -41,6 +42,11 @@ add_files $common_hdl_dir/gh_vhdl_lib/custom_MSI/gh_stretch.vhd
 
 # Add IP sources
 foreach subdir [glob -nocomplain -type d $ip_dir/*] {
+   if {[glob -nocomplain $subdir/*.xci] != {}} {read_ip [glob $subdir/*.xci]}
+}
+
+# Add IP sources from 2013
+foreach subdir [glob -nocomplain -type d $ip_2013_dir/*] {
    if {[glob -nocomplain $subdir/*.xci] != {}} {read_ip [glob $subdir/*.xci]}
 }
 
@@ -121,7 +127,7 @@ source $script_dir/tel_xparam_extract.tcl
 close_bd_design core
 
 #make the core diagram Out of context module for faster compile time
-create_fileset -blockset -define_from core core
+#create_fileset -blockset -define_from core core
 
 #Set top level design
 set_property top fir_251_output_top_$FPGA_SIZE [current_fileset]

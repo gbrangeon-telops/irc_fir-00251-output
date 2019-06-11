@@ -11,7 +11,7 @@ set srcExtensionList=".bde" ".vhd" ".xdc"
 set tortoiseSVNDir="C:\Program Files\TortoiseSVN"
 set svn_subwcrev=%tortoiseSVNDir%\bin\SubWCRev.exe
 
-set hwRevFile=%outputDir%\sdk\hw_%FPGA_SIZE%\hw_svn_rev.txt
+set hwRevFile=%outputDir%\sdk\hw_svn_rev_%FPGA_SIZE%.txt
 
 REM Delete old revision file
 del %hwRevFile%
