@@ -107,7 +107,12 @@ update_compile_order -fileset sources_1
 #Add constraint files
 add_files -fileset constrs_1 $constr_dir
 set_property target_constrs_file $constr_dir/fir_00251_output_Target.xdc [current_fileset -constrset]
-reorder_files -fileset constrs_1 -before $constr_dir/fir_00251_output_Timing.xdc $constr_dir/fir_00251_output_Physical.xdc
+reorder_files -fileset constrs_1 -before $constr_dir/fir_00251_output_Timing.xdc $constr_dir/fir_00251_output_Physical_common.xdc
+if {$FPGA_SIZE == 70} {
+	reorder_files -fileset constrs_1 -before $constr_dir/fir_00251_output_Timing.xdc $constr_dir/fir_00251_output_Physical_70.xdc
+} elseif {$FPGA_SIZE == 160} {
+	reorder_files -fileset constrs_1 -before $constr_dir/fir_00251_output_Timing.xdc $constr_dir/fir_00251_output_Physical_160.xdc
+}
 reorder_files -fileset constrs_1 -before $constr_dir/fir_00251_output_Target.xdc $constr_dir/fir_00251_output_Timing.xdc
 
 #Create Block design

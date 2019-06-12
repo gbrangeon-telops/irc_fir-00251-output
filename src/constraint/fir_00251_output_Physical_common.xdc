@@ -29,12 +29,13 @@ set_property PACKAGE_PIN H5 [get_ports AURORA_CLK_N2]
 
 
 
-set_property PACKAGE_PIN R3 [get_ports {DATA_DOWNLINK_N[0]}]
-set_property PACKAGE_PIN N3 [get_ports {DATA_DOWNLINK_N[1]}]
+#set_property PACKAGE_PIN R3 [get_ports {DATA_DOWNLINK_N[0]}]
+#set_property PACKAGE_PIN N3 [get_ports {DATA_DOWNLINK_N[1]}]
+
+set_property PACKAGE_PIN P2 [get_ports {DATA_UPLINK_P[0]}]
+set_property PACKAGE_PIN M2 [get_ports {DATA_UPLINK_P[1]}]
 
 
-set_property PACKAGE_PIN K2 [get_ports {VIDEO_UPLINK_P[0]}]
-set_property PACKAGE_PIN H2 [get_ports {VIDEO_UPLINK_P[1]}]
 
 #set_property PACKAGE_PIN C4 [get_ports {EXP_OUT_P[0]}]
 #set_property PACKAGE_PIN B6 [get_ports {EXP_OUT_P[1]}]
