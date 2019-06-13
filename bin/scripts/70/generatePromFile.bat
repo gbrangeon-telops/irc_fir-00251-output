@@ -13,8 +13,7 @@ echo %mmiFile%
 echo %bitFile%
 echo %elfFile%
 echo %mcuInstPath%
-echo %binDir%\download_70.bit
-pause
+
 call %x_updatemem% --meminfo %mmiFile% --bit %bitFile% --data %elfFile% --proc %mcuInstPath% --out %binDir%\download_70.bit -force
 if errorlevel 1 (
 	echo ELF anb bit file integration failed!

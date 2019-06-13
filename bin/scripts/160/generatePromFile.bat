@@ -14,14 +14,12 @@ echo %mmiFile%
 echo %bitFile%
 echo %elfFile%
 echo %mcuInstPath%
-echo %binDir%\download_160.bit
-pause
+
 call %x_updatemem% --meminfo %mmiFile% --bit %bitFile% --data %elfFile% --proc %mcuInstPath% --out %binDir%\download_160.bit -force
 if errorlevel 1 (
 	echo ELF anb bit file integration failed!
 	pause
 )
-
 
 rem Generate PROM file
 %x_promgen% -w -p mcs -spi -c FF -o "%binDir%\prom\%baseName%.mcs" -s 16384 -u 0 %binDir%\download_160.bit > %binDir%\_promgen_160.log
