@@ -49,7 +49,7 @@ main-build: fir_00251_output_70.elf secondary-outputs
 fir_00251_output_70.elf: $(OBJS) ../src/lscript.ld $(USER_OBJS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: MicroBlaze gcc linker'
-	mb-gcc -Wl,-T -Wl,../src/lscript.ld -L../../standalone_bsp_70/MCU_microblaze_0/lib -mlittle-endian -mxl-barrel-shift -mcpu=v10.0 -mno-xl-soft-mul -mhard-float -Wl,--no-relax -Wl,--gc-sections -o "fir_00251_output_70.elf" $(OBJS) $(USER_OBJS) $(LIBS)
+	mb-gcc -Wl,-T -Wl,../src/lscript.ld -L../../standalone_bsp_70/MCU_microblaze_0/lib -mlittle-endian -mxl-barrel-shift -mcpu=v9.2 -mno-xl-soft-mul -mhard-float -Wl,--no-relax -Wl,--gc-sections -o "fir_00251_output_70.elf" $(OBJS) $(USER_OBJS) $(LIBS)
 	@echo 'Finished building target: $@'
 	@echo ' '
 	$(MAKE) --no-print-directory post-build
