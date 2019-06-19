@@ -272,13 +272,13 @@ void GC_UpdateCameraLink()
    uint32_t frameImageCount;
 
    // reconfiguration is disabled for now during acquisition
-   if ((gcRegsData.MemoryBufferMode == MBM_Off || gcRegsData.MemoryBufferSequenceDownloadMode == MBSDM_Off) && GC_AcquisitionStarted)
+   if (GC_AcquisitionStarted)
       return;
 
-   // Determine whether jumbo frames are available
+   // Do not use jumbo frames in Memory Buffer Download
    if ((gcRegsData.MemoryBufferMode == MBM_Off || gcRegsData.MemoryBufferSequenceDownloadMode == MBSDM_Off))
    {
-      // Jumbo frames are available
+      // Determine whether jumbo frames are necessary
       frameImageCountAFR = (uint32_t) ceilf(gcRegsData.AcquisitionFrameRate / gcRegsData.AcquisitionFrameRateMaxFG);
       frameImageCountPC = (uint32_t) ceilf((float) gcRegsData.PayloadSizeMinFG / (float) (gcRegsData.Width * (gcRegsData.Height + 2) * 2));
    }

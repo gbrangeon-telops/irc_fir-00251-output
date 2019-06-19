@@ -711,6 +711,7 @@ void GC_MemoryBufferModeCallback(gcCallbackPhase_t phase, gcCallbackAccess_t acc
 {
    if ((phase == GCCP_AFTER) && (access == GCCA_WRITE))
    {
+      GC_UpdateCameraLink();
       SDIIntf_UpdateVideoDataHandler(&gSdiIntfCtrl, &gcRegsData);
    }
 }
