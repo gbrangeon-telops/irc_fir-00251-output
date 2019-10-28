@@ -24,10 +24,10 @@ extern uint8_t gAcquisitionStarted;
 
 /* AUTO-CODE BEGIN */
 // Auto-generated GeniCam library.
-// Generated from XML camera definition file version 12.6.0
+// Generated from XML camera definition file version 12.6.255
 // using generateGenICamCLib.m Matlab script.
 
-#if ((GC_XMLMAJORVERSION != 12) || (GC_XMLMINORVERSION != 6) || (GC_XMLSUBMINORVERSION != 0))
+#if ((GC_XMLMAJORVERSION != 12) || (GC_XMLMINORVERSION != 6) || (GC_XMLSUBMINORVERSION != 255))
 #error "XML version mismatch."
 #endif
 
@@ -81,7 +81,11 @@ struct gcRegistersDataStruct {
    uint32_t MemoryBufferMOISource;
    uint32_t MemoryBufferMode;
    uint32_t MemoryBufferSequenceCount;
+   uint32_t MemoryBufferSequenceDownloadFrameCount;
+   uint32_t MemoryBufferSequenceDownloadFrameImageCount;
    uint32_t MemoryBufferSequenceDownloadMode;
+   uint32_t MemoryBufferSequenceDownloadSuggestedFrameImageCount;
+   uint32_t MemoryBufferSequenceHeight;
    uint32_t MemoryBufferStatus;
    uint32_t OffsetX;
    uint32_t OffsetY;

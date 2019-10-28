@@ -30,7 +30,7 @@
 
 /* AUTO-CODE BEGIN */
 // Auto-generated GeniCam library.
-// Generated from XML camera definition file version 12.6.0
+// Generated from XML camera definition file version 12.6.255
 // using generateGenICamCLib.m Matlab script.
 
 // GenICam global variables definition
@@ -83,7 +83,11 @@ gcRegistersData_t gcRegsDataFactory = {
    /* MemoryBufferMOISource = */ 0,
    /* MemoryBufferMode = */ 0,
    /* MemoryBufferSequenceCount = */ 0,
+   /* MemoryBufferSequenceDownloadFrameCount = */ 0,
+   /* MemoryBufferSequenceDownloadFrameImageCount = */ 0,
    /* MemoryBufferSequenceDownloadMode = */ 0,
+   /* MemoryBufferSequenceDownloadSuggestedFrameImageCount = */ 0,
+   /* MemoryBufferSequenceHeight = */ 0,
    /* MemoryBufferStatus = */ 0,
    /* OffsetX = */ 0,
    /* OffsetY = */ 0,
@@ -201,7 +205,11 @@ void GC_Registers_Init()
    gcRegsDef[MemoryBufferMOISourceIdx].p_data = &gcRegsData.MemoryBufferMOISource;
    gcRegsDef[MemoryBufferModeIdx].p_data = &gcRegsData.MemoryBufferMode;
    gcRegsDef[MemoryBufferSequenceCountIdx].p_data = &gcRegsData.MemoryBufferSequenceCount;
+   gcRegsDef[MemoryBufferSequenceDownloadFrameCountIdx].p_data = &gcRegsData.MemoryBufferSequenceDownloadFrameCount;
+   gcRegsDef[MemoryBufferSequenceDownloadFrameImageCountIdx].p_data = &gcRegsData.MemoryBufferSequenceDownloadFrameImageCount;
    gcRegsDef[MemoryBufferSequenceDownloadModeIdx].p_data = &gcRegsData.MemoryBufferSequenceDownloadMode;
+   gcRegsDef[MemoryBufferSequenceDownloadSuggestedFrameImageCountIdx].p_data = &gcRegsData.MemoryBufferSequenceDownloadSuggestedFrameImageCount;
+   gcRegsDef[MemoryBufferSequenceHeightIdx].p_data = &gcRegsData.MemoryBufferSequenceHeight;
    gcRegsDef[MemoryBufferStatusIdx].p_data = &gcRegsData.MemoryBufferStatus;
    gcRegsDef[OffsetXIdx].p_data = &gcRegsData.OffsetX;
    gcRegsDef[OffsetYIdx].p_data = &gcRegsData.OffsetY;

@@ -36,7 +36,7 @@ extern t_SdiIntf gSdiIntfCtrl;
 
 /* AUTO-CODE BEGIN */
 // Auto-generated GeniCam registers callback functions definition.
-// Generated from XML camera definition file version 12.6.0
+// Generated from XML camera definition file version 12.6.255
 // using updateGenICamCallback.m Matlab script.
 
 /**
@@ -44,76 +44,80 @@ extern t_SdiIntf gSdiIntfCtrl;
  */
 void GC_Callback_Init()
 {
-   gcRegsDef[AcquisitionArmIdx].callback =                     &GC_AcquisitionArmCallback;
-   gcRegsDef[AcquisitionFrameRateIdx].callback =               &GC_AcquisitionFrameRateCallback;
-   gcRegsDef[AcquisitionFrameRateMaxFGIdx].callback =          &GC_AcquisitionFrameRateMaxFGCallback;
-   gcRegsDef[AcquisitionFrameRateModeIdx].callback =           &GC_AcquisitionFrameRateModeCallback;
-   gcRegsDef[AcquisitionStartIdx].callback =                   &GC_AcquisitionStartCallback;
-   gcRegsDef[AcquisitionStopIdx].callback =                    &GC_AcquisitionStopCallback;
-   gcRegsDef[CalibrationModeIdx].callback =                    &GC_CalibrationModeCallback;
-   gcRegsDef[ClConfigurationIdx].callback =                    &GC_ClConfigurationCallback;
-   gcRegsDef[DeviceBuiltInTestsResults5Idx].callback =         &GC_DeviceBuiltInTestsResults5Callback;
-   gcRegsDef[DeviceBuiltInTestsResults6Idx].callback =         &GC_DeviceBuiltInTestsResults6Callback;
-   gcRegsDef[DeviceClockFrequencyIdx].callback =               &GC_DeviceClockFrequencyCallback;
-   gcRegsDef[DeviceClockSelectorIdx].callback =                &GC_DeviceClockSelectorCallback;
-   gcRegsDef[DeviceFirmwareModuleRevisionIdx].callback =       &GC_DeviceFirmwareModuleRevisionCallback;
-   gcRegsDef[DeviceFirmwareModuleSelectorIdx].callback =       &GC_DeviceFirmwareModuleSelectorCallback;
-   gcRegsDef[DeviceTapGeometryIdx].callback =                  &GC_DeviceTapGeometryCallback;
-   gcRegsDef[DeviceTemperatureIdx].callback =                  &GC_DeviceTemperatureCallback;
-   gcRegsDef[DeviceTemperatureSelectorIdx].callback =          &GC_DeviceTemperatureSelectorCallback;
-   gcRegsDef[DeviceVoltageIdx].callback =                      &GC_DeviceVoltageCallback;
-   gcRegsDef[DeviceVoltageSelectorIdx].callback =              &GC_DeviceVoltageSelectorCallback;
-   gcRegsDef[EHDRINumberOfExposuresIdx].callback =             &GC_EHDRINumberOfExposuresCallback;
-   gcRegsDef[EventErrorIdx].callback =                         &GC_EventErrorCallback;
-   gcRegsDef[EventErrorCodeIdx].callback =                     &GC_EventErrorCodeCallback;
-   gcRegsDef[EventErrorTimestampIdx].callback =                &GC_EventErrorTimestampCallback;
-   gcRegsDef[EventNotificationIdx].callback =                  &GC_EventNotificationCallback;
-   gcRegsDef[EventSelectorIdx].callback =                      &GC_EventSelectorCallback;
-   gcRegsDef[EventTelopsIdx].callback =                        &GC_EventTelopsCallback;
-   gcRegsDef[EventTelopsCodeIdx].callback =                    &GC_EventTelopsCodeCallback;
-   gcRegsDef[EventTelopsTimestampIdx].callback =               &GC_EventTelopsTimestampCallback;
-   gcRegsDef[FValSizeIdx].callback =                           &GC_FValSizeCallback;
-   gcRegsDef[FWModeIdx].callback =                             &GC_FWModeCallback;
-   gcRegsDef[HeightIdx].callback =                             &GC_HeightCallback;
-   gcRegsDef[IsActiveFlagsIdx].callback =                      &GC_IsActiveFlagsCallback;
-   gcRegsDef[LValSizeIdx].callback =                           &GC_LValSizeCallback;
-   gcRegsDef[MemoryBufferLegacyModeIdx].callback =             &GC_MemoryBufferLegacyModeCallback;
-   gcRegsDef[MemoryBufferMOIActivationIdx].callback =          &GC_MemoryBufferMOIActivationCallback;
-   gcRegsDef[MemoryBufferMOISourceIdx].callback =              &GC_MemoryBufferMOISourceCallback;
-   gcRegsDef[MemoryBufferModeIdx].callback =                   &GC_MemoryBufferModeCallback;
-   gcRegsDef[MemoryBufferSequenceCountIdx].callback =          &GC_MemoryBufferSequenceCountCallback;
-   gcRegsDef[MemoryBufferSequenceDownloadModeIdx].callback =   &GC_MemoryBufferSequenceDownloadModeCallback;
-   gcRegsDef[MemoryBufferStatusIdx].callback =                 &GC_MemoryBufferStatusCallback;
-   gcRegsDef[OffsetXIdx].callback =                            &GC_OffsetXCallback;
-   gcRegsDef[OffsetYIdx].callback =                            &GC_OffsetYCallback;
-   gcRegsDef[PayloadSizeIdx].callback =                        &GC_PayloadSizeCallback;
-   gcRegsDef[PayloadSizeMinFGIdx].callback =                   &GC_PayloadSizeMinFGCallback;
-   gcRegsDef[ReverseXIdx].callback =                           &GC_ReverseXCallback;
-   gcRegsDef[ReverseYIdx].callback =                           &GC_ReverseYCallback;
-   gcRegsDef[SensorHeightIdx].callback =                       &GC_SensorHeightCallback;
-   gcRegsDef[SensorWidthIdx].callback =                        &GC_SensorWidthCallback;
-   gcRegsDef[VideoAGCIdx].callback =                           &GC_VideoAGCCallback;
-   gcRegsDef[VideoAGCFractionMaxIdx].callback =                &GC_VideoAGCFractionMaxCallback;
-   gcRegsDef[VideoAGCFractionMaxMinIdx].callback =             &GC_VideoAGCFractionMaxMinCallback;
-   gcRegsDef[VideoAGCFractionMinIdx].callback =                &GC_VideoAGCFractionMinCallback;
-   gcRegsDef[VideoAGCFractionMinMaxIdx].callback =             &GC_VideoAGCFractionMinMaxCallback;
-   gcRegsDef[VideoAGCResponseTimeIdx].callback =               &GC_VideoAGCResponseTimeCallback;
-   gcRegsDef[VideoColorMapIdx].callback =                      &GC_VideoColorMapCallback;
-   gcRegsDef[VideoColorMapMaxIdx].callback =                   &GC_VideoColorMapMaxCallback;
-   gcRegsDef[VideoColorMapMinIdx].callback =                   &GC_VideoColorMapMinCallback;
-   gcRegsDef[VideoDigitalZoomFactorIdx].callback =             &GC_VideoDigitalZoomFactorCallback;
-   gcRegsDef[VideoDigitalZoomFactorMaxIdx].callback =          &GC_VideoDigitalZoomFactorMaxCallback;
-   gcRegsDef[VideoDigitalZoomHeightIdx].callback =             &GC_VideoDigitalZoomHeightCallback;
-   gcRegsDef[VideoDigitalZoomModeIdx].callback =               &GC_VideoDigitalZoomModeCallback;
-   gcRegsDef[VideoDigitalZoomOffsetXIdx].callback =            &GC_VideoDigitalZoomOffsetXCallback;
-   gcRegsDef[VideoDigitalZoomOffsetYIdx].callback =            &GC_VideoDigitalZoomOffsetYCallback;
-   gcRegsDef[VideoDigitalZoomWidthIdx].callback =              &GC_VideoDigitalZoomWidthCallback;
-   gcRegsDef[VideoEHDRIExposureIndexIdx].callback =            &GC_VideoEHDRIExposureIndexCallback;
-   gcRegsDef[VideoFWPositionIdx].callback =                    &GC_VideoFWPositionCallback;
-   gcRegsDef[VideoFreezeIdx].callback =                        &GC_VideoFreezeCallback;
-   gcRegsDef[VideoReverseXIdx].callback =                      &GC_VideoReverseXCallback;
-   gcRegsDef[VideoReverseYIdx].callback =                      &GC_VideoReverseYCallback;
-   gcRegsDef[WidthIdx].callback =                              &GC_WidthCallback;
+   gcRegsDef[AcquisitionArmIdx].callback =                                       &GC_AcquisitionArmCallback;
+   gcRegsDef[AcquisitionFrameRateIdx].callback =                                 &GC_AcquisitionFrameRateCallback;
+   gcRegsDef[AcquisitionFrameRateMaxFGIdx].callback =                            &GC_AcquisitionFrameRateMaxFGCallback;
+   gcRegsDef[AcquisitionFrameRateModeIdx].callback =                             &GC_AcquisitionFrameRateModeCallback;
+   gcRegsDef[AcquisitionStartIdx].callback =                                     &GC_AcquisitionStartCallback;
+   gcRegsDef[AcquisitionStopIdx].callback =                                      &GC_AcquisitionStopCallback;
+   gcRegsDef[CalibrationModeIdx].callback =                                      &GC_CalibrationModeCallback;
+   gcRegsDef[ClConfigurationIdx].callback =                                      &GC_ClConfigurationCallback;
+   gcRegsDef[DeviceBuiltInTestsResults5Idx].callback =                           &GC_DeviceBuiltInTestsResults5Callback;
+   gcRegsDef[DeviceBuiltInTestsResults6Idx].callback =                           &GC_DeviceBuiltInTestsResults6Callback;
+   gcRegsDef[DeviceClockFrequencyIdx].callback =                                 &GC_DeviceClockFrequencyCallback;
+   gcRegsDef[DeviceClockSelectorIdx].callback =                                  &GC_DeviceClockSelectorCallback;
+   gcRegsDef[DeviceFirmwareModuleRevisionIdx].callback =                         &GC_DeviceFirmwareModuleRevisionCallback;
+   gcRegsDef[DeviceFirmwareModuleSelectorIdx].callback =                         &GC_DeviceFirmwareModuleSelectorCallback;
+   gcRegsDef[DeviceTapGeometryIdx].callback =                                    &GC_DeviceTapGeometryCallback;
+   gcRegsDef[DeviceTemperatureIdx].callback =                                    &GC_DeviceTemperatureCallback;
+   gcRegsDef[DeviceTemperatureSelectorIdx].callback =                            &GC_DeviceTemperatureSelectorCallback;
+   gcRegsDef[DeviceVoltageIdx].callback =                                        &GC_DeviceVoltageCallback;
+   gcRegsDef[DeviceVoltageSelectorIdx].callback =                                &GC_DeviceVoltageSelectorCallback;
+   gcRegsDef[EHDRINumberOfExposuresIdx].callback =                               &GC_EHDRINumberOfExposuresCallback;
+   gcRegsDef[EventErrorIdx].callback =                                           &GC_EventErrorCallback;
+   gcRegsDef[EventErrorCodeIdx].callback =                                       &GC_EventErrorCodeCallback;
+   gcRegsDef[EventErrorTimestampIdx].callback =                                  &GC_EventErrorTimestampCallback;
+   gcRegsDef[EventNotificationIdx].callback =                                    &GC_EventNotificationCallback;
+   gcRegsDef[EventSelectorIdx].callback =                                        &GC_EventSelectorCallback;
+   gcRegsDef[EventTelopsIdx].callback =                                          &GC_EventTelopsCallback;
+   gcRegsDef[EventTelopsCodeIdx].callback =                                      &GC_EventTelopsCodeCallback;
+   gcRegsDef[EventTelopsTimestampIdx].callback =                                 &GC_EventTelopsTimestampCallback;
+   gcRegsDef[FValSizeIdx].callback =                                             &GC_FValSizeCallback;
+   gcRegsDef[FWModeIdx].callback =                                               &GC_FWModeCallback;
+   gcRegsDef[HeightIdx].callback =                                               &GC_HeightCallback;
+   gcRegsDef[IsActiveFlagsIdx].callback =                                        &GC_IsActiveFlagsCallback;
+   gcRegsDef[LValSizeIdx].callback =                                             &GC_LValSizeCallback;
+   gcRegsDef[MemoryBufferLegacyModeIdx].callback =                               &GC_MemoryBufferLegacyModeCallback;
+   gcRegsDef[MemoryBufferMOIActivationIdx].callback =                            &GC_MemoryBufferMOIActivationCallback;
+   gcRegsDef[MemoryBufferMOISourceIdx].callback =                                &GC_MemoryBufferMOISourceCallback;
+   gcRegsDef[MemoryBufferModeIdx].callback =                                     &GC_MemoryBufferModeCallback;
+   gcRegsDef[MemoryBufferSequenceCountIdx].callback =                            &GC_MemoryBufferSequenceCountCallback;
+   gcRegsDef[MemoryBufferSequenceDownloadFrameCountIdx].callback =               &GC_MemoryBufferSequenceDownloadFrameCountCallback;
+   gcRegsDef[MemoryBufferSequenceDownloadFrameImageCountIdx].callback =          &GC_MemoryBufferSequenceDownloadFrameImageCountCallback;
+   gcRegsDef[MemoryBufferSequenceDownloadModeIdx].callback =                     &GC_MemoryBufferSequenceDownloadModeCallback;
+   gcRegsDef[MemoryBufferSequenceDownloadSuggestedFrameImageCountIdx].callback = &GC_MemoryBufferSequenceDownloadSuggestedFrameImageCountCallback;
+   gcRegsDef[MemoryBufferSequenceHeightIdx].callback =                           &GC_MemoryBufferSequenceHeightCallback;
+   gcRegsDef[MemoryBufferStatusIdx].callback =                                   &GC_MemoryBufferStatusCallback;
+   gcRegsDef[OffsetXIdx].callback =                                              &GC_OffsetXCallback;
+   gcRegsDef[OffsetYIdx].callback =                                              &GC_OffsetYCallback;
+   gcRegsDef[PayloadSizeIdx].callback =                                          &GC_PayloadSizeCallback;
+   gcRegsDef[PayloadSizeMinFGIdx].callback =                                     &GC_PayloadSizeMinFGCallback;
+   gcRegsDef[ReverseXIdx].callback =                                             &GC_ReverseXCallback;
+   gcRegsDef[ReverseYIdx].callback =                                             &GC_ReverseYCallback;
+   gcRegsDef[SensorHeightIdx].callback =                                         &GC_SensorHeightCallback;
+   gcRegsDef[SensorWidthIdx].callback =                                          &GC_SensorWidthCallback;
+   gcRegsDef[VideoAGCIdx].callback =                                             &GC_VideoAGCCallback;
+   gcRegsDef[VideoAGCFractionMaxIdx].callback =                                  &GC_VideoAGCFractionMaxCallback;
+   gcRegsDef[VideoAGCFractionMaxMinIdx].callback =                               &GC_VideoAGCFractionMaxMinCallback;
+   gcRegsDef[VideoAGCFractionMinIdx].callback =                                  &GC_VideoAGCFractionMinCallback;
+   gcRegsDef[VideoAGCFractionMinMaxIdx].callback =                               &GC_VideoAGCFractionMinMaxCallback;
+   gcRegsDef[VideoAGCResponseTimeIdx].callback =                                 &GC_VideoAGCResponseTimeCallback;
+   gcRegsDef[VideoColorMapIdx].callback =                                        &GC_VideoColorMapCallback;
+   gcRegsDef[VideoColorMapMaxIdx].callback =                                     &GC_VideoColorMapMaxCallback;
+   gcRegsDef[VideoColorMapMinIdx].callback =                                     &GC_VideoColorMapMinCallback;
+   gcRegsDef[VideoDigitalZoomFactorIdx].callback =                               &GC_VideoDigitalZoomFactorCallback;
+   gcRegsDef[VideoDigitalZoomFactorMaxIdx].callback =                            &GC_VideoDigitalZoomFactorMaxCallback;
+   gcRegsDef[VideoDigitalZoomHeightIdx].callback =                               &GC_VideoDigitalZoomHeightCallback;
+   gcRegsDef[VideoDigitalZoomModeIdx].callback =                                 &GC_VideoDigitalZoomModeCallback;
+   gcRegsDef[VideoDigitalZoomOffsetXIdx].callback =                              &GC_VideoDigitalZoomOffsetXCallback;
+   gcRegsDef[VideoDigitalZoomOffsetYIdx].callback =                              &GC_VideoDigitalZoomOffsetYCallback;
+   gcRegsDef[VideoDigitalZoomWidthIdx].callback =                                &GC_VideoDigitalZoomWidthCallback;
+   gcRegsDef[VideoEHDRIExposureIndexIdx].callback =                              &GC_VideoEHDRIExposureIndexCallback;
+   gcRegsDef[VideoFWPositionIdx].callback =                                      &GC_VideoFWPositionCallback;
+   gcRegsDef[VideoFreezeIdx].callback =                                          &GC_VideoFreezeCallback;
+   gcRegsDef[VideoReverseXIdx].callback =                                        &GC_VideoReverseXCallback;
+   gcRegsDef[VideoReverseYIdx].callback =                                        &GC_VideoReverseYCallback;
+   gcRegsDef[WidthIdx].callback =                                                &GC_WidthCallback;
 }
 
 /**
@@ -728,6 +732,28 @@ void GC_MemoryBufferSequenceCountCallback(gcCallbackPhase_t phase, gcCallbackAcc
 }
 
 /**
+ * MemoryBufferSequenceDownloadFrameCount GenICam register callback function.
+ * 
+ * @param phase indicates whether the function is called before or
+ *    after the read or write operation.
+ * @param access indicates whether the operation is read or write.
+ */
+void GC_MemoryBufferSequenceDownloadFrameCountCallback(gcCallbackPhase_t phase, gcCallbackAccess_t access)
+{
+}
+
+/**
+ * MemoryBufferSequenceDownloadFrameImageCount GenICam register callback function.
+ * 
+ * @param phase indicates whether the function is called before or
+ *    after the read or write operation.
+ * @param access indicates whether the operation is read or write.
+ */
+void GC_MemoryBufferSequenceDownloadFrameImageCountCallback(gcCallbackPhase_t phase, gcCallbackAccess_t access)
+{
+}
+
+/**
  * MemoryBufferSequenceDownloadMode GenICam register callback function.
  * 
  * @param phase indicates whether the function is called before or
@@ -743,6 +769,28 @@ void GC_MemoryBufferSequenceDownloadModeCallback(gcCallbackPhase_t phase, gcCall
       GC_UpdateCameraLink();
       SDIIntf_UpdateVideoDataHandler(&gSdiIntfCtrl, &gcRegsData);
    }
+}
+
+/**
+ * MemoryBufferSequenceDownloadSuggestedFrameImageCount GenICam register callback function.
+ * 
+ * @param phase indicates whether the function is called before or
+ *    after the read or write operation.
+ * @param access indicates whether the operation is read or write.
+ */
+void GC_MemoryBufferSequenceDownloadSuggestedFrameImageCountCallback(gcCallbackPhase_t phase, gcCallbackAccess_t access)
+{
+}
+
+/**
+ * MemoryBufferSequenceHeight GenICam register callback function.
+ * 
+ * @param phase indicates whether the function is called before or
+ *    after the read or write operation.
+ * @param access indicates whether the operation is read or write.
+ */
+void GC_MemoryBufferSequenceHeightCallback(gcCallbackPhase_t phase, gcCallbackAccess_t access)
+{
 }
 
 /**
