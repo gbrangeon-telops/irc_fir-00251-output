@@ -24,6 +24,7 @@
 #include "Genicam.h"
 #include "utils.h"
 #include <math.h>
+#include <string.h>
 #include "BuildInfo.h"
 
 #define SVN_REVISIONS_INIT {0, 0, 0, 0, SVN_HARDWARE_REV, SVN_SOFTWARE_REV, 0, SVN_COMMON_REV, 0, 0, 0, 0}
