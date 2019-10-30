@@ -163,7 +163,7 @@ IRC_Status_t Output_GC_Init()
    GC_Callback_Init();
 
    // Initialize GenICam register data
-   gcRegsData = gcRegsDataFactory;
+   GC_RestoreDataFactory();
 
    /************************************************************************************
     * Processing FPGA Control interface

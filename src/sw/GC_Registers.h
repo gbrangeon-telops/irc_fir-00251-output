@@ -179,6 +179,7 @@ extern int32_t DeviceFirmwareModuleRevisionAry[DeviceFirmwareModuleRevisionAryLe
 #define GC_AutofocusIsActive IsActiveFlagsTst(AutofocusIsActiveMask)
 
 void GC_Registers_Init();
+void GC_RestoreDataFactory();
 
 /* AUTO-CODE END */
 

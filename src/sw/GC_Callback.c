@@ -133,7 +133,6 @@ void GC_AcquisitionArmCallback(gcCallbackPhase_t phase, gcCallbackAccess_t acces
 
    if ((phase == GCCP_AFTER) && (access == GCCA_WRITE))
    {
-      // After write
       if (gcRegsData.AcquisitionArm)
       {
          Clink_ResetFrame(&gClinkCtrl);
@@ -154,7 +153,6 @@ void GC_AcquisitionFrameRateCallback(gcCallbackPhase_t phase, gcCallbackAccess_t
 {
    if ((phase == GCCP_AFTER) && (access == GCCA_WRITE))
    {
-      // After write
       GC_UpdateCameraLink();
    }
 }
@@ -170,7 +168,6 @@ void GC_AcquisitionFrameRateMaxFGCallback(gcCallbackPhase_t phase, gcCallbackAcc
 {
    if ((phase == GCCP_AFTER) && (access == GCCA_WRITE))
    {
-      // After write
       GC_UpdateCameraLink();
    }
 }
@@ -186,7 +183,6 @@ void GC_AcquisitionFrameRateModeCallback(gcCallbackPhase_t phase, gcCallbackAcce
 {
    if ((phase == GCCP_AFTER) && (access == GCCA_WRITE))
    {
-      // After write
       GC_UpdateCameraLink();
    }
 }
@@ -202,7 +198,6 @@ void GC_AcquisitionStartCallback(gcCallbackPhase_t phase, gcCallbackAccess_t acc
 {
    if ((phase == GCCP_AFTER) && (access == GCCA_WRITE))
    {
-      // After write
       if (gcRegsData.AcquisitionStart)
       {
          gAcquisitionStarted = 1;
@@ -221,8 +216,6 @@ void GC_AcquisitionStopCallback(gcCallbackPhase_t phase, gcCallbackAccess_t acce
 {
    if ((phase == GCCP_AFTER) && (access == GCCA_WRITE))
    {
-      // After write
-
       if (gcRegsData.AcquisitionStop)
       {
          gAcquisitionStarted = 0;
@@ -257,7 +250,6 @@ void GC_ClConfigurationCallback(gcCallbackPhase_t phase, gcCallbackAccess_t acce
 {
    if ((phase == GCCP_AFTER) && (access == GCCA_WRITE))
    {
-      // After write
       GC_UpdateCameraLink();
    }
 }
@@ -273,7 +265,6 @@ void GC_DeviceBuiltInTestsResults5Callback(gcCallbackPhase_t phase, gcCallbackAc
 {
    if ((phase == GCCP_BEFORE) && (access == GCCA_READ))
    {
-      // Before read
       BuiltInTest_Execute(BITID_BuiltInTestsGlobalResult);
       gcRegsData.DeviceBuiltInTestsResults5 = BuiltInTest_FillResultRegister(0);
    }
@@ -290,7 +281,6 @@ void GC_DeviceBuiltInTestsResults6Callback(gcCallbackPhase_t phase, gcCallbackAc
 {
    if ((phase == GCCP_BEFORE) && (access == GCCA_READ))
    {
-      // Before read
       gcRegsData.DeviceBuiltInTestsResults6 = BuiltInTest_FillResultRegister(1);
    }
 }
@@ -306,13 +296,11 @@ void GC_DeviceClockFrequencyCallback(gcCallbackPhase_t phase, gcCallbackAccess_t
 {
    if ((phase == GCCP_BEFORE) && (access == GCCA_READ))
    {
-      // Before read
       gcRegsData.DeviceClockFrequency = DeviceClockFrequencyAry[gcRegsData.DeviceClockSelector];
    }
 
    if ((phase == GCCP_AFTER) && (access == GCCA_WRITE))
    {
-      // After write
       DeviceClockFrequencyAry[gcRegsData.DeviceClockSelector] = gcRegsData.DeviceClockFrequency;
    }
 }
@@ -339,13 +327,11 @@ void GC_DeviceFirmwareModuleRevisionCallback(gcCallbackPhase_t phase, gcCallback
 {
    if ((phase == GCCP_BEFORE) && (access == GCCA_READ))
    {
-      // Before read
       gcRegsData.DeviceFirmwareModuleRevision = DeviceFirmwareModuleRevisionAry[gcRegsData.DeviceFirmwareModuleSelector];
    }
 
    if ((phase == GCCP_AFTER) && (access == GCCA_WRITE))
    {
-      // After write
       DeviceFirmwareModuleRevisionAry[gcRegsData.DeviceFirmwareModuleSelector] = gcRegsData.DeviceFirmwareModuleRevision;
    }
 }
@@ -370,10 +356,6 @@ void GC_DeviceFirmwareModuleSelectorCallback(gcCallbackPhase_t phase, gcCallback
  */
 void GC_DeviceTapGeometryCallback(gcCallbackPhase_t phase, gcCallbackAccess_t access)
 {
-   if ((phase == GCCP_BEFORE) && (access == GCCA_READ))
-   {
-      // Before read
-   }
 }
 
 /**
@@ -387,13 +369,11 @@ void GC_DeviceTemperatureCallback(gcCallbackPhase_t phase, gcCallbackAccess_t ac
 {
    if ((phase == GCCP_BEFORE) && (access == GCCA_READ))
    {
-      // Before read
       gcRegsData.DeviceTemperature = DeviceTemperatureAry[gcRegsData.DeviceTemperatureSelector];
    }
 
    if ((phase == GCCP_AFTER) && (access == GCCA_WRITE))
    {
-      // After write
       DeviceTemperatureAry[gcRegsData.DeviceTemperatureSelector] = gcRegsData.DeviceTemperature;
    }
 }
@@ -420,13 +400,11 @@ void GC_DeviceVoltageCallback(gcCallbackPhase_t phase, gcCallbackAccess_t access
 {
    if ((phase == GCCP_BEFORE) && (access == GCCA_READ))
    {
-      // Before read
       gcRegsData.DeviceVoltage = DeviceVoltageAry[gcRegsData.DeviceVoltageSelector];
    }
 
    if ((phase == GCCP_AFTER) && (access == GCCA_WRITE))
    {
-      // After write
       DeviceVoltageAry[gcRegsData.DeviceVoltageSelector] = gcRegsData.DeviceVoltage;
    }
 }
@@ -468,7 +446,6 @@ void GC_EventErrorCallback(gcCallbackPhase_t phase, gcCallbackAccess_t access)
 {
    if ((phase == GCCP_AFTER) && (access == GCCA_READ))
    {
-      // After read
       gcRegsData.EventError = 0;
       GC_NextEventError();
    }
@@ -485,7 +462,6 @@ void GC_EventErrorCodeCallback(gcCallbackPhase_t phase, gcCallbackAccess_t acces
 {
    if ((phase == GCCP_AFTER) && (access == GCCA_READ))
    {
-      // After read
       gcRegsData.EventErrorCode = EECD_NoError;
       GC_NextEventError();
    }
@@ -502,7 +478,6 @@ void GC_EventErrorTimestampCallback(gcCallbackPhase_t phase, gcCallbackAccess_t 
 {
    if ((phase == GCCP_AFTER) && (access == GCCA_READ))
    {
-      // After read
       gcRegsData.EventErrorTimestamp = 0;
       GC_NextEventError();
    }
@@ -519,13 +494,11 @@ void GC_EventNotificationCallback(gcCallbackPhase_t phase, gcCallbackAccess_t ac
 {
    if ((phase == GCCP_BEFORE) && (access == GCCA_READ))
    {
-      // Before read
       gcRegsData.EventNotification = EventNotificationAry[gcRegsData.EventSelector];
    }
 
    if ((phase == GCCP_AFTER) && (access == GCCA_WRITE))
    {
-      // After write
       EventNotificationAry[gcRegsData.EventSelector] = gcRegsData.EventNotification;
    }
 }
@@ -541,7 +514,6 @@ void GC_EventSelectorCallback(gcCallbackPhase_t phase, gcCallbackAccess_t access
 {
    if ((phase == GCCP_AFTER) && (access == GCCA_WRITE))
    {
-      // After write
       gcRegsData.EventSelector = MIN(gcRegsData.EventSelector, EventNotificationAryLen - 1);
    }
 }
@@ -557,7 +529,6 @@ void GC_EventTelopsCallback(gcCallbackPhase_t phase, gcCallbackAccess_t access)
 {
    if ((phase == GCCP_AFTER) && (access == GCCA_READ))
    {
-      // After read
       gcRegsData.EventTelops = 0;
       GC_NextEventTelops();
    }
@@ -574,7 +545,6 @@ void GC_EventTelopsCodeCallback(gcCallbackPhase_t phase, gcCallbackAccess_t acce
 {
    if ((phase == GCCP_AFTER) && (access == GCCA_READ))
    {
-      // After read
       gcRegsData.EventTelopsCode = ETCD_NoEvent;
       GC_NextEventTelops();
    }
@@ -591,7 +561,6 @@ void GC_EventTelopsTimestampCallback(gcCallbackPhase_t phase, gcCallbackAccess_t
 {
    if ((phase == GCCP_AFTER) && (access == GCCA_READ))
    {
-      // After read
       gcRegsData.EventTelopsTimestamp = 0;
       GC_NextEventTelops();
    }
@@ -636,8 +605,6 @@ void GC_HeightCallback(gcCallbackPhase_t phase, gcCallbackAccess_t access)
 
    if ((phase == GCCP_AFTER) && (access == GCCA_WRITE))
    {
-      // After write
-
       // Remove 2 header lines (added for the NTx-Mini)
       gcRegsData.Height -= 2;
 
@@ -764,7 +731,6 @@ void GC_MemoryBufferSequenceDownloadModeCallback(gcCallbackPhase_t phase, gcCall
 {
    if ((phase == GCCP_AFTER) && (access == GCCA_WRITE))
    {
-      // After write
       GC_UpdateFrameBuffer();
       GC_UpdateCameraLink();
       SDIIntf_UpdateVideoDataHandler(&gSdiIntfCtrl, &gcRegsData);
@@ -848,7 +814,6 @@ void GC_PayloadSizeMinFGCallback(gcCallbackPhase_t phase, gcCallbackAccess_t acc
 {
    if ((phase == GCCP_AFTER) && (access == GCCA_WRITE))
    {
-      // After write
       GC_UpdateCameraLink();
    }
 }
@@ -864,7 +829,6 @@ void GC_ReverseXCallback(gcCallbackPhase_t phase, gcCallbackAccess_t access)
 {
    if ((phase == GCCP_AFTER) && (access == GCCA_WRITE))
    {
-      // After write
       GC_SetVideoReverseX(gcRegsData.ReverseX);
    }
 }
@@ -880,7 +844,6 @@ void GC_ReverseYCallback(gcCallbackPhase_t phase, gcCallbackAccess_t access)
 {
    if ((phase == GCCP_AFTER) && (access == GCCA_WRITE))
    {
-      // After write
       GC_SetVideoReverseY(gcRegsData.ReverseY);
    }
 }
@@ -896,7 +859,6 @@ void GC_SensorHeightCallback(gcCallbackPhase_t phase, gcCallbackAccess_t access)
 {
    if ((phase == GCCP_AFTER) && (access == GCCA_WRITE))
    {
-      // After write
       SDIIntf_UpdateVideoOutput(&gSdiIntfCtrl, &gcRegsData);
    }
 }
@@ -912,7 +874,6 @@ void GC_SensorWidthCallback(gcCallbackPhase_t phase, gcCallbackAccess_t access)
 {
    if ((phase == GCCP_AFTER) && (access == GCCA_WRITE))
    {
-      // After write
       SDIIntf_UpdateVideoOutput(&gSdiIntfCtrl, &gcRegsData);
    }
 }
@@ -930,7 +891,6 @@ void GC_VideoAGCCallback(gcCallbackPhase_t phase, gcCallbackAccess_t access)
 
    if ((phase == GCCP_AFTER) && (access == GCCA_WRITE))
    {
-      // After write
       GC_UpdateVideoAGCImageFraction();
       AGC_UpdateMode(&gcRegsData, &gAgcCtrl);
    }
@@ -947,8 +907,6 @@ void GC_VideoAGCFractionMaxCallback(gcCallbackPhase_t phase, gcCallbackAccess_t 
 {
    if ((phase == GCCP_AFTER) && (access == GCCA_WRITE))
    {
-      // After write
-
       // Update VideoAGCFractionMinMax register
       gcRegsData.VideoAGCFractionMinMax = gcRegsData.VideoAGCFractionMax - 1.0F;
 
@@ -978,8 +936,6 @@ void GC_VideoAGCFractionMinCallback(gcCallbackPhase_t phase, gcCallbackAccess_t 
 {
    if ((phase == GCCP_AFTER) && (access == GCCA_WRITE))
    {
-      // After write
-
       // Update VideoAGCFractionMaxMin register
       gcRegsData.VideoAGCFractionMaxMin = gcRegsData.VideoAGCFractionMin + 1.0F;
 
@@ -1020,7 +976,6 @@ void GC_VideoColorMapCallback(gcCallbackPhase_t phase, gcCallbackAccess_t access
 {
    if ((phase == GCCP_AFTER) && (access == GCCA_WRITE))
    {
-      // After write
       Cmap_UpdateMap(&gSdiIntfCtrl, gcRegsData.VideoColorMap);
    }
 }
@@ -1036,7 +991,6 @@ void GC_VideoColorMapMaxCallback(gcCallbackPhase_t phase, gcCallbackAccess_t acc
 {
    if ((phase == GCCP_AFTER) && (access == GCCA_WRITE))
    {
-      // After write
       if(gcRegsData.VideoAGC == VAGC_Off)
       {
          GC_UpdateVideoColorRange();
@@ -1055,7 +1009,6 @@ void GC_VideoColorMapMinCallback(gcCallbackPhase_t phase, gcCallbackAccess_t acc
 {
    if ((phase == GCCP_AFTER) && (access == GCCA_WRITE))
    {
-      // After write
       if(gcRegsData.VideoAGC == VAGC_Off)
       {
          GC_UpdateVideoColorRange();
@@ -1074,7 +1027,6 @@ void GC_VideoDigitalZoomFactorCallback(gcCallbackPhase_t phase, gcCallbackAccess
 {
    if ((phase == GCCP_AFTER) && (access == GCCA_WRITE))
    {
-      // After write
       // Check if config is valid
       if(gcRegsData.Width != 0 && gcRegsData.Height != 0)
       {
@@ -1205,7 +1157,6 @@ void GC_VideoReverseXCallback(gcCallbackPhase_t phase, gcCallbackAccess_t access
 {
    if ((phase == GCCP_AFTER) && (access == GCCA_WRITE))
    {
-      // After write
       SDIIntf_SetSdiPauseFlipXSM();
    }
 }
@@ -1221,7 +1172,6 @@ void GC_VideoReverseYCallback(gcCallbackPhase_t phase, gcCallbackAccess_t access
 {
    if ((phase == GCCP_AFTER) && (access == GCCA_WRITE))
    {
-      // After write
       SDIIntf_SetSdiPauseFlipYSM();
    }
 }
@@ -1239,7 +1189,6 @@ void GC_WidthCallback(gcCallbackPhase_t phase, gcCallbackAccess_t access)
 
    if ((phase == GCCP_AFTER) && (access == GCCA_WRITE))
    {
-      // After write
       GC_UpdateCameraLink();
       GC_UpdateFrameBuffer();
       GC_UpdateGiGe();
