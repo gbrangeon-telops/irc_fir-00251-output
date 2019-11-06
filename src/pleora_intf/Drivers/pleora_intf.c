@@ -35,6 +35,7 @@ void PleoraIntf_SendConfigGC(t_PleoraIntf *a, const gcRegistersData_t *pGCRegs)
    a->Frame_height = pGCRegs->Height+2;
    a->hdr_size = pGCRegs->Width * 2;
    a->hdr_version     = 1;   //not used
+   a->FrameImageCount = pGCRegs->MemoryBufferSequenceDownloadFrameImageCount;
    
    WriteStruct(a);                                      // envoi de la structure
    

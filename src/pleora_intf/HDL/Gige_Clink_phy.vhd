@@ -220,7 +220,7 @@ begin
                         if(pix_cnt >= gige_conf_sync.frame_width - 1 ) then
                            gige_tready <= '0';
                            pix_cnt <= (others => '0');
-                           if(line_cnt >= gige_conf_sync.frame_height - 1 ) then
+                           if(line_cnt >= (gige_conf_sync.FrameImageCount*gige_conf_sync.frame_height) - 1 ) then
                               --Check for desynchronisation
                               if(AXIS_DATA_MOSI.TLAST = '1') then
                                  gige_state <= WAIT_FOR_NEXTFRAME;

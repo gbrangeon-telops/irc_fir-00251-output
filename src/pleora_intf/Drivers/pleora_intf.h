@@ -39,6 +39,7 @@ struct s_PleoraIntf
    uint32_t Frame_height;           // Frame_height						   
    uint32_t hdr_size;				// hdr_size
    uint32_t hdr_version;   			// hdr_version
+   uint32_t FrameImageCount;        // Number of frame packaged into a jumbo frame.
    };
 typedef struct s_PleoraIntf t_PleoraIntf;
 
@@ -58,7 +59,7 @@ typedef struct s_PleoraStatus t_PleoraStatus;
 
 
 
-#define PleoraIntf_Ctor(add) {sizeof(t_PleoraIntf)/4 - 2, add, 0, 0, 0, 0, 0}
+#define PleoraIntf_Ctor(add) {sizeof(t_PleoraIntf)/4 - 2, add, 0, 0, 0, 0, 0, 1}
 
 // Function prototypes
 

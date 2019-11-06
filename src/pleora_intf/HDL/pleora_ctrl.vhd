@@ -45,6 +45,8 @@ architecture RTL of PLEORA_CTRL is
    constant FRAME_HEIGHT_ADDR       : std_logic_vector(7 downto 0) := x"08";
    constant HDR_SIZE_ADDR           : std_logic_vector(7 downto 0) := x"0C";
    constant HDR_VERSION_ADDR        : std_logic_vector(7 downto 0) := x"10";
+   constant FRAME_IMG_CNT_ADDR      : std_logic_vector(7 downto 0) := x"14";    
+   
    constant GIGE_ERR_ADDR           : std_logic_vector(7 downto 0) := x"F0";
 
 
@@ -157,6 +159,7 @@ begin
                   when FRAME_HEIGHT_ADDR  =>  gige_config_o.frame_height   <= unsigned(AXI4_LITE_MOSI.WDATA(gige_config_o.frame_height'length-1 downto 0)); 
                   when HDR_SIZE_ADDR      =>  gige_config_o.HeaderSize     <= unsigned(AXI4_LITE_MOSI.WDATA(gige_config_o.HeaderSize'length-1 downto 0));
                   when HDR_VERSION_ADDR   =>  gige_config_o.HeaderVersion  <= AXI4_LITE_MOSI.WDATA(gige_config_o.HeaderVersion'length-1 downto 0);
+                  when FRAME_IMG_CNT_ADDR   =>  gige_config_o.FrameImageCount    <= unsigned(AXI4_LITE_MOSI.WDATA(gige_config_o.FrameImageCount'length-1 downto 0));                  
                   when others  =>                  
                end case;                                                                                          
             end if;                                        
@@ -233,6 +236,7 @@ begin
             when  FRAME_HEIGHT_ADDR => reg_data_out <= std_logic_vector(resize(gige_config_o.frame_height   , reg_data_out'length));       
             when  HDR_SIZE_ADDR     => reg_data_out <= std_logic_vector(resize(gige_config_o.HeaderSize     , reg_data_out'length));    
             when  HDR_VERSION_ADDR  => reg_data_out <= std_logic_vector(resize(gige_config_o.HeaderVersion  , reg_data_out'length));
+            when  FRAME_IMG_CNT_ADDR  => reg_data_out <= std_logic_vector(resize(gige_config_o.FrameImageCount    , reg_data_out'length));
             when  GIGE_ERR_ADDR     => reg_data_out <= std_logic_vector(resize(GIGE_ERR                     , reg_data_out'length));
 
             when others             => reg_data_out <= (others => '0');

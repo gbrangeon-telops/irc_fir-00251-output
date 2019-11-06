@@ -49,6 +49,7 @@ package GIGE_Define is
       frame_height   : unsigned(15 downto 0); --including header
       HeaderSize     : unsigned(HEADERLEN-1 downto 0); -- in pixel
       HeaderVersion  : std_logic_vector(3 downto 0);
+      FrameImageCount    : unsigned(31 downto 0); -- Number of frame per jumbo frame  
    end record;
    
    
@@ -58,7 +59,8 @@ package GIGE_Define is
    to_unsigned(640,16),            --lb_width       
    to_unsigned(514,16),            --lb_height  = image heigth    
    to_unsigned(0, HEADERLEN),      --HeaderSize     
-   x"0"  --HeaderVersion  
+   x"0",  --HeaderVersion  
+   to_unsigned(1, 32)
    );
 
    
