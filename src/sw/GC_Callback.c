@@ -138,6 +138,7 @@ void GC_AcquisitionArmCallback(gcCallbackPhase_t phase, gcCallbackAccess_t acces
          Clink_ResetFrame(&gClinkCtrl);
          GC_UpdateCameraLink();
          Clink_SendConfigGC(&gClinkCtrl, &gcRegsData);
+         GC_UpdateGiGe();
       }
    }
 }
