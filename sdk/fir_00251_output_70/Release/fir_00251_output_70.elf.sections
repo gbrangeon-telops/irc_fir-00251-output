@@ -6,56 +6,60 @@ EXEC_P, HAS_SYMS
 start address 0x00000000
 
 Program Header:
-    LOAD off    0x00000074 vaddr 0x00000000 paddr 0x00000000 align 2**2
+    LOAD off    0x00000094 vaddr 0x00000000 paddr 0x00000000 align 2**2
          filesz 0x00000028 memsz 0x00000028 flags r-x
-    LOAD off    0x0000009c vaddr 0x00000050 paddr 0x00000050 align 2**2
-         filesz 0x000310c0 memsz 0x00034698 flags rwx
+    LOAD off    0x000000bc vaddr 0x00000050 paddr 0x00000050 align 2**2
+         filesz 0x0002ebac memsz 0x0002ebb0 flags rwx
+    LOAD off    0x0002ec68 vaddr 0x0002ec00 paddr 0x0002ec00 align 2**2
+         filesz 0x00002520 memsz 0x00005af8 flags rw-
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .vectors.reset 00000008  00000000  00000000  00000074  2**2
+  0 .vectors.reset 00000008  00000000  00000000  00000094  2**2
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  1 .vectors.sw_exception 00000008  00000008  00000008  0000007c  2**2
+  1 .vectors.sw_exception 00000008  00000008  00000008  0000009c  2**2
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  2 .vectors.interrupt 00000008  00000010  00000010  00000084  2**2
+  2 .vectors.interrupt 00000008  00000010  00000010  000000a4  2**2
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  3 .vectors.hw_exception 00000008  00000020  00000020  00000094  2**2
+  3 .vectors.hw_exception 00000008  00000020  00000020  000000b4  2**2
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  4 .text         0002a848  00000050  00000050  0000009c  2**2
+  4 .text         0002a854  00000050  00000050  000000bc  2**2
                   CONTENTS, ALLOC, LOAD, CODE
-  5 .init         0000003c  0002a898  0002a898  0002a8e4  2**2
+  5 .init         0000003c  0002a8a4  0002a8a4  0002a910  2**2
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  6 .fini         00000020  0002a8d4  0002a8d4  0002a920  2**2
+  6 .fini         00000020  0002a8e0  0002a8e0  0002a94c  2**2
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  7 .ctors        00000008  0002a8f4  0002a8f4  0002a940  2**2
+  7 .ctors        00000008  0002a900  0002a900  0002a96c  2**2
                   CONTENTS, ALLOC, LOAD, DATA
-  8 .dtors        00000008  0002a8fc  0002a8fc  0002a948  2**2
+  8 .dtors        00000008  0002a908  0002a908  0002a974  2**2
                   CONTENTS, ALLOC, LOAD, DATA
-  9 .rodata       000042ec  0002a904  0002a904  0002a950  2**2
+  9 .rodata       000042ec  0002a910  0002a910  0002a97c  2**2
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
- 10 .data         00002520  0002ebf0  0002ebf0  0002ec3c  2**2
+ 10 .sdata2       00000004  0002ebfc  0002ebfc  0002ec68  2**0
+                  ALLOC
+ 11 .data         00002520  0002ec00  0002ec00  0002ec68  2**2
                   CONTENTS, ALLOC, LOAD, DATA
- 11 .bss          00002cd8  00031110  00031110  0003115c  2**2
+ 12 .bss          00002cd8  00031120  00031120  00031188  2**2
                   ALLOC
- 12 .heap         00000100  00033de8  00033de8  0003115c  2**0
+ 13 .heap         00000100  00033df8  00033df8  00031188  2**0
                   ALLOC
- 13 .stack        00000800  00033ee8  00033ee8  0003115c  2**0
+ 14 .stack        00000800  00033ef8  00033ef8  00031188  2**0
                   ALLOC
- 14 .debug_frame  00001af4  00000000  00000000  0003115c  2**2
+ 15 .debug_frame  00001af4  00000000  00000000  00031188  2**2
                   CONTENTS, READONLY, DEBUGGING
- 15 .debug_info   0001461a  00000000  00000000  00032c50  2**0
+ 16 .debug_info   0001461a  00000000  00000000  00032c7c  2**0
                   CONTENTS, READONLY, DEBUGGING
- 16 .debug_abbrev 000066f7  00000000  00000000  0004726a  2**0
+ 17 .debug_abbrev 000066f7  00000000  00000000  00047296  2**0
                   CONTENTS, READONLY, DEBUGGING
- 17 .debug_loc    0000f981  00000000  00000000  0004d961  2**0
+ 18 .debug_loc    0000f981  00000000  00000000  0004d98d  2**0
                   CONTENTS, READONLY, DEBUGGING
- 18 .debug_aranges 00000a08  00000000  00000000  0005d2e8  2**3
+ 19 .debug_aranges 00000a08  00000000  00000000  0005d310  2**3
                   CONTENTS, READONLY, DEBUGGING
- 19 .debug_ranges 00000c28  00000000  00000000  0005dcf0  2**0
+ 20 .debug_ranges 00000c28  00000000  00000000  0005dd18  2**0
                   CONTENTS, READONLY, DEBUGGING
- 20 .debug_line   0000df17  00000000  00000000  0005e918  2**0
+ 21 .debug_line   0000df17  00000000  00000000  0005e940  2**0
                   CONTENTS, READONLY, DEBUGGING
- 21 .debug_str    00002825  00000000  00000000  0006c82f  2**0
+ 22 .debug_str    00002825  00000000  00000000  0006c857  2**0
                   CONTENTS, READONLY, DEBUGGING
 SYMBOL TABLE:
 00000000 l    d  .vectors.reset	00000000 .vectors.reset
@@ -63,15 +67,16 @@ SYMBOL TABLE:
 00000010 l    d  .vectors.interrupt	00000000 .vectors.interrupt
 00000020 l    d  .vectors.hw_exception	00000000 .vectors.hw_exception
 00000050 l    d  .text	00000000 .text
-0002a898 l    d  .init	00000000 .init
-0002a8d4 l    d  .fini	00000000 .fini
-0002a8f4 l    d  .ctors	00000000 .ctors
-0002a8fc l    d  .dtors	00000000 .dtors
-0002a904 l    d  .rodata	00000000 .rodata
-0002ebf0 l    d  .data	00000000 .data
-00031110 l    d  .bss	00000000 .bss
-00033de8 l    d  .heap	00000000 .heap
-00033ee8 l    d  .stack	00000000 .stack
+0002a8a4 l    d  .init	00000000 .init
+0002a8e0 l    d  .fini	00000000 .fini
+0002a900 l    d  .ctors	00000000 .ctors
+0002a908 l    d  .dtors	00000000 .dtors
+0002a910 l    d  .rodata	00000000 .rodata
+0002ebfc l    d  .sdata2	00000000 .sdata2
+0002ec00 l    d  .data	00000000 .data
+00031120 l    d  .bss	00000000 .bss
+00033df8 l    d  .heap	00000000 .heap
+00033ef8 l    d  .stack	00000000 .stack
 00000000 l    d  .debug_frame	00000000 .debug_frame
 00000000 l    d  .debug_info	00000000 .debug_info
 00000000 l    d  .debug_abbrev	00000000 .debug_abbrev
@@ -85,23 +90,23 @@ SYMBOL TABLE:
 00000010 l       .vectors.interrupt	00000000 _vector_interrupt
 00000020 l       .vectors.hw_exception	00000000 _vector_hw_exception
 00000000 l    df *ABS*	00000000 c:/xilinx/sdk/2016.3/gnu/microblaze/nt/bin/../lib/gcc/microblaze-xilinx-elf/5.2.0/bs/m/le/crtbegin.o
-0002a8f4 l     O .ctors	00000000 __CTOR_LIST__
-0002a8fc l     O .dtors	00000000 __DTOR_LIST__
+0002a900 l     O .ctors	00000000 __CTOR_LIST__
+0002a908 l     O .dtors	00000000 __DTOR_LIST__
 00000084 l       .text	00000000 deregister_tm_clones
 000000d4 l       .text	00000000 register_tm_clones
 0000012c l       .text	00000000 __do_global_dtors_aux
-00031110 l     O .bss	00000001 completed.4827
-00031114 l     O .bss	00000004 dtor_idx.4829
+00031120 l     O .bss	00000001 completed.4827
+00031124 l     O .bss	00000004 dtor_idx.4829
 00000200 l       .text	00000000 frame_dummy
-00031118 l     O .bss	00000018 object.4839
+00031128 l     O .bss	00000018 object.4839
 00000000 l    df *ABS*	00000000 xintc.o
 000007fc l     F .text	00000050 StubHandler
 00000000 l    df *ABS*	00000000 xspi.o
 00001834 l     F .text	00000034 StubStatusHandler
 00000000 l    df *ABS*	00000000 xspi_options.o
-0002cc14 l     O .rodata	00000028 OptionsTable
+0002cc20 l     O .rodata	00000028 OptionsTable
 00000000 l    df *ABS*	00000000 hw_exception_handler.o
-0002ec40 l       .data	00000000 mb_sp_save_r3
+0002ec50 l       .data	00000000 mb_sp_save_r3
 000029f4 l       .text	00000000 ex_handler_not_sp_violation
 000029f0 l       .text	00000000 ex_handler_sp_violation
 00002a2c l       .text	00000000 handle_other_ex
@@ -109,7 +114,7 @@ SYMBOL TABLE:
 00002a48 l       .text	00000000 handle_other_ex_tail
 00002ab4 l       .text	00000000 ex_handler_done
 00000000 l    df *ABS*	00000000 xil_assert.o
-00031130 l     O .bss	00000004 Xil_AssertCallbackRoutine
+00031140 l     O .bss	00000004 Xil_AssertCallbackRoutine
 00000000 l    df *ABS*	00000000 xil_exception.o
 00002c28 l     F .text	00000008 Xil_ExceptionNullHandler
 00000000 l    df *ABS*	00000000 xil_printf.o
@@ -119,10 +124,10 @@ SYMBOL TABLE:
 00000000 l    df *ABS*	00000000 xuartlite.o
 00005e44 l     F .text	00000034 StubHandler
 00000000 l    df *ABS*	00000000 xuartns550_options.o
-0002ce40 l     O .rodata	00000048 OptionsTable
+0002ce4c l     O .rodata	00000048 OptionsTable
 00000000 l    df *ABS*	00000000 xuartns550_selftest.o
-0002ec94 l     O .data	00000021 TestString
-00031134 l     O .bss	00000021 ReturnString
+0002eca4 l     O .data	00000021 TestString
+00031144 l     O .bss	00000021 ReturnString
 00000000 l    df *ABS*	00000000 xuartns550.o
 000076b8 l     F .text	00000034 XUartNs550_StubHandler
 00000000 l    df *ABS*	00000000 _addsub_sf.o
@@ -132,52 +137,52 @@ SYMBOL TABLE:
 00000000 l    df *ABS*	00000000 lib_a-svfprintf.o
 0000da80 l     F .text	000004f4 cvt
 0000df74 l     F .text	000001e4 exponent
-0002d454 l     O .rodata	00000010 blanks.4139
-0002d464 l     O .rodata	00000010 zeroes.4140
+0002d460 l     O .rodata	00000010 blanks.4139
+0002d470 l     O .rodata	00000010 zeroes.4140
 00000000 l    df *ABS*	00000000 lib_a-dtoa.o
 0000e374 l     F .text	000003ec quorem
 00000000 l    df *ABS*	00000000 lib_a-locale.o
-0002ee20 l     O .data	00000038 lconv
-0002ee58 l     O .data	00000020 lc_ctype_charset
-0002ee78 l     O .data	00000020 lc_message_charset
-00031164 l     O .bss	00000004 lc_ctype_cjk_lang
+0002ee30 l     O .data	00000038 lconv
+0002ee68 l     O .data	00000020 lc_ctype_charset
+0002ee88 l     O .data	00000020 lc_message_charset
+00031174 l     O .bss	00000004 lc_ctype_cjk_lang
 00000000 l    df *ABS*	00000000 lib_a-mallocr.o
 0001108c l     F .text	000003d8 malloc_extend_top
 00000000 l    df *ABS*	00000000 lib_a-mprec.o
-0002d5cc l     O .rodata	0000000c p05.2639
+0002d5d8 l     O .rodata	0000000c p05.2639
 00000000 l    df *ABS*	00000000 lib_a-svfiprintf.o
-0002d790 l     O .rodata	00000010 blanks.4118
-0002d7a0 l     O .rodata	00000010 zeroes.4119
+0002d79c l     O .rodata	00000010 blanks.4118
+0002d7ac l     O .rodata	00000010 zeroes.4119
 00000000 l    df *ABS*	00000000 sbrk.o
-0003119c l     O .bss	00000004 heap_ptr
+000311ac l     O .bss	00000004 heap_ptr
 00000000 l    df *ABS*	00000000 lib_a-s_rint.o
-0002d7d0 l     O .rodata	00000010 TWO52
+0002d7dc l     O .rodata	00000010 TWO52
 00000000 l    df *ABS*	00000000 c:/xilinx/sdk/2016.3/gnu/microblaze/nt/bin/../lib/gcc/microblaze-xilinx-elf/5.2.0/bs/m/le/crtend.o
-0002a8f8 l     O .ctors	00000000 __CTOR_END__
+0002a904 l     O .ctors	00000000 __CTOR_END__
 00018880 l       .text	00000000 __do_global_ctors_aux
 00000000 l    df *ABS*	00000000 ./src/SDI/vscaler_driver/xscaler.o
 00018bc8 l     F .text	00000034 StubCallBack
 00000000 l    df *ABS*	00000000 ./src/SDI/vscaler_driver/xscaler_coefs.o
-000313c0 l     O .bss	00000040 coef_ptr_table.3803
-000311c0 l     O .bss	00000200 coef_table.3804
+000313d0 l     O .bss	00000040 coef_ptr_table.3803
+000311d0 l     O .bss	00000200 coef_table.3804
 00019f6c l     F .text	000001b4 lanczos.part.0
-000311a0 l     O .bss	00000020 coef_table.3845
+000311b0 l     O .bss	00000020 coef_table.3845
 00000000 l    df *ABS*	00000000 ./src/SDI/sdi_intf.o
 0001a52c l     F .text	0000020c XScalerSetup.constprop.1
-0003143c l     O .bss	00000028 gScaler
-0003142c l     O .bss	00000004 gZoomCurrentState
-00031428 l     O .bss	00000004 gFlipxCurrentState
-00031424 l     O .bss	00000004 gFlipyCurrentState
-00031420 l     O .bss	00000004 gChangeInputWindowCurrentState
-00031438 l     O .bss	00000004 gScalerImgHeight
-00031434 l     O .bss	00000004 gOutputImgWidth
-00031430 l     O .bss	00000004 gOutputImgHeight
-00031418 l     O .bss	00000008 tic.5132
-00031410 l     O .bss	00000008 tic.5146
-00031408 l     O .bss	00000008 tic.5160
-00031400 l     O .bss	00000008 tic.5176
+0003144c l     O .bss	00000028 gScaler
+0003143c l     O .bss	00000004 gZoomCurrentState
+00031438 l     O .bss	00000004 gFlipxCurrentState
+00031434 l     O .bss	00000004 gFlipyCurrentState
+00031430 l     O .bss	00000004 gChangeInputWindowCurrentState
+00031448 l     O .bss	00000004 gScalerImgHeight
+00031444 l     O .bss	00000004 gOutputImgWidth
+00031440 l     O .bss	00000004 gOutputImgHeight
+00031428 l     O .bss	00000008 tic.5132
+00031420 l     O .bss	00000008 tic.5146
+00031418 l     O .bss	00000008 tic.5160
+00031410 l     O .bss	00000008 tic.5176
 00000000 l    df *ABS*	00000000 ./src/Common/CRC.o
-0002d824 l     O .rodata	00000200 crcTable.3064
+0002d830 l     O .rodata	00000200 crcTable.3064
 00000000 l    df *ABS*	00000000 ./src/Common/CircularUART.o
 0001c5f8 l     F .text	000000dc NoInterruptHandler
 0001c6d4 l     F .text	0000004c ModemHandler
@@ -187,49 +192,49 @@ SYMBOL TABLE:
 0001cda8 l     F .text	00000098 ReceiveDataHandler
 0001ce40 l     F .text	000000dc SendDataHandler
 0001cf1c l     F .text	000000c4 CircularUART_InterruptHandler
-0002dad0 l     O .rodata	00000034 HandlerTable
+0002dadc l     O .rodata	00000034 HandlerTable
 00000000 l    df *ABS*	00000000 ./src/Common/DebugTerminal.o
 0001e030 l     F .text	00000070 DebugTerminal_CommandLength
 0001e0a0 l     F .text	000000b4 ParseNumHex.part.0
 0001e154 l     F .text	000000c4 ParseNumDec.part.1
 0001e53c l     F .text	00000260 DebugTerminalParser
-00031570 l     O .bss	00000108 dtRequest.4871
-00031468 l     O .bss	00000108 dtResponse.4872
-00031464 l     O .bss	00000001 debugTerminalUnlocked.4858
+00031580 l     O .bss	00000108 dtRequest.4871
+00031478 l     O .bss	00000108 dtResponse.4872
+00031474 l     O .bss	00000001 debugTerminalUnlocked.4858
 00000000 l    df *ABS*	00000000 ./src/Common/FirmwareUpdater.o
-0003188c l     O .bss	00000004 fuCurrentState.4594
-00031784 l     O .bss	00000108 fuRequest.4595
-0003167c l     O .bss	00000004 dataOffset.4597
-00031680 l     O .bss	00000002 promCRC16.4599
-00031684 l     O .bss	00000100 tmpFlashDataBuffer.4596
-00031678 l     O .bss	00000004 dataLength.4598
+0003189c l     O .bss	00000004 fuCurrentState.4594
+00031794 l     O .bss	00000108 fuRequest.4595
+0003168c l     O .bss	00000004 dataOffset.4597
+00031690 l     O .bss	00000002 promCRC16.4599
+00031694 l     O .bss	00000100 tmpFlashDataBuffer.4596
+00031688 l     O .bss	00000004 dataLength.4598
 00000000 l    df *ABS*	00000000 ./src/Common/GC_Manager.o
 00020584 l     F .text	000001e8 GC_BroadcastRegisterWrite.part.0
-000318b0 l     O .bss	00000004 gcCurrentState.4299
-000318a8 l     O .bss	00000008 tic_sharedRegInit.4304
-000318a4 l     O .bss	00000004 regInitIdx.4300
-000318a0 l     O .bss	00000004 pSelectedReg.4303
-00031894 l     O .bss	00000001 width_once.4378
-00031893 l     O .bss	00000001 height_once.4379
-00031892 l     O .bss	00000001 pixfmt_once.4380
-00031891 l     O .bss	00000001 acqmode_once.4381
-0003189c l     O .bss	00000004 regInitSelectorIdx.4301
-00031898 l     O .bss	00000004 regInitSelectorBackup.4302
+000318c0 l     O .bss	00000004 gcCurrentState.4299
+000318b8 l     O .bss	00000008 tic_sharedRegInit.4304
+000318b4 l     O .bss	00000004 regInitIdx.4300
+000318b0 l     O .bss	00000004 pSelectedReg.4303
+000318a4 l     O .bss	00000001 width_once.4378
+000318a3 l     O .bss	00000001 height_once.4379
+000318a2 l     O .bss	00000001 pixfmt_once.4380
+000318a1 l     O .bss	00000001 acqmode_once.4381
+000318ac l     O .bss	00000004 regInitSelectorIdx.4301
+000318a8 l     O .bss	00000004 regInitSelectorBackup.4302
 00000000 l    df *ABS*	00000000 ./src/Common/Led_ctrl.o
-000318b4 l     O .bss	00000008 tic.4560
+000318c4 l     O .bss	00000008 tic.4560
 00000000 l    df *ABS*	00000000 ./src/Common/NetworkInterface.o
 00021794 l     F .text	000000f8 NetIntf_PingHosts.part.0
 00000000 l    df *ABS*	00000000 ./src/Common/Protocol_F1F2.o
-0002e5e8 l     O .rodata	00000400 CSWTCH.34
+0002e5f4 l     O .rodata	00000400 CSWTCH.34
 00000000 l    df *ABS*	00000000 ./src/Common/Startup_TestMem.o
-0002ea68 l     O .rodata	00000018 testDescription
+0002ea74 l     O .rodata	00000018 testDescription
 00000000 l    df *ABS*	00000000 ./src/Common/XADC.o
-000318d0 l     O .bss	00000078 intChanSamples.3652
-000318cc l     O .bss	00000004 xadcState.3639
-000318c4 l     O .bss	00000008 tic_xadcSampling.3640
+000318e0 l     O .bss	00000078 intChanSamples.3652
+000318dc l     O .bss	00000004 xadcState.3639
+000318d4 l     O .bss	00000008 tic_xadcSampling.3640
 00000000 l    df *ABS*	00000000 ./src/AGC/AGC.o
-00031950 l     O .bss	00000001 gAGC_dataReady
-0003194c l     O .bss	00000004 timestamp_prev.5251
+00031960 l     O .bss	00000001 gAGC_dataReady
+0003195c l     O .bss	00000004 timestamp_prev.5251
 00000000 l    df *ABS*	00000000 ./src/DT_CommandsDef.o
 00025c6c l     F .text	000000ec DebugTerminalParseVRB
 00025d58 l     F .text	00000250 DebugTerminalParseCLINK
@@ -238,84 +243,84 @@ SYMBOL TABLE:
 00026208 l     F .text	0000009c DebugTerminalParseGIGE
 000262a4 l     F .text	0000007c DebugTerminalParseTOB
 00000000 l    df *ABS*	00000000 ./src/output_init.o
-00031000 l     O .data	00000014 niCmdQueue.6431
-00032e08 l     O .bss	00000400 dtTxCircBufferBytes.6434
-00033208 l     O .bss	00000010 dtTxCircBuffer.6435
-00030fec l     O .data	00000014 dtCmdQueue.6439
-00030fd8 l     O .data	00000014 fuCmdQueue.6443
-000329dc l     O .bss	0000020a procRxCircBufferBytes.6447
-00032be8 l     O .bss	00000010 procRxCircBuffer.6448
-000328c4 l     O .bss	00000105 procTxCircBufferBytes.6449
-000329cc l     O .bss	00000010 procTxCircBuffer.6450
-00030fc4 l     O .data	00000014 procCtrlIntfCmdQueue.6452
-000326a8 l     O .bss	0000020a storageRxCircBufferBytes.6453
-000328b4 l     O .bss	00000010 storageRxCircBuffer.6454
-00032590 l     O .bss	00000105 storageTxCircBufferBytes.6455
-00032698 l     O .bss	00000010 storageTxCircBuffer.6456
-00030fb0 l     O .data	00000014 storageCtrlIntfCmdQueue.6458
-00030f9c l     O .data	00000014 gcmCmdQueue.6460
-00030f88 l     O .data	00000014 gcEventErrorQueue.6462
-00031a10 l     O .bss	00000528 procCtrlIntfCmdQueueBuffer.6451
-00031f38 l     O .bss	00000528 storageCtrlIntfCmdQueueBuffer.6457
-00032460 l     O .bss	00000108 gcmCmdQueueBuffer.6459
-00032568 l     O .bss	00000028 gcEventErrorQueueBuffer.6461
-00032bf8 l     O .bss	00000108 fuCmdQueueBuffer.6442
-00032d00 l     O .bss	00000108 dtCmdQueueBuffer.6438
-00033218 l     O .bss	00000528 niCmdQueueBuffer.6430
+00031010 l     O .data	00000014 niCmdQueue.6431
+00032e18 l     O .bss	00000400 dtTxCircBufferBytes.6434
+00033218 l     O .bss	00000010 dtTxCircBuffer.6435
+00030ffc l     O .data	00000014 dtCmdQueue.6439
+00030fe8 l     O .data	00000014 fuCmdQueue.6443
+000329ec l     O .bss	0000020a procRxCircBufferBytes.6447
+00032bf8 l     O .bss	00000010 procRxCircBuffer.6448
+000328d4 l     O .bss	00000105 procTxCircBufferBytes.6449
+000329dc l     O .bss	00000010 procTxCircBuffer.6450
+00030fd4 l     O .data	00000014 procCtrlIntfCmdQueue.6452
+000326b8 l     O .bss	0000020a storageRxCircBufferBytes.6453
+000328c4 l     O .bss	00000010 storageRxCircBuffer.6454
+000325a0 l     O .bss	00000105 storageTxCircBufferBytes.6455
+000326a8 l     O .bss	00000010 storageTxCircBuffer.6456
+00030fc0 l     O .data	00000014 storageCtrlIntfCmdQueue.6458
+00030fac l     O .data	00000014 gcmCmdQueue.6460
+00030f98 l     O .data	00000014 gcEventErrorQueue.6462
+00031a20 l     O .bss	00000528 procCtrlIntfCmdQueueBuffer.6451
+00031f48 l     O .bss	00000528 storageCtrlIntfCmdQueueBuffer.6457
+00032470 l     O .bss	00000108 gcmCmdQueueBuffer.6459
+00032578 l     O .bss	00000028 gcEventErrorQueueBuffer.6461
+00032c08 l     O .bss	00000108 fuCmdQueueBuffer.6442
+00032d10 l     O .bss	00000108 dtCmdQueueBuffer.6438
+00033228 l     O .bss	00000528 niCmdQueueBuffer.6430
 00000000 l    df *ABS*	00000000 lib_a-ctype_.o
-0002cffc l     O .rodata	00000180 _ctype_b
+0002d008 l     O .rodata	00000180 _ctype_b
 00000000 l    df *ABS*	00000000 lib_a-impure.o
-0002ed28 l     O .data	000000f0 impure_data
+0002ed38 l     O .data	000000f0 impure_data
 00000000 l    df *ABS*	00000000 
-00031110 l       .data	00000000 __sdata_start
-0002ebf0 l       .data	00000000 __sbss2_end
+00031120 l       .data	00000000 __sdata_start
+0002ec00 l       .sdata2	00000000 __sbss2_end
 00000100 l       *ABS*	00000000 _HEAP_SIZE
-0002ebf0 l       .data	00000000 __sdata2_start
-000346e8 l       .stack	00000000 _end
-0002a7d8 g     F .text	00000030 Output_Timer_Init
+0002ec00 l       .sdata2	00000000 __sdata2_start
+000346f8 l       .stack	00000000 _end
+0002a7e4 g     F .text	00000030 Output_Timer_Init
 00023db8 g     F .text	00000158 Pleora_ConvertFromF1F2
 0001e8d4 g     F .text	00000420 DebugTerminal_Process
 00013c9c g     F .text	000000c0 _mprec_log10
-000270d4 g     F .text	00000008 GC_FValSizeCallback
+000270e0 g     F .text	00000008 GC_FValSizeCallback
 0001d4d8 g     F .text	000000b4 CtrlIntf_Init
 00020d04 g     F .text	0000021c GC_RegisterWriteRequest
 00013e28 g     F .text	00000138 __any_on
-0002d5a4 g     O .rodata	00000028 __mprec_tinytens
-000338a8 g     O .bss	00000030 ledCtrl
+0002d5b0 g     O .rodata	00000028 __mprec_tinytens
+000338b8 g     O .bss	00000030 ledCtrl
 000067d4 g     F .text	00000028 XUartLite_LookupConfig
 00026370 g     F .text	00000020 GC_ClConfigurationCallback
-00030c7c g     O .data	00000084 EventNotificationAry
+00030c8c g     O .data	00000084 EventNotificationAry
 000240c0 g     F .text	000001d4 QSPIFlash_Read
-0002a8f4 g       .ctors	00000000 ___CTORS_LIST___
+0002a900 g       .ctors	00000000 ___CTORS_LIST___
 000264d4 g     F .text	0000004c GC_EventTelopsCallback
 0001715c g     F .text	00000080 .hidden __eqdf2
 00025180 g     F .text	000000b4 elapsed_time_us
 00024b6c g     F .text	0000011c XADC_Init
-000310e8 g     O .data	00000028 gClinkCtrl
+000310f8 g     O .data	00000028 gClinkCtrl
 00002b94 g     F .text	00000048 print
 000263d0 g     F .text	00000020 GC_AcquisitionFrameRateCallback
 00021700 g     F .text	00000094 Led_ToggleDebugLedState
-0002985c g     F .text	00000350 GC_RestoreDataFactory
+00029868 g     F .text	00000350 GC_RestoreDataFactory
 000026c8 g     F .text	00000140 XSpi_SetOptions
-00026b34 g     F .text	00000044 GC_DeviceBuiltInTestsResults5Callback
-00031951 g     O .bss	00000001 gAcquisitionStarted
+00026b40 g     F .text	00000044 GC_DeviceBuiltInTestsResults5Callback
+00031961 g     O .bss	00000001 gAcquisitionStarted
 00010e04 g     F .text	000000a0 _setlocale_r
-00031a04 g     O .bss	0000000c DeviceClockFrequencyAry
+00031a14 g     O .bss	0000000c DeviceClockFrequencyAry
 00012254 g     F .text	00000028 __malloc_unlock
 00004750 g     F .text	000000dc XSysMon_SetAlarmEnables
 0001e2c8 g     F .text	00000054 DebugTerminal_Connect
 000048d4 g     F .text	000000e8 XSysMon_SetCalibEnables
 000198c8 g     F .text	00000158 XScaler_CoefValueLookup
-0002ec84 g     O .data	00000008 MB_InterruptVectorTable
-00026d74 g     F .text	00000078 GC_WidthCallback
-00026dec g     F .text	00000058 GC_ReverseXCallback
-000310a8 g     O .data	00000020 gPleoraIntfCtrl
+0002ec94 g     O .data	00000008 MB_InterruptVectorTable
+00026d80 g     F .text	00000078 GC_WidthCallback
+00026df8 g     F .text	00000058 GC_ReverseXCallback
+000310b8 g     O .data	00000020 gPleoraIntfCtrl
 00002bdc g     F .text	00000034 Xil_Assert
 0001a75c g     F .text	00000048 SDIIntf_ResetErr
 00026328 g     F .text	00000048 GC_PayloadSizeMinFGCallback
-00030bf0 g     O .data	00000004 gDebugTerminalCommandsCount
+00030c00 g     O .data	00000004 gDebugTerminalCommandsCount
 0000716c g     F .text	00000018 XUartNs550_GetLastErrors
-0002716c g     F .text	00000008 GC_VideoDigitalZoomHeightCallback
+00027178 g     F .text	00000008 GC_VideoDigitalZoomHeightCallback
 0000aa14 g     F .text	00000228 memmove
 000043c0 g     F .text	00000100 XSysMon_GetCalibCoefficient
 0000767c g       .text	00000000 microblaze_disable_interrupts
@@ -325,7 +330,7 @@ SYMBOL TABLE:
 0001227c g     F .text	000001bc _Balloc
 00008ae4 g     F .text	000000a4 .hidden __fixsfsi
 0002202c g     F .text	000002f4 NetIntf_SM
-00033744 g     O .bss	0000000c fuPort
+00033754 g     O .bss	0000000c fuPort
 00006574 g     F .text	0000010c XUartLite_InterruptHandler
 00006e24 g     F .text	00000160 XUartNs550_SetOptions
 0001725c g     F .text	00000090 .hidden __gtdf2
@@ -339,109 +344,109 @@ SYMBOL TABLE:
 000254fc g     F .text	00000170 AGC_Init
 00005ce0 g     F .text	00000098 XSysMon_DisableTempUpdate
 00000744 g     F .text	00000028 XGpio_LookupConfig
-00026b78 g     F .text	00000038 GC_DeviceBuiltInTestsResults6Callback
+00026b84 g     F .text	00000038 GC_DeviceBuiltInTestsResults6Callback
 0001be90 g     F .text	000000e4 CBB_Pushvaln
 0001d140 g     F .text	00000024 CircularUART_SetHandler
-00031110 g       .data	00000000 __sbss_start
+00031120 g       .data	00000000 __sbss_start
 0001c230 g     F .text	000000a8 CBB_Flushn
 00001618 g     F .text	0000001c XIntc_LowLevelInterruptHandler
 0001c428 g     F .text	00000184 CBB_Dumpn
-00033de4 g     O .bss	00000004 errno
+00033df4 g     O .bss	00000004 errno
 00009a90 g     F .text	00000034 .hidden __make_dp
-00029f30 g     F .text	00000030 GC_UpdateGiGe
+00029f3c g     F .text	00000030 GC_UpdateGiGe
 0001d1b4 g     F .text	00000070 CircularUART_SendData
 00006cf4 g     F .text	00000130 XUartNs550_GetOptions
 0001c134 g     F .text	000000dc CBB_Peekn
 00005570 g     F .text	000000b0 XSysMon_GetSeqInputMode
 00006c90 g     F .text	00000064 XUartNs550_SetBaud
-000338d8 g     O .bss	00000040 gCtrlIntf_StorageFPGA
+000338e8 g     O .bss	00000040 gCtrlIntf_StorageFPGA
 00007690 g       .text	00000000 microblaze_enable_exceptions
 00005b14 g     F .text	0000009c XSysMon_EnableUserOverTemp
 0000a2e4 g     F .text	00000030 .hidden __make_fp
 00026520 g     F .text	0000004c GC_EventTelopsCodeCallback
 00025234 g     F .text	0000006c WriteStruct
-00033d60 g     O .bss	00000080 XIntc_BitPosMask
+00033d70 g     O .bss	00000080 XIntc_BitPosMask
 000250a8 g     F .text	000000d8 usleep
 00003ff4 g     F .text	000000a0 XSysMon_GetStatus
 000054a8 g     F .text	000000c8 XSysMon_SetSeqInputMode
 00022e68 g     F .text	0000005c F1F2_BuildACKResponse
 00008948 g     F .text	00000064 .hidden __subsf3
-0002a688 g     F .text	00000038 Output_AGC_Init
+0002a694 g     F .text	00000038 Output_AGC_Init
 00000468 g     F .text	00000100 XGpio_GetDataDirection
-00029d48 g     F .text	000001a4 GC_UpdateCameraLink
-00026cac g     F .text	00000064 GC_VideoAGCFractionMaxCallback
+00029d54 g     F .text	000001a4 GC_UpdateCameraLink
+00026cb8 g     F .text	00000064 GC_VideoAGCFractionMaxCallback
 00022f20 g     F .text	00000880 F1F2_CommandPayloadBuilder
-000270ac g     F .text	00000008 GC_DeviceClockSelectorCallback
+000270b8 g     F .text	00000008 GC_DeviceClockSelectorCallback
 00024cb0 g     F .text	00000050 StartXADCSequence
 0001bc54 g     F .text	00000020 CB_Full
-000270bc g     F .text	00000008 GC_DeviceTapGeometryCallback
+000270c8 g     F .text	00000008 GC_DeviceTapGeometryCallback
 00021670 g     F .text	00000090 Led_Init
 0001e3f8 g     F .text	00000144 GetNextArg
 00000fac g     F .text	000000d4 XIntc_Acknowledge
 000257a4 g     F .text	00000070 AGC_UpdateMode
-000319d0 g     O .bss	00000034 DeviceTemperatureAry
+000319e0 g     O .bss	00000034 DeviceTemperatureAry
 00018b38 g     F .text	00000090 Startup_InstantPrint
-0002ebf0 g     O .data	00000050 XIntc_ConfigTable
+0002ec00 g     O .data	00000050 XIntc_ConfigTable
 0000a878 g     F .text	0000019c memcpy
-0002a648 g     F .text	00000040 Output_QSPIFlash_Init
-00033754 g     O .bss	00000004 gcEventErrorQueue
+0002a654 g     F .text	00000040 Output_QSPIFlash_Init
+00033764 g     O .bss	00000004 gcEventErrorQueue
 000265b8 g     F .text	00000048 GC_VideoReverseXCallback
-00031110 g     O .data	00000000 .hidden __TMC_END__
+00031120 g     O .data	00000000 .hidden __TMC_END__
 0001f15c g     F .text	00000178 DebugTerminalParseWRM
 0000b1ec g     F .text	00002894 _svfprintf_r
 000098d0 g     F .text	000000e8 .hidden __floatsidf
 000097d0 g     F .text	00000080 .hidden __ltdf2
 00001704 g     F .text	00000130 XIntc_RegisterFastHandler
 000218bc g     F .text	000000e0 NetIntf_Connect
-0002a900 g     O .dtors	00000000 .hidden __DTOR_END__
+0002a90c g     O .dtors	00000000 .hidden __DTOR_END__
 00001aec g     F .text	00000168 XSpi_CfgInitialize
-0002a2c4 g     F .text	00000064 Output_DebugTerminal_InitPhase1
-0002a6c0 g     F .text	00000034 Output_Intc_Init
+0002a2d0 g     F .text	00000064 Output_DebugTerminal_InitPhase1
+0002a6cc g     F .text	00000034 Output_Intc_Init
 0001c0b8 g     F .text	0000007c CBB_Peek
-0002ebf0 g       .rodata	00000000 __rodata_end
-0002f2ac g     O .data	0000181e gcRegsDef
+0002ebfc g       .rodata	00000000 __rodata_end
+0002f2bc g     O .data	0000181e gcRegsDef
 00013f60 g     F .text	00000144 __fpclassifyd
 000014c4 g     F .text	00000154 XIntc_DeviceInterruptHandler
 00013b7c g     F .text	00000120 __ratio
 000214bc g     F .text	00000050 GC_RegisterWriteUI32
 0001bbcc g     F .text	00000080 CB_Pop
 00022ec4 g     F .text	0000005c F1F2_BuildNAKResponse
-00033768 g     O .bss	00000018 xsm
-0002ea80 g     O .rodata	00000030 DeviceFirmwareModuleRevisionAryFactory
+00033778 g     O .bss	00000018 xsm
+0002ea8c g     O .rodata	00000030 DeviceFirmwareModuleRevisionAryFactory
 0001bf74 g     F .text	0000007c CBB_Pop
 00010ff8 g     F .text	00000048 malloc
 000050cc g     F .text	000000ac XSysMon_GetAdcClkDivisor
 00009d10 g     F .text	000000a8 .hidden __udivsi3
-0002d4b4 g     O .rodata	000000c8 __mprec_tens
+0002d4c0 g     O .rodata	000000c8 __mprec_tens
 00000a44 g     F .text	00000108 XIntc_Start
 000067fc g     F .text	00000094 XUartLite_Initialize
-00033740 g     O .bss	00000004 SingleFrameCoefs
-00027124 g     F .text	00000008 GC_MemoryBufferSequenceHeightCallback
+00033750 g     O .bss	00000004 SingleFrameCoefs
+00027130 g     F .text	00000008 GC_MemoryBufferSequenceHeightCallback
 0001d164 g     F .text	0000001c CircularUART_SetCircularBuffers
 00002170 g     F .text	000000a0 XSpi_GetSlaveSelect
 0001c334 g     F .text	000000f4 CBB_CRC16n
 00010ea4 g     F .text	00000028 __locale_charset
 0000503c g     F .text	00000090 XSysMon_SetAdcClkDivisor
 00007eb8 g     F .text	0000009c .hidden __fixunsdfsi
-00031168 g     O .bss	00000004 __malloc_top_pad
-0002711c g     F .text	00000008 GC_MemoryBufferSequenceDownloadSuggestedFrameImageCountCallback
+00031178 g     O .bss	00000004 __malloc_top_pad
+00027128 g     F .text	00000008 GC_MemoryBufferSequenceDownloadSuggestedFrameImageCountCallback
 00018424 g     F .text	00000068 __fpclassifyf
-000270f4 g     F .text	00000008 GC_MemoryBufferMOIActivationCallback
-0002ee1c g     O .data	00000004 __mb_cur_max
-00027174 g     F .text	00000008 GC_VideoDigitalZoomModeCallback
-000270fc g     F .text	00000008 GC_MemoryBufferMOISourceCallback
+00027100 g     F .text	00000008 GC_MemoryBufferMOIActivationCallback
+0002ee2c g     O .data	00000004 __mb_cur_max
+00027180 g     F .text	00000008 GC_VideoDigitalZoomModeCallback
+00027108 g     F .text	00000008 GC_MemoryBufferMOISourceCallback
 00010f44 g     F .text	0000002c _localeconv_r
-00030bf4 g     O .data	00000058 gDebugTerminalCommands
+00030c04 g     O .data	00000058 gDebugTerminalCommands
 0001f2d4 g     F .text	00000380 DebugTerminalParseNET
 00012a1c g     F .text	00000060 __i2b
-0002ebb0 g     O .rodata	00000034 DeviceTemperatureAryFactory
-00026e44 g     F .text	00000058 GC_ReverseYCallback
+0002ebbc g     O .rodata	00000034 DeviceTemperatureAryFactory
+00026e50 g     F .text	00000058 GC_ReverseYCallback
 000183fc g     F .text	00000028 finitef
 00014230 g     F .text	00000078 _sbrk_r
-000270cc g     F .text	00000008 GC_DeviceVoltageSelectorCallback
+000270d8 g     F .text	00000008 GC_DeviceVoltageSelectorCallback
 0000482c g     F .text	000000a8 XSysMon_GetAlarmEnables
 000215a4 g     F .text	0000000c RegIsBigEndian
-000318bc g     O .bss	00000004 timerClockFreq
+000318cc g     O .bss	00000004 timerClockFreq
 000183ec g     F .text	00000010 fabsf
 00000268 g     F .text	00000000 _crtinit
 0001a3ec g     F .text	00000028 Cmap_init
@@ -450,9 +455,9 @@ SYMBOL TABLE:
 0000a5dc g     F .text	00000118 .hidden __unpack_d
 0001a8f4 g     F .text	00000020 SDIIntf_SetChangeInputWindowSM
 00024e88 g     F .text	00000208 XADC_SM
-0003116c g     O .bss	00000004 __malloc_max_sbrked_mem
+0003117c g     O .bss	00000004 __malloc_max_sbrked_mem
 0001a7a4 g     F .text	000000f0 SDIIntf_UpdateVideoDataHandler
-00026ab4 g     F .text	00000020 GC_VideoEHDRIExposureIndexCallback
+00026ac0 g     F .text	00000020 GC_VideoEHDRIExposureIndexCallback
 00008b88 g     F .text	00000048 .hidden __extendsfdf2
 00021e90 g     F .text	0000019c NetIntf_EnqueueCmd
 00007248 g     F .text	00000184 XUartNs550_SelfTest
@@ -462,27 +467,27 @@ SYMBOL TABLE:
 00024c88 g     F .text	00000028 XADC_OGPhyConv
 00004e6c g     F .text	000000e8 XSysMon_SetSequencerEvent
 0001c2ec g     F .text	0000001c CBB_Empty
-00033ee8 g       .heap	00000000 _heap_end
-0002a294 g     F .text	00000030 Output_NI_Init
+00033ef8 g       .heap	00000000 _heap_end
+0002a2a0 g     F .text	00000030 Output_NI_Init
 0001371c g     F .text	00000218 __b2d
 00016ae4 g     F .text	00000678 .hidden __umoddi3
-0002f2a8 g     O .data	00000004 __fdlib_version
+0002f2b8 g     O .data	00000004 __fdlib_version
 000046ac g     F .text	000000a4 XSysMon_GetAvg
 00007a28 g     F .text	00000154 XUartNs550_Recv
-0002d284 g     O .rodata	00000004 _global_impure_ptr
+0002d290 g     O .rodata	00000004 _global_impure_ptr
 000041d8 g     F .text	00000094 XSysMon_ResetAdc
 00015e28 g     F .text	00000cbc _realloc_r
-00033de8 g       .bss	00000000 __bss_end
+00033df8 g       .bss	00000000 __bss_end
 0002482c g     F .text	00000064 Stack_GetMaximumLevel
 0001b764 g     F .text	00000074 PleoraIntf_SendConfigGC
 00008044 g     F .text	0000067c .hidden __udivdi3
-0002eb34 g     O .rodata	0000007c DeviceVoltageAryFactory
-0002d57c g     O .rodata	00000028 __mprec_bigtens
+0002eb40 g     O .rodata	0000007c DeviceVoltageAryFactory
+0002d588 g     O .rodata	00000028 __mprec_bigtens
 000126dc g     F .text	000001a8 __s2b
 00024508 g     F .text	00000298 QSPIFlash_Write
 00009b30 g     F .text	000000a8 .hidden __floatunsidf
 00013270 g     F .text	00000114 __mcmp
-00031110 g       .data	00000000 __tbss_start
+00031120 g       .data	00000000 __tbss_start
 0000076c g     F .text	00000090 XGpio_Initialize
 00026688 g     F .text	0000006c GC_DeviceClockFrequencyCallback
 0002199c g     F .text	0000002c NetIntf_BuildBroadcastRequest
@@ -490,52 +495,52 @@ SYMBOL TABLE:
 00007b7c g     F .text	00000144 XUartNs550_SetBaudRate
 00019a20 g     F .text	000002c4 XScaler_LoadCoeffBank
 00020504 g     F .text	00000080 GC_NextEventTelops
-0002ec90 g     O .data	00000002 XTmrCtr_Offsets
+0002eca0 g     O .data	00000002 XTmrCtr_Offsets
 000239e0 g     F .text	0000007c F1F2_CircCommandBuilder
-00033918 g     O .bss	0000006c gCircularUART_StorageFPGA
-00030d00 g     O .data	0000003c gcSelectedRegList
+00033928 g     O .bss	0000006c gCircularUART_StorageFPGA
+00030d10 g     O .data	0000003c gcSelectedRegList
 00021538 g     F .text	00000018 RegIsWO
-00026c20 g     F .text	0000008c GC_HeightCallback
+00026c2c g     F .text	0000008c GC_HeightCallback
 00001a18 g     F .text	000000d4 XSpi_Reset
-00030f84 g     O .data	00000001 gVerbose
+00030f94 g     O .data	00000001 gVerbose
 00002070 g     F .text	00000100 XSpi_SetSlaveSelect
 00023bf0 g     F .text	000000f8 Pleora_CircCommandBuilder
 00004bf0 g     F .text	0000027c XSysMon_SetSingleChParams
-000270c4 g     F .text	00000008 GC_DeviceTemperatureSelectorCallback
+000270d0 g     F .text	00000008 GC_DeviceTemperatureSelectorCallback
 000185f8 g     F .text	00000270 rint
 0000a124 g     F .text	000000d0 .hidden __unpack_f
 0001c2d8 g     F .text	00000014 CBB_Length
 0001ae84 g     F .text	000001d0 SDIIntf_Init
 00001448 g     F .text	00000020 XIntc_VoidInterruptHandler
 00020ad0 g     F .text	00000234 GC_RegisterWrite
-00026ef4 g     F .text	00000020 GC_SensorHeightCallback
+00026f00 g     F .text	00000020 GC_SensorHeightCallback
 000044c0 g     F .text	00000118 XSysMon_GetMinMaxMeasurement
 00012884 g     F .text	000000a4 __hi0bits
 00002c90 g     F .text	00000038 Xil_ExceptionRegisterHandler
 00021594 g     F .text	00000010 RegIsShared
-00033984 g     O .bss	00000068 gNetworkIntf
+00033994 g     O .bss	00000068 gNetworkIntf
 0001bff0 g     F .text	000000c8 CBB_Popn
-0002a898 g       .init	00000000 __init
+0002a8a4 g       .init	00000000 __init
 000099b8 g     F .text	000000d8 .hidden __fixdfsi
 0001d450 g     F .text	00000088 CtrlIntf_IntrHandler
-0002ec8c g     O .data	00000004 Xil_AssertWait
+0002ec9c g     O .data	00000004 Xil_AssertWait
 0001a738 g     F .text	00000024 SDIIntf_GetError
-00033de8 g       .heap	00000000 _heap_start
+00033df8 g       .heap	00000000 _heap_start
 0001db30 g     F .text	00000500 CtrlIntf_Process
-00030be0 g     O .data	00000010 gDebugTerminalCtrlIntfs
-00026bb0 g     F .text	00000070 GC_MemoryBufferSequenceDownloadModeCallback
+00030bf0 g     O .data	00000010 gDebugTerminalCtrlIntfs
+00026bbc g     F .text	00000070 GC_MemoryBufferSequenceDownloadModeCallback
 00007f54 g     F .text	000000f0 .hidden __floatdisf
 0001d3e4 g     F .text	0000006c CircularUART_Enable
-00031110 g       .data	00000000 __sbss_end
+00031120 g       .data	00000000 __sbss_end
 000188d0 g     F .text	00000010 Usart_SetHandler
-00026e9c g     F .text	00000058 GC_SensorWidthCallback
+00026ea8 g     F .text	00000058 GC_SensorWidthCallback
 000045d8 g     F .text	000000d4 XSysMon_SetAvg
 00019dfc g     F .text	00000170 sine
 00000318 g     F .text	0000006c XGpio_CfgInitialize
-00029eec g     F .text	00000044 GC_UpdateFrameBuffer
-000270a4 g     F .text	00000008 GC_VideoDigitalZoomOffsetYCallback
+00029ef8 g     F .text	00000044 GC_UpdateFrameBuffer
+000270b0 g     F .text	00000008 GC_VideoDigitalZoomOffsetYCallback
 00001c54 g     F .text	0000041c XSpi_Transfer
-00031038 g     O .data	00000070 gSdiIntfCtrl
+00031048 g     O .data	00000070 gSdiIntfCtrl
 0000291c g     F .text	00000028 XSpi_LookupConfig
 00002c20 g     F .text	00000008 XNullHandler
 00002b80 g     F .text	00000014 microblaze_register_handler
@@ -552,7 +557,7 @@ SYMBOL TABLE:
 0001d324 g     F .text	000000c0 CircularUART_ResetFifo
 00025498 g     F .text	00000034 Clink_GetStatus
 00012e68 g     F .text	000001fc __pow5mult
-00031158 g     O .bss	00000004 __nlocale_changed
+00031168 g     O .bss	00000004 __nlocale_changed
 00009db8 g     F .text	000000bc .hidden __umodsi3
 00026320 g     F .text	00000008 GC_VideoDigitalZoomWidthCallback
 00006a18 g     F .text	00000134 XUartNs550_SetDataFormat
@@ -564,87 +569,87 @@ SYMBOL TABLE:
 00021c94 g     F .text	000001fc NetIntf_ShowPacket
 00006c58 g     F .text	0000001c XUartNs550_SendByte
 00000000  w      *UND*	00000000 __deregister_frame_info
-00026f78 g     F .text	00000058 GC_VideoColorMapCallback
+00026f84 g     F .text	00000058 GC_VideoColorMapCallback
 00009f10 g     F .text	00000214 .hidden __pack_f
 0001bc4c g     F .text	00000008 CB_Length
 000215b0 g     F .text	000000c0 GC_DecodeAddr
 00007184 g     F .text	00000060 XUartNs550_GetModemStatus
-000270b4 g     F .text	00000008 GC_DeviceFirmwareModuleSelectorCallback
+000270c0 g     F .text	00000008 GC_DeviceFirmwareModuleSelectorCallback
 00000000  w      *UND*	00000000 _ITM_registerTMCloneTable
 0001b1e8 g     F .text	00000174 SDIIntf_FlipXSM
 0001fb3c g     F .text	00000064 Firmware_Updater_Init
 0001a4c4 g     F .text	00000068 Cmap_UpdateRange
-0002a8f4 g       .ctors	00000000 __CTOR_LIST__
+0002a900 g       .ctors	00000000 __CTOR_LIST__
 00005620 g     F .text	000000c8 XSysMon_SetSeqAcqTime
-0002a808 g     F .text	00000028 Output_Led_Init
+0002a814 g     F .text	00000028 Output_Led_Init
 00005d78 g     F .text	000000a4 XSysMon_SetTempWaitCycles
 00005bb0 g     F .text	00000098 XSysMon_DisableUserOverTemp
 00001868 g     F .text	000000e4 XSpi_Start
 00009e74 g     F .text	0000009c .hidden __clzsi2
 0000598c g     F .text	000000dc XSysMon_SetOverTemp
 0000ae1c g     F .text	00000104 _snprintf_r
-0002ebf0 g       .data	00000000 __sbss2_start
-00029f60 g     F .text	00000040 GC_UpdateVideoConfiguration
+0002ec00 g       .sdata2	00000000 __sbss2_start
+00029f6c g     F .text	00000040 GC_UpdateVideoConfiguration
 00026648 g     F .text	00000040 GC_AcquisitionStartCallback
-0002a864 g     F .text	00000034 Output_SDI_Init
-00030bdc g     O .data	00000004 gDebugTerminalCtrlIntfsCount
-00031954 g     O .bss	0000007c DeviceVoltageAry
+0002a870 g     F .text	00000034 Output_SDI_Init
+00030bec g     O .data	00000004 gDebugTerminalCtrlIntfsCount
+00031964 g     O .bss	0000007c DeviceVoltageAry
 00012068 g     F .text	000001c4 memchr
 00024a78 g     F .text	00000090 Timer_Init
 00010648 g     F .text	000005a8 _free_r
-0002eab0 g     O .rodata	00000084 EventNotificationAryFactory
+0002eabc g     O .rodata	00000084 EventNotificationAryFactory
 000022c8 g     F .text	000003b0 XSpi_InterruptHandler
 00005a68 g     F .text	000000ac XSysMon_GetOverTemp
 00010ecc g     F .text	00000028 __locale_mb_cur_max
-00030e64 g     O .data	00000120 intAdcChannels
+00030e74 g     O .data	00000120 intAdcChannels
 0001ecf4 g     F .text	00000468 DebugTerminalParseRDM
 0000e158 g     F .text	0000021c __call_exitprocs
 00024814 g     F .text	00000018 Stack_GetActualLevel
 00020484 g     F .text	00000080 GC_NextEventError
 0002046c g     F .text	00000018 GC_Events_Init
 00005fac g     F .text	00000064 XUartLite_IsSending
-0003115c g     O .bss	00000004 __mlocale_changed
-0002f2a4 g     O .data	00000004 __malloc_sbrk_base
-0002714c g     F .text	00000008 GC_VideoAGCFractionMaxMinCallback
+0003116c g     O .bss	00000004 __mlocale_changed
+0002f2b4 g     O .data	00000004 __malloc_sbrk_base
+00027158 g     F .text	00000008 GC_VideoAGCFractionMaxMinCallback
 00000000 g     F .vectors.reset	00000000 _start
 000062bc g     F .text	00000148 XUartLite_Recv
 00023ce8 g     F .text	000000d0 Pleora_ConvertToF1F2
-00026954 g     F .text	00000084 GC_AcquisitionArmCallback
+00026954 g     F .text	00000090 GC_AcquisitionArmCallback
 00006978 g     F .text	000000a0 XUartLite_ClearStats
-0002713c g     F .text	00000008 GC_OffsetYCallback
+00027148 g     F .text	00000008 GC_OffsetYCallback
 00006404 g     F .text	000000b8 XUartLite_SetRecvHandler
 000012a4 g     F .text	000001a4 XIntc_SetNormalIntrMode
 00026600 g     F .text	00000048 GC_VideoReverseYCallback
 00021560 g     F .text	00000020 SetRegLocked
-000310c8 g     O .data	00000020 gFrameBufferCtrl
-0002a904 g       .rodata	00000000 __rodata_start
+000310d8 g     O .data	00000020 gFrameBufferCtrl
+0002a910 g       .rodata	00000000 __rodata_start
 00013064 g     F .text	0000020c __lshift
-00033780 g     O .bss	00000128 gcRegsData
-0002a7b8 g     F .text	00000020 Output_XADC_Init
+00033790 g     O .bss	00000128 gcRegsData
+0002a7c4 g     F .text	00000020 Output_XADC_Init
 00008a24 g     F .text	000000c0 .hidden __floatsisf
 00014534 g     F .text	00000324 __ssprint_r
-00027154 g     F .text	00000008 GC_VideoAGCFractionMinMaxCallback
+00027160 g     F .text	00000008 GC_VideoAGCFractionMinMaxCallback
 000067b8 g     F .text	0000001c XUartLite_RecvByte
 000060a8 g     F .text	00000148 XUartLite_Send
-00031110 g       *ABS*	00000000 _SDA_BASE_
+00031120 g       *ABS*	00000000 _SDA_BASE_
 0002076c g     F .text	0000005c GC_Manager_Init
 0001fba0 g     F .text	000008cc Firmware_Updater_SM
 00002c64 g     F .text	0000002c Xil_ExceptionDisable
-000318c0 g     O .bss	00000004 timerBaseAddress
-00031110 g       .data	00000000 __data_end
+000318d0 g     O .bss	00000004 timerBaseAddress
+00031120 g       .data	00000000 __data_end
 00017354  w    F .text	00000000 _exception_handler
 0001d9ac g     F .text	00000184 CtrlIntf_CommandParser
 00012a7c g     F .text	000003ec __multiply
 000143d0 g     F .text	00000164 strncpy
 000188e0 g     F .text	00000010 Usart_SetCircularBuffers
-00031174 g     O .bss	00000028 __malloc_current_mallinfo
+00031184 g     O .bss	00000028 __malloc_current_mallinfo
 00013934 g     F .text	00000248 __d2b
-000339ec g     O .bss	00000014 gOutputIntc
+000339fc g     O .bss	00000014 gOutputIntc
 0000b030 g     F .text	0000010c strcasecmp
-0002a3c4 g     F .text	00000284 Output_GC_Init
-0002ecf4 g     O .data	00000010 XUartLite_ConfigTable
-00027134 g     F .text	00000008 GC_OffsetXCallback
-000270dc g     F .text	00000008 GC_IsActiveFlagsCallback
+0002a3d0 g     F .text	00000284 Output_GC_Init
+0002ed04 g     O .data	00000010 XUartLite_ConfigTable
+00027140 g     F .text	00000008 GC_OffsetXCallback
+000270e8 g     F .text	00000008 GC_IsActiveFlagsCallback
 0002188c g     F .text	00000030 NetIntf_Init
 00000384 g     F .text	000000e4 XGpio_SetDataDirection
 0001cfe0 g     F .text	00000160 CircularUART_Init
@@ -655,22 +660,22 @@ SYMBOL TABLE:
 000049bc g     F .text	000000a4 XSysMon_GetCalibEnables
 0001bb2c g     F .text	000000a0 CB_Push
 0000a6f4 g     F .text	0000011c .hidden __fpcmp_parts_d
-00031948 g     O .bss	00000001 gDebugClinkFlag
-00027044 g     F .text	00000060 GC_VideoDigitalZoomFactorCallback
+00031958 g     O .bss	00000001 gDebugClinkFlag
+00027050 g     F .text	00000060 GC_VideoDigitalZoomFactorCallback
 000073cc g     F .text	0000003c XUartNs550_LookupConfig
 00002678 g     F .text	00000050 XSpi_Abort
 00021580 g     F .text	00000014 RegIsNotShared
 0001a894 g     F .text	00000020 SDIIntf_SetSdiPauseZoomSM
-0002a380 g     F .text	00000044 Output_FU_Init
+0002a38c g     F .text	00000044 Output_FU_Init
 00009504 g     F .text	0000023c .hidden __divdf3
 00013d5c g     F .text	000000cc __copybits
-00033a00 g     O .bss	0000006c gCircularUART_ProcFPGA
+00033a10 g     O .bss	0000006c gCircularUART_ProcFPGA
 0001ac24 g     F .text	00000260 SDIIntf_ConfigureOutput
-0002ee98 g     O .data	00000408 __malloc_av_
+0002eea8 g     O .data	00000408 __malloc_av_
 00009164 g     F .text	000003a0 .hidden __muldf3
 00017b0c g     F .text	000007c0 __ieee754_powf
-00031014 g     O .data	00000024 gAgcCtrl
-0002ced8 g     O .rodata	00000010 .hidden __thenan_sf
+00031024 g     O .data	00000024 gAgcCtrl
+0002cee4 g     O .rodata	00000010 .hidden __thenan_sf
 00004b4c g     F .text	000000a4 XSysMon_GetSequencerMode
 0001e218 g     F .text	00000088 outbyte
 000237a0 g     F .text	00000240 F1F2_CircFrameBuilder
@@ -683,7 +688,7 @@ SYMBOL TABLE:
 00006680 g     F .text	0000008c XUartLite_DisableInterrupt
 00000cec g     F .text	00000104 XIntc_Disconnect
 00015ca4 g     F .text	00000184 _calloc_r
-000270e4 g     F .text	00000008 GC_LValSizeCallback
+000270f0 g     F .text	00000008 GC_LValSizeCallback
 000076ec g     F .text	000000e4 XUartNs550_SendBuffer
 0001b4d0 g     F .text	00000204 SDIIntf_ChangeInputWindowSM
 00025090 g     F .text	0000000c AXI4L_write32
@@ -691,107 +696,107 @@ SYMBOL TABLE:
 00000000  w      *UND*	00000000 __sf_fake_stdin
 0001d224 g     F .text	00000100 CircularUART_Config
 00002944 g     F .text	00000094 XSpi_Initialize
-00031110 g       .bss	00000000 __bss_start
+00031120 g       .bss	00000000 __bss_start
 00000800 g       *ABS*	00000000 _STACK_SIZE
-00031110 g       .data	00000000 __tdata_start
-00031110 g       .data	00000000 __tdata_end
-00027184 g     F .text	0000152c GC_Callback_Init
+00031120 g       .data	00000000 __tdata_start
+00031120 g       .data	00000000 __tdata_end
+00027190 g     F .text	0000152c GC_Callback_Init
 0000ac3c g     F .text	000001e0 memset
 000182cc g     F .text	00000120 __ieee754_sqrtf
-0002a010 g     F .text	00000284 main
+0002a01c g     F .text	00000284 main
 000188f0 g     F .text	00000028 Usart_Disable
 000252a0 g     F .text	000000cc memcpy_swap
 00026390 g     F .text	00000020 GC_AcquisitionFrameRateModeCallback
 00004f54 g     F .text	000000e8 XSysMon_SetExtenalMux
-0002717c g     F .text	00000008 GC_VideoDigitalZoomOffsetXCallback
-00031170 g     O .bss	00000004 __malloc_max_total_mem
-0002710c g     F .text	00000008 GC_MemoryBufferSequenceDownloadFrameCountCallback
+00027188 g     F .text	00000008 GC_VideoDigitalZoomOffsetXCallback
+00031180 g     O .bss	00000004 __malloc_max_total_mem
+00027118 g     F .text	00000008 GC_MemoryBufferSequenceDownloadFrameCountCallback
 0001bd04 g     F .text	0000009c CBB_Push
-00030d3c g     O .data	00000128 gcRegsDataFactory
+00030d4c g     O .data	00000128 gcRegsDataFactory
 000247c8 g     F .text	0000003c Stack_FillRemaining
 000185f0 g     F .text	00000008 matherr
 0001e2a0 g     F .text	00000028 DebugTerminal_Init
 0001bda0 g     F .text	000000f0 CBB_Pushn
 00009ac4 g     F .text	0000006c .hidden __truncdfsf2
-00033a6c g     O .bss	00000290 gQSPIFlash
-000270ec g     F .text	00000008 GC_MemoryBufferLegacyModeCallback
+00033a7c g     O .bss	00000290 gQSPIFlash
+000270f8 g     F .text	00000008 GC_MemoryBufferLegacyModeCallback
 0000e760 g     F .text	00001ee8 _dtoa_r
 00011464 g     F .text	00000c04 _malloc_r
 00000050 g     F .text	00000000 _start1
-00026f14 g     F .text	00000064 GC_VideoAGCCallback
+00026f20 g     F .text	00000064 GC_VideoAGCCallback
 0000670c g     F .text	00000090 XUartLite_EnableInterrupt
 0001bc74 g     F .text	00000030 CBB_Init
-00029fa0 g     F .text	00000038 GC_UpdateVideoColorRange
-00029bac g     F .text	0000019c GC_UpdateLockedFlag
-00033ee8 g       .stack	00000000 _stack_end
-00033de0 g     O .bss	00000004 Xil_AssertStatus
-0002ebe4 g     O .rodata	0000000c DeviceClockFrequencyAryFactory
+00029fac g     F .text	00000038 GC_UpdateVideoColorRange
+00029bb8 g     F .text	0000019c GC_UpdateLockedFlag
+00033ef8 g       .stack	00000000 _stack_end
+00033df0 g     O .bss	00000004 Xil_AssertStatus
+0002ebf0 g     O .rodata	0000000c DeviceClockFrequencyAryFactory
 00023a70 g     F .text	00000180 Pleora_CircCommandParser
 00005310 g     F .text	000000d8 XSysMon_SetSeqAvgEnables
 000010a8 g     F .text	000001fc XIntc_ConnectFastHandler
-00026ad4 g     F .text	00000020 GC_FWModeCallback
+00026ae0 g     F .text	00000020 GC_FWModeCallback
 00009bd8 g     F .text	0000009c .hidden __divsi3
 00025470 g     F .text	00000028 Clink_ResetFrame
 000207c8 g     F .text	00000308 GC_RegisterReadRequest
-0002cee8 g     O .rodata	00000014 .hidden __thenan_df
+0002cef4 g     O .rodata	00000014 .hidden __thenan_df
 00005c48 g     F .text	00000098 XSysMon_EnableTempUpdate
-00031110 g       .data	00000000 __sdata_end
+00031120 g       .data	00000000 __sdata_end
 00010bf0 g     F .text	00000214 _malloc_trim_r
-0002a8fc g       .ctors	00000000 __CTOR_END__
-0002a8fc g       .dtors	00000000 ___DTORS_LIST___
+0002a908 g       .ctors	00000000 __CTOR_END__
+0002a908 g       .dtors	00000000 ___DTORS_LIST___
 000142a8 g     F .text	00000128 strcmp
 00000664 g     F .text	000000e0 XGpio_DiscreteWrite
-0002a8fc g       .dtors	00000000 __DTOR_LIST__
+0002a908 g       .dtors	00000000 __DTOR_LIST__
 0001b8b0 g     F .text	00000034 FrameBuffer_GetStatus
 00018918 g     F .text	0000012c Usart_SendData
 00023f10 g     F .text	0000009c QSPIFlash_Handler
 0001b880 g     F .text	00000030 FrameBuffer_Enable
-00026b14 g     F .text	00000020 GC_CalibrationModeCallback
-00027104 g     F .text	00000008 GC_MemoryBufferSequenceCountCallback
+00026b20 g     F .text	00000020 GC_CalibrationModeCallback
+00027110 g     F .text	00000008 GC_MemoryBufferSequenceCountCallback
 00022e28 g     F .text	00000040 F1F2_BuildResponse
 000171dc g     F .text	00000080 .hidden __nedf2
-00033758 g     O .bss	00000004 gcEventTelopsQueue
+00033768 g     O .bss	00000004 gcEventTelopsQueue
 0001b948 g     F .text	0000003c BuiltInTest_Check
-00029fd8 g     F .text	00000038 GC_UpdateVideoAGCImageFraction
+00029fe4 g     F .text	00000038 GC_UpdateVideoAGCImageFraction
 00024b5c g     F .text	00000010 Timer_GetCountsPerSecond
-00027024 g     F .text	00000020 GC_VideoColorMapMaxCallback
+00027030 g     F .text	00000020 GC_VideoColorMapMaxCallback
 00018868 g     F .text	00000018 copysignf
 000071e4 g     F .text	00000064 XUartNs550_IsSending
-0002a6f4 g     F .text	000000c4 Output_Intc_Start
+0002a700 g     F .text	000000c4 Output_Intc_Start
 0001d938 g     F .text	00000074 CtrlIntf_Disable
-0002cefc g     O .rodata	00000100 .hidden __clz_tab
+0002cf08 g     O .rodata	00000100 .hidden __clz_tab
 0000194c g     F .text	000000cc XSpi_Stop
-0002a328 g     F .text	00000058 Output_DebugTerminal_InitPhase2
-00031160 g     O .bss	00000004 _PathLocale
-00026a3c g     F .text	00000058 GC_VideoFreezeCallback
+0002a334 g     F .text	00000058 Output_DebugTerminal_InitPhase2
+00031170 g     O .bss	00000004 _PathLocale
+00026a48 g     F .text	00000058 GC_VideoFreezeCallback
 0001b80c g     F .text	00000074 FrameBuffer_SendConfigGC
 00007cc0 g     F .text	00000100 XUartNs550_CfgInitialize
 00001468 g     F .text	0000005c XIntc_InterruptHandler
 000089ac g     F .text	00000078 .hidden __gesf2
 0001b8e4 g     F .text	00000064 BuiltInTest_UpdateGlobalResult
-00027164 g     F .text	00000008 GC_VideoDigitalZoomFactorMaxCallback
-0002a8d4 g       .fini	00000000 __fini
+00027170 g     F .text	00000008 GC_VideoDigitalZoomFactorMaxCallback
+0002a8e0 g       .fini	00000000 __fini
 00010f70 g     F .text	0000004c setlocale
 0001848c g     F .text	00000010 nanf
 00000568 g     F .text	000000fc XGpio_DiscreteRead
 0001b984 g     F .text	000000fc BuiltInTest_Execute
-0002ee18 g     O .data	00000004 _impure_ptr
+0002ee28 g     O .data	00000004 _impure_ptr
 00023a5c g     F .text	00000014 F1F2_CommandNameToString
 00010f1c g     F .text	00000028 __locale_cjk_lang
 000268f8 g     F .text	0000005c GC_AcquisitionStopCallback
-00026d10 g     F .text	00000064 GC_VideoAGCFractionMinCallback
+00026d1c g     F .text	00000064 GC_VideoAGCFractionMinCallback
 0001b7d8 g     F .text	00000034 PleoraIntf_GetStatus
 00014858 g     F .text	0000144c _svfiprintf_r
 00006c74 g     F .text	0000001c XUartNs550_RecvByte
-0003375c g     O .bss	0000000c gcmPort
-0002ebf0 g       .data	00000000 __sdata2_end
+0003376c g     O .bss	0000000c gcmPort
+0002ec00 g       .sdata2	00000000 __sdata2_end
 00013644 g     F .text	000000d8 __ulp
 0000165c g     F .text	000000a8 XIntc_RegisterHandler
 00002adc g       .text	00000000 _interrupt_handler
 0001e848 g     F .text	0000008c DebugTerminal_CommandIsEmpty
-0002715c g     F .text	00000008 GC_VideoAGCResponseTimeCallback
+00027168 g     F .text	00000008 GC_VideoAGCResponseTimeCallback
 00000bdc g     F .text	00000110 XIntc_Connect
-0002712c g     F .text	00000008 GC_MemoryBufferStatusCallback
+00027138 g     F .text	00000008 GC_MemoryBufferStatusCallback
 00021550 g     F .text	00000010 RegIsLocked
 0000679c g     F .text	0000001c XUartLite_SendByte
 00000df0 g     F .text	000000dc XIntc_Enable
@@ -804,45 +809,45 @@ SYMBOL TABLE:
 00023fac g     F .text	00000114 QSPIFlash_Init
 00010fbc g     F .text	0000003c localeconv
 0001f654 g     F .text	000000a0 DebugTerminalParseSTACK
-0002a8fc g       .ctors	00000000 ___CTORS_END___
-000346e8 g       .stack	00000000 __stack
+0002a908 g       .ctors	00000000 ___CTORS_END___
+000346f8 g       .stack	00000000 __stack
 00017378 g     F .text	000000d8 ceilf
 00003f48 g     F .text	000000ac XSysMon_CfgInitialize
 00000ecc g     F .text	000000e0 XIntc_Disable
-00026af4 g     F .text	00000020 GC_EHDRINumberOfExposuresCallback
+00026b00 g     F .text	00000020 GC_EHDRINumberOfExposuresCallback
 00002cc8 g     F .text	00000048 Xil_ExceptionRemoveHandler
 00006010 g     F .text	00000098 XUartLite_SendBuffer
 000064bc g     F .text	000000b8 XUartLite_SetSendHandler
-00026fd0 g     F .text	00000054 GC_VideoColorMapMinCallback
+00026fdc g     F .text	00000054 GC_VideoColorMapMinCallback
 000247a0 g     F .text	00000028 Stack_ConfigStackViolationException
 0001d750 g     F .text	000000d4 CtrlIntf_CommandBuilder
-00027144 g     F .text	00000008 GC_PayloadSizeCallback
+00027150 g     F .text	00000008 GC_PayloadSizeCallback
 0002643c g     F .text	0000004c GC_EventErrorCodeCallback
-0002ece4 g     O .data	00000010 XSysMon_ConfigTable
+0002ecf4 g     O .data	00000010 XSysMon_ConfigTable
 000263f0 g     F .text	0000004c GC_EventErrorCallback
 0001a8d4 g     F .text	00000020 SDIIntf_SetSdiPauseFlipYSM
 000266f4 g     F .text	0000006c GC_DeviceFirmwareModuleRevisionCallback
 0001b35c g     F .text	00000174 SDIIntf_FlipYSM
 00018bfc g     F .text	0000035c XScaler_CfgInitialize
-00027114 g     F .text	00000008 GC_MemoryBufferSequenceDownloadFrameImageCountCallback
-000269d8 g     F .text	00000064 GC_MemoryBufferModeCallback
+00027120 g     F .text	00000008 GC_MemoryBufferSequenceDownloadFrameImageCountCallback
+000269e4 g     F .text	00000064 GC_MemoryBufferModeCallback
 00003b04 g     F .text	000003b4 Xil_TestMem8
 00002c38 g     F .text	0000002c Xil_ExceptionEnable
 00020f20 g     F .text	0000059c GC_Manager_SM
 00003700 g     F .text	00000404 Xil_TestMem16
-00030acc g     O .data	00000110 builtInTests
+00030adc g     O .data	00000110 builtInTests
 00018a44 g     F .text	000000f4 AutoTest_OBufMem
 0001e79c g     F .text	000000ac ParseNumArg
 000056e8 g     F .text	000000b0 XSysMon_GetSeqAcqTime
-0002ed04 g     O .data	00000020 XUartNs550_ConfigTable
-0002f2a0 g     O .data	00000004 __malloc_trim_threshold
-0002ecc8 g     O .data	0000001c XSpi_ConfigTable
-00033de8 g       .heap	00000000 _heap
+0002ed14 g     O .data	00000020 XUartNs550_ConfigTable
+0002f2b0 g     O .data	00000004 __malloc_trim_threshold
+0002ecd8 g     O .data	0000001c XSpi_ConfigTable
+00033df8 g       .heap	00000000 _heap
 0001a914 g     F .text	00000310 SDIIntf_calculateZoom
 0001b054 g     F .text	00000194 SDIIntf_ZoomSM
 00010ef4 g     F .text	00000028 __locale_msgcharset
 00004138 g     F .text	000000a0 XSysMon_StartAdcConversion
-0002a830 g     F .text	00000034 Output_Clink_Init
+0002a83c g     F .text	00000034 Output_Clink_Init
 0000a810 g     F .text	00000068 exit
 000061f0 g     F .text	000000cc XUartLite_ReceiveBuffer
 00008bd0 g     F .text	000000cc .hidden __floatunsisf
@@ -851,17 +856,17 @@ SYMBOL TABLE:
 000076a4 g       .text	00000000 microblaze_enable_interrupts
 00026760 g     F .text	0000006c GC_DeviceTemperatureCallback
 00009c74 g     F .text	0000009c .hidden __modsi3
-0002ed24 g     O .data	00000004 __ctype_ptr__
+0002ed34 g     O .data	00000004 __ctype_ptr__
 000267cc g     F .text	0000006c GC_DeviceVoltageCallback
 0002536c g     F .text	000000e4 Clink_SendConfigGC
 0000084c g     F .text	000001f8 XIntc_Initialize
 00005250 g     F .text	000000c0 XSysMon_GetSeqChEnables
 00006b4c g     F .text	0000010c XUartNs550_GetDataFormat
-00031110 g       .data	00000000 __tbss_end
+00031120 g       .data	00000000 __tbss_end
 00000000  w      *UND*	00000000 __sf_fake_stdout
 0002566c g     F .text	00000138 AGC_UpdateImageFraction
-0002d17c g     O .rodata	00000101 _ctype_
-0002ec44 g       .data	00000000 MB_ExceptionVectorTable
+0002d188 g     O .rodata	00000101 _ctype_
+0002ec54 g       .data	00000000 MB_ExceptionVectorTable
 0001d824 g     F .text	00000114 CtrlIntf_Send
 00007e30 g     F .text	00000088 .hidden __fixunssfsi
 00017360 g       .text	00000000 _program_init
@@ -874,12 +879,12 @@ SYMBOL TABLE:
 00007dc0 g     F .text	00000070 .hidden __muldi3
 0002656c g     F .text	0000004c GC_EventTelopsTimestampCallback
 00003eb8 g     F .text	00000090 XSysMon_Reset
-00033cfc g     O .bss	00000040 gCtrlIntf_ProcFPGA
+00033d0c g     O .bss	00000040 gCtrlIntf_ProcFPGA
 0000b13c g     F .text	000000b0 strlen
-00030c4c g     O .data	00000030 DeviceFirmwareModuleRevisionAry
+00030c5c g     O .data	00000030 DeviceFirmwareModuleRevisionAry
 00024b08 g     F .text	00000054 Timer_GetTime
 00009740 g     F .text	00000090 .hidden __gedf2
-000346e8 g       .stack	00000000 _stack
+000346f8 g       .stack	00000000 _stack
 000254cc g     F .text	00000030 XAGC_InterruptHandler
 00024804 g     F .text	00000010 Stack_GetSize
 00026838 g     F .text	0000006c GC_EventNotificationCallback
@@ -887,36 +892,36 @@ SYMBOL TABLE:
 00002c10 g     F .text	00000010 Xil_AssertSetCallback
 00007408 g     F .text	000000b4 XUartNs550_Initialize
 0000426c g     F .text	00000154 XSysMon_GetAdcData
-0002ebf0 g       .data	00000000 __data_start
-00033d3c g     O .bss	00000004 gDebugTerminalStatus
+0002ec00 g       .data	00000000 __data_start
+00033d4c g     O .bss	00000004 gDebugTerminalStatus
 00000000  w      *UND*	00000000 _Jv_RegisterClasses
 000077d0 g     F .text	00000140 XUartNs550_Send
-00033750 g     O .bss	00000004 p_qspiFlash
+00033760 g     O .bss	00000004 p_qspiFlash
 00005e1c g     F .text	00000028 XSysMon_LookupConfig
 000090e8 g     F .text	0000007c .hidden __subdf3
 00017358 g       .text	00000000 _program_clean
-00026a94 g     F .text	00000020 GC_VideoFWPositionCallback
-000286b0 g     F .text	000011ac GC_Registers_Init
+00026aa0 g     F .text	00000020 GC_VideoFWPositionCallback
+000286bc g     F .text	000011ac GC_Registers_Init
 00012928 g     F .text	000000f4 __lo0bits
 0001d58c g     F .text	000001c4 CtrlIntf_SetLink
-0002ebf0 g       *ABS*	00000000 _SDA2_BASE_
+0002ec00 g       *ABS*	00000000 _SDA2_BASE_
 00000000  w      *UND*	00000000 __register_frame_info
 00004094 g     F .text	000000a4 XSysMon_GetAlarmOutputStatus
-00031890 g     O .bss	00000001 gFuPromIsWriteProtected
+000318a0 g     O .bss	00000001 gFuPromIsWriteProtected
 00001634 g     F .text	00000028 XIntc_SetIntrSvcOption
 000140a4 g     F .text	0000018c frexp
 00024890 g     F .text	000001e8 Startup_TestMem
 000088f0 g     F .text	00000058 .hidden __addsf3
 0001d180 g     F .text	00000034 CircularUART_Disable
 00006890 g     F .text	000000e8 XUartLite_GetStats
-00033d40 g     O .bss	00000020 gDebugTerminal
+00033d50 g     O .bss	00000020 gDebugTerminal
 0001a414 g     F .text	000000b0 Cmap_UpdateMap
 00000b4c g     F .text	00000090 XIntc_Stop
 0001c308 g     F .text	0000002c CBB_Full
 0000a314 g     F .text	000002c8 .hidden __pack_d
 00001080 g     F .text	00000028 XIntc_LookupConfig
 00011040 g     F .text	0000004c free
-0002ecb8 g     O .data	00000010 XGpio_ConfigTable
+0002ecc8 g     O .data	00000010 XGpio_ConfigTable
 0002150c g     F .text	00000014 RegIsInt
 0001252c g     F .text	000001b0 __multadd
 00012438 g     F .text	000000f4 _Bfree
