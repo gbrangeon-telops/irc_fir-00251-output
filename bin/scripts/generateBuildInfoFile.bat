@@ -30,6 +30,20 @@ echo #if SVN_UNCOMMITTED_CHANGES>> %buildInfoFile%
 echo #warning Uncommitted changes detected.>> %buildInfoFile%
 echo #endif>> %buildInfoFile%
 
+rem Check for hardware definition file mismatch
+set hwFile1=%sdkDir%\hw_platform_%fpgaSize%\system.hdf
+set hwFile2=%sdkDir%\fir_251_output_top_%fpgaSize%.hdf
+%x_xilperl% %scriptsDir%\compareFiles.pl -f1 %hwFile1% -f2 %hwFile2%
+set hardwareMismatch=%errorlevel%
+
+echo.>> %buildInfoFile%
+echo #define HARDWARE_MISMATCH (%hardwareMismatch%)>> %buildInfoFile%
+echo.>> %buildInfoFile%
+
+echo #if HARDWARE_MISMATCH>> %buildInfoFile%
+echo #error %hwFile1% does not match %hwFile2%.>> %buildInfoFile%
+echo #endif>> %buildInfoFile%
+
 echo.>> %buildInfoFile%
 
 echo #elif defined(ARCH_FPGA_160)>> %buildInfoFile%
@@ -54,6 +68,21 @@ echo.>> %buildInfoFile%
 echo #if SVN_UNCOMMITTED_CHANGES>> %buildInfoFile%
 echo #warning Uncommitted changes detected.>> %buildInfoFile%
 echo #endif>> %buildInfoFile%
+
+rem Check for hardware definition file mismatch
+set hwFile1=%sdkDir%\hw_platform_%fpgaSize%\system.hdf
+set hwFile2=%sdkDir%\fir_251_output_top_%fpgaSize%.hdf
+%x_xilperl% %scriptsDir%\compareFiles.pl -f1 %hwFile1% -f2 %hwFile2%
+set hardwareMismatch=%errorlevel%
+
+echo.>> %buildInfoFile%
+echo #define HARDWARE_MISMATCH (%hardwareMismatch%)>> %buildInfoFile%
+echo.>> %buildInfoFile%
+
+echo #if HARDWARE_MISMATCH>> %buildInfoFile%
+echo #error %hwFile1% does not match %hwFile2%.>> %buildInfoFile%
+echo #endif>> %buildInfoFile%
+echo.>> %buildInfoFile%
 
 
 echo #endif  // FPGA_ARCH Check>> %buildInfoFile%
