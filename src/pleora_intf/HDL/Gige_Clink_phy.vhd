@@ -61,7 +61,10 @@ entity GIGE_CLINK_PHY is
 
       GIGE_PORT_A     : out std_logic_vector(7 downto 0);
       GIGE_PORT_B     : out std_logic_vector(7 downto 0);
-      GIGE_PORT_C     : out std_logic_vector(7 downto 0)
+      GIGE_PORT_C     : out std_logic_vector(7 downto 0);
+      
+      GIGE_WATERLEVEL_IN  : in std_logic;
+      GIGE_WATERLEVEL_OUT : out std_logic
       );
 end GIGE_CLINK_PHY;
 
@@ -87,9 +90,9 @@ architecture rtl of GIGE_CLINK_PHY is
    end component;
    
    -- CameraLink State machine (GIGE_CLK domain)
-   type   gige_state_t is (GIGE_RESET, RESYNC, SEND_DATA, WAIT_FOR_NEXTLINE, WAIT_FOR_NEXTFRAME);
+   type   gige_state_t is (GIGE_RESET, RESYNC, SEND_DATA, WAIT_FOR_NEXTLINE, WAIT_FOR_NEXTFRAME);  
    signal gige_state : gige_state_t := GIGE_RESET;
-   
+  
    signal dval, lval, fval : std_logic;
    signal gige_port_a_reg, gige_port_b_reg, gige_port_c_reg :  std_logic_vector(7 downto 0);
    
@@ -108,7 +111,7 @@ architecture rtl of GIGE_CLINK_PHY is
    signal gige_conf_valid_sync : std_logic := '0'; 
    
 begin    
-    
+   
    ---------------------------------------------
    -- Synchronisation toward CLK_GIGE domain
    ---------------------------------------------
@@ -148,9 +151,12 @@ begin
             gige_conf_sync <= GIGE_CONF;
          end if;
       end if;
-   end process;
-      
+   end process;  
+
    gige_port_c_reg <= (others => '0');
+
+   GIGE_WATERLEVEL_OUT <= GIGE_WATERLEVEL_IN when ((fval = '0') or (gige_conf_sync.FrameImageCount = 1)) else '0';
+
    --------------------------------------------
    -- CameraLink state machine description
    --------------------------------------------
@@ -241,7 +247,7 @@ begin
                             gige_tready <= '1';
                            pix_cnt <= pix_cnt + 1;
                            line_cnt <= line_cnt;
-                        end if;
+                        end if;       
                         
                      else
                         gige_state <= SEND_DATA;
