@@ -14,6 +14,7 @@ call %x_updatemem% --meminfo %mmiFile% --bit %bitFile% --data %elfFile% --proc %
 if errorlevel 1 (
 	echo ELF anb bit file integration failed!
 	pause
+   exit
 )
 
 rem Generate PROM file
@@ -21,4 +22,5 @@ rem Generate PROM file
 if errorlevel 1 (
 	echo PROM file generation failed!
 	pause
+   exit
 )
