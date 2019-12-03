@@ -27,7 +27,7 @@
 #include <string.h>
 #include "BuildInfo.h"
 
-#define SVN_REVISIONS_INIT {0, 0, 0, 0, SVN_HARDWARE_REV, SVN_SOFTWARE_REV, 0, SVN_COMMON_REV, 0, 0, 0, 0}
+#define SVN_REVISIONS_INIT {0, 0, 0, 0, SVN_HARDWARE_REV, SVN_SOFTWARE_REV, SVN_BOOTLOADER_REV, SVN_COMMON_REV, 0, 0, 0, 0}
 
 /* AUTO-CODE BEGIN */
 // Auto-generated GeniCam library.
