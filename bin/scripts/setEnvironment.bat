@@ -9,11 +9,9 @@ set binDir=%projectDir%\bin
 set scriptsDir=%binDir%\scripts
 
 set elfFile=%binDir%\%baseName%.elf
-set bitFile=%binDir%\fir_251_output_top_%fpgaSize%.bit 
-set mmiFile=%binDir%\fir_251_output_top_%fpgaSize%.mmi
+set hwFile=%sdkDir%\fir_251_output_top_%fpgaSize%.hdf
+
 set buildInfoFile=%srcDir%\BuildInfo\BuildInfo.h
-set releaseFile=%binDir%\%baseName%_release_%fpgaSize%.bin
-set releaseLogFile=%binDir%\%baseName%_release_%fpgaSize%.txt
 set revFile=%binDir%\svnrevs_%fpgaSize%.pl
 
 set tortoiseSVNDir="C:\Program Files\TortoiseSVN"
