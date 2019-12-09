@@ -17,7 +17,7 @@ if errorlevel 1 (
 	exit
 )
 rem Clean up
-del %scriptsDir%\%fpgaSize%\updatemem*
+del %cd%\updatemem*
 
 rem Generate PROM file
 %x_promgen% -w -p mcs -spi -c FF -o "%binDir%\prom\%baseName%.mcs" -s 16384 -u 0 %binDir%\download_%fpgaSize%.bit > %binDir%\_promgen_%fpgaSize%.log
