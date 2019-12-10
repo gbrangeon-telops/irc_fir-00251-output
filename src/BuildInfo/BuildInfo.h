@@ -3,10 +3,10 @@
 
 #ifdef ARCH_FPGA_70
 
-#define SVN_HARDWARE_REV      24449
-#define SVN_SOFTWARE_REV      24467
+#define SVN_HARDWARE_REV      24511
+#define SVN_SOFTWARE_REV      24513
 #define SVN_BOOTLOADER_REV    0 
-#define SVN_COMMON_REV        24523
+#define SVN_COMMON_REV        24561
 
 #define SVN_UNCOMMITTED_CHANGES  ((SVN_HARDWARE_REV < 0) || (SVN_SOFTWARE_REV < 0) || (SVN_BOOTLOADER_REV < 0) || (SVN_COMMON_REV < 0))
 
@@ -14,18 +14,18 @@
 #warning Uncommitted changes detected.
 #endif
 
-#define HARDWARE_MISMATCH (1)
+#define HARDWARE_MISMATCH (0)
 
 #if HARDWARE_MISMATCH
-#error D:\Telops\FIR-00251-Output\sdk\hw_platform_70\system.hdf does not match D:\Telops\FIR-00251-Output\sdk\fir_251_output_top_70.hdf.
+#error D:\Telops\FIR-00251-Output\sdk\hw_platform_70\system.hdf does not match D:\Telops\FIR-00251-Output\sdk\fir_251_output_top_70.hdf
 #endif
 
 #elif defined(ARCH_FPGA_160)
 
-#define SVN_HARDWARE_REV      24449
-#define SVN_SOFTWARE_REV      24467
+#define SVN_HARDWARE_REV      24511
+#define SVN_SOFTWARE_REV      24513
 #define SVN_BOOTLOADER_REV    0 
-#define SVN_COMMON_REV        24523
+#define SVN_COMMON_REV        24561
 
 #define SVN_UNCOMMITTED_CHANGES  ((SVN_HARDWARE_REV < 0) || (SVN_SOFTWARE_REV < 0) || (SVN_BOOTLOADER_REV < 0) || (SVN_COMMON_REV < 0))
 
@@ -33,10 +33,10 @@
 #warning Uncommitted changes detected.
 #endif
 
-#define HARDWARE_MISMATCH (1)
+#define HARDWARE_MISMATCH (0)
 
 #if HARDWARE_MISMATCH
-#error D:\Telops\FIR-00251-Output\sdk\hw_platform_160\system.hdf does not match D:\Telops\FIR-00251-Output\sdk\fir_251_output_top_160.hdf.
+#error D:\Telops\FIR-00251-Output\sdk\hw_platform_160\system.hdf does not match D:\Telops\FIR-00251-Output\sdk\fir_251_output_top_160.hdf
 #endif
 
 #endif  // FPGA_ARCH Check
