@@ -26,6 +26,9 @@ updatemss -mss standalone_bsp_160/system.mss
 #Import projects
 importprojects D:/Telops/FIR-00251-Output/sdk
 
+#Clean projects
+projects -clean
+
 #Configure in release mode
 configapp -app fir_00251_output_70 build-config release
 configapp -app fir_00251_output_160 build-config release
