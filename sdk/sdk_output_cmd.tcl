@@ -15,14 +15,6 @@ createhw -name hw_platform_160 -hwspec D:/Telops/FIR-00251-Output/sdk/fir_251_ou
 createbsp -name standalone_bsp_70 -hwproject hw_platform_70 -proc MCU_microblaze_0
 createbsp -name standalone_bsp_160 -hwproject hw_platform_160 -proc MCU_microblaze_0
 
-#Configure BSP projects
-configbsp -bsp standalone_bsp_70 stdin fpga_comm_uart
-configbsp -bsp standalone_bsp_70 stdout fpga_comm_uart
-configbsp -bsp standalone_bsp_160 stdin fpga_comm_uart
-configbsp -bsp standalone_bsp_160 stdout fpga_comm_uart
-updatemss -mss standalone_bsp_70/system.mss
-updatemss -mss standalone_bsp_160/system.mss
-
 #Import projects
 importprojects D:/Telops/FIR-00251-Output/sdk
 
