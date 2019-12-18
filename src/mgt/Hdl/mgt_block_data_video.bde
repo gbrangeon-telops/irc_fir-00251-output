@@ -2,7 +2,7 @@ SCHM0104
 
 HEADER
 {
- FREEID 31408
+ FREEID 31431
  VARIABLES
  {
   #ARCHITECTURE="mgt_block_Data_video"
@@ -9015,7 +9015,7 @@ PAGE ""
 "tx_resetdone(1) <=   '0';\n"+
 "rx_resetdone(1) <=   '0';\n"+
 "\n"+
-"\n"+
+"tx_out_lock(1) <= '1';\n"+
 "\n"+
 "\n"+
 "\n"+
@@ -10330,7 +10330,7 @@ PAGE ""
  
  BODY
  {
-  TEXT  31385, 0, 0
+  TEXT  31408, 0, 0
   {
    PAGEALIGN 10
    OUTLINE 5,1, (0,0,0)
@@ -10341,7 +10341,7 @@ PAGE ""
    COLOR (0,0,0)
    FONT (11,0,0,400,0,0,0,"Arial")
   }
-  TEXT  31386, 0, 0
+  TEXT  31409, 0, 0
   {
    PAGEALIGN 10
    TEXT "$CREATIONDATE"
@@ -10352,7 +10352,7 @@ PAGE ""
    FONT (11,0,0,400,0,0,0,"Arial")
    UPDATE 0
   }
-  TEXT  31387, 0, 0
+  TEXT  31410, 0, 0
   {
    PAGEALIGN 10
    TEXT "Title:"
@@ -10362,7 +10362,7 @@ PAGE ""
    COLOR (0,0,0)
    FONT (11,0,0,400,0,0,0,"Arial")
   }
-  TEXT  31388, 0, 0
+  TEXT  31411, 0, 0
   {
    PAGEALIGN 10
    OUTLINE 5,1, (0,0,0)
@@ -10374,27 +10374,27 @@ PAGE ""
    FONT (11,0,0,400,0,0,0,"Arial")
    UPDATE 0
   }
-  LINE  31389, 0, 0
+  LINE  31412, 0, 0
   {
    PAGEALIGN 10
    OUTLINE 0,1, (128,128,128)
    POINTS ( (6060,4080), (6600,4080) )
    FILL (1,(0,0,0),0)
   }
-  LINE  31390, 0, 0
+  LINE  31413, 0, 0
   {
    PAGEALIGN 10
    OUTLINE 0,1, (128,128,128)
    POINTS ( (6060,4080), (6060,4200) )
   }
-  LINE  31391, 0, 0
+  LINE  31414, 0, 0
   {
    PAGEALIGN 10
    OUTLINE 0,1, (128,128,128)
    POINTS ( (6600,4200), (6600,3960), (5620,3960), (5620,4200), (6600,4200) )
    FILL (1,(0,0,0),0)
   }
-  TEXT  31392, 0, 0
+  TEXT  31415, 0, 0
   {
    PAGEALIGN 10
    TEXT 
@@ -10409,20 +10409,20 @@ PAGE ""
    VAR
    MULTILINE
   }
-  LINE  31393, 0, 0
+  LINE  31416, 0, 0
   {
    PAGEALIGN 10
    OUTLINE 0,1, (128,128,128)
    POINTS ( (6060,3960), (6060,4080) )
   }
-  LINE  31394, 0, 0
+  LINE  31417, 0, 0
   {
    PAGEALIGN 10
    OUTLINE 0,1, (128,128,128)
    POINTS ( (6600,3960), (6600,3840), (6060,3840), (6060,3960), (6600,3960) )
    FILL (1,(0,0,0),0)
   }
-  TEXT  31395, 0, 0
+  TEXT  31418, 0, 0
   {
    PAGEALIGN 10
    TEXT "$FIRMWARE"
@@ -10433,7 +10433,7 @@ PAGE ""
    FONT (11,0,0,400,0,0,0,"Arial")
    UPDATE 0
   }
-  TEXT  31396, 0, 0
+  TEXT  31419, 0, 0
   {
    PAGEALIGN 10
    TEXT "$AUTHOR"
@@ -10444,7 +10444,7 @@ PAGE ""
    FONT (11,0,0,400,0,0,0,"Arial")
    UPDATE 0
   }
-  TEXT  31397, 0, 0
+  TEXT  31420, 0, 0
   {
    PAGEALIGN 10
    TEXT "$PROJECT"
@@ -10455,7 +10455,7 @@ PAGE ""
    FONT (11,0,0,400,0,0,0,"Arial")
    UPDATE 0
   }
-  TEXT  31398, 0, 0
+  TEXT  31421, 0, 0
   {
    PAGEALIGN 10
    OUTLINE 5,1, (0,0,0)
@@ -10466,7 +10466,7 @@ PAGE ""
    COLOR (0,0,0)
    FONT (11,0,0,400,0,0,0,"Arial")
   }
-  TEXT  31399, 0, 0
+  TEXT  31422, 0, 0
   {
    PAGEALIGN 10
    OUTLINE 5,1, (0,0,0)
@@ -10477,20 +10477,20 @@ PAGE ""
    COLOR (0,0,0)
    FONT (11,0,0,400,0,0,0,"Arial")
   }
-  LINE  31400, 0, 0
+  LINE  31423, 0, 0
   {
    PAGEALIGN 10
    OUTLINE 0,1, (128,128,128)
    POINTS ( (5780,3960), (5780,4080) )
   }
-  LINE  31401, 0, 0
+  LINE  31424, 0, 0
   {
    PAGEALIGN 10
    OUTLINE 0,1, (128,128,128)
    POINTS ( (5620,4080), (6060,4080) )
    FILL (1,(0,0,0),0)
   }
-  TEXT  31402, 0, 0
+  TEXT  31425, 0, 0
   {
    PAGEALIGN 10
    OUTLINE 5,1, (0,0,0)
@@ -10501,7 +10501,7 @@ PAGE ""
    COLOR (0,0,0)
    FONT (11,0,0,400,0,0,0,"Arial")
   }
-  TEXT  31403, 0, 0
+  TEXT  31426, 0, 0
   {
    PAGEALIGN 10
    OUTLINE 5,1, (0,0,0)
@@ -10512,19 +10512,19 @@ PAGE ""
    COLOR (0,0,0)
    FONT (11,0,0,400,0,0,0,"Arial")
   }
-  LINE  31404, 0, 0
+  LINE  31427, 0, 0
   {
    PAGEALIGN 10
    OUTLINE 0,1, (128,128,128)
    POINTS ( (5780,4080), (5780,4200) )
   }
-  LINE  31405, 0, 0
+  LINE  31428, 0, 0
   {
    PAGEALIGN 10
    OUTLINE 0,1, (128,128,128)
    POINTS ( (6180,4080), (6180,4200) )
   }
-  TEXT  31406, 0, 0
+  TEXT  31429, 0, 0
   {
    PAGEALIGN 10
    TEXT "$REVISION"
@@ -10535,7 +10535,7 @@ PAGE ""
    FONT (11,0,0,400,0,0,0,"Arial")
    UPDATE 0
   }
-  BMPPICT  31407, 0, 0
+  BMPPICT  31430, 0, 0
   {
    PAGEALIGN 10
    RECT (6140,3860,6520,3955)
