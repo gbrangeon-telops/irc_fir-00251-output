@@ -2,4 +2,8 @@
    -obf %buildInfoFile%^
    -of %revFile%^
    -osize %fpgaSize%
-pause
+if errorlevel 1 (
+	echo Verify release failed for output %fpgaSize%
+	pause
+	exit
+)

@@ -1,0 +1,118 @@
+@echo off
+set projectDir=D:\Telops\FIR-00251-Output
+set FirmwareReleaseVersionFile=D:\Telops\FIR-00251-Proc\bin\FirmwareReleaseVersion.txt
+set FirmwareReleaseLogFile=%projectDir%\bin\scripts\FirmwareRelease.log
+set svnDir="http://einstein/svn/firmware/"
+
+REM Clean up
+del %FirmwareReleaseLogFile%
+
+REM Parse FirmwareReleaseVersionFile
+for /F "tokens=1-2 delims==" %%G in ('findstr "firmwareVersionMajor" %FirmwareReleaseVersionFile%') do set major=%%H
+for /F "tokens=1-2 delims==" %%G in ('findstr "firmwareVersionMinor" %FirmwareReleaseVersionFile%') do set minor=%%H
+for /F "tokens=1-2 delims==" %%G in ('findstr "firmwareVersionBuild" %FirmwareReleaseVersionFile%') do set build=%%H
+set firmwareReleaseVersion=%major%.%minor%.x.%build%
+echo *****************************************>> %FirmwareReleaseLogFile%
+echo BEGIN Firmware release %firmwareReleaseVersion%>> %FirmwareReleaseLogFile%
+echo *****************************************>> %FirmwareReleaseLogFile%
+
+echo.>> %FirmwareReleaseLogFile%
+echo BEGIN Pre-release compile>> %FirmwareReleaseLogFile%
+
+REM Set environment variables
+call %projectDir%\bin\scripts\setEnvironment.bat 70
+
+REM Create and build projects (70 and 160) for pre-release
+cmd /c %x_xsct% %sdkDir%\build_all_sw.tcl 1
+for %%A in (%sdkDir%\fir_00251_output_70\Release\fir_00251_output_70.elf %sdkDir%\fir_00251_output_160\Release\fir_00251_output_160.elf) do (
+   if not exist %%A (
+      echo Create and build project failed!
+      pause
+      exit
+   )
+)
+echo Create and build projects (70 and 160) done>> %FirmwareReleaseLogFile%
+
+REM Copy files
+call %scriptsDir%\fetchHwSwFiles.bat
+echo fetchHwSwFiles (%fpgaSize%) done>> %FirmwareReleaseLogFile%
+
+REM Set environment variables
+call %projectDir%\bin\scripts\setEnvironment.bat 160
+
+REM Copy files
+call %scriptsDir%\fetchHwSwFiles.bat
+echo fetchHwSwFiles (%fpgaSize%) done>> %FirmwareReleaseLogFile%
+
+echo END Pre-release compile>> %FirmwareReleaseLogFile%
+echo.>> %FirmwareReleaseLogFile%
+
+REM Commit pre-release
+set preReleaseMessage=Pre-release %firmwareReleaseVersion%
+svn commit %projectDir% -m "%preReleaseMessage%"
+svn update %projectDir%
+echo *****************************************>> %FirmwareReleaseLogFile%
+echo Pre-release commit done>> %FirmwareReleaseLogFile%
+echo *****************************************>> %FirmwareReleaseLogFile%
+
+echo.>> %FirmwareReleaseLogFile%
+echo BEGIN Release compile>> %FirmwareReleaseLogFile%
+
+REM Set environment variables
+call %projectDir%\bin\scripts\setEnvironment.bat 70
+
+REM Build main project
+cmd /c %x_xsct% %sdkDir%\build_all_sw.tcl 0
+for %%A in (%sdkDir%\fir_00251_output_70\Release\fir_00251_output_70.elf %sdkDir%\fir_00251_output_160\Release\fir_00251_output_160.elf) do (
+   if not exist %%A (
+      echo Create and build project failed!
+      pause
+      exit
+   )
+)
+echo Build projects (70 and 160) done>> %FirmwareReleaseLogFile%
+
+REM Update release files
+call %scriptsDir%\updateReleaseSvnRevsFile.bat
+echo updateReleaseSvnRevsFile (%fpgaSize%) done>> %FirmwareReleaseLogFile%
+
+REM Verify release files
+call %scriptsDir%\verifyRelease.bat
+echo verifyRelease (%fpgaSize%) done>> %FirmwareReleaseLogFile%
+
+REM Generate prom files
+call %scriptsDir%\generatePromFile.bat
+echo generatePromFile (%fpgaSize%) done>> %FirmwareReleaseLogFile%
+
+REM Set environment variables
+call %projectDir%\bin\scripts\setEnvironment.bat 160
+
+REM Update release files
+call %scriptsDir%\updateReleaseSvnRevsFile.bat
+echo updateReleaseSvnRevsFile (%fpgaSize%) done>> %FirmwareReleaseLogFile%
+
+REM Verify release files
+call %scriptsDir%\verifyRelease.bat
+echo verifyRelease (%fpgaSize%) done>> %FirmwareReleaseLogFile%
+
+REM Generate prom files
+call %scriptsDir%\generatePromFile.bat
+echo generatePromFile (%fpgaSize%) done>> %FirmwareReleaseLogFile%
+
+echo END Release compile>> %FirmwareReleaseLogFile%
+echo.>> %FirmwareReleaseLogFile%
+
+REM Commit release
+set releaseMessage=Release %firmwareReleaseVersion%
+svn commit %projectDir% -m "%releaseMessage%"
+svn update %projectDir%
+echo *****************************************>> %FirmwareReleaseLogFile%
+echo Release commit done>> %FirmwareReleaseLogFile%
+echo *****************************************>> %FirmwareReleaseLogFile%
+
+echo.>> %FirmwareReleaseLogFile%
+echo *****************************************>> %FirmwareReleaseLogFile%
+echo END Firmware release %firmwareReleaseVersion%>> %FirmwareReleaseLogFile%
+echo *****************************************>> %FirmwareReleaseLogFile%
+
+start %FirmwareReleaseLogFile%
