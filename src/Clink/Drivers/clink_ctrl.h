@@ -21,7 +21,6 @@
 
 #include "GC_Registers.h"
 #include <stdint.h>
-#include "xbasic_types.h"
 
 
 #define CL_FULL 0x2
