@@ -127,6 +127,7 @@ void SDIIntf_Init(t_SdiIntf *pSdiCtrl, const gcRegistersData_t *pGCRegs)
 
    ///// Video data handler initialization
    AXI4L_write32(VIDEO_EHDRI_INDEX_DEFAULT, pSdiCtrl->ADD + AW_VIDEO_EHDRIINDEX );
+   AXI4L_write32(0, pSdiCtrl->ADD + AW_VIDEO_FWPOSITION );
    AXI4L_write32(0, pSdiCtrl->ADD + AW_VIDEO_SELECTOR_ENABLE );
    AXI4L_write32(FALSE, pSdiCtrl->ADD + AW_VIDEO_FREEZE);
 }
