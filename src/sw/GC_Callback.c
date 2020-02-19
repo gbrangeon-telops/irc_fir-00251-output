@@ -96,6 +96,8 @@ void GC_Callback_Init()
    gcRegsDef[ReverseYIdx].callback =                                             &GC_ReverseYCallback;
    gcRegsDef[SensorHeightIdx].callback =                                         &GC_SensorHeightCallback;
    gcRegsDef[SensorWidthIdx].callback =                                          &GC_SensorWidthCallback;
+   gcRegsDef[TDCFlagsIdx].callback =                                             &GC_TDCFlagsCallback;
+   gcRegsDef[TDCFlags2Idx].callback =                                            &GC_TDCFlags2Callback;
    gcRegsDef[VideoAGCIdx].callback =                                             &GC_VideoAGCCallback;
    gcRegsDef[VideoAGCFractionMaxIdx].callback =                                  &GC_VideoAGCFractionMaxCallback;
    gcRegsDef[VideoAGCFractionMaxMinIdx].callback =                               &GC_VideoAGCFractionMaxMinCallback;
@@ -877,6 +879,28 @@ void GC_SensorWidthCallback(gcCallbackPhase_t phase, gcCallbackAccess_t access)
    {
       SDIIntf_UpdateVideoOutput(&gSdiIntfCtrl, &gcRegsData);
    }
+}
+
+/**
+ * TDCFlags GenICam register callback function.
+ * 
+ * @param phase indicates whether the function is called before or
+ *    after the read or write operation.
+ * @param access indicates whether the operation is read or write.
+ */
+void GC_TDCFlagsCallback(gcCallbackPhase_t phase, gcCallbackAccess_t access)
+{
+}
+
+/**
+ * TDCFlags2 GenICam register callback function.
+ * 
+ * @param phase indicates whether the function is called before or
+ *    after the read or write operation.
+ * @param access indicates whether the operation is read or write.
+ */
+void GC_TDCFlags2Callback(gcCallbackPhase_t phase, gcCallbackAccess_t access)
+{
 }
 
 /**
