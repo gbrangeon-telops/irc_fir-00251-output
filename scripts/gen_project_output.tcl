@@ -29,6 +29,7 @@ add_files -norecurse $common_dir
 add_files -norecurse $common_dir/Fifo/
 add_files -norecurse $common_dir/hdr_extractor/
 add_files -norecurse $common_dir/Calibration/
+add_files -norecurse $common_dir/hdr_extractor/
 add_files -norecurse $common_dir/Math/
 add_files -norecurse $common_dir/Ram/
 add_files -norecurse $common_dir/Utilities/
