@@ -27,6 +27,7 @@ set_property "target_language" "VHDL" $obj
 # Add common project sources 
 add_files -norecurse $common_dir
 add_files -norecurse $common_dir/Fifo/
+add_files -norecurse $common_dir/Buffering/   
 add_files -norecurse $common_dir/hdr_extractor/
 add_files -norecurse $common_dir/Calibration/
 add_files -norecurse $common_dir/hdr_extractor/
