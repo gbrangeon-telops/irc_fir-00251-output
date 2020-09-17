@@ -25,10 +25,12 @@ use work.calib_define.all;
 
 entity mgt_stream_unmerger is 
    port(
-      RX_MOSI  : in  t_axi4_stream_mosi64; 
-     
-      TX_DATA_MOSI  : out  t_axi4_stream_mosi32;
-      TX_VIDEO_MOSI  : out  t_axi4_stream_mosi32
+       RX_MOSI  : in  t_axi4_stream_mosi64;
+       RX_MISO  : out  t_axi4_stream_miso;
+       TX_DATA_MISO : in t_axi4_stream_miso;
+	   TX_VIDEO_MISO : in t_axi4_stream_miso;
+       TX_DATA_MOSI  : out  t_axi4_stream_mosi32;
+       TX_VIDEO_MOSI  : out  t_axi4_stream_mosi32
    );  
 end mgt_stream_unmerger;
 
@@ -40,6 +42,8 @@ architecture rtl of mgt_stream_unmerger is
 
 begin  
    
+   RX_MISO.TREADY <= TX_DATA_MISO.TREADY and TX_VIDEO_MISO.TREADY;
+	
    TX_DATA_MOSI.TDATA <= RX_MOSI.TDATA(31 downto 0);
    TX_VIDEO_MOSI.TDATA <= RX_MOSI.TDATA(63 downto 32);  
    

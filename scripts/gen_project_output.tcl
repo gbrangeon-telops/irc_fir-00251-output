@@ -65,7 +65,7 @@ set filelist  [concat $filelist [glob -nocomplain $src_dir/FrameBuffer/HDL/*.vhd
 set filelist  [concat $filelist [glob -nocomplain $src_dir/pleora_intf/HDL/*.vhd]]
 
 #MGT
-set filelist  [concat $filelist [glob -nocomplain $common_dir/MGT/hdl/*.vhd]]
+set filelist  [concat $filelist [glob -nocomplain $common_dir/MGT/hdl/*.{vhd,v}]]
 set filelist  [concat $filelist [glob -nocomplain $src_dir/MGT/hdl/*.vhd]]
 
 #SDI-AGC

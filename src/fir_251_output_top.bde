@@ -2,7 +2,7 @@ SCHM0104
 
 HEADER
 {
- FREEID 27958
+ FREEID 27981
  VARIABLES
  {
   #ARCHITECTURE="rtl"
@@ -12,10 +12,10 @@ HEADER
   #DEFAULT_RANGE1="<range<name=\"b15_exp_spare_p\"><left=\"3\"><direction=\"downto\"><right=\"0\"><initial_value=\"\"><delay=\"\">>"
   #DEFAULT_RANGE10="<range<name=\"cl_ch2_data_n\"><left=\"3\"><direction=\"downto\"><right=\"0\"><initial_value=\"\"><delay=\"\">>"
   #DEFAULT_RANGE11="<range<name=\"cl_ch2_data_p\"><left=\"3\"><direction=\"downto\"><right=\"0\"><initial_value=\"\"><delay=\"\">>"
-  #DEFAULT_RANGE12="<range<name=\"data_downlink_n\"><left=\"0\"><direction=\"to\"><right=\"1\"><initial_value=\"\"><delay=\"\">>"
-  #DEFAULT_RANGE13="<range<name=\"data_downlink_p\"><left=\"0\"><direction=\"to\"><right=\"1\"><initial_value=\"\"><delay=\"\">>"
-  #DEFAULT_RANGE14="<range<name=\"data_uplink_n\"><left=\"0\"><direction=\"to\"><right=\"1\"><initial_value=\"\"><delay=\"\">>"
-  #DEFAULT_RANGE15="<range<name=\"data_uplink_p\"><left=\"0\"><direction=\"to\"><right=\"1\"><initial_value=\"\"><delay=\"\">>"
+  #DEFAULT_RANGE12="<range<name=\"data_downlink_n\"><left=\"0\"><direction=\"downto\"><right=\"0\"><initial_value=\"\"><delay=\"\">>"
+  #DEFAULT_RANGE13="<range<name=\"data_downlink_p\"><left=\"0\"><direction=\"downto\"><right=\"0\"><initial_value=\"\"><delay=\"\">>"
+  #DEFAULT_RANGE14="<range<name=\"data_uplink_n\"><left=\"0\"><direction=\"downto\"><right=\"0\"><initial_value=\"\"><delay=\"\">>"
+  #DEFAULT_RANGE15="<range<name=\"data_uplink_p\"><left=\"0\"><direction=\"downto\"><right=\"0\"><initial_value=\"\"><delay=\"\">>"
   #DEFAULT_RANGE16="<range<name=\"fb_ddr3_addr\"><left=\"14\"><direction=\"downto\"><right=\"0\"><initial_value=\"\"><delay=\"\">>"
   #DEFAULT_RANGE17="<range<name=\"fb_ddr3_ba\"><left=\"2\"><direction=\"downto\"><right=\"0\"><initial_value=\"\"><delay=\"\">>"
   #DEFAULT_RANGE18="<range<name=\"fb_ddr3_ck_n\"><left=\"0\"><direction=\"downto\"><right=\"0\"><initial_value=\"\"><delay=\"\">>"
@@ -36,10 +36,10 @@ HEADER
   #DEFAULT_RANGE31="<range<name=\"in1_pdata\"><left=\"47\"><direction=\"downto\"><right=\"0\"><initial_value=\"\"><delay=\"\">>"
   #DEFAULT_RANGE32="<range<name=\"in2_cc\"><left=\"3\"><direction=\"downto\"><right=\"0\"><initial_value=\"\"><delay=\"\">>"
   #DEFAULT_RANGE33="<range<name=\"sdi_ctrl_err\"><left=\"1\"><direction=\"downto\"><right=\"0\"><initial_value=\"\"><delay=\"\">>"
-  #DEFAULT_RANGE34="<range<name=\"video_downlink_n\"><left=\"0\"><direction=\"to\"><right=\"1\"><initial_value=\"\"><delay=\"\">>"
-  #DEFAULT_RANGE35="<range<name=\"video_downlink_p\"><left=\"0\"><direction=\"to\"><right=\"1\"><initial_value=\"\"><delay=\"\">>"
-  #DEFAULT_RANGE36="<range<name=\"video_uplink_n\"><left=\"0\"><direction=\"to\"><right=\"1\"><initial_value=\"\"><delay=\"\">>"
-  #DEFAULT_RANGE37="<range<name=\"video_uplink_p\"><left=\"0\"><direction=\"to\"><right=\"1\"><initial_value=\"\"><delay=\"\">>"
+  #DEFAULT_RANGE34="<range<name=\"video_downlink_n\"><left=\"0\"><direction=\"downto\"><right=\"0\"><initial_value=\"\"><delay=\"\">>"
+  #DEFAULT_RANGE35="<range<name=\"video_downlink_p\"><left=\"0\"><direction=\"downto\"><right=\"0\"><initial_value=\"\"><delay=\"\">>"
+  #DEFAULT_RANGE36="<range<name=\"video_uplink_n\"><left=\"0\"><direction=\"downto\"><right=\"0\"><initial_value=\"\"><delay=\"\">>"
+  #DEFAULT_RANGE37="<range<name=\"video_uplink_p\"><left=\"0\"><direction=\"downto\"><right=\"0\"><initial_value=\"\"><delay=\"\">>"
   #DEFAULT_RANGE4="<range<name=\"b34_exp_spare_n\"><left=\"9\"><direction=\"downto\"><right=\"4\"><initial_value=\"\"><delay=\"\">>"
   #DEFAULT_RANGE5="<range<name=\"b34_exp_spare_p\"><left=\"9\"><direction=\"downto\"><right=\"4\"><initial_value=\"\"><delay=\"\">>"
   #DEFAULT_RANGE6="<range<name=\"cl_ch0_data_n\"><left=\"3\"><direction=\"downto\"><right=\"0\"><initial_value=\"\"><delay=\"\">>"
@@ -3521,12 +3521,12 @@ HEADER
    {
     #CUSTOM_NAME=""
     #DESCRIPTION=""
-    #GENERIC0="MGT_2CH:BOOLEAN:=false"
+    #GENERIC0="MGT_2CH:boolean:=false"
     #HDL_ENTRIES=
 "library IEEE,WORK;\n"+
 "use ieee.std_logic_1164.all,work.TEL2000.all;"
     #LANGUAGE="VHDL"
-    #MODIFIED="1552341331"
+    #MODIFIED="1600089219"
     #SYMBOL_GLOBALLY_UNIQUE_IDENTIFIER="b55488c0-ff55-4f81-8b23-20a0b511542f"
    }
   }
@@ -3743,7 +3743,7 @@ HEADER
       #NAME="AXI4_LITE_MISO"
       #NUMBER="0"
       #SIDE="right"
-      #VHDL_TYPE="T_AXI4_LITE_MISO"
+      #VHDL_TYPE="t_axi4_lite_miso"
      }
      LINE  2, 0, 0
      {
@@ -3795,7 +3795,7 @@ HEADER
       #NAME="DATA_STREAM_OUT_MOSI"
       #NUMBER="0"
       #SIDE="right"
-      #VHDL_TYPE="T_AXI4_STREAM_MOSI64"
+      #VHDL_TYPE="t_axi4_stream_mosi64"
      }
      LINE  2, 0, 0
      {
@@ -3808,10 +3808,10 @@ HEADER
      VARIABLES
      {
       #DIRECTION="OUT"
-      #DOWNTO="0"
+      #DOWNTO="1"
       #LENGTH="20"
       #MDA_RECORD_TOKEN="OTHER"
-      #NAME="DATA_UPLINK_N(0:1)"
+      #NAME="DATA_UPLINK_N(0:0)"
       #NUMBER="0"
       #SIDE="left"
      }
@@ -3826,10 +3826,10 @@ HEADER
      VARIABLES
      {
       #DIRECTION="OUT"
-      #DOWNTO="0"
+      #DOWNTO="1"
       #LENGTH="20"
       #MDA_RECORD_TOKEN="OTHER"
-      #NAME="DATA_UPLINK_P(0:1)"
+      #NAME="DATA_UPLINK_P(0:0)"
       #NUMBER="0"
       #SIDE="left"
      }
@@ -3849,7 +3849,7 @@ HEADER
       #NAME="AXI4_LITE_MOSI"
       #NUMBER="0"
       #SIDE="right"
-      #VHDL_TYPE="T_AXI4_LITE_MOSI"
+      #VHDL_TYPE="t_axi4_lite_mosi"
      }
      LINE  2, 0, 0
      {
@@ -3867,7 +3867,7 @@ HEADER
       #NAME="VIDEO_STREAM_OUT_MOSI"
       #NUMBER="0"
       #SIDE="right"
-      #VHDL_TYPE="T_AXI4_STREAM_MOSI64"
+      #VHDL_TYPE="t_axi4_stream_mosi64"
      }
      LINE  2, 0, 0
      {
@@ -3880,10 +3880,10 @@ HEADER
      VARIABLES
      {
       #DIRECTION="IN"
-      #DOWNTO="0"
+      #DOWNTO="1"
       #LENGTH="20"
       #MDA_RECORD_TOKEN="OTHER"
-      #NAME="DATA_DOWNLINK_N(0:1)"
+      #NAME="DATA_DOWNLINK_N(0:0)"
       #NUMBER="0"
       #SIDE="left"
      }
@@ -3898,10 +3898,10 @@ HEADER
      VARIABLES
      {
       #DIRECTION="OUT"
-      #DOWNTO="0"
+      #DOWNTO="1"
       #LENGTH="20"
       #MDA_RECORD_TOKEN="OTHER"
-      #NAME="VIDEO_UPLINK_N(0:1)"
+      #NAME="VIDEO_UPLINK_N(0:0)"
       #NUMBER="0"
       #SIDE="left"
      }
@@ -3916,10 +3916,10 @@ HEADER
      VARIABLES
      {
       #DIRECTION="IN"
-      #DOWNTO="0"
+      #DOWNTO="1"
       #LENGTH="20"
       #MDA_RECORD_TOKEN="OTHER"
-      #NAME="DATA_DOWNLINK_P(0:1)"
+      #NAME="DATA_DOWNLINK_P(0:0)"
       #NUMBER="0"
       #SIDE="left"
      }
@@ -3934,10 +3934,10 @@ HEADER
      VARIABLES
      {
       #DIRECTION="OUT"
-      #DOWNTO="0"
+      #DOWNTO="1"
       #LENGTH="20"
       #MDA_RECORD_TOKEN="OTHER"
-      #NAME="VIDEO_UPLINK_P(0:1)"
+      #NAME="VIDEO_UPLINK_P(0:0)"
       #NUMBER="0"
       #SIDE="left"
      }
@@ -3957,7 +3957,7 @@ HEADER
       #NAME="DATA_STREAM_OUT_MISO"
       #NUMBER="0"
       #SIDE="right"
-      #VHDL_TYPE="T_AXI4_STREAM_MISO"
+      #VHDL_TYPE="t_axi4_stream_miso"
      }
      LINE  2, 0, 0
      {
@@ -3970,10 +3970,10 @@ HEADER
      VARIABLES
      {
       #DIRECTION="IN"
-      #DOWNTO="0"
+      #DOWNTO="1"
       #LENGTH="20"
       #MDA_RECORD_TOKEN="OTHER"
-      #NAME="VIDEO_DOWNLINK_N(0:1)"
+      #NAME="VIDEO_DOWNLINK_N(0:0)"
       #NUMBER="0"
       #SIDE="left"
      }
@@ -3988,10 +3988,10 @@ HEADER
      VARIABLES
      {
       #DIRECTION="IN"
-      #DOWNTO="0"
+      #DOWNTO="1"
       #LENGTH="20"
       #MDA_RECORD_TOKEN="OTHER"
-      #NAME="VIDEO_DOWNLINK_P(0:1)"
+      #NAME="VIDEO_DOWNLINK_P(0:0)"
       #NUMBER="0"
       #SIDE="left"
      }
@@ -4011,7 +4011,7 @@ HEADER
       #NAME="VIDEO_STREAM_OUT_MISO"
       #NUMBER="0"
       #SIDE="right"
-      #VHDL_TYPE="T_AXI4_STREAM_MISO"
+      #VHDL_TYPE="t_axi4_stream_miso"
      }
      LINE  2, 0, 0
      {
@@ -5283,9 +5283,10 @@ PAGE ""
    {
     #COMPONENT="BusInput"
     #CUSTOM_NAME=""
+    #DOWNTO="0"
     #LIBRARY="#terminals"
     #MDA_RECORD_TOKEN="OTHER"
-    #REFERENCE="DATA_DOWNLINK_P(0:1)"
+    #REFERENCE="DATA_DOWNLINK_P(0:0)"
     #SYMBOL="BusInput"
     #SYMBOL_GLOBALLY_UNIQUE_IDENTIFIER=""
     #VHDL_TYPE="STD_LOGIC_VECTOR"
@@ -5307,9 +5308,10 @@ PAGE ""
    {
     #COMPONENT="BusInput"
     #CUSTOM_NAME=""
+    #DOWNTO="0"
     #LIBRARY="#terminals"
     #MDA_RECORD_TOKEN="OTHER"
-    #REFERENCE="DATA_DOWNLINK_N(0:1)"
+    #REFERENCE="DATA_DOWNLINK_N(0:0)"
     #SYMBOL="BusInput"
     #SYMBOL_GLOBALLY_UNIQUE_IDENTIFIER=""
     #VHDL_TYPE="STD_LOGIC_VECTOR"
@@ -5331,9 +5333,10 @@ PAGE ""
    {
     #COMPONENT="BusInput"
     #CUSTOM_NAME=""
+    #DOWNTO="0"
     #LIBRARY="#terminals"
     #MDA_RECORD_TOKEN="OTHER"
-    #REFERENCE="VIDEO_DOWNLINK_P(0:1)"
+    #REFERENCE="VIDEO_DOWNLINK_P(0:0)"
     #SYMBOL="BusInput"
     #SYMBOL_GLOBALLY_UNIQUE_IDENTIFIER=""
     #VHDL_TYPE="STD_LOGIC_VECTOR"
@@ -5355,9 +5358,10 @@ PAGE ""
    {
     #COMPONENT="BusInput"
     #CUSTOM_NAME=""
+    #DOWNTO="0"
     #LIBRARY="#terminals"
     #MDA_RECORD_TOKEN="OTHER"
-    #REFERENCE="VIDEO_DOWNLINK_N(0:1)"
+    #REFERENCE="VIDEO_DOWNLINK_N(0:0)"
     #SYMBOL="BusInput"
     #SYMBOL_GLOBALLY_UNIQUE_IDENTIFIER=""
     #VHDL_TYPE="STD_LOGIC_VECTOR"
@@ -5379,9 +5383,10 @@ PAGE ""
    {
     #COMPONENT="BusOutput"
     #CUSTOM_NAME=""
+    #DOWNTO="0"
     #LIBRARY="#terminals"
     #MDA_RECORD_TOKEN="OTHER"
-    #REFERENCE="DATA_UPLINK_P(0:1)"
+    #REFERENCE="DATA_UPLINK_P(0:0)"
     #SYMBOL="BusOutput"
     #SYMBOL_GLOBALLY_UNIQUE_IDENTIFIER=""
     #VHDL_TYPE="STD_LOGIC_VECTOR"
@@ -5405,9 +5410,10 @@ PAGE ""
    {
     #COMPONENT="BusOutput"
     #CUSTOM_NAME=""
+    #DOWNTO="0"
     #LIBRARY="#terminals"
     #MDA_RECORD_TOKEN="OTHER"
-    #REFERENCE="DATA_UPLINK_N(0:1)"
+    #REFERENCE="DATA_UPLINK_N(0:0)"
     #SYMBOL="BusOutput"
     #SYMBOL_GLOBALLY_UNIQUE_IDENTIFIER=""
     #VHDL_TYPE="STD_LOGIC_VECTOR"
@@ -5431,9 +5437,10 @@ PAGE ""
    {
     #COMPONENT="BusOutput"
     #CUSTOM_NAME=""
+    #DOWNTO="0"
     #LIBRARY="#terminals"
     #MDA_RECORD_TOKEN="OTHER"
-    #REFERENCE="VIDEO_UPLINK_P(0:1)"
+    #REFERENCE="VIDEO_UPLINK_P(0:0)"
     #SYMBOL="BusOutput"
     #SYMBOL_GLOBALLY_UNIQUE_IDENTIFIER=""
     #VHDL_TYPE="STD_LOGIC_VECTOR"
@@ -5457,9 +5464,10 @@ PAGE ""
    {
     #COMPONENT="BusOutput"
     #CUSTOM_NAME=""
+    #DOWNTO="0"
     #LIBRARY="#terminals"
     #MDA_RECORD_TOKEN="OTHER"
-    #REFERENCE="VIDEO_UPLINK_N(0:1)"
+    #REFERENCE="VIDEO_UPLINK_N(0:0)"
     #SYMBOL="BusOutput"
     #SYMBOL_GLOBALLY_UNIQUE_IDENTIFIER=""
     #VHDL_TYPE="STD_LOGIC_VECTOR"
@@ -10188,7 +10196,7 @@ PAGE ""
     #SYMBOL_GLOBALLY_UNIQUE_IDENTIFIER="b55488c0-ff55-4f81-8b23-20a0b511542f"
    }
    COORD (820,640)
-   VERTEXES ( (54,25806), (52,25802), (50,25804), (44,24484), (42,24486), (40,24045), (36,24483), (34,23972), (32,24488), (30,23970), (26,23968), (20,23973), (16,23975), (12,24049), (10,23966), (6,23964), (4,23962), (2,25808), (28,26884), (48,26887) )
+   VERTEXES ( (2,25808), (4,23962), (6,23964), (10,23966), (12,24049), (16,23975), (20,23973), (26,23968), (28,26884), (30,23970), (32,24488), (34,23972), (36,24483), (40,24045), (42,24486), (44,24484), (48,26887), (50,25804), (52,25802), (54,25806) )
   }
   TEXT  22364, 0, 0
   {
@@ -13662,7 +13670,7 @@ PAGE ""
  
  BODY
  {
-  TEXT  27935, 0, 0
+  TEXT  27958, 0, 0
   {
    PAGEALIGN 10
    OUTLINE 5,1, (0,0,0)
@@ -13673,7 +13681,7 @@ PAGE ""
    COLOR (0,0,0)
    FONT (11,0,0,400,0,0,0,"Arial")
   }
-  TEXT  27936, 0, 0
+  TEXT  27959, 0, 0
   {
    PAGEALIGN 10
    TEXT "$CREATIONDATE"
@@ -13684,7 +13692,7 @@ PAGE ""
    FONT (11,0,0,400,0,0,0,"Arial")
    UPDATE 0
   }
-  TEXT  27937, 0, 0
+  TEXT  27960, 0, 0
   {
    PAGEALIGN 10
    TEXT "Title:"
@@ -13694,7 +13702,7 @@ PAGE ""
    COLOR (0,0,0)
    FONT (11,0,0,400,0,0,0,"Arial")
   }
-  TEXT  27938, 0, 0
+  TEXT  27961, 0, 0
   {
    PAGEALIGN 10
    OUTLINE 5,1, (0,0,0)
@@ -13706,27 +13714,27 @@ PAGE ""
    FONT (11,0,0,400,0,0,0,"Arial")
    UPDATE 0
   }
-  LINE  27939, 0, 0
+  LINE  27962, 0, 0
   {
    PAGEALIGN 10
    OUTLINE 0,1, (128,128,128)
    POINTS ( (6741,4356), (7281,4356) )
    FILL (1,(0,0,0),0)
   }
-  LINE  27940, 0, 0
+  LINE  27963, 0, 0
   {
    PAGEALIGN 10
    OUTLINE 0,1, (128,128,128)
    POINTS ( (6741,4356), (6741,4476) )
   }
-  LINE  27941, 0, 0
+  LINE  27964, 0, 0
   {
    PAGEALIGN 10
    OUTLINE 0,1, (128,128,128)
    POINTS ( (7281,4476), (7281,4236), (6301,4236), (6301,4476), (7281,4476) )
    FILL (1,(0,0,0),0)
   }
-  TEXT  27942, 0, 0
+  TEXT  27965, 0, 0
   {
    PAGEALIGN 10
    TEXT 
@@ -13741,20 +13749,20 @@ PAGE ""
    VAR
    MULTILINE
   }
-  LINE  27943, 0, 0
+  LINE  27966, 0, 0
   {
    PAGEALIGN 10
    OUTLINE 0,1, (128,128,128)
    POINTS ( (6741,4236), (6741,4356) )
   }
-  LINE  27944, 0, 0
+  LINE  27967, 0, 0
   {
    PAGEALIGN 10
    OUTLINE 0,1, (128,128,128)
    POINTS ( (7281,4236), (7281,4116), (6741,4116), (6741,4236), (7281,4236) )
    FILL (1,(0,0,0),0)
   }
-  TEXT  27945, 0, 0
+  TEXT  27968, 0, 0
   {
    PAGEALIGN 10
    TEXT "$FIRMWARE"
@@ -13765,7 +13773,7 @@ PAGE ""
    FONT (11,0,0,400,0,0,0,"Arial")
    UPDATE 0
   }
-  TEXT  27946, 0, 0
+  TEXT  27969, 0, 0
   {
    PAGEALIGN 10
    TEXT "$AUTHOR"
@@ -13776,7 +13784,7 @@ PAGE ""
    FONT (11,0,0,400,0,0,0,"Arial")
    UPDATE 0
   }
-  TEXT  27947, 0, 0
+  TEXT  27970, 0, 0
   {
    PAGEALIGN 10
    TEXT "$PROJECT"
@@ -13787,7 +13795,7 @@ PAGE ""
    FONT (11,0,0,400,0,0,0,"Arial")
    UPDATE 0
   }
-  TEXT  27948, 0, 0
+  TEXT  27971, 0, 0
   {
    PAGEALIGN 10
    OUTLINE 5,1, (0,0,0)
@@ -13798,7 +13806,7 @@ PAGE ""
    COLOR (0,0,0)
    FONT (11,0,0,400,0,0,0,"Arial")
   }
-  TEXT  27949, 0, 0
+  TEXT  27972, 0, 0
   {
    PAGEALIGN 10
    OUTLINE 5,1, (0,0,0)
@@ -13809,20 +13817,20 @@ PAGE ""
    COLOR (0,0,0)
    FONT (11,0,0,400,0,0,0,"Arial")
   }
-  LINE  27950, 0, 0
+  LINE  27973, 0, 0
   {
    PAGEALIGN 10
    OUTLINE 0,1, (128,128,128)
    POINTS ( (6461,4236), (6461,4356) )
   }
-  LINE  27951, 0, 0
+  LINE  27974, 0, 0
   {
    PAGEALIGN 10
    OUTLINE 0,1, (128,128,128)
    POINTS ( (6301,4356), (6741,4356) )
    FILL (1,(0,0,0),0)
   }
-  TEXT  27952, 0, 0
+  TEXT  27975, 0, 0
   {
    PAGEALIGN 10
    OUTLINE 5,1, (0,0,0)
@@ -13833,7 +13841,7 @@ PAGE ""
    COLOR (0,0,0)
    FONT (11,0,0,400,0,0,0,"Arial")
   }
-  TEXT  27953, 0, 0
+  TEXT  27976, 0, 0
   {
    PAGEALIGN 10
    OUTLINE 5,1, (0,0,0)
@@ -13844,19 +13852,19 @@ PAGE ""
    COLOR (0,0,0)
    FONT (11,0,0,400,0,0,0,"Arial")
   }
-  LINE  27954, 0, 0
+  LINE  27977, 0, 0
   {
    PAGEALIGN 10
    OUTLINE 0,1, (128,128,128)
    POINTS ( (6461,4356), (6461,4476) )
   }
-  LINE  27955, 0, 0
+  LINE  27978, 0, 0
   {
    PAGEALIGN 10
    OUTLINE 0,1, (128,128,128)
    POINTS ( (6861,4356), (6861,4476) )
   }
-  TEXT  27956, 0, 0
+  TEXT  27979, 0, 0
   {
    PAGEALIGN 10
    TEXT "$REVISION"
@@ -13867,7 +13875,7 @@ PAGE ""
    FONT (11,0,0,400,0,0,0,"Arial")
    UPDATE 0
   }
-  BMPPICT  27957, 0, 0
+  BMPPICT  27980, 0, 0
   {
    PAGEALIGN 10
    RECT (6821,4136,7201,4231)

@@ -33,7 +33,7 @@ set_property PACKAGE_PIN H5 [get_ports AURORA_CLK_N2]
 #set_property PACKAGE_PIN N3 [get_ports {DATA_DOWNLINK_N[1]}]
 
 set_property PACKAGE_PIN P2 [get_ports {DATA_UPLINK_P[0]}]
-set_property PACKAGE_PIN M2 [get_ports {DATA_UPLINK_P[1]}]
+#set_property PACKAGE_PIN M2 [get_ports {DATA_UPLINK_P[1]}]
 
 
 
