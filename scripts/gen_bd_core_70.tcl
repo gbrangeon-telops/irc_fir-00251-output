@@ -776,6 +776,9 @@ CONFIG.SENSITIVITY {EDGE_RISING} \
   set UART_STORAGE_TX [ create_bd_port -dir O UART_STORAGE_TX ]
   set clk_50 [ create_bd_port -dir O -type clk clk_50 ]
   set clk_core_scaler [ create_bd_port -dir O -type clk clk_core_scaler ]
+  set_property -dict [ list \
+CONFIG.FREQ_HZ {210000000} \
+ ] $clk_core_scaler
   set clk_data [ create_bd_port -dir O -type clk clk_data ]
   set_property -dict [ list \
 CONFIG.ASSOCIATED_BUSIF {S_FB_GIGE_MM2S:S_FB_GIGE_S2MM:S_FB_SDI_MM2S:S_FB_SDI_S2MM} \
@@ -828,22 +831,22 @@ CONFIG.C_S_AXI_ACLK_FREQ_HZ.VALUE_SRC {DEFAULT} \
   # Create instance: clk_wiz_0, and set properties
   set clk_wiz_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:clk_wiz:5.3 clk_wiz_0 ]
   set_property -dict [ list \
-CONFIG.CLKOUT1_JITTER {161.019} \
-CONFIG.CLKOUT1_PHASE_ERROR {109.126} \
+CONFIG.CLKOUT1_JITTER {203.457} \
+CONFIG.CLKOUT1_PHASE_ERROR {155.540} \
 CONFIG.CLKOUT1_REQUESTED_OUT_FREQ {50} \
-CONFIG.CLKOUT2_JITTER {144.010} \
-CONFIG.CLKOUT2_PHASE_ERROR {109.126} \
+CONFIG.CLKOUT2_JITTER {180.731} \
+CONFIG.CLKOUT2_PHASE_ERROR {155.540} \
 CONFIG.CLKOUT2_REQUESTED_OUT_FREQ {85} \
 CONFIG.CLKOUT2_USED {true} \
-CONFIG.CLKOUT3_JITTER {144.010} \
-CONFIG.CLKOUT3_PHASE_ERROR {109.126} \
+CONFIG.CLKOUT3_JITTER {180.731} \
+CONFIG.CLKOUT3_PHASE_ERROR {155.540} \
 CONFIG.CLKOUT3_REQUESTED_OUT_FREQ {85} \
 CONFIG.CLKOUT3_REQUESTED_PHASE {180} \
 CONFIG.CLKOUT3_USED {true} \
-CONFIG.CLKOUT4_JITTER {125.465} \
-CONFIG.CLKOUT4_PHASE_ERROR {109.126} \
+CONFIG.CLKOUT4_JITTER {157.127} \
+CONFIG.CLKOUT4_PHASE_ERROR {155.540} \
 CONFIG.CLKOUT4_REQUESTED_OUT_FREQ {170} \
-CONFIG.CLKOUT4_USED {true} \
+CONFIG.CLKOUT4_USED {false} \
 CONFIG.CLKOUT5_DRIVES {BUFG} \
 CONFIG.CLKOUT5_REQUESTED_OUT_FREQ {100.000} \
 CONFIG.CLKOUT5_REQUESTED_PHASE {0.000} \
@@ -852,15 +855,17 @@ CONFIG.CLKOUT6_DRIVES {BUFG} \
 CONFIG.CLKOUT6_REQUESTED_OUT_FREQ {100.000} \
 CONFIG.CLKOUT6_REQUESTED_PHASE {0.000} \
 CONFIG.CLKOUT6_USED {false} \
-CONFIG.MMCM_CLKFBOUT_MULT_F {8.500} \
+CONFIG.MMCM_CLKFBOUT_MULT_F {17.000} \
 CONFIG.MMCM_CLKIN1_PERIOD {10.0} \
 CONFIG.MMCM_CLKIN2_PERIOD {10.0} \
 CONFIG.MMCM_CLKOUT0_DIVIDE_F {17.000} \
 CONFIG.MMCM_CLKOUT1_DIVIDE {10} \
 CONFIG.MMCM_CLKOUT2_DIVIDE {10} \
-CONFIG.MMCM_CLKOUT3_DIVIDE {5} \
+CONFIG.MMCM_CLKOUT2_PHASE {180.000} \
+CONFIG.MMCM_CLKOUT3_DIVIDE {1} \
 CONFIG.MMCM_COMPENSATION {ZHOLD} \
-CONFIG.NUM_OUT_CLKS {4} \
+CONFIG.MMCM_DIVCLK_DIVIDE {2} \
+CONFIG.NUM_OUT_CLKS {3} \
 CONFIG.PRIM_SOURCE {No_buffer} \
 CONFIG.RESET_PORT {resetn} \
 CONFIG.RESET_TYPE {ACTIVE_LOW} \
@@ -871,25 +876,79 @@ CONFIG.USE_RESET {true} \
 
   # Need to retain value_src of defaults
   set_property -dict [ list \
-CONFIG.CLKOUT1_JITTER.VALUE_SRC {DEFAULT} \
-CONFIG.CLKOUT1_PHASE_ERROR.VALUE_SRC {DEFAULT} \
-CONFIG.CLKOUT2_JITTER.VALUE_SRC {DEFAULT} \
-CONFIG.CLKOUT2_PHASE_ERROR.VALUE_SRC {DEFAULT} \
-CONFIG.CLKOUT3_JITTER.VALUE_SRC {DEFAULT} \
-CONFIG.CLKOUT3_PHASE_ERROR.VALUE_SRC {DEFAULT} \
-CONFIG.CLKOUT4_JITTER.VALUE_SRC {DEFAULT} \
-CONFIG.CLKOUT4_PHASE_ERROR.VALUE_SRC {DEFAULT} \
 CONFIG.MMCM_CLKFBOUT_MULT_F.VALUE_SRC {DEFAULT} \
 CONFIG.MMCM_CLKIN1_PERIOD.VALUE_SRC {DEFAULT} \
 CONFIG.MMCM_CLKIN2_PERIOD.VALUE_SRC {DEFAULT} \
 CONFIG.MMCM_CLKOUT0_DIVIDE_F.VALUE_SRC {DEFAULT} \
 CONFIG.MMCM_CLKOUT1_DIVIDE.VALUE_SRC {DEFAULT} \
 CONFIG.MMCM_CLKOUT2_DIVIDE.VALUE_SRC {DEFAULT} \
-CONFIG.MMCM_CLKOUT3_DIVIDE.VALUE_SRC {DEFAULT} \
+CONFIG.MMCM_CLKOUT2_PHASE.VALUE_SRC {DEFAULT} \
 CONFIG.MMCM_COMPENSATION.VALUE_SRC {DEFAULT} \
-CONFIG.NUM_OUT_CLKS.VALUE_SRC {DEFAULT} \
 CONFIG.RESET_PORT.VALUE_SRC {DEFAULT} \
  ] $clk_wiz_0
+
+  # Create instance: clk_wiz_1, and set properties
+  set clk_wiz_1 [ create_bd_cell -type ip -vlnv xilinx.com:ip:clk_wiz:5.3 clk_wiz_1 ]
+  set_property -dict [ list \
+CONFIG.CLKIN1_JITTER_PS {200.0} \
+CONFIG.CLKOUT1_JITTER {136.678} \
+CONFIG.CLKOUT1_PHASE_ERROR {164.344} \
+CONFIG.CLKOUT1_REQUESTED_OUT_FREQ {210} \
+CONFIG.CLKOUT2_JITTER {144.010} \
+CONFIG.CLKOUT2_PHASE_ERROR {109.126} \
+CONFIG.CLKOUT2_REQUESTED_OUT_FREQ {85} \
+CONFIG.CLKOUT2_USED {false} \
+CONFIG.CLKOUT3_JITTER {144.010} \
+CONFIG.CLKOUT3_PHASE_ERROR {109.126} \
+CONFIG.CLKOUT3_REQUESTED_OUT_FREQ {85} \
+CONFIG.CLKOUT3_REQUESTED_PHASE {180} \
+CONFIG.CLKOUT3_USED {false} \
+CONFIG.CLKOUT4_JITTER {125.465} \
+CONFIG.CLKOUT4_PHASE_ERROR {109.126} \
+CONFIG.CLKOUT4_REQUESTED_OUT_FREQ {170} \
+CONFIG.CLKOUT4_USED {false} \
+CONFIG.CLKOUT5_DRIVES {BUFG} \
+CONFIG.CLKOUT5_REQUESTED_OUT_FREQ {100.000} \
+CONFIG.CLKOUT5_REQUESTED_PHASE {0.000} \
+CONFIG.CLKOUT5_USED {false} \
+CONFIG.CLKOUT6_DRIVES {BUFG} \
+CONFIG.CLKOUT6_REQUESTED_OUT_FREQ {100.000} \
+CONFIG.CLKOUT6_REQUESTED_PHASE {0.000} \
+CONFIG.CLKOUT6_USED {false} \
+CONFIG.MMCM_CLKFBOUT_MULT_F {21.000} \
+CONFIG.MMCM_CLKIN1_PERIOD {20.0} \
+CONFIG.MMCM_CLKIN2_PERIOD {10.0} \
+CONFIG.MMCM_CLKOUT0_DIVIDE_F {5.000} \
+CONFIG.MMCM_CLKOUT1_DIVIDE {1} \
+CONFIG.MMCM_CLKOUT2_DIVIDE {1} \
+CONFIG.MMCM_CLKOUT2_PHASE {180.000} \
+CONFIG.MMCM_CLKOUT3_DIVIDE {1} \
+CONFIG.MMCM_COMPENSATION {ZHOLD} \
+CONFIG.MMCM_DIVCLK_DIVIDE {1} \
+CONFIG.NUM_OUT_CLKS {1} \
+CONFIG.PRIM_SOURCE {No_buffer} \
+CONFIG.RESET_PORT {resetn} \
+CONFIG.RESET_TYPE {ACTIVE_LOW} \
+CONFIG.USE_PHASE_ALIGNMENT {true} \
+CONFIG.USE_POWER_DOWN {false} \
+CONFIG.USE_RESET {true} \
+ ] $clk_wiz_1
+
+  # Need to retain value_src of defaults
+  set_property -dict [ list \
+CONFIG.CLKIN1_JITTER_PS.VALUE_SRC {DEFAULT} \
+CONFIG.CLKOUT2_JITTER.VALUE_SRC {DEFAULT} \
+CONFIG.CLKOUT2_PHASE_ERROR.VALUE_SRC {DEFAULT} \
+CONFIG.CLKOUT3_JITTER.VALUE_SRC {DEFAULT} \
+CONFIG.CLKOUT3_PHASE_ERROR.VALUE_SRC {DEFAULT} \
+CONFIG.CLKOUT4_JITTER.VALUE_SRC {DEFAULT} \
+CONFIG.CLKOUT4_PHASE_ERROR.VALUE_SRC {DEFAULT} \
+CONFIG.MMCM_CLKIN1_PERIOD.VALUE_SRC {DEFAULT} \
+CONFIG.MMCM_CLKIN2_PERIOD.VALUE_SRC {DEFAULT} \
+CONFIG.MMCM_CLKOUT2_PHASE.VALUE_SRC {DEFAULT} \
+CONFIG.MMCM_COMPENSATION.VALUE_SRC {DEFAULT} \
+CONFIG.RESET_PORT.VALUE_SRC {DEFAULT} \
+ ] $clk_wiz_1
 
   # Create instance: fpga_comm_uart, and set properties
   set fpga_comm_uart [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_uart16550:2.0 fpga_comm_uart ]
@@ -993,11 +1052,12 @@ CONFIG.SEQUENCER_MODE.VALUE_SRC {DEFAULT} \
   connect_bd_net -net axi_uart16550_0_sout [get_bd_ports UART_STORAGE_TX] [get_bd_pins axi_uart_storage/sout]
   create_bd_net clk_wiz_0_clk_out1
   connect_bd_net -net [get_bd_nets clk_wiz_0_clk_out1] [get_bd_ports clk_mb] [get_bd_pins FB_MEMORY/CLK_MB] [get_bd_pins FB_MEMORY/UI_ACLK] [get_bd_pins MCU/Clk] [get_bd_pins axi_gpio_0/s_axi_aclk] [get_bd_pins axi_quad_spi_0/s_axi_aclk] [get_bd_pins axi_timer_0/s_axi_aclk] [get_bd_pins axi_uart_storage/s_axi_aclk] [get_bd_pins clk_wiz_0/clk_in1] [get_bd_pins fpga_comm_uart/s_axi_aclk] [get_bd_pins microblaze_0_axi_periph/ACLK] [get_bd_pins microblaze_0_axi_periph/M00_ACLK] [get_bd_pins microblaze_0_axi_periph/M01_ACLK] [get_bd_pins microblaze_0_axi_periph/M02_ACLK] [get_bd_pins microblaze_0_axi_periph/M03_ACLK] [get_bd_pins microblaze_0_axi_periph/M04_ACLK] [get_bd_pins microblaze_0_axi_periph/M05_ACLK] [get_bd_pins microblaze_0_axi_periph/M06_ACLK] [get_bd_pins microblaze_0_axi_periph/M07_ACLK] [get_bd_pins microblaze_0_axi_periph/M08_ACLK] [get_bd_pins microblaze_0_axi_periph/M09_ACLK] [get_bd_pins microblaze_0_axi_periph/M10_ACLK] [get_bd_pins microblaze_0_axi_periph/M11_ACLK] [get_bd_pins microblaze_0_axi_periph/M12_ACLK] [get_bd_pins microblaze_0_axi_periph/M13_ACLK] [get_bd_pins microblaze_0_axi_periph/M14_ACLK] [get_bd_pins microblaze_0_axi_periph/S00_ACLK] [get_bd_pins xadc_wiz_0/s_axi_aclk]
-  connect_bd_net -net clk_wiz_0_clk_out2 [get_bd_ports clk_core_scaler] [get_bd_pins clk_wiz_0/clk_out4]
   connect_bd_net -net clk_wiz_0_clk_out3 [get_bd_ports clk_data_n] [get_bd_pins clk_wiz_0/clk_out3]
-  connect_bd_net -net clk_wiz_0_clk_out4 [get_bd_ports clk_50] [get_bd_pins axi_quad_spi_0/ext_spi_clk] [get_bd_pins clk_wiz_0/clk_out1] [get_bd_pins proc_sys_reset_1/slowest_sync_clk]
-  connect_bd_net -net clk_wiz_0_locked [get_bd_pins clk_wiz_0/locked] [get_bd_pins proc_sys_reset_1/dcm_locked]
+  connect_bd_net -net clk_wiz_0_clk_out4 [get_bd_ports clk_50] [get_bd_pins axi_quad_spi_0/ext_spi_clk] [get_bd_pins clk_wiz_0/clk_out1] [get_bd_pins clk_wiz_1/clk_in1] [get_bd_pins proc_sys_reset_1/slowest_sync_clk]
+  connect_bd_net -net clk_wiz_0_locked [get_bd_pins clk_wiz_0/locked] [get_bd_pins clk_wiz_1/resetn]
+  connect_bd_net -net clk_wiz_1_clk_out1 [get_bd_ports clk_core_scaler] [get_bd_pins clk_wiz_1/clk_out1]
   connect_bd_net -net clk_wiz_1_clk_out2 [get_bd_ports clk_data] [get_bd_pins FB_MEMORY/CLK_DATA] [get_bd_pins clk_wiz_0/clk_out2]
+  connect_bd_net -net clk_wiz_1_locked [get_bd_pins clk_wiz_1/locked] [get_bd_pins proc_sys_reset_1/dcm_locked]
   connect_bd_net -net fpga_comm_uart_ip2intc_irpt [get_bd_pins fpga_comm_uart/ip2intc_irpt] [get_bd_pins microblaze_0_xlconcat/In1]
   connect_bd_net -net fpga_comm_uart_sout [get_bd_ports UART_PROC_TX] [get_bd_pins fpga_comm_uart/sout]
   connect_bd_net -net m00_aresetn_1 [get_bd_pins FB_MEMORY/INTERCONNECT_ARESETN] [get_bd_pins microblaze_0_axi_periph/ARESETN] [get_bd_pins proc_sys_reset_1/interconnect_aresetn]
@@ -1042,101 +1102,102 @@ CONFIG.SEQUENCER_MODE.VALUE_SRC {DEFAULT} \
    guistr: "# # String gsaved with Nlview 6.6.5b  2016-09-06 bk=1.3687 VDI=39 GEI=35 GUI=JA:1.6
 #  -string -flagsOSRD
 preplace port vn -pg 1 -y 1600 -defaultsOSRD
-preplace port S_FB_SDI_S2MM -pg 1 -y 890 -defaultsOSRD
+preplace port S_FB_SDI_S2MM -pg 1 -y 1180 -defaultsOSRD
 preplace port AXIL_FAN_CTRL -pg 1 -y 360 -defaultsOSRD
-preplace port vp -pg 1 -y 1700 -defaultsOSRD
+preplace port vp -pg 1 -y 1620 -defaultsOSRD
 preplace port UART_STORAGE -pg 1 -y 20 -defaultsOSRD
-preplace port UART_PROC_RX -pg 1 -y 1380 -defaultsOSRD
-preplace port S_FB_GIGE_S2MM -pg 1 -y 870 -defaultsOSRD
-preplace port S_FB_GIGE_MM2S -pg 1 -y 850 -defaultsOSRD
-preplace port SYS_CLK -pg 1 -y 830 -defaultsOSRD
-preplace port clk_data -pg 1 -y 1770 -defaultsOSRD
-preplace port clk_core_scaler -pg 1 -y 1450 -defaultsOSRD
-preplace port S_FB_SDI_MM2S -pg 1 -y 660 -defaultsOSRD
-preplace port clk_data_n -pg 1 -y 1430 -defaultsOSRD
-preplace port FB_DDR3 -pg 1 -y 860 -defaultsOSRD
-preplace port AXIL_PLEORA_CTRL -pg 1 -y 560 -defaultsOSRD
-preplace port UART_STORAGE_TX -pg 1 -y 1880 -defaultsOSRD
-preplace port clk_50 -pg 1 -y 1410 -defaultsOSRD
+preplace port UART_PROC_RX -pg 1 -y 700 -defaultsOSRD
+preplace port S_FB_GIGE_S2MM -pg 1 -y 1140 -defaultsOSRD
+preplace port S_FB_GIGE_MM2S -pg 1 -y 1120 -defaultsOSRD
+preplace port SYS_CLK -pg 1 -y 1220 -defaultsOSRD
+preplace port clk_data -pg 1 -y 1940 -defaultsOSRD
+preplace port clk_core_scaler -pg 1 -y 1430 -defaultsOSRD
+preplace port S_FB_SDI_MM2S -pg 1 -y 1160 -defaultsOSRD
+preplace port clk_data_n -pg 1 -y 1410 -defaultsOSRD
+preplace port FB_DDR3 -pg 1 -y 1210 -defaultsOSRD
+preplace port AXIL_PLEORA_CTRL -pg 1 -y 500 -defaultsOSRD
+preplace port UART_STORAGE_TX -pg 1 -y 1860 -defaultsOSRD
+preplace port clk_50 -pg 1 -y 1960 -defaultsOSRD
 preplace port AXIL_MGT -pg 1 -y 340 -defaultsOSRD
-preplace port QSPI_PROM -pg 1 -y 1100 -defaultsOSRD
-preplace port LED -pg 1 -y 260 -defaultsOSRD
-preplace port AXIL_SDI_CTRL -pg 1 -y 580 -defaultsOSRD
+preplace port QSPI_PROM -pg 1 -y 930 -defaultsOSRD
+preplace port LED -pg 1 -y 420 -defaultsOSRD
+preplace port AXIL_SDI_CTRL -pg 1 -y 520 -defaultsOSRD
 preplace port AXIL_CLINK -pg 1 -y 320 -defaultsOSRD
-preplace port clk_mb -pg 1 -y 880 -defaultsOSRD
-preplace port UART_STORAGE_RX -pg 1 -y 1780 -defaultsOSRD
-preplace port UART_PROC_TX -pg 1 -y 1290 -defaultsOSRD
-preplace port AXIL_FB_CTRL -pg 1 -y 540 -defaultsOSRD
-preplace portBus AGC_INTR -pg 1 -y 1290 -defaultsOSRD
-preplace portBus AXI_ARESETN -pg 1 -y 1790 -defaultsOSRD
-preplace inst MCU -pg 1 -lvl 2 -y 670 -defaultsOSRD
-preplace inst vcc -pg 1 -lvl 1 -y 930 -defaultsOSRD
-preplace inst xadc_wiz_0 -pg 1 -lvl 4 -y 1610 -defaultsOSRD
-preplace inst gnd -pg 1 -lvl 2 -y 1550 -defaultsOSRD
-preplace inst fpga_comm_uart -pg 1 -lvl 4 -y 1280 -defaultsOSRD
-preplace inst microblaze_0_axi_periph -pg 1 -lvl 3 -y 390 -defaultsOSRD
-preplace inst FB_MEMORY -pg 1 -lvl 4 -y 880 -defaultsOSRD
-preplace inst microblaze_0_xlconcat -pg 1 -lvl 1 -y 1260 -defaultsOSRD
-preplace inst axi_timer_0 -pg 1 -lvl 4 -y 450 -defaultsOSRD
-preplace inst axi_gpio_0 -pg 1 -lvl 4 -y 260 -defaultsOSRD
-preplace inst proc_sys_reset_1 -pg 1 -lvl 1 -y 670 -defaultsOSRD
-preplace inst clk_wiz_0 -pg 1 -lvl 3 -y 1510 -defaultsOSRD
-preplace inst axi_uart_storage -pg 1 -lvl 4 -y 1870 -defaultsOSRD
-preplace inst axi_quad_spi_0 -pg 1 -lvl 4 -y 1120 -defaultsOSRD
-preplace netloc axi_quad_spi_0_SPI_0 1 4 1 NJ
-preplace netloc xadc_wiz_0_temp_out 1 3 2 1220 710 1580
-preplace netloc FB_MEMORY_mmcm_locked 1 2 3 800 1200 NJ 1200 1550
-preplace netloc microblaze_0_axi_periph_M04_AXI 1 3 2 NJ 330 1570J
-preplace netloc microblaze_0_axi_periph_M08_AXI 1 3 1 1100
-preplace netloc vp_in_1 1 0 4 20J 1620 NJ 1620 NJ 1620 NJ
-preplace netloc clk_wiz_0_locked 1 0 4 0 1410 NJ 1410 NJ 1410 1060
-preplace netloc S_FB_SDI_MM2S_1 1 0 4 -10J 810 NJ 810 NJ 810 NJ
-preplace netloc microblaze_0_axi_periph_M13_AXI 1 3 2 1140J 580 NJ
-preplace netloc vn_in_1 1 0 4 NJ 1600 NJ 1600 NJ 1600 NJ
-preplace netloc sys_clk_1 1 0 4 NJ 830 NJ 830 NJ 830 1090J
-preplace netloc microblaze_0_axi_periph_M06_AXI 1 3 1 1220
-preplace netloc microblaze_0_axi_periph_M03_AXI 1 3 1 1150
-preplace netloc xadc_wiz_0_ip2intc_irpt 1 0 5 10 1420 NJ 1420 NJ 1420 NJ 1420 1550
-preplace netloc proc_sys_reset_1_peripheral_aresetn 1 1 4 400 1790 780 1790 1180 1790 NJ
-preplace netloc axi_uart16550_0_sout 1 4 1 NJ
-preplace netloc axi_uart16550_0_ip2intc_irpt 1 0 5 40 1400 NJ 1400 NJ 1400 NJ 1400 1560
-preplace netloc UART_PROC_RX_1 1 0 5 -10J 1360 NJ 1360 NJ 1360 NJ 1360 1550
-preplace netloc mig_7series_0_ddr3 1 4 1 NJ
-preplace netloc microblaze_0_axi_periph_M10_AXI 1 3 1 1100
-preplace netloc proc_sys_reset_1_bus_struct_reset 1 1 1 410
-preplace netloc UART_STORAGE_RX_1 1 0 5 NJ 1780 NJ 1780 NJ 1780 NJ 1780 1550
-preplace netloc AGC_INTR_1 1 0 1 NJ
-preplace netloc microblaze_0_axi_periph_M05_AXI 1 3 2 1120J 340 NJ
-preplace netloc xlconstant_0_const 1 2 2 790 990 NJ
-preplace netloc fpga_comm_uart_sout 1 4 1 NJ
-preplace netloc s00_axi_1 1 2 1 750
-preplace netloc microblaze_0_axi_periph_m02_axi 1 3 1 1160
-preplace netloc microblaze_0_axi_periph_m01_axi 1 1 3 430 800 NJ 800 1060
-preplace netloc proc_sys_reset_1_peripheral_reset 1 1 1 N
-preplace netloc mcu_debug_sys_rst 1 0 3 0 500 NJ 500 740
-preplace netloc m00_aresetn_1 1 1 3 400J 90 760 930 NJ
-preplace netloc fpga_comm_uart_ip2intc_irpt 1 0 5 30 1380 NJ 1380 NJ 1380 NJ 1380 1560
-preplace netloc clk_wiz_0_clk_out1 1 1 4 440 910 770 910 1170 700 1590
-preplace netloc S01_AXI_1 1 0 4 NJ 870 NJ 870 NJ 870 1080J
-preplace netloc S00_AXI_2 1 0 4 NJ 850 NJ 850 NJ 850 1110J
-preplace netloc axi_gpio_0_GPIO 1 4 1 NJ
-preplace netloc clk_wiz_1_clk_out2 1 3 2 1210 1770 NJ
-preplace netloc clk_wiz_0_clk_out2 1 3 2 1200J 1450 NJ
-preplace netloc microblaze_0_axi_periph_M07_AXI 1 3 2 1130J 350 1570J
-preplace netloc microblaze_0_axi_periph_m00_axi 1 1 3 450 790 NJ 790 1070
-preplace netloc microblaze_0_axi_periph_M14_AXI 1 3 1 1120
-preplace netloc microblaze_0_xlconcat_dout 1 1 1 410
-preplace netloc clk_wiz_0_clk_out3 1 3 2 1190J 1430 NJ
-preplace netloc vcc_const 1 0 2 20 580 390
-preplace netloc clk_wiz_0_clk_out4 1 0 5 10 1110 NJ 1110 NJ 1110 1070 1410 NJ
-preplace netloc axi_quad_spi_0_ip2intc_irpt 1 0 5 50 1370 NJ 1370 NJ 1370 NJ 1370 1570
-preplace netloc S_FB_SDI_S2MM_1 1 0 4 -10J 880 NJ 880 NJ 880 1210J
-preplace netloc microblaze_0_axi_periph_M11_AXI 1 3 2 1220J 560 NJ
-preplace netloc microblaze_0_axi_periph_M09_AXI 1 3 2 1080J 190 1590J
-preplace netloc microblaze_0_axi_periph_M12_AXI 1 3 1 1130
-preplace netloc proc_sys_reset_1_mb_reset 1 1 1 420
-preplace netloc axi_timer_0_interrupt 1 0 5 20 1040 NJ 1040 NJ 1040 NJ 1040 1570
-levelinfo -pg 1 -30 230 600 930 1390 1620 -top 0 -bot 1950
+preplace port clk_mb -pg 1 -y 1230 -defaultsOSRD
+preplace port UART_STORAGE_RX -pg 1 -y 1930 -defaultsOSRD
+preplace port UART_PROC_TX -pg 1 -y 610 -defaultsOSRD
+preplace port AXIL_FB_CTRL -pg 1 -y 480 -defaultsOSRD
+preplace portBus AGC_INTR -pg 1 -y 1050 -defaultsOSRD
+preplace portBus AXI_ARESETN -pg 1 -y 1770 -defaultsOSRD
+preplace inst MCU -pg 1 -lvl 3 -y 930 -defaultsOSRD
+preplace inst vcc -pg 1 -lvl 1 -y 800 -defaultsOSRD
+preplace inst xadc_wiz_0 -pg 1 -lvl 5 -y 1610 -defaultsOSRD
+preplace inst gnd -pg 1 -lvl 4 -y 1290 -defaultsOSRD
+preplace inst fpga_comm_uart -pg 1 -lvl 5 -y 600 -defaultsOSRD
+preplace inst microblaze_0_axi_periph -pg 1 -lvl 4 -y 390 -defaultsOSRD
+preplace inst FB_MEMORY -pg 1 -lvl 5 -y 1230 -defaultsOSRD
+preplace inst microblaze_0_xlconcat -pg 1 -lvl 2 -y 1020 -defaultsOSRD
+preplace inst axi_timer_0 -pg 1 -lvl 5 -y 760 -defaultsOSRD
+preplace inst axi_gpio_0 -pg 1 -lvl 5 -y 420 -defaultsOSRD
+preplace inst proc_sys_reset_1 -pg 1 -lvl 2 -y 800 -defaultsOSRD
+preplace inst clk_wiz_0 -pg 1 -lvl 4 -y 1440 -defaultsOSRD
+preplace inst clk_wiz_1 -pg 1 -lvl 3 -y 1430 -defaultsOSRD -resize 120 140
+preplace inst axi_uart_storage -pg 1 -lvl 5 -y 1850 -defaultsOSRD
+preplace inst axi_quad_spi_0 -pg 1 -lvl 5 -y 950 -defaultsOSRD
+preplace netloc axi_quad_spi_0_SPI_0 1 5 1 NJ
+preplace netloc xadc_wiz_0_temp_out 1 4 2 1390 1770 1740
+preplace netloc FB_MEMORY_mmcm_locked 1 3 3 990 1350 1270J 1390 1740
+preplace netloc microblaze_0_axi_periph_M04_AXI 1 4 2 NJ 330 1750J
+preplace netloc microblaze_0_axi_periph_M08_AXI 1 4 1 1300
+preplace netloc vp_in_1 1 0 5 NJ 1620 NJ 1620 NJ 1620 NJ 1620 NJ
+preplace netloc clk_wiz_0_locked 1 1 4 170 1190 NJ 1190 NJ 1190 1260
+preplace netloc S_FB_SDI_MM2S_1 1 0 5 NJ 1160 NJ 1160 NJ 1160 NJ 1160 NJ
+preplace netloc microblaze_0_axi_periph_M13_AXI 1 4 2 NJ 510 1760J
+preplace netloc vn_in_1 1 0 5 NJ 1600 NJ 1600 NJ 1600 NJ 1600 NJ
+preplace netloc sys_clk_1 1 0 5 NJ 1220 NJ 1220 NJ 1220 NJ 1220 NJ
+preplace netloc microblaze_0_axi_periph_M06_AXI 1 4 1 1380
+preplace netloc microblaze_0_axi_periph_M03_AXI 1 4 1 1390
+preplace netloc xadc_wiz_0_ip2intc_irpt 1 1 5 210 910 590J 810 NJ 810 1310J 870 1780
+preplace netloc proc_sys_reset_1_peripheral_aresetn 1 2 4 550 1860 980 1860 1360 1940 1760J
+preplace netloc axi_uart16550_0_sout 1 5 1 NJ
+preplace netloc axi_uart16550_0_ip2intc_irpt 1 1 5 210 1150 NJ 1150 NJ 1150 1350J 1060 1770
+preplace netloc UART_PROC_RX_1 1 0 6 NJ 700 NJ 700 NJ 700 950J 860 NJ 860 1760
+preplace netloc mig_7series_0_ddr3 1 5 1 NJ
+preplace netloc microblaze_0_axi_periph_M10_AXI 1 4 1 1290
+preplace netloc proc_sys_reset_1_bus_struct_reset 1 2 1 570
+preplace netloc UART_STORAGE_RX_1 1 0 6 NJ 1930 NJ 1930 NJ 1930 NJ 1930 NJ 1930 1740
+preplace netloc AGC_INTR_1 1 0 2 NJ 1050 NJ
+preplace netloc microblaze_0_axi_periph_M05_AXI 1 4 2 1270J 340 NJ
+preplace netloc xlconstant_0_const 1 4 1 1270J
+preplace netloc fpga_comm_uart_sout 1 5 1 NJ
+preplace netloc s00_axi_1 1 3 1 940
+preplace netloc microblaze_0_axi_periph_m02_axi 1 4 1 1320
+preplace netloc microblaze_0_axi_periph_m01_axi 1 2 3 610 800 NJ 800 1260
+preplace netloc proc_sys_reset_1_peripheral_reset 1 2 1 N
+preplace netloc mcu_debug_sys_rst 1 1 3 210 900 560J 770 930
+preplace netloc m00_aresetn_1 1 2 3 550J 90 970 830 1270J
+preplace netloc fpga_comm_uart_ip2intc_irpt 1 1 5 180 1200 NJ 1200 NJ 1200 1250J 1030 1750
+preplace netloc clk_wiz_0_clk_out1 1 2 4 610 1840 960 1840 1340 1400 1790
+preplace netloc S01_AXI_1 1 0 5 NJ 1140 NJ 1140 NJ 1140 NJ 1140 NJ
+preplace netloc S00_AXI_2 1 0 5 NJ 1120 NJ 1120 NJ 1120 NJ 1120 NJ
+preplace netloc axi_gpio_0_GPIO 1 5 1 NJ
+preplace netloc clk_wiz_1_clk_out2 1 4 2 1380 1420 1790J
+preplace netloc clk_wiz_0_clk_out2 1 4 2 1380J 1430 NJ
+preplace netloc microblaze_0_axi_periph_M07_AXI 1 4 2 1300J 350 1750J
+preplace netloc microblaze_0_axi_periph_m00_axi 1 2 3 600 -10 NJ -10 1390
+preplace netloc microblaze_0_axi_periph_M14_AXI 1 4 1 1300
+preplace netloc microblaze_0_xlconcat_dout 1 2 1 580
+preplace netloc clk_wiz_0_clk_out3 1 4 2 1370J 1410 NJ
+preplace netloc vcc_const 1 1 1 150
+preplace netloc clk_wiz_0_clk_out4 1 1 5 160 1960 NJ 1960 NJ 1960 1330 1960 NJ
+preplace netloc axi_quad_spi_0_ip2intc_irpt 1 1 5 200 1130 NJ 1130 NJ 1130 1310J 1040 1740
+preplace netloc S_FB_SDI_S2MM_1 1 0 5 10J 1170 NJ 1170 NJ 1170 NJ 1170 1280J
+preplace netloc microblaze_0_axi_periph_M11_AXI 1 4 2 1370J 500 NJ
+preplace netloc microblaze_0_axi_periph_M09_AXI 1 4 2 1290J 300 1760J
+preplace netloc microblaze_0_axi_periph_M12_AXI 1 4 1 1330
+preplace netloc proc_sys_reset_1_mb_reset 1 2 1 580
+preplace netloc axi_timer_0_interrupt 1 1 5 190 1180 NJ 1180 NJ 1180 1260J 1050 1770
+levelinfo -pg 1 -10 90 390 790 1120 1580 1820 -top -20 -bot 1980
 ",
 }
 
@@ -1154,6 +1215,4 @@ levelinfo -pg 1 -30 230 600 930 1390 1620 -top 0 -bot 1950
 
 create_root_design ""
 
-
-common::send_msg_id "BD_TCL-1000" "WARNING" "This Tcl script was generated from a block design that has not been validated. It is possible that design <$design_name> may result in errors during validation."
 

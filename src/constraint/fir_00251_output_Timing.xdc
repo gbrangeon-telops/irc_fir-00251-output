@@ -13,7 +13,7 @@ create_clock -period 10.000 [get_pins *TXOUTCLK -hier -filter {name =~ *gt0_vide
 create_clock -period 20.000 -name clk50 [get_pins *CLKOUT0 -hier -filter {name =~ *clk_wiz_0*}]
 create_clock -period 11.764 -name clk85 [get_pins *CLKOUT1 -hier -filter {name =~ *clk_wiz_0*}]
 create_clock -period 11.764 -name clk85n -waveform {5.882 11.764} [get_pins *CLKOUT2 -hier -filter {name =~ *clk_wiz_0*}]
-create_clock -period 5.882 -name clk170 [get_pins *CLKOUT3 -hier -filter {name =~ *clk_wiz_0*}]
+create_clock -period 4.761 -name clk210 [get_pins *CLKOUT0 -hier -filter {name =~ *clk_wiz_1*}]
 create_clock -period 1.680 -name clk_dout_mult [get_pins *CLKOUT1 -hier -filter {name =~ *clink_mmcm*}]
 create_clock -period 11.764 -name clk_dout [get_pins *CLKOUT0 -hier -filter {name =~ *clink_mmcm*}]
 create_clock -period 10.000 -name clk100 [get_pins *mmcm_i/CLKFBOUT -hier -filter {name =~ *mig*}]
@@ -34,7 +34,7 @@ set_clock_groups -asynchronous -group [get_clocks -include_generated_clocks *dat
 set_clock_groups -asynchronous -group [get_clocks -include_generated_clocks *video_mgt*TXOUTCLK]
 
 set_clock_groups -asynchronous -group [get_clocks -include_generated_clocks clk100]
-set_clock_groups -asynchronous -group [get_clocks -include_generated_clocks clk170]
+set_clock_groups -asynchronous -group [get_clocks -include_generated_clocks clk210]
 set_clock_groups -asynchronous -group [get_clocks -include_generated_clocks clk50]
 set_clock_groups -asynchronous -group [get_clocks -include_generated_clocks clk85]
 set_clock_groups -asynchronous -group [get_clocks -include_generated_clocks clk85n]
