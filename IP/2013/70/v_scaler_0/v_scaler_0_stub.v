@@ -1,8 +1,8 @@
 // Copyright 1986-1999, 2001-2013 Xilinx, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2013.4 (win64) Build 353583 Mon Dec  9 17:49:19 MST 2013
-// Date        : Wed May 29 13:55:54 2019
-// Host        : TELOPSX running 64-bit Service Pack 1  (build 7601)
+// Date        : Fri Oct 30 13:13:52 2020
+// Host        : TELOPS250 running 64-bit Service Pack 1  (build 7601)
 // Command     : write_verilog -force -mode synth_stub D:/Telops/FIR-00251-Output/IP/2013/70/v_scaler_0/v_scaler_0_stub.v
 // Design      : v_scaler_0
 // Purpose     : Stub declaration of top-level module interface

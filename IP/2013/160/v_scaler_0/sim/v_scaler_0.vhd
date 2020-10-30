@@ -1,4 +1,4 @@
--- (c) Copyright 1995-2019 Xilinx, Inc. All rights reserved.
+-- (c) Copyright 1995-2020 Xilinx, Inc. All rights reserved.
 -- 
 -- This file contains confidential and proprietary information
 -- of Xilinx, Inc. and is protected under U.S. and
@@ -254,10 +254,10 @@ BEGIN
       C_LOADABLE_COEFS => 1,
       C_MANUAL_HWC_VAL => 3,
       C_MAX_COEF_SETS => 1,
-      C_MAX_LINES_IN_PER_FRAME => 1080,
+      C_MAX_LINES_IN_PER_FRAME => 1536,
       C_MAX_LINES_OUT_PER_FRAME => 1080,
       C_MAX_PHASES => 4,
-      C_MAX_SAMPLES_IN_PER_LINE => 1280,
+      C_MAX_SAMPLES_IN_PER_LINE => 1920,
       C_MAX_SAMPLES_OUT_PER_LINE => 1920,
       C_NUM_CHANNELS => 2,
       C_NUM_H_TAPS => 2,
@@ -266,7 +266,7 @@ BEGIN
       C_SEPARATE_HV_COEFS => 0,
       C_SEPARATE_YC_COEFS => 0,
       C_TARGET_MAX_FRAME_RATE => 60,
-      C_TGT_CORE_CLK_FREQ => 170,
+      C_TGT_CORE_CLK_FREQ => 210,
       C_APERTURE_END_LINE => 719,
       C_APERTURE_END_PIXEL => 1279,
       C_APERTURE_START_LINE => 0,

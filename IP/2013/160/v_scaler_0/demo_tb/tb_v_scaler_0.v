@@ -68,10 +68,10 @@
 `define TB_OUTPUT_FILE 0
 `define C_CLOCK_PERIOD_AXI          10
 `define C_S_AXI_CLK_FREQ_HZ         100000000
-`define C_MAX_SAMPLES_IN_PER_LINE   1280
-`define C_MAX_LINES_IN_PER_FRAME    1080
-`define C_MAX_SAMPLES_OUT_PER_LINE  1280
-`define C_MAX_LINES_OUT_PER_FRAME   1080
+`define C_MAX_SAMPLES_IN_PER_LINE   1920
+`define C_MAX_LINES_IN_PER_FRAME    1536
+`define C_MAX_SAMPLES_OUT_PER_LINE  1920
+`define C_MAX_LINES_OUT_PER_FRAME   1536
 `define C_SOURCE_H_SIZE             1280
 `define C_SOURCE_V_SIZE             720
 `define C_HAS_INTC_IF               0
