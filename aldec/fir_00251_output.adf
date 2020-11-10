@@ -234,72 +234,55 @@ work/work.lib=-1
 .\src\work\1work.mgf=External File
 .\src\work\3work.mgf=External File
 .\src\work\work.lib=External File
-.\compile\mgt_block_data_video.vhd=VHDL Source Code
-.\compile\mgt_wrapper_data_video.vhd=VHDL Source Code
-.\compile\clink_intf.vhd=VHDL Source Code
-.\compile\frameBuffer_intf.vhd=VHDL Source Code
-.\compile\pleora_intf.vhd=VHDL Source Code
-.\compile\x_to_add.vhd=VHDL Source Code
-.\compile\color_map_mem.vhd=VHDL Source Code
-.\compile\colormap_top.vhd=VHDL Source Code
-.\compile\video_freeze.vhd=VHDL Source Code
-.\compile\video_ehdri_selector.vhd=VHDL Source Code
-.\compile\video_fwposition_selector.vhd=VHDL Source Code
-.\compile\video_data_handler.vhd=VHDL Source Code
-.\compile\AGC.vhd=VHDL Source Code
-.\compile\sdi_output.vhd=VHDL Source Code
-.\compile\fir_251_output_top.vhd=VHDL Source Code
-.\compile\fir_251_output_top_70.vhd=VHDL Source Code
-.\compile\fir_251_output_top_160.vhd=VHDL Source Code
 
+[file_out:/..\..\src\fir_251_output_top.bde]
+/..\compile\fir_251_output_top.vhd=-1
 
+[file_out:/..\..\src\fir_251_output_top_70.bde]
+/..\compile\fir_251_output_top_70.vhd=-1
 
+[file_out:/..\..\src\fir_251_output_top_160.bde]
+/..\compile\fir_251_output_top_160.vhd=-1
 
+[file_out:Clink/..\..\..\src\Clink\Hdl\Clink_intf.bde]
+Clink/..\..\compile\clink_intf.vhd=-1
 
+[file_out:FrameBuffer/..\..\..\src\FrameBuffer\HDL\frameBuffer_intf.bde]
+FrameBuffer/..\..\compile\frameBuffer_intf.vhd=-1
 
-
-
-
-
-
-
-
-
-
-
-
+[file_out:MGT/..\..\..\src\mgt\Hdl\mgt_wrapper_data_video.bde]
+MGT/..\..\compile\mgt_wrapper_data_video.vhd=-1
 
 [file_out:MGT/..\..\..\src\mgt\Hdl\mgt_block_data_video.bde]
 MGT/..\..\compile\mgt_block_data_video.vhd=-1
-[file_out:MGT/..\..\..\src\mgt\Hdl\mgt_wrapper_data_video.bde]
-MGT/..\..\compile\mgt_wrapper_data_video.vhd=-1
-[file_out:Clink/..\..\..\src\Clink\Hdl\Clink_intf.bde]
-Clink/..\..\compile\clink_intf.vhd=-1
-[file_out:FrameBuffer/..\..\..\src\FrameBuffer\HDL\frameBuffer_intf.bde]
-FrameBuffer/..\..\compile\frameBuffer_intf.vhd=-1
+
 [file_out:Pleora/..\..\..\src\pleora_intf\HDL\pleora_intf.bde]
 Pleora/..\..\compile\pleora_intf.vhd=-1
-[file_out:SDI\Colormap/..\..\..\..\src\SDI\colormap\HDL\x_to_add.bde]
-SDI\Colormap/..\..\..\compile\x_to_add.vhd=-1
-[file_out:SDI\Colormap/..\..\..\..\src\SDI\colormap\HDL\color_map_mem.bde]
-SDI\Colormap/..\..\..\compile\color_map_mem.vhd=-1
-[file_out:SDI\Colormap/..\..\..\..\src\SDI\colormap\HDL\colormap_top.bde]
-SDI\Colormap/..\..\..\compile\colormap_top.vhd=-1
-[file_out:SDI/..\..\..\src\SDI\HDL\video_freeze.bde]
-SDI/..\..\compile\video_freeze.vhd=-1
-[file_out:SDI/..\..\..\src\SDI\HDL\video_ehdri_selector.bde]
-SDI/..\..\compile\video_ehdri_selector.vhd=-1
-[file_out:SDI/..\..\..\src\SDI\HDL\video_fwposition_selector.bde]
-SDI/..\..\compile\video_fwposition_selector.vhd=-1
-[file_out:SDI/..\..\..\src\SDI\HDL\video_data_handler.bde]
-SDI/..\..\compile\video_data_handler.vhd=-1
-[file_out:SDI\AGC/..\..\..\..\src\SDI\AGC\HDL\AGC.bde]
-SDI\AGC/..\..\..\compile\AGC.vhd=-1
+
 [file_out:SDI/..\..\..\src\SDI\HDL\sdi_output.bde]
 SDI/..\..\compile\sdi_output.vhd=-1
-[file_out:/..\..\src\fir_251_output_top.bde]
-/..\compile\fir_251_output_top.vhd=-1
-[file_out:/..\..\src\fir_251_output_top_70.bde]
-/..\compile\fir_251_output_top_70.vhd=-1
-[file_out:/..\..\src\fir_251_output_top_160.bde]
-/..\compile\fir_251_output_top_160.vhd=-1
+
+[file_out:SDI/..\..\..\src\SDI\HDL\video_data_handler.bde]
+SDI/..\..\compile\video_data_handler.vhd=-1
+
+[file_out:SDI/..\..\..\src\SDI\HDL\video_ehdri_selector.bde]
+SDI/..\..\compile\video_ehdri_selector.vhd=-1
+
+[file_out:SDI/..\..\..\src\SDI\HDL\video_freeze.bde]
+SDI/..\..\compile\video_freeze.vhd=-1
+
+[file_out:SDI/..\..\..\src\SDI\HDL\video_fwposition_selector.bde]
+SDI/..\..\compile\video_fwposition_selector.vhd=-1
+
+[file_out:SDI\AGC/..\..\..\..\src\SDI\AGC\HDL\AGC.bde]
+SDI\AGC/..\..\..\compile\AGC.vhd=-1
+
+[file_out:SDI\Colormap/..\..\..\..\src\SDI\colormap\HDL\colormap_top.bde]
+SDI\Colormap/..\..\..\compile\colormap_top.vhd=-1
+
+[file_out:SDI\Colormap/..\..\..\..\src\SDI\colormap\HDL\color_map_mem.bde]
+SDI\Colormap/..\..\..\compile\color_map_mem.vhd=-1
+
+[file_out:SDI\Colormap/..\..\..\..\src\SDI\colormap\HDL\x_to_add.bde]
+SDI\Colormap/..\..\..\compile\x_to_add.vhd=-1
+
