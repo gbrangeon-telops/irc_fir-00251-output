@@ -26,7 +26,7 @@
 #define AGC_NB_BIN                          1024
 #define AGC_MAX_PIX_VAL                     0xFFFF
 #define AGC_BIN_WIDTH                       ((AGC_MAX_PIX_VAL + 1) / AGC_NB_BIN)
-#define AGC_BASE_CLOCK_FREQ_HZ              CLK_DATA_FREQ_HZ
+#define AGC_BASE_CLOCK_FREQ_HZ              CLK_MB_FREQ_HZ
 
 // Set registers address offset
 #define AGC_LO_IMAGEFRACTION_OFFSET         0x00
