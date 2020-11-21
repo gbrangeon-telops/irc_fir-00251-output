@@ -9,6 +9,8 @@ create_clock -period 13.468 [get_pins *RXOUTCLK -hier -filter {name =~ *gt0_k7gt
 create_clock -period 8.000 -name aurora_clk [get_ports AURORA_CLK_P2]
 create_clock -period 5.120 [get_pins *TXOUTCLK -hier -filter {name =~ *data_mgt*}]
 create_clock -period 5.120 [get_pins *TXOUTCLK -hier -filter {name =~ *video_mgt*}]
+create_clock -period 5.120 [get_pins *RXOUTCLK -hier -filter {name =~ *data_mgt*}]
+create_clock -period 5.120 [get_pins *RXOUTCLK -hier -filter {name =~ *video_mgt*}]
 create_clock -period 20.000 -name clk50 [get_pins *CLKOUT0 -hier -filter {name =~ *clk_wiz_0*}]
 create_clock -period 11.764 -name clk85 [get_pins *CLKOUT1 -hier -filter {name =~ *clk_wiz_0*}]
 create_clock -period 11.764 -name clk85n -waveform {5.882 11.764} [get_pins *CLKOUT2 -hier -filter {name =~ *clk_wiz_0*}]
@@ -31,6 +33,8 @@ set_clock_groups -asynchronous -group [get_clocks -include_generated_clocks *sdi
 set_clock_groups -asynchronous -group [get_clocks -include_generated_clocks aurora_clk]
 set_clock_groups -asynchronous -group [get_clocks -include_generated_clocks *data_mgt*TXOUTCLK]
 set_clock_groups -asynchronous -group [get_clocks -include_generated_clocks *video_mgt*TXOUTCLK]
+set_clock_groups -asynchronous -group [get_clocks -include_generated_clocks *data_mgt*RXOUTCLK]
+set_clock_groups -asynchronous -group [get_clocks -include_generated_clocks *video_mgt*RXOUTCLK]
 
 set_clock_groups -asynchronous -group [get_clocks -include_generated_clocks clk100]
 set_clock_groups -asynchronous -group [get_clocks -include_generated_clocks clk210]
