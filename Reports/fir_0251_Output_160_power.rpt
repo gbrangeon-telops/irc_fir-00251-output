@@ -1,7 +1,7 @@
 Copyright 1986-2016 Xilinx, Inc. All Rights Reserved.
 -----------------------------------------------------------------------------------------------------------------
 | Tool Version     : Vivado v.2016.3 (win64) Build 1682563 Mon Oct 10 19:07:27 MDT 2016
-| Date             : Mon Nov 09 14:11:58 2020
+| Date             : Tue Nov 24 10:04:01 2020
 | Host             : TELOPS250 running 64-bit Service Pack 1  (build 7601)
 | Command          : report_power -file d:/Telops/FIR-00251-Output/Reports/fir_0251_Output_160_power.rpt
 | Design           : fir_251_output_top_160
@@ -51,14 +51,14 @@ Table of Contents
 | On-Chip                  | Power (W) | Used     | Available | Utilization (%) |
 +--------------------------+-----------+----------+-----------+-----------------+
 | Clocks                   |     0.184 |       51 |       --- |             --- |
-| Slice Logic              |     0.061 |    77323 |       --- |             --- |
+| Slice Logic              |     0.061 |    77321 |       --- |             --- |
 |   LUT as Logic           |     0.050 |    25080 |    101400 |           24.73 |
 |   Register               |     0.005 |    35739 |    202800 |           17.62 |
 |   CARRY4                 |     0.004 |     1606 |     25350 |            6.34 |
 |   LUT as Distributed RAM |     0.001 |     1748 |     35000 |            4.99 |
 |   LUT as Shift Register  |    <0.001 |     1381 |     35000 |            3.95 |
 |   F7/F8 Muxes            |    <0.001 |      235 |    101400 |            0.23 |
-|   Others                 |    <0.001 |     4292 |       --- |             --- |
+|   Others                 |    <0.001 |     4290 |       --- |             --- |
 | Signals                  |     0.080 |    58591 |       --- |             --- |
 | Block RAM                |     0.086 |    205.5 |       325 |           63.23 |
 | MMCM                     |     0.535 |        5 |         8 |           62.50 |
