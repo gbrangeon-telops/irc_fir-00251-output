@@ -91,15 +91,12 @@ Pleora=1
 SDI=1
 SDI\AGC=1
 SDI\Colormap=1
-work=1
 
 [Files]
 /..\..\src\fir_251_output_top.bde=-1
 /..\..\src\fir_00251_output_build.do=-1
 /..\..\src\fir_251_output_top_70.bde=-1
 /..\..\src\fir_251_output_top_160.bde=-1
-/axis16_frame_pix_cnt_lite.vhd=-1
-/axis16_frame_rate_lite.vhd=-1
 BD/..\..\..\src\BD\bd_wrapper.vhd=-1
 Clink/..\..\..\src\Clink\Hdl\CLINK_define.vhd=-1
 Clink/..\..\..\src\Clink\Hdl\Clink_intf.bde=-1
@@ -122,9 +119,9 @@ FrameBuffer/..\..\..\src\FrameBuffer\HDL\build_FrameBuffer_intf.do=-1
 MGT/..\..\..\src\mgt\Hdl\mgt_wrapper_data_video.bde=-1
 MGT/..\..\..\src\mgt\Hdl\mgt_block_data_video.bde=-1
 MGT/..\..\..\..\FIR-00251-Common\VHDL\MGT\Hdl\mgt_ctrl.vhd=-1
+MGT/..\..\..\src\mgt\Hdl\mgt_stream_unmerger.vhd=-1
 MGT/..\..\..\..\FIR-00251-Common\VHDL\MGT\Hdl\compile_mgt_wrapper.do=-1
 MGT/..\..\..\src\mgt\Hdl\compil_mgt.do=-1
-MGT/..\..\..\src\mgt\Hdl\mgt_stream_unmerger.vhd=-1
 Pleora/..\..\..\src\pleora_intf\HDL\GIGE_define.vhd=-1
 Pleora/..\..\..\src\pleora_intf\HDL\pleora_intf.bde=-1
 Pleora/..\..\..\src\pleora_intf\HDL\Gige_Clink_phy.vhd=-1
@@ -160,18 +157,12 @@ SDI\Colormap/..\..\..\..\src\SDI\colormap\HDL\colormap_top.bde=-1
 SDI\Colormap/..\..\..\..\src\SDI\colormap\HDL\color_map_mem.bde=-1
 SDI\Colormap/..\..\..\..\src\SDI\colormap\HDL\colormap_mem_wrap.vhd=-1
 SDI\Colormap/..\..\..\..\src\SDI\colormap\HDL\x_to_add.bde=-1
-work/0work.mgf=-1
-work/1work.mgf=-1
-work/3work.mgf=-1
-work/work.lib=-1
 
 [Files.Data]
 .\..\src\fir_251_output_top.bde=Block Diagram
 .\..\src\fir_00251_output_build.do=Macro
 .\..\src\fir_251_output_top_70.bde=Block Diagram
 .\..\src\fir_251_output_top_160.bde=Block Diagram
-.\src\axis16_frame_pix_cnt_lite.vhd=VHDL Source Code
-.\src\axis16_frame_rate_lite.vhd=VHDL Source Code
 .\..\src\BD\bd_wrapper.vhd=VHDL Source Code
 .\..\src\Clink\Hdl\CLINK_define.vhd=VHDL Source Code
 .\..\src\Clink\Hdl\Clink_intf.bde=Block Diagram
@@ -194,9 +185,9 @@ work/work.lib=-1
 .\..\src\mgt\Hdl\mgt_wrapper_data_video.bde=Block Diagram
 .\..\src\mgt\Hdl\mgt_block_data_video.bde=Block Diagram
 .\..\..\FIR-00251-Common\VHDL\MGT\Hdl\mgt_ctrl.vhd=VHDL Source Code
+.\..\src\mgt\Hdl\mgt_stream_unmerger.vhd=VHDL Source Code
 .\..\..\FIR-00251-Common\VHDL\MGT\Hdl\compile_mgt_wrapper.do=Macro
 .\..\src\mgt\Hdl\compil_mgt.do=Macro
-.\..\src\mgt\Hdl\mgt_stream_unmerger.vhd=VHDL Source Code
 .\..\src\pleora_intf\HDL\GIGE_define.vhd=VHDL Source Code
 .\..\src\pleora_intf\HDL\pleora_intf.bde=Block Diagram
 .\..\src\pleora_intf\HDL\Gige_Clink_phy.vhd=VHDL Source Code
@@ -230,10 +221,6 @@ work/work.lib=-1
 .\..\src\SDI\colormap\HDL\color_map_mem.bde=Block Diagram
 .\..\src\SDI\colormap\HDL\colormap_mem_wrap.vhd=VHDL Source Code
 .\..\src\SDI\colormap\HDL\x_to_add.bde=Block Diagram
-.\src\work\0work.mgf=External File
-.\src\work\1work.mgf=External File
-.\src\work\3work.mgf=External File
-.\src\work\work.lib=External File
 
 [file_out:/..\..\src\fir_251_output_top.bde]
 /..\compile\fir_251_output_top.vhd=-1

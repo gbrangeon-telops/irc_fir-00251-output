@@ -2,7 +2,6 @@
 Version=9.2
 [Designs]
 fir_00251_output=fir_00251_output.adf
-common_hdl=.\..\..\Common_HDL\Active-HDL\Common_HDL.adf
 [Settings]
 Active=fir_00251_output
 [Expand]
