@@ -32,9 +32,6 @@ entity bd_wrapper is
    AXIL_MGT_MOSI : out t_axi4_lite_mosi;
 	AXIL_MGT_MISO : in t_axi4_lite_miso;
    
-   AXIL_FAN_CTRL_MOSI : out t_axi4_lite_mosi;
-	AXIL_FAN_CTRL_MISO : in t_axi4_lite_miso;
-   
    AXIL_FB_CTRL_MOSI : out t_axi4_lite_mosi;
 	AXIL_FB_CTRL_MISO : in t_axi4_lite_miso;
    
@@ -80,11 +77,11 @@ entity bd_wrapper is
    LED : OUT STD_LOGIC;
    
    --QSPI
-    QSPI_PROM_IO0_IO : inout STD_LOGIC;
-    QSPI_PROM_IO1_IO : inout STD_LOGIC;
-    QSPI_PROM_IO2_IO : inout STD_LOGIC;
-    QSPI_PROM_IO3_IO : inout STD_LOGIC;
-    QSPI_PROM_SS_IO : inout STD_LOGIC;
+   QSPI_PROM_IO0_IO : inout STD_LOGIC;
+   QSPI_PROM_IO1_IO : inout STD_LOGIC;
+   QSPI_PROM_IO2_IO : inout STD_LOGIC;
+   QSPI_PROM_IO3_IO : inout STD_LOGIC;
+   QSPI_PROM_SS_IO : inout STD_LOGIC;
    
    CLK_50 : out STD_LOGIC;
    CLK_DATA : out STD_LOGIC;
@@ -128,25 +125,6 @@ component core_wrapper is
     AXIL_CLINK_wready : in STD_LOGIC_VECTOR ( 0 to 0 );
     AXIL_CLINK_wstrb : out STD_LOGIC_VECTOR ( 3 downto 0 );
     AXIL_CLINK_wvalid : out STD_LOGIC_VECTOR ( 0 to 0 );
-    AXIL_FAN_CTRL_araddr : out STD_LOGIC_VECTOR ( 31 downto 0 );
-    AXIL_FAN_CTRL_arprot : out STD_LOGIC_VECTOR ( 2 downto 0 );
-    AXIL_FAN_CTRL_arready : in STD_LOGIC_VECTOR ( 0 to 0 );
-    AXIL_FAN_CTRL_arvalid : out STD_LOGIC_VECTOR ( 0 to 0 );
-    AXIL_FAN_CTRL_awaddr : out STD_LOGIC_VECTOR ( 31 downto 0 );
-    AXIL_FAN_CTRL_awprot : out STD_LOGIC_VECTOR ( 2 downto 0 );
-    AXIL_FAN_CTRL_awready : in STD_LOGIC_VECTOR ( 0 to 0 );
-    AXIL_FAN_CTRL_awvalid : out STD_LOGIC_VECTOR ( 0 to 0 );
-    AXIL_FAN_CTRL_bready : out STD_LOGIC_VECTOR ( 0 to 0 );
-    AXIL_FAN_CTRL_bresp : in STD_LOGIC_VECTOR ( 1 downto 0 );
-    AXIL_FAN_CTRL_bvalid : in STD_LOGIC_VECTOR ( 0 to 0 );
-    AXIL_FAN_CTRL_rdata : in STD_LOGIC_VECTOR ( 31 downto 0 );
-    AXIL_FAN_CTRL_rready : out STD_LOGIC_VECTOR ( 0 to 0 );
-    AXIL_FAN_CTRL_rresp : in STD_LOGIC_VECTOR ( 1 downto 0 );
-    AXIL_FAN_CTRL_rvalid : in STD_LOGIC_VECTOR ( 0 to 0 );
-    AXIL_FAN_CTRL_wdata : out STD_LOGIC_VECTOR ( 31 downto 0 );
-    AXIL_FAN_CTRL_wready : in STD_LOGIC_VECTOR ( 0 to 0 );
-    AXIL_FAN_CTRL_wstrb : out STD_LOGIC_VECTOR ( 3 downto 0 );
-    AXIL_FAN_CTRL_wvalid : out STD_LOGIC_VECTOR ( 0 to 0 );
     AXIL_FB_CTRL_araddr : out STD_LOGIC_VECTOR ( 31 downto 0 );
     AXIL_FB_CTRL_arprot : out STD_LOGIC_VECTOR ( 2 downto 0 );
     AXIL_FB_CTRL_arready : in STD_LOGIC_VECTOR ( 0 to 0 );
@@ -387,29 +365,7 @@ port map (
       AXIL_MGT_rdata          => AXIL_MGT_MISO.rdata,
       AXIL_MGT_rresp          => AXIL_MGT_MISO.rresp,
       AXIL_MGT_rvalid(0)      => AXIL_MGT_MISO.rvalid,
-      AXIL_MGT_wready(0)      => AXIL_MGT_MISO.wready,
-      
-      -- FAN_CTRL
-      AXIL_FAN_CTRL_araddr         => AXIL_FAN_CTRL_MOSI.araddr,
-      AXIL_FAN_CTRL_arprot         => AXIL_FAN_CTRL_MOSI.arprot,
-      AXIL_FAN_CTRL_arvalid(0)     => AXIL_FAN_CTRL_MOSI.arvalid,
-      AXIL_FAN_CTRL_awaddr         => AXIL_FAN_CTRL_MOSI.awaddr,
-      AXIL_FAN_CTRL_awprot         => AXIL_FAN_CTRL_MOSI.awprot,
-      AXIL_FAN_CTRL_awvalid(0)     => AXIL_FAN_CTRL_MOSI.awvalid,
-      AXIL_FAN_CTRL_bready(0)      => AXIL_FAN_CTRL_MOSI.bready,
-      AXIL_FAN_CTRL_rready(0)      => AXIL_FAN_CTRL_MOSI.rready,
-      AXIL_FAN_CTRL_wdata          => AXIL_FAN_CTRL_MOSI.wdata,
-      AXIL_FAN_CTRL_wstrb          => AXIL_FAN_CTRL_MOSI.wstrb,
-      AXIL_FAN_CTRL_wvalid(0)      => AXIL_FAN_CTRL_MOSI.wvalid,
-      
-      AXIL_FAN_CTRL_arready(0)     => AXIL_FAN_CTRL_MISO.arready,
-      AXIL_FAN_CTRL_awready(0)     => AXIL_FAN_CTRL_MISO.awready,
-      AXIL_FAN_CTRL_bresp          => AXIL_FAN_CTRL_MISO.bresp ,
-      AXIL_FAN_CTRL_bvalid(0)      => AXIL_FAN_CTRL_MISO.bvalid,
-      AXIL_FAN_CTRL_rdata          => AXIL_FAN_CTRL_MISO.rdata,
-      AXIL_FAN_CTRL_rresp          => AXIL_FAN_CTRL_MISO.rresp,
-      AXIL_FAN_CTRL_rvalid(0)      => AXIL_FAN_CTRL_MISO.rvalid,
-      AXIL_FAN_CTRL_wready(0)      => AXIL_FAN_CTRL_MISO.wready,      
+      AXIL_MGT_wready(0)      => AXIL_MGT_MISO.wready,      
       
       -- FB_CTRL
       AXIL_FB_CTRL_araddr         => AXIL_FB_CTRL_MOSI.araddr,
