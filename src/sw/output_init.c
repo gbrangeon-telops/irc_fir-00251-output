@@ -37,11 +37,11 @@
 
 
 // Global variables
-t_ClinkConfig gClinkCtrl = ClinkConf_Ctor(TEL_PAR_TEL_AXIL_CLINK_BASEADDR);
-t_FrameBuffer gFrameBufferCtrl = FrameBuffer_Ctor(TEL_PAR_TEL_AXIL_FB_CTRL_BASEADDR);
-t_PleoraIntf gPleoraIntfCtrl = PleoraIntf_Ctor(TEL_PAR_TEL_AXIL_PLEORA_CTRL_BASEADDR);
-t_SdiIntf gSdiIntfCtrl = SDIIntf_Ctor(TEL_PAR_TEL_AXIL_SDI_CTRL_BASEADDR);
-t_AGC gAgcCtrl = AGC_Intf_Ctor(TEL_PAR_TEL_AXIL_SDI_CTRL_BASEADDR + SDIINTF_AGCOFFSET);
+t_ClinkConfig gClinkCtrl = ClinkConf_Ctor(XPAR_AXIL_CLINK_BASEADDR);
+t_FrameBuffer gFrameBufferCtrl = FrameBuffer_Ctor(XPAR_AXIL_FB_CTRL_BASEADDR);
+t_PleoraIntf gPleoraIntfCtrl = PleoraIntf_Ctor(XPAR_AXIL_PLEORA_CTRL_BASEADDR);
+t_SdiIntf gSdiIntfCtrl = SDIIntf_Ctor(XPAR_AXIL_SDI_CTRL_BASEADDR);
+t_AGC gAgcCtrl = AGC_Intf_Ctor(XPAR_AXIL_SDI_CTRL_BASEADDR + SDIINTF_AGCOFFSET);
 
 XIntc gOutputIntc;
 netIntf_t gNetworkIntf;

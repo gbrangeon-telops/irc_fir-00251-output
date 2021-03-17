@@ -23,9 +23,11 @@ if {[string equal [get_filesets sources_1] ""]} {
 }
 
 # Add IP sources
+set ipfilelist {}
 foreach subdir [glob -nocomplain -type d $ip_dir/*] {
-   if {[glob -nocomplain $subdir/*.xci] != {}} {add_files [glob $subdir/*.xci]}
+   if {[glob -nocomplain $subdir/*.xci] != {}} {lappend ipfilelist [glob $subdir/*.xci]}
 }
+add_files $ipfilelist
 
 # Create 'constrs_1' fileset (if not found)
 if {[string equal [get_filesets constrs_1] ""]} {
@@ -35,6 +37,6 @@ if {[string equal [get_filesets constrs_1] ""]} {
 # Set 'constrs_1' fileset properties
 set obj [get_filesets constrs_1]
 
-puts "INFO: Project created:managed_ip_project"
+puts "INFO: Project created:$proj_name"
 
 
