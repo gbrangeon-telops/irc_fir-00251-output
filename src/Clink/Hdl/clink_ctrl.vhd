@@ -25,6 +25,8 @@ entity CLINK_CTRL is
       AXI4_LITE_MISO : out t_axi4_lite_miso;
 
       CLINK_ERR : std_logic_vector(31 downto 0);
+      
+      FRAME_RATE_STAT: in axis_frame_rate_type;
 
       CLINK_CONF : out CLinkConfig;
 
@@ -95,6 +97,9 @@ architecture RTL of CLINK_CTRL is
    constant ADDR_LVALPAUSE   : std_logic_vector(7 downto 0) := x"18";
    constant ADDR_FVALPAUSE   : std_logic_vector(7 downto 0) := x"1C";
    constant ADDR_FRAMERESET  : std_logic_vector(7 downto 0) := x"20";
+   constant ADDR_FR_MIN      : std_logic_vector(7 downto 0) := x"F0";
+   constant ADDR_FR          : std_logic_vector(7 downto 0) := x"F4";
+   constant ADDR_FR_MAX      : std_logic_vector(7 downto 0) := x"F8";
    constant ADDR_CLERROR     : std_logic_vector(7 downto 0) := x"FC";
    
 begin
@@ -264,7 +269,10 @@ begin
             when  ADDR_LVALSIZE    => reg_data_out <= std_logic_vector(resize(config_i.LValSize, reg_data_out'length));
             when  ADDR_FVALSIZE    => reg_data_out <= std_logic_vector(resize(config_i.FValSize, reg_data_out'length));
             when  ADDR_LVALPAUSE   => reg_data_out <= std_logic_vector(resize(config_i.LValPause, reg_data_out'length));
-            when  ADDR_FVALPAUSE   => reg_data_out <= std_logic_vector(resize(config_i.FValPause, reg_data_out'length));         
+            when  ADDR_FVALPAUSE   => reg_data_out <= std_logic_vector(resize(config_i.FValPause, reg_data_out'length));
+            when  ADDR_FR_MIN      => reg_data_out <= resize(FRAME_RATE_STAT.frame_rate_min, reg_data_out'length);
+            when  ADDR_FR          => reg_data_out <= resize(FRAME_RATE_STAT.frame_rate, reg_data_out'length);
+            when  ADDR_FR_MAX      => reg_data_out <= resize(FRAME_RATE_STAT.frame_rate_max, reg_data_out'length);         
             when  ADDR_CLERROR     => reg_data_out <= resize(CLINK_ERR, reg_data_out'length);
             when others            => reg_data_out <= (others => '0');
          end case;

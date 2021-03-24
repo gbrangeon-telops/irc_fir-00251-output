@@ -27,6 +27,9 @@ entity FB_CTRL is
       
       FB_ERR : in std_logic_vector(31 downto 0);
       
+      WRITE_FR_STAT  : in axis_frame_rate_type;
+      READ_FR_STAT   : in axis_frame_rate_type;
+      
       FB_CONF : out FB_Config
    );
 end FB_CTRL;
@@ -46,7 +49,13 @@ architecture RTL of FB_CTRL is
    constant FB_IMG_SIZE_ADDR              : std_logic_vector(7 downto 0) := x"10";
    constant FB_CONFIG_VALID_ADDR          : std_logic_vector(7 downto 0) := x"14";
    
-   constant FB_ERR_ADDR                   : std_logic_vector(7 downto 0) := x"F0";
+   constant FB_WRITE_FR_MIN_ADDR          : std_logic_vector(7 downto 0) := x"E4";
+   constant FB_WRITE_FR_ADDR              : std_logic_vector(7 downto 0) := x"E8";
+   constant FB_WRITE_FR_MAX_ADDR          : std_logic_vector(7 downto 0) := x"EC";
+   constant FB_READ_FR_MIN_ADDR           : std_logic_vector(7 downto 0) := x"F0";
+   constant FB_READ_FR_ADDR               : std_logic_vector(7 downto 0) := x"F4";
+   constant FB_READ_FR_MAX_ADDR           : std_logic_vector(7 downto 0) := x"F8";
+   constant FB_ERR_ADDR                   : std_logic_vector(7 downto 0) := x"FC";
 
    component double_sync
       generic(
@@ -231,6 +240,12 @@ begin
             when FB_HDR_SIZE_ADDR            => reg_data_out <= std_logic_vector(resize(fb_conf_i.hdr_size, reg_data_out'length));
             when FB_IMG_SIZE_ADDR            => reg_data_out <= std_logic_vector(resize(fb_conf_i.img_size, reg_data_out'length));
             when FB_CONFIG_VALID_ADDR        => reg_data_out <= std_logic_vector(resize(fb_conf_i.config_valid, reg_data_out'length));
+            when FB_WRITE_FR_MIN_ADDR        => reg_data_out <= resize(WRITE_FR_STAT.frame_rate_min, reg_data_out'length);
+            when FB_WRITE_FR_ADDR            => reg_data_out <= resize(WRITE_FR_STAT.frame_rate, reg_data_out'length);
+            when FB_WRITE_FR_MAX_ADDR        => reg_data_out <= resize(WRITE_FR_STAT.frame_rate_max, reg_data_out'length);
+            when FB_READ_FR_MIN_ADDR         => reg_data_out <= resize(READ_FR_STAT.frame_rate_min, reg_data_out'length);
+            when FB_READ_FR_ADDR             => reg_data_out <= resize(READ_FR_STAT.frame_rate, reg_data_out'length);
+            when FB_READ_FR_MAX_ADDR         => reg_data_out <= resize(READ_FR_STAT.frame_rate_max, reg_data_out'length);
             when FB_ERR_ADDR                 => reg_data_out <= std_logic_vector(resize(FB_ERR, reg_data_out'length));
             when others                      => reg_data_out <= (others => '0');
          end case;        

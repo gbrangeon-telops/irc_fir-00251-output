@@ -68,6 +68,12 @@ void FrameBuffer_Enable(t_FrameBuffer *a, const FrameBuffer_Config_t config)
 //----------------------------------------------------------------
 void FrameBuffer_GetStatus(const t_FrameBuffer *a, t_FrameBufferStatus *pStat)
 { 
-   pStat->error = AXI4L_read32(a->ADD + A_FB_ERROR);
+   pStat->FB_in_FR_min  = AXI4L_read32(a->ADD + A_FB_IN_FR_MIN);
+   pStat->FB_in_FR      = AXI4L_read32(a->ADD + A_FB_IN_FR);
+   pStat->FB_in_FR_max  = AXI4L_read32(a->ADD + A_FB_IN_FR_MAX);
+   pStat->FB_out_FR_min = AXI4L_read32(a->ADD + A_FB_OUT_FR_MIN);
+   pStat->FB_out_FR     = AXI4L_read32(a->ADD + A_FB_OUT_FR);
+   pStat->FB_out_FR_max = AXI4L_read32(a->ADD + A_FB_OUT_FR_MAX);
+   pStat->error         = AXI4L_read32(a->ADD + A_FB_ERROR);
 } 
 

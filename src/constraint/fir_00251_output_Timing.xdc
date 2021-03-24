@@ -7,22 +7,20 @@ create_clock -period 6.734 -name sdi_clk [get_ports SDI_CLK_P]
 create_clock -period 13.468 [get_pins *TXOUTCLK -hier -filter {name =~ *gt0_k7gtx_sdi_wrapper*}]
 create_clock -period 13.468 [get_pins *RXOUTCLK -hier -filter {name =~ *gt0_k7gtx_sdi_wrapper*}]
 create_clock -period 8.000 -name aurora_clk [get_ports AURORA_CLK_P2]
-create_clock -period 5.120 [get_pins *TXOUTCLK -hier -filter {name =~ *data_mgt*}]
-create_clock -period 5.120 [get_pins *TXOUTCLK -hier -filter {name =~ *video_mgt*}]
-create_clock -period 5.120 [get_pins *RXOUTCLK -hier -filter {name =~ *data_mgt*}]
-create_clock -period 5.120 [get_pins *RXOUTCLK -hier -filter {name =~ *video_mgt*}]
-create_clock -period 20.000 -name clk50 [get_pins *CLKOUT0 -hier -filter {name =~ *clk_wiz_0*}]
-create_clock -period 11.764 -name clk85 [get_pins *CLKOUT1 -hier -filter {name =~ *clk_wiz_0*}]
-create_clock -period 11.764 -name clk85n -waveform {5.882 11.764} [get_pins *CLKOUT2 -hier -filter {name =~ *clk_wiz_0*}]
-create_clock -period 4.761 -name clk210 [get_pins *CLKOUT0 -hier -filter {name =~ *clk_wiz_1*}]
-create_clock -period 1.680 -name clk_dout_mult [get_pins *CLKOUT1 -hier -filter {name =~ *clink_mmcm*}]
-create_clock -period 11.764 -name clk_dout [get_pins *CLKOUT0 -hier -filter {name =~ *clink_mmcm*}]
-create_clock -period 10.000 -name clk100 [get_pins *mmcm_i/CLKFBOUT -hier -filter {name =~ *mig*}]
+create_clock -period 11.765 -name clk_clink_fast [get_pins *CLKIN1 -hier -filter {name =~ *clink_mmcm*}]
+create_clock -period 20.000 -name clk_clink_slow [get_pins *CLKIN2 -hier -filter {name =~ *clink_mmcm*}]
 
 # Virtual clocks
 
 # Generated clocks
-create_generated_clock -name clk_74_25 -source [get_ports SDI_CLK_P] -divide_by 2 [get_pins SDI/CLK_IBUFDS/ODIV2]
+create_generated_clock -name clk50 [get_pins *CLKOUT0 -hier -filter {name =~ *clk_wiz_0*}]
+create_generated_clock -name clk85 [get_pins *CLKOUT1 -hier -filter {name =~ *clk_wiz_0*}]
+create_generated_clock -name clk85n [get_pins *CLKOUT1B -hier -filter {name =~ *clk_wiz_0*}]
+create_generated_clock -name clk210 [get_pins *CLKOUT0 -hier -filter {name =~ *clk_wiz_1*}]
+create_generated_clock -name clk100 [get_pins *mmcm_i/CLKFBOUT -hier -filter {name =~ *mig*}]
+create_generated_clock -name clk_74_25 [get_pins *ODIV2 -hier -filter {name =~ *SDI/CLK_IBUFDS*}]
+create_generated_clock -name clk_dout_mult -master_clock clk_clink_fast [get_pins *CLKOUT1 -hier -filter {name =~ *clink_mmcm*}]
+create_generated_clock -name clk_dout -master_clock clk_clink_fast [get_pins *CLKOUT0 -hier -filter {name =~ *clink_mmcm*}]
 
 # Clock Groups
 set_clock_groups -asynchronous -group [get_clocks -include_generated_clocks *SYS_CLK_P2]
@@ -35,14 +33,13 @@ set_clock_groups -asynchronous -group [get_clocks -include_generated_clocks *dat
 set_clock_groups -asynchronous -group [get_clocks -include_generated_clocks *video_mgt*TXOUTCLK]
 set_clock_groups -asynchronous -group [get_clocks -include_generated_clocks *data_mgt*RXOUTCLK]
 set_clock_groups -asynchronous -group [get_clocks -include_generated_clocks *video_mgt*RXOUTCLK]
-
 set_clock_groups -asynchronous -group [get_clocks -include_generated_clocks clk100]
 set_clock_groups -asynchronous -group [get_clocks -include_generated_clocks clk210]
 set_clock_groups -asynchronous -group [get_clocks -include_generated_clocks clk50]
 set_clock_groups -asynchronous -group [get_clocks -include_generated_clocks clk85]
 set_clock_groups -asynchronous -group [get_clocks -include_generated_clocks clk85n]
-set_clock_groups -asynchronous -group [get_clocks -include_generated_clocks clk_dout_mult]
-set_clock_groups -asynchronous -group [get_clocks -include_generated_clocks clk_dout]
+set_clock_groups -asynchronous -group [get_clocks -include_generated_clocks clk_clink_fast]
+set_clock_groups -asynchronous -group [get_clocks -include_generated_clocks clk_clink_slow]
 
 # Input and output delay constraints
 

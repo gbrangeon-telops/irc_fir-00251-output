@@ -41,6 +41,9 @@
 
 //CLINK CTRL ADDRESS MAP
 #define CLINKADDR_FRAMERESET        0x20
+#define CLINKADDR_CL_IN_FR_MIN      0xF0
+#define CLINKADDR_CL_IN_FR          0xF4
+#define CLINKADDR_CL_IN_FR_MAX      0xF8
 #define CLINKADDR_CLERROR           0xFC
 
 
@@ -65,6 +68,9 @@ typedef struct s_Clink_conf t_ClinkConfig;
 // structure de statut
 struct s_ClinkStatus
 {
+   uint32_t CL_in_FR_min;
+   uint32_t CL_in_FR;
+   uint32_t CL_in_FR_max;
    uint32_t CL_errors;
 };
 typedef struct s_ClinkStatus t_ClinkStatus;

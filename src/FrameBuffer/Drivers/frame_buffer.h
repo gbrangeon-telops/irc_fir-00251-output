@@ -34,7 +34,13 @@
 //FRAME BUFFER ADDRESS MAP
 #define A_FB_CFG_VALID           0x14
 
-#define A_FB_ERROR               0xF0
+#define A_FB_IN_FR_MIN           0xE4
+#define A_FB_IN_FR               0xE8
+#define A_FB_IN_FR_MAX           0xEC
+#define A_FB_OUT_FR_MIN          0xF0
+#define A_FB_OUT_FR              0xF4
+#define A_FB_OUT_FR_MAX          0xF8
+#define A_FB_ERROR               0xFC
 
 
 // structure de configuration du frame_buffer
@@ -71,6 +77,12 @@ typedef enum FrameBuffer_Config FrameBuffer_Config_t;
 // structure de statut
 struct s_FrameBufferStatus
 {
+   uint32_t FB_in_FR_min;
+   uint32_t FB_in_FR;
+   uint32_t FB_in_FR_max;
+   uint32_t FB_out_FR_min;
+   uint32_t FB_out_FR;
+   uint32_t FB_out_FR_max;
    uint32_t error;
 };
 typedef struct s_FrameBufferStatus t_FrameBufferStatus;

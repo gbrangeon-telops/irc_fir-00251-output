@@ -90,5 +90,8 @@ void Clink_ResetFrame(t_ClinkConfig *a)
 //----------------------------------------------------------------
 void Clink_GetStatus(const t_ClinkConfig *a, t_ClinkStatus *pStat)
 {
-   pStat->CL_errors = AXI4L_read32(a->ADD + CLINKADDR_CLERROR);
+   pStat->CL_in_FR_min  = AXI4L_read32(a->ADD + CLINKADDR_CL_IN_FR_MIN);
+   pStat->CL_in_FR      = AXI4L_read32(a->ADD + CLINKADDR_CL_IN_FR);
+   pStat->CL_in_FR_max  = AXI4L_read32(a->ADD + CLINKADDR_CL_IN_FR_MAX);
+   pStat->CL_errors     = AXI4L_read32(a->ADD + CLINKADDR_CLERROR);
 }
