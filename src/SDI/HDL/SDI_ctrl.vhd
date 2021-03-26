@@ -29,6 +29,9 @@ entity SDI_ctrl is
       
       SDI_ERR        : in std_logic_vector(31 downto 0);
       
+      WRITE_FR_STAT  : in axis_frame_rate_type;
+      READ_FR_STAT   : in axis_frame_rate_type;
+      
       -- Output signals
       Output_Img_Size   : out std_logic_vector(31 downto 0);
       
@@ -386,6 +389,12 @@ begin
             when x"70"  => reg_data_out <= std_logic_vector(resize(video_config_i.selector, reg_data_out'length));
             when x"74"  => reg_data_out <= std_logic_vector(resize(video_config_i.freeze_cmd, reg_data_out'length));
             
+            when x"E4"  => reg_data_out <= resize(WRITE_FR_STAT.frame_rate_min, reg_data_out'length);
+            when x"E8"  => reg_data_out <= resize(WRITE_FR_STAT.frame_rate, reg_data_out'length);
+            when x"EC"  => reg_data_out <= resize(WRITE_FR_STAT.frame_rate_max, reg_data_out'length);
+            when x"F0"  => reg_data_out <= resize(READ_FR_STAT.frame_rate_min, reg_data_out'length);
+            when x"F4"  => reg_data_out <= resize(READ_FR_STAT.frame_rate, reg_data_out'length);
+            when x"F8"  => reg_data_out <= resize(READ_FR_STAT.frame_rate_max, reg_data_out'length);
             when x"FC"  => reg_data_out <= std_logic_vector(resize(error_latch, reg_data_out'length));
             when others => reg_data_out <= (others => '0');
          end case;        

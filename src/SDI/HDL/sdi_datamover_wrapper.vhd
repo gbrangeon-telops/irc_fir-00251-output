@@ -18,7 +18,6 @@ entity sdi_datamover_wrapper is
   aclk : IN STD_LOGIC;
   aresetn : in std_logic;
   
-  overflow : in std_logic;
   --mm2s
   axis_mm2s_cmd_mosi : in t_axi4_stream_mosi_cmd32;
   axis_mm2s_cmd_miso : out t_axi4_stream_miso;

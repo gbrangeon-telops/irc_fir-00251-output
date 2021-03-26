@@ -32,11 +32,15 @@ static SDIIntf_ChangeInputWindow_t gChangeInputWindowCurrentState = CHANGEINPUTW
  *
  * @return error values.
  */
-uint32_t SDIIntf_GetError(const t_SdiIntf *pSdiIntf)
+void SDIIntf_GetStatus(const t_SdiIntf *pSdiIntf, t_SdiStatus *pStat)
 {
-   uint32_t error;
-   error = AXI4L_read32(pSdiIntf->ADD + SDI_AR_ERR_LATCH);
-   return error;
+   pStat->FB_in_FR_min  = AXI4L_read32(pSdiIntf->ADD + SDI_AR_FB_IN_FR_MIN);
+   pStat->FB_in_FR      = AXI4L_read32(pSdiIntf->ADD + SDI_AR_FB_IN_FR);
+   pStat->FB_in_FR_max  = AXI4L_read32(pSdiIntf->ADD + SDI_AR_FB_IN_FR_MAX);
+   pStat->FB_out_FR_min = AXI4L_read32(pSdiIntf->ADD + SDI_AR_FB_OUT_FR_MIN);
+   pStat->FB_out_FR     = AXI4L_read32(pSdiIntf->ADD + SDI_AR_FB_OUT_FR);
+   pStat->FB_out_FR_max = AXI4L_read32(pSdiIntf->ADD + SDI_AR_FB_OUT_FR_MAX);
+   pStat->error         = AXI4L_read32(pSdiIntf->ADD + SDI_AR_ERR_LATCH);
 }
 
 /**

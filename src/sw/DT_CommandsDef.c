@@ -215,6 +215,7 @@ IRC_Status_t DebugTerminalParseCLINK(circByteBuffer_t *cbuf)
    DT_PRINTF("clink.LValPause = %d", gClinkCtrl.LValPause);
    DT_PRINTF("clink.FValPause = %d", gClinkCtrl.FValPause);
    DT_PRINTF("clink.ClockMode = %d", gClinkCtrl.ClockMode);
+   DT_PRINTF("clink.Input_FR  = (min=%u, present=%u, max=%u) fps", status.CL_in_FR_min, status.CL_in_FR, status.CL_in_FR_max);
    DT_PRINTF("clink.CL_errors = 0x%08X", status.CL_errors);
 
    return IRC_SUCCESS;
@@ -245,6 +246,8 @@ IRC_Status_t DebugTerminalParseGIGE(circByteBuffer_t *cbuf)
    FrameBuffer_GetStatus(&gFrameBufferCtrl, &fb_status);
    PleoraIntf_GetStatus(&gPleoraIntfCtrl, &status);
 
+   DT_PRINTF("FrameBuffer.Input_FR  = (min=%u, present=%u, max=%u) fps", fb_status.FB_in_FR_min, fb_status.FB_in_FR, fb_status.FB_in_FR_max);
+   DT_PRINTF("FrameBuffer.Output_FR = (min=%u, present=%u, max=%u) fps", fb_status.FB_out_FR_min, fb_status.FB_out_FR, fb_status.FB_out_FR_max);
    DT_PRINTF("FrameBuffer.error = 0x%08X", fb_status.error);
    DT_PRINTF("Pleora.error = 0x%08X", status.error);
 
@@ -262,6 +265,7 @@ IRC_Status_t DebugTerminalParseGIGE(circByteBuffer_t *cbuf)
 IRC_Status_t DebugTerminalParseSDI(circByteBuffer_t *cbuf)
 {
    extern t_SdiIntf gSdiIntfCtrl;
+   t_SdiStatus status;
    uint8_t argStr[4];
    uint32_t arglen;
 
@@ -295,7 +299,11 @@ IRC_Status_t DebugTerminalParseSDI(circByteBuffer_t *cbuf)
       }
    }
 
-   DT_PRINTF("sdi.error_latch = 0x%08X", SDIIntf_GetError(&gSdiIntfCtrl));
+   SDIIntf_GetStatus(&gSdiIntfCtrl, &status);
+
+   DT_PRINTF("sdi.Input_FR  = (min=%u, present=%u, max=%u) fps", status.FB_in_FR_min, status.FB_in_FR, status.FB_in_FR_max);
+   DT_PRINTF("sdi.Output_FR = (min=%u, present=%u, max=%u) fps", status.FB_out_FR_min, status.FB_out_FR, status.FB_out_FR_max);
+   DT_PRINTF("sdi.error_latch = 0x%08X", status.error);
 
    return IRC_SUCCESS;
 }

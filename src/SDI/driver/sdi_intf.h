@@ -107,6 +107,21 @@ enum SDIIntf_ChangeInputWindow {
 };
 typedef enum SDIIntf_ChangeInputWindow SDIIntf_ChangeInputWindow_t;
 
+
+// structure de statut
+struct s_SdiStatus
+{
+   uint32_t FB_in_FR_min;
+   uint32_t FB_in_FR;
+   uint32_t FB_in_FR_max;
+   uint32_t FB_out_FR_min;
+   uint32_t FB_out_FR;
+   uint32_t FB_out_FR_max;
+   uint32_t error;
+};
+typedef struct s_SdiStatus t_SdiStatus;
+
+
 #define SDIINTF_CTRLOFFSET       0x00000000
 #define SDIINTF_TPGOFFSET        0x00004000
 #define SDIINTF_SCALEROFFSET     0x00008000
@@ -140,13 +155,19 @@ typedef enum SDIIntf_ChangeInputWindow SDIIntf_ChangeInputWindow_t;
 #define SDI_VIDEOSELECTOR_EHDRI       0x01
 #define SDI_VIDEOSELECTOR_FWPOSITION  0x02
 
-// Errors
+// Status and Errors
+#define SDI_AR_FB_IN_FR_MIN         0xE4
+#define SDI_AR_FB_IN_FR             0xE8
+#define SDI_AR_FB_IN_FR_MAX         0xEC
+#define SDI_AR_FB_OUT_FR_MIN        0xF0
+#define SDI_AR_FB_OUT_FR            0xF4
+#define SDI_AR_FB_OUT_FR_MAX        0xF8
 #define SDI_AR_ERR_LATCH            0xFC
 #define SDI_AW_RESET_ERR            0xFC
 
 
 //Fonction definition
-uint32_t SDIIntf_GetError(const t_SdiIntf *pSdiIntf);
+void SDIIntf_GetStatus(const t_SdiIntf *pSdiIntf, t_SdiStatus *pStat);
 void SDIIntf_ResetErr(const t_SdiIntf *pSdiIntf);
 void SDIIntf_Init(t_SdiIntf *pSdiCtrl, const gcRegistersData_t *pGCRegs);
 
