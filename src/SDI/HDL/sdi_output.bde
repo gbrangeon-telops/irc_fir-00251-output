@@ -2,7 +2,7 @@ SCHM0104
 
 HEADER
 {
- FREEID 47231
+ FREEID 47248
  VARIABLES
  {
   #ARCHITECTURE="sdi_output"
@@ -6450,7 +6450,7 @@ HEADER
 "library IEEE,WORK;\n"+
 "use ieee.std_logic_1164.all,work.TEL2000.all;"
     #LANGUAGE="VHDL"
-    #MODIFIED="1616096510"
+    #MODIFIED="1617226824"
     #SYMBOL_GLOBALLY_UNIQUE_IDENTIFIER="55634aa2-2b1e-4a67-800a-05d237608ae4"
    }
   }
@@ -6886,7 +6886,7 @@ HEADER
       #NAME="axi_s2mm_mosi"
       #NUMBER="0"
       #SIDE="right"
-      #VHDL_TYPE="T_AXI4_A32_D128_WRITE_MOSI"
+      #VHDL_TYPE="T_AXI4_A32_D64_WRITE_MOSI"
      }
      LINE  2, 0, 0
      {
@@ -10442,7 +10442,7 @@ PAGE ""
     #REFERENCE="AXI_S2MM_MOSI"
     #SYMBOL="BusOutput"
     #SYMBOL_GLOBALLY_UNIQUE_IDENTIFIER=""
-    #VHDL_TYPE="t_axi4_a32_d128_write_mosi"
+    #VHDL_TYPE="t_axi4_a32_d64_write_mosi"
     RECORD=""
     T_AXI4_A32_D32_WRITE_MOSI=""
    }
@@ -11714,8 +11714,9 @@ PAGE ""
   {
    VARIABLES
    {
+    #MDA_RECORD_TOKEN="RECORD"
     #NAME="RECORD45305"
-    #VHDL_TYPE="t_axi4_a32_d128_write_mosi"
+    #VHDL_TYPE="t_axi4_a32_d64_write_mosi"
     RECORD=""
     T_AXI4_A32_D64_WRITE_MOSI=""
    }
@@ -16732,7 +16733,7 @@ PAGE ""
  
  BODY
  {
-  TEXT  47214, 0, 0
+  TEXT  47231, 0, 0
   {
    PAGEALIGN 10
    OUTLINE 5,1, (0,0,0)
@@ -16743,7 +16744,7 @@ PAGE ""
    COLOR (0,0,0)
    FONT (12,0,0,700,0,0,0,"Arial")
   }
-  TEXT  47215, 0, 0
+  TEXT  47232, 0, 0
   {
    PAGEALIGN 10
    TEXT "$CREATIONDATE"
@@ -16754,7 +16755,7 @@ PAGE ""
    FONT (12,0,0,700,0,128,0,"Arial")
    UPDATE 0
   }
-  TEXT  47216, 0, 0
+  TEXT  47233, 0, 0
   {
    PAGEALIGN 10
    TEXT "Title:"
@@ -16764,7 +16765,7 @@ PAGE ""
    COLOR (0,0,0)
    FONT (12,0,0,700,0,0,0,"Arial")
   }
-  TEXT  47217, 0, 0
+  TEXT  47234, 0, 0
   {
    PAGEALIGN 10
    OUTLINE 5,1, (0,0,0)
@@ -16776,7 +16777,7 @@ PAGE ""
    FONT (12,0,0,700,0,128,0,"Arial")
    UPDATE 0
   }
-  TEXT  47218, 0, 0
+  TEXT  47235, 0, 0
   {
    PAGEALIGN 10
    TEXT 
@@ -16789,7 +16790,7 @@ PAGE ""
    FONT (12,0,0,700,0,0,0,"Arial")
    MULTILINE
   }
-  TEXT  47219, 0, 0
+  TEXT  47236, 0, 0
   {
    PAGEALIGN 10
    TEXT "Page:"
@@ -16799,7 +16800,7 @@ PAGE ""
    COLOR (0,0,0)
    FONT (12,0,0,700,0,0,0,"Arial")
   }
-  TEXT  47220, 0, 0
+  TEXT  47237, 0, 0
   {
    PAGEALIGN 10
    OUTLINE 5,1, (0,0,0)
@@ -16811,7 +16812,7 @@ PAGE ""
    FONT (12,0,0,700,0,128,0,"Arial")
    UPDATE 0
   }
-  TEXT  47221, 0, 0
+  TEXT  47238, 0, 0
   {
    PAGEALIGN 10
    TEXT "Revision:"
@@ -16821,7 +16822,7 @@ PAGE ""
    COLOR (0,0,0)
    FONT (12,0,0,700,0,0,0,"Arial")
   }
-  TEXT  47222, 0, 0
+  TEXT  47239, 0, 0
   {
    PAGEALIGN 10
    TEXT "$Revision"
@@ -16832,7 +16833,7 @@ PAGE ""
    FONT (12,0,0,700,0,204,0,"Arial")
    UPDATE 0
   }
-  GROUP  47223, 0, 0
+  GROUP  47240, 0, 0
   {
    PAGEALIGN 10
    RECT (8920,3020,9801,3401)
@@ -16844,7 +16845,7 @@ PAGE ""
     FILL (1,(0,0,0),0)
    }
   }
-  GROUP  47224, 0, 0
+  GROUP  47241, 0, 0
   {
    PAGEALIGN 10
    RECT (8920,3220,9801,3221)
@@ -16856,7 +16857,7 @@ PAGE ""
     FILL (1,(0,0,0),0)
    }
   }
-  GROUP  47225, 0, 0
+  GROUP  47242, 0, 0
   {
    PAGEALIGN 10
    RECT (8920,3160,9801,3161)
@@ -16868,7 +16869,7 @@ PAGE ""
     FILL (1,(0,0,0),0)
    }
   }
-  GROUP  47226, 0, 0
+  GROUP  47243, 0, 0
   {
    PAGEALIGN 10
    RECT (8920,3280,9801,3281)
@@ -16880,7 +16881,7 @@ PAGE ""
     FILL (1,(0,0,0),0)
    }
   }
-  GROUP  47227, 0, 0
+  GROUP  47244, 0, 0
   {
    PAGEALIGN 10
    RECT (8920,3340,9801,3341)
@@ -16892,7 +16893,7 @@ PAGE ""
     FILL (1,(0,0,0),0)
    }
   }
-  GROUP  47228, 0, 0
+  GROUP  47245, 0, 0
   {
    PAGEALIGN 10
    RECT (9100,3020,9101,3161)
@@ -16903,7 +16904,7 @@ PAGE ""
     POINTS ( (0,0), (0,140) )
    }
   }
-  GROUP  47229, 0, 0
+  GROUP  47246, 0, 0
   {
    PAGEALIGN 10
    RECT (9100,3160,9101,3401)
@@ -16914,7 +16915,7 @@ PAGE ""
     POINTS ( (0,0), (0,240) )
    }
   }
-  BMPPICT  47230, 0, 0
+  BMPPICT  47247, 0, 0
   {
    PAGEALIGN 10
    RECT (8940,3080,9079,3125)

@@ -65,12 +65,12 @@ entity bd_wrapper is
     
    FB_GIGE_MM2S_mosi : in t_axi4_a32_read_mosi;
    FB_GIGE_MM2S_miso : out t_axi4_d32_read_miso;
-   FB_GIGE_S2MM_mosi : in t_axi4_a32_d128_write_mosi;
+   FB_GIGE_S2MM_mosi : in t_axi4_a32_d64_write_mosi;
    FB_GIGE_S2MM_miso : out t_axi4_write_miso;
     
    FB_SDI_MM2S_mosi : in t_axi4_a32_read_mosi;
    FB_SDI_MM2S_miso : out t_axi4_d32_read_miso;
-   FB_SDI_S2MM_mosi : in t_axi4_a32_d128_write_mosi;
+   FB_SDI_S2MM_mosi : in t_axi4_a32_d64_write_mosi;
    FB_SDI_S2MM_miso : out t_axi4_write_miso;
 
 
@@ -255,10 +255,10 @@ component core_wrapper is
     S_FB_GIGE_S2MM_bready : in STD_LOGIC;
     S_FB_GIGE_S2MM_bresp : out STD_LOGIC_VECTOR ( 1 downto 0 );
     S_FB_GIGE_S2MM_bvalid : out STD_LOGIC;
-    S_FB_GIGE_S2MM_wdata : in STD_LOGIC_VECTOR ( 127 downto 0 );
+    S_FB_GIGE_S2MM_wdata : in STD_LOGIC_VECTOR ( 63 downto 0 );
     S_FB_GIGE_S2MM_wlast : in STD_LOGIC;
     S_FB_GIGE_S2MM_wready : out STD_LOGIC;
-    S_FB_GIGE_S2MM_wstrb : in STD_LOGIC_VECTOR ( 15 downto 0 );
+    S_FB_GIGE_S2MM_wstrb : in STD_LOGIC_VECTOR ( 7 downto 0 );
     S_FB_GIGE_S2MM_wvalid : in STD_LOGIC;
     S_FB_SDI_MM2S_araddr : in STD_LOGIC_VECTOR ( 31 downto 0 );
     S_FB_SDI_MM2S_arburst : in STD_LOGIC_VECTOR ( 1 downto 0 );
@@ -294,10 +294,10 @@ component core_wrapper is
     S_FB_SDI_S2MM_bready : in STD_LOGIC;
     S_FB_SDI_S2MM_bresp : out STD_LOGIC_VECTOR ( 1 downto 0 );
     S_FB_SDI_S2MM_bvalid : out STD_LOGIC;
-    S_FB_SDI_S2MM_wdata : in STD_LOGIC_VECTOR ( 127 downto 0 );
+    S_FB_SDI_S2MM_wdata : in STD_LOGIC_VECTOR ( 63 downto 0 );
     S_FB_SDI_S2MM_wlast : in STD_LOGIC;
     S_FB_SDI_S2MM_wready : out STD_LOGIC;
-    S_FB_SDI_S2MM_wstrb : in STD_LOGIC_VECTOR ( 15 downto 0 );
+    S_FB_SDI_S2MM_wstrb : in STD_LOGIC_VECTOR ( 7 downto 0 );
     S_FB_SDI_S2MM_wvalid : in STD_LOGIC;
 	
     UART_STORAGE_RX : in STD_LOGIC;

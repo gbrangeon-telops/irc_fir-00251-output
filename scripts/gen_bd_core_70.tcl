@@ -258,7 +258,7 @@ proc write_mig_file_core_mig_7series_0_0 { str_mig_prj_filepath } {
    puts $mig_prj_file {            <C0_C_RD_WR_ARB_ALGORITHM>RD_PRI_REG</C0_C_RD_WR_ARB_ALGORITHM>}
    puts $mig_prj_file {            <C0_S_AXI_ADDR_WIDTH>29</C0_S_AXI_ADDR_WIDTH>}
    puts $mig_prj_file {            <C0_S_AXI_DATA_WIDTH>128</C0_S_AXI_DATA_WIDTH>}
-   puts $mig_prj_file {            <C0_S_AXI_ID_WIDTH>4</C0_S_AXI_ID_WIDTH>}
+   puts $mig_prj_file {            <C0_S_AXI_ID_WIDTH>3</C0_S_AXI_ID_WIDTH>}
    puts $mig_prj_file {            <C0_S_AXI_SUPPORTS_NARROW_BURST>0</C0_S_AXI_SUPPORTS_NARROW_BURST>}
    puts $mig_prj_file {        </AXIParameters>}
    puts $mig_prj_file {    </Controller>}
@@ -519,14 +519,15 @@ proc create_hier_cell_FB_MEMORY { parentCell nameHier } {
   set axi_interconnect_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_interconnect:2.1 axi_interconnect_0 ]
   set_property -dict [ list \
 CONFIG.ENABLE_ADVANCED_OPTIONS {1} \
-CONFIG.M00_HAS_DATA_FIFO {2} \
+CONFIG.M00_HAS_DATA_FIFO {0} \
 CONFIG.NUM_MI {1} \
 CONFIG.NUM_SI {5} \
-CONFIG.S00_HAS_DATA_FIFO {1} \
+CONFIG.S00_HAS_DATA_FIFO {2} \
 CONFIG.S01_HAS_DATA_FIFO {2} \
-CONFIG.S02_HAS_DATA_FIFO {1} \
+CONFIG.S02_HAS_DATA_FIFO {2} \
 CONFIG.S03_HAS_DATA_FIFO {2} \
-CONFIG.S04_HAS_DATA_FIFO {1} \
+CONFIG.S04_HAS_DATA_FIFO {2} \
+CONFIG.STRATEGY {2} \
  ] $axi_interconnect_0
 
   # Create instance: mig_7series_0, and set properties
@@ -671,7 +672,7 @@ CONFIG.ADDR_WIDTH {32} \
 CONFIG.ARUSER_WIDTH {0} \
 CONFIG.AWUSER_WIDTH {0} \
 CONFIG.BUSER_WIDTH {0} \
-CONFIG.DATA_WIDTH {128} \
+CONFIG.DATA_WIDTH {64} \
 CONFIG.HAS_BRESP {1} \
 CONFIG.HAS_BURST {1} \
 CONFIG.HAS_CACHE {1} \
@@ -731,7 +732,7 @@ CONFIG.ADDR_WIDTH {32} \
 CONFIG.ARUSER_WIDTH {0} \
 CONFIG.AWUSER_WIDTH {0} \
 CONFIG.BUSER_WIDTH {0} \
-CONFIG.DATA_WIDTH {128} \
+CONFIG.DATA_WIDTH {64} \
 CONFIG.HAS_BRESP {1} \
 CONFIG.HAS_BURST {1} \
 CONFIG.HAS_CACHE {1} \

@@ -31,7 +31,7 @@ entity datamover_wrapper is
   axis_s2mm_sts_mosi : out t_axi4_stream_mosi_status;
   axis_s2mm_sts_miso : in t_axi4_stream_miso;
   
-  axi_s2mm_mosi : out t_axi4_a32_d128_write_mosi;
+  axi_s2mm_mosi : out t_axi4_a32_d64_write_mosi;
   axi_s2mm_miso : in t_axi4_write_miso;
   
   axis_data_write_mosi : in t_axi4_stream_mosi64;
@@ -102,8 +102,8 @@ COMPONENT axi_fb_datamover
     m_axi_s2mm_awuser : OUT STD_LOGIC_VECTOR(3 DOWNTO 0);
     m_axi_s2mm_awvalid : OUT STD_LOGIC;
     m_axi_s2mm_awready : IN STD_LOGIC;
-    m_axi_s2mm_wdata : OUT STD_LOGIC_VECTOR(127 DOWNTO 0);
-    m_axi_s2mm_wstrb : OUT STD_LOGIC_VECTOR(15 DOWNTO 0);
+    m_axi_s2mm_wdata : OUT STD_LOGIC_VECTOR(63 DOWNTO 0);
+    m_axi_s2mm_wstrb : OUT STD_LOGIC_VECTOR(7 DOWNTO 0);
     m_axi_s2mm_wlast : OUT STD_LOGIC;
     m_axi_s2mm_wvalid : OUT STD_LOGIC;
     m_axi_s2mm_wready : IN STD_LOGIC;
