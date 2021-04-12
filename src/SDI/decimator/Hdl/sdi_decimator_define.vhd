@@ -25,11 +25,10 @@ use work.tel2000.all;
 
 package  sdi_decimator_define is    	  
 
-   
    type  sdi_decimator_cfg_type is
    record 
-      threshold	           : std_logic_vector(31 downto 0);  -- threshold that trig the decimator (in pixel)      
-      dval                   : std_logic;                            -- config valid flag
+      row_width              : std_logic_vector(10 downto 0);
+      enable                 : std_logic_vector(1 downto 0);
    end record  sdi_decimator_cfg_type;
  
 
@@ -37,9 +36,8 @@ package  sdi_decimator_define is
    signal s_sdi_decimator_cfg : sdi_decimator_cfg_type;  
    
    constant sdi_decimator_cfg_default : sdi_decimator_cfg_type := ( 
-   std_logic_vector(to_unsigned(640*512,32)),
-   '0'
-   --threshold => std_logic_vector(to_unsigned(327680,32)) -- 640*512
+   std_logic_vector(to_unsigned(640,s_sdi_decimator_cfg.row_width'length)),
+   "11"
    );
   
  

@@ -22,7 +22,6 @@ library IEEE;
 use IEEE.STD_LOGIC_1164.all;
 use ieee.numeric_std.all;
 use work.tel2000.all; 
-use work.sdi_decimator_testbench_pkg.all; 
 use work.sdi_decimator_define.all;
 
 entity stim is
@@ -59,9 +58,16 @@ constant FRAME_HEIGHT : unsigned := to_unsigned(8,32);
 constant FRAME_SIZE : unsigned := FRAME_HEIGHT * FRAME_WIDTH;
 constant IMG_DLY : unsigned := to_unsigned(16,32);
 constant HDR_DLY : unsigned := to_unsigned(16,32);
+  
+constant ROW_WIDTH              : std_logic_vector(31 downto 0) := std_logic_vector(FRAME_WIDTH); 
 
-constant THRESHOLD         : std_logic_vector(31 downto 0) := std_logic_vector(to_unsigned(640*512,32)); 
-constant NB_CFG_PARAM      : integer := 1; 
+constant VIDEO_FREEZE           : std_logic_vector(31 downto 0) := std_logic_vector(to_unsigned(0,32)); 
+constant VIDEO_SELECTOR_ENABLE  : std_logic_vector(31 downto 0) := std_logic_vector(to_unsigned(0,32)); 
+constant VIDEO_FWPOSITION       : std_logic_vector(31 downto 0) := std_logic_vector(to_unsigned(9,32)); 
+constant SDI_VIDEO_EHDRIINDEX   : std_logic_vector(31 downto 0) := std_logic_vector(to_unsigned(5,32)); 
+
+
+
 
 
 type  frame_gen_state_t is (Frame_Reset, transmit_hdr, hdr_delay_st ,transmit_img, img_delay_st);
@@ -78,8 +84,6 @@ signal frame_height_i : unsigned(31 downto 0) := FRAME_HEIGHT;
 signal frame_size_i : unsigned(31 downto 0) :=  resize(FRAME_HEIGHT*FRAME_WIDTH,32);
 
 signal pixel_index : unsigned(15 downto 0);
-signal cfg_vector                : unsigned(NB_CFG_PARAM*32-1 downto 0);
-signal cfg_i                     : sdi_decimator_cfg_type;
 
 
 
@@ -278,44 +282,25 @@ sim: process is
       frame_width_i  <= FRAME_WIDTH;
       frame_size_i   <= resize(FRAME_HEIGHT*FRAME_WIDTH,32);
 
-      cfg_i.threshold       <= THRESHOLD;
-
       wait for 150 ns;
       rst_n <= '1';
       wait for 150 ns; 
       
-      transmit <= '1';
-      
-      wait for 25 us;
-      
-      cfg_vector <= to_intf_cfg(cfg_i);  
-      for ii in 0 to NB_CFG_PARAM-1 loop 
-         wait until rising_edge(clk_mb_o);      
-         start_pos := cfg_vector'length -1 - 32*ii;
-         end_pos   := start_pos - 31;
-         write_axi_lite(clk_mb_o, std_logic_vector(to_unsigned(4*ii, 32)), std_logic_vector(cfg_vector(start_pos downto end_pos)), MB_MISO,  MB_MOSI);
-         wait for 30 ns;
-      end loop; 
-      
-      
-      wait for 50 us;
-      transmit <= '0';
-      wait for 50 us;
-      
-      frame_width_i  <= to_unsigned(128,32);
-      frame_size_i   <= to_unsigned(8*128,32);
-     
-      
-      cfg_vector <= to_intf_cfg(cfg_i);  
-      for ii in 0 to NB_CFG_PARAM-1 loop 
-         wait until rising_edge(clk_mb_o);      
-         start_pos := cfg_vector'length -1 - 32*ii;
-         end_pos   := start_pos - 31;
-         write_axi_lite(clk_mb_o, std_logic_vector(to_unsigned(4*ii, 32)), std_logic_vector(cfg_vector(start_pos downto end_pos)), MB_MISO,  MB_MOSI);
-         wait for 30 ns;
-      end loop; 
-      
+      write_axi_lite(clk_mb_o, std_logic_vector(to_unsigned(104, 32)), SDI_VIDEO_EHDRIINDEX, MB_MISO,  MB_MOSI);
       wait for 30 ns;
+      write_axi_lite(clk_mb_o, std_logic_vector(to_unsigned(108, 32)), VIDEO_FWPOSITION, MB_MISO,  MB_MOSI);
+      wait for 30 ns;
+      write_axi_lite(clk_mb_o, std_logic_vector(to_unsigned(112, 32)), VIDEO_SELECTOR_ENABLE, MB_MISO,  MB_MOSI);
+      wait for 30 ns;
+      write_axi_lite(clk_mb_o, std_logic_vector(to_unsigned(116, 32)), VIDEO_FREEZE, MB_MISO,  MB_MOSI);
+      wait for 30 ns;
+      write_axi_lite(clk_mb_o, std_logic_vector(to_unsigned(120, 32)), std_logic_vector(frame_width_i), MB_MISO,  MB_MOSI);
+      wait for 30 ns;
+      write_axi_lite(clk_mb_o, std_logic_vector(to_unsigned(124, 32)), std_logic_vector(resize("10",32)), MB_MISO,  MB_MOSI);
+
+
+      wait for 30 ns;
+      
       transmit <= '1';
 
       wait;

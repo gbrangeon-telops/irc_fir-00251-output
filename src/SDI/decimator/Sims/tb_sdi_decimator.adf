@@ -56,7 +56,7 @@ work=.
 WindowVisible=0
 
 [HierarchyViewer]
-HierarchyInformation=
+HierarchyInformation=top|Top|0
 ShowHide=ShowTopLevel
 Selected=
 
@@ -96,34 +96,88 @@ CollectDataPerInstance=0
 CollectDataForAll=0
 LimitBranchCoverage=0
 
-
-
 [Files]
 /build_sim.do=-1
 /run_sim.do=-1
-/sdi_decimator_testbench_pkg.vhd=-1
 /stim.vhd=-1
 /Top.bde=-1
 /waveform.do=-1
 /..\..\Hdl\build_sdi_decimator.do=-1
-/..\..\Hdl\sdi_decimator_ctrl_intf.vhd=-1
-/..\..\Hdl\sdi_decimator_define.vhd=-1
 /..\..\Hdl\sdi_decimator.bde=-1
+/..\..\Hdl\sdi_row_decimator.vhd=-1
+/..\..\Hdl\sdi_column_decimator.vhd=-1
+/..\..\..\..\..\IP\160\t_axi4_stream64_sfifo_d16384\t_axi4_stream64_sfifo_d16384_funcsim.vhdl=-1
+/..\..\..\..\..\..\FIR-00251-Common\VHDL\Utilities\axis64_throughput_ctrl.vhd=-1
+/..\..\..\..\..\..\FIR-00251-Common\VHDL\hdr_extractor\axis64_hder_extractor.vhd=-1
+/..\..\..\HDL\hdr_manager.vhd=-1
+/..\..\..\HDL\video_fwposition_SM.vhd=-1
+/..\..\..\HDL\video_fwposition_selector.bde=-1
+/..\..\..\HDL\video_freeze_SM.vhd=-1
+/..\..\..\HDL\video_freeze.bde=-1
+/..\..\..\HDL\video_ehdri_SM.vhd=-1
+/..\..\..\HDL\video_ehdri_selector.bde=-1
+/..\..\..\HDL\video_data_handler.bde=-1
+/..\..\..\..\..\..\FIR-00251-Common\VHDL\Utilities\axis64_hole.vhd=-1
+/..\..\..\..\..\..\FIR-00251-Common\VHDL\Utilities\axis64_RandomMiso.vhd=-1
+/..\..\..\..\..\..\FIR-00251-Common\VHDL\Calibration\calib_define.vhd=-1
+/..\..\..\..\..\..\FIR-00251-Common\VHDL\Buffering\BufferingDefine.vhd=-1
+/..\..\..\..\..\..\FIR-00251-Common\VHDL\img_header_define.vhd=-1
+/..\..\..\HDL\SDI_ctrl.vhd=-1
+/..\..\..\..\..\..\FIR-00251-Common\VHDL\FrameBuffer\FB_define.vhd=-1
+/..\..\..\..\..\..\FIR-00251-Common\VHDL\Fifo\t_axi4_stream_wr32_rd64_fifo.vhd=-1
+/..\..\Hdl\sdi_decimator_define.vhd=-1
 
 [Files.Data]
 .\src\build_sim.do=Macro
 .\src\run_sim.do=Macro
-.\src\sdi_decimator_testbench_pkg.vhd=VHDL Source Code
 .\src\stim.vhd=VHDL Source Code
 .\src\Top.bde=Block Diagram
 .\src\waveform.do=Macro
 .\..\Hdl\build_sdi_decimator.do=Macro
-.\..\Hdl\sdi_decimator_ctrl_intf.vhd=VHDL Source Code
-.\..\Hdl\sdi_decimator_define.vhd=VHDL Source Code
 .\..\Hdl\sdi_decimator.bde=Block Diagram
-.\compile\Top.vhd=VHDL Source Code
+.\..\Hdl\sdi_row_decimator.vhd=VHDL Source Code
+.\..\Hdl\sdi_column_decimator.vhd=VHDL Source Code
+.\..\..\..\..\IP\160\t_axi4_stream64_sfifo_d16384\t_axi4_stream64_sfifo_d16384_funcsim.vhdl=VHDL Source Code
+.\..\..\..\..\..\FIR-00251-Common\VHDL\Utilities\axis64_throughput_ctrl.vhd=VHDL Source Code
+.\..\..\..\..\..\FIR-00251-Common\VHDL\hdr_extractor\axis64_hder_extractor.vhd=VHDL Source Code
+.\..\..\HDL\hdr_manager.vhd=VHDL Source Code
+.\..\..\HDL\video_fwposition_SM.vhd=VHDL Source Code
+.\..\..\HDL\video_fwposition_selector.bde=Block Diagram
+.\..\..\HDL\video_freeze_SM.vhd=VHDL Source Code
+.\..\..\HDL\video_freeze.bde=Block Diagram
+.\..\..\HDL\video_ehdri_SM.vhd=VHDL Source Code
+.\..\..\HDL\video_ehdri_selector.bde=Block Diagram
+.\..\..\HDL\video_data_handler.bde=Block Diagram
+.\..\..\..\..\..\FIR-00251-Common\VHDL\Utilities\axis64_hole.vhd=VHDL Source Code
+.\..\..\..\..\..\FIR-00251-Common\VHDL\Utilities\axis64_RandomMiso.vhd=VHDL Source Code
+.\..\..\..\..\..\FIR-00251-Common\VHDL\Calibration\calib_define.vhd=VHDL Source Code
+.\..\..\..\..\..\FIR-00251-Common\VHDL\Buffering\BufferingDefine.vhd=VHDL Source Code
+.\..\..\..\..\..\FIR-00251-Common\VHDL\img_header_define.vhd=VHDL Source Code
+.\..\..\HDL\SDI_ctrl.vhd=VHDL Source Code
+.\..\..\..\..\..\FIR-00251-Common\VHDL\FrameBuffer\FB_define.vhd=VHDL Source Code
+.\..\..\..\..\..\FIR-00251-Common\VHDL\Fifo\t_axi4_stream_wr32_rd64_fifo.vhd=VHDL Source Code
+.\..\Hdl\sdi_decimator_define.vhd=VHDL Source Code
+.\compile\video_freeze.vhd=VHDL Source Code
+.\compile\video_ehdri_selector.vhd=VHDL Source Code
+.\compile\video_fwposition_selector.vhd=VHDL Source Code
+.\compile\video_data_handler.vhd=VHDL Source Code
 .\compile\sdi_decimator.vhd=VHDL Source Code
+.\compile\Top.vhd=VHDL Source Code
 
+
+
+
+
+
+
+[file_out:/..\..\..\HDL\video_freeze.bde]
+/..\compile\video_freeze.vhd=-1
+[file_out:/..\..\..\HDL\video_ehdri_selector.bde]
+/..\compile\video_ehdri_selector.vhd=-1
+[file_out:/..\..\..\HDL\video_fwposition_selector.bde]
+/..\compile\video_fwposition_selector.vhd=-1
+[file_out:/..\..\..\HDL\video_data_handler.bde]
+/..\compile\video_data_handler.vhd=-1
 [file_out:/..\..\Hdl\sdi_decimator.bde]
 /..\compile\sdi_decimator.vhd=-1
 [file_out:/Top.bde]

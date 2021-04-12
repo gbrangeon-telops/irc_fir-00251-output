@@ -5,4 +5,4 @@ asim -ses +access +r Top
 do "D:\Telops\FIR-00251-Output\src\SDI\decimator\Sims\src\waveform.do"
 #transcript on
 
-run 0.5 ms
+run 0.1 ms

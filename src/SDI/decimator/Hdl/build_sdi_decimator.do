@@ -12,7 +12,9 @@ acom "D:\Telops\FIR-00251-Output\src\SDI\decimator\Hdl\sdi_decimator_define.vhd"
 do "D:\Telops\FIR-00251-Proc\src\compil_utilities.do"
 
 #source 
-acom "D:\Telops\FIR-00251-Output\src\SDI\decimator\Hdl\sdi_decimator_ctrl_intf.vhd"
+acom "D:\Telops\FIR-00251-Common\VHDL\Fifo\t_axi4_stream_wr32_rd64_fifo.vhd"
+acom "D:\Telops\FIR-00251-Output\src\SDI\decimator\Hdl\sdi_column_decimator.vhd"	
+acom "D:\Telops\FIR-00251-Output\src\SDI\decimator\Hdl\sdi_row_decimator.vhd"
 
 #Top
 acom "D:\Telops\FIR-00251-Output\src\SDI\decimator\Hdl\sdi_decimator.bde"
