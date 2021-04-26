@@ -27,8 +27,9 @@ package  sdi_decimator_define is
 
    type  sdi_decimator_cfg_type is
    record 
-      row_width              : std_logic_vector(10 downto 0);
+      input_width            : std_logic_vector(10 downto 0);
       enable                 : std_logic_vector(1 downto 0);
+      valid                  : std_logic;
    end record  sdi_decimator_cfg_type;
  
 
@@ -36,8 +37,9 @@ package  sdi_decimator_define is
    signal s_sdi_decimator_cfg : sdi_decimator_cfg_type;  
    
    constant sdi_decimator_cfg_default : sdi_decimator_cfg_type := ( 
-   std_logic_vector(to_unsigned(640,s_sdi_decimator_cfg.row_width'length)),
-   "11"
+   std_logic_vector(to_unsigned(640,s_sdi_decimator_cfg.input_width'length)),
+   "00",
+   '0'
    );
   
  

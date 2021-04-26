@@ -16,21 +16,22 @@ use ieee.numeric_std.all;
 use work.tel2000.all;
 use work.FB_Define.all;
 use work.calib_define.all;
+use work.sdi_decimator_define.all;
 
 entity SDI_ctrl is
    port (
-      CLK            : in  std_logic;
-      CLK_DATA       : in  std_logic;
-      ARESET         : in  std_logic;
+      CLK               : in  std_logic;
+      CLK_DATA          : in  std_logic;
+      ARESET            : in  std_logic;
       
       -- AXIL signals
-      AXI4_LITE_MOSI : in t_axi4_lite_mosi;
-      AXI4_LITE_MISO : out t_axi4_lite_miso;
+      AXI4_LITE_MOSI    : in t_axi4_lite_mosi;
+      AXI4_LITE_MISO    : out t_axi4_lite_miso;
       
-      SDI_ERR        : in std_logic_vector(31 downto 0);
+      SDI_ERR           : in std_logic_vector(31 downto 0);
       
-      WRITE_FR_STAT  : in axis_frame_rate_type;
-      READ_FR_STAT   : in axis_frame_rate_type;
+      WRITE_FR_STAT     : in axis_frame_rate_type;
+      READ_FR_STAT      : in axis_frame_rate_type;
       
       -- Output signals
       Output_Img_Size   : out std_logic_vector(31 downto 0);
@@ -49,13 +50,15 @@ entity SDI_ctrl is
       
       SDI_ResetN        : out std_logic;
       
-      CMAP_PARAM		: out lut_param_type;
+      CMAP_PARAM		   : out lut_param_type;
       
       FB_READ_PAUSE		: out std_logic;
       
       FB_CONF           : out FB_Config;
       
-      VIDEO_CONFIG                : out video_config_type
+      DECIMATOR_CFG     : out sdi_decimator_cfg_type;
+      
+      VIDEO_CONFIG      : out video_config_type
       
    );
 end SDI_ctrl;
@@ -91,8 +94,9 @@ architecture implementation of SDI_ctrl is
    signal sreset         : std_logic;
 
    --! User Output Register Declarations
-   signal fb_cfg : FB_Config;
-    
+   signal fb_cfg          : FB_Config;
+   signal decimator_cfg_i : sdi_decimator_cfg_type;
+   
    -- AXI4LITE signals
    signal axi_awaddr	  : std_logic_vector(C_S_AXI_ADDR_WIDTH-1 downto 0);
    signal axi_awready  : std_logic;
@@ -164,6 +168,7 @@ begin
    
          
    FB_CONF <= fb_cfg;
+   DECIMATOR_CFG <= decimator_cfg_i; 
    
    Output_Img_Size   <= output_img_size_i;
    Scaler_Img_Width   <= scaler_img_width_i;
@@ -243,6 +248,7 @@ begin
       if rising_edge(CLK) then 
          if sreset = '1' then
             fb_cfg.config_valid <= '0';
+            decimator_cfg_i.valid <= '0';
             sdi_pause_resetn_i <= (others => '0');
             reset_err_i <= '0'; 
             mb_cfg_done <= '0';
@@ -278,13 +284,18 @@ begin
                   when x"5C" => sdi_img_h_stop_i            <= AXI4_LITE_MOSI.WDATA(sdi_img_h_stop_i'length-1 downto 0);
                   when x"60" => sdi_720pn_1080p_i           <= AXI4_LITE_MOSI.WDATA(0);
                   when x"64" => sdi_pause_resetn_i          <= AXI4_LITE_MOSI.WDATA(sdi_pause_resetn_i'length-1 downto 0);   
+                  when X"68" => decimator_cfg_i.input_width   <= AXI4_LITE_MOSI.WDATA(decimator_cfg_i.input_width'length-1 downto 0);
+                  when X"6C" => decimator_cfg_i.enable        <= AXI4_LITE_MOSI.WDATA(decimator_cfg_i.enable'length-1 downto 0);
+                  when X"70" => decimator_cfg_i.valid         <= AXI4_LITE_MOSI.WDATA(0);
+
                   
-                                 -- video
-                  when X"68" => video_config_i.ehdri_index        <= AXI4_LITE_MOSI.WDATA(video_config_i.ehdri_index'length-1 downto 0);
-                  when X"6C" => video_config_i.fw_position        <= AXI4_LITE_MOSI.WDATA(video_config_i.fw_position'length-1 downto 0);
-                  when X"70" => video_config_i.selector           <= AXI4_LITE_MOSI.WDATA(video_config_i.selector'length-1 downto 0);
-                  when X"74" => video_config_i.freeze_cmd         <= AXI4_LITE_MOSI.WDATA(0);
-               
+                  
+                  -- video
+                  when X"74" => video_config_i.ehdri_index        <= AXI4_LITE_MOSI.WDATA(video_config_i.ehdri_index'length-1 downto 0);
+                  when X"78" => video_config_i.fw_position        <= AXI4_LITE_MOSI.WDATA(video_config_i.fw_position'length-1 downto 0);
+                  when X"7C" => video_config_i.selector           <= AXI4_LITE_MOSI.WDATA(video_config_i.selector'length-1 downto 0);
+                  when X"80" => video_config_i.freeze_cmd         <= AXI4_LITE_MOSI.WDATA(0);
+                  
                   when x"FC" => reset_err_i                 <= AXI4_LITE_MOSI.WDATA(0);
                   when others =>
                end case;   
@@ -383,11 +394,15 @@ begin
             when x"5C"  => reg_data_out <= std_logic_vector(resize(sdi_img_h_stop_i, reg_data_out'length));
             when x"60"  => reg_data_out <= std_logic_vector(resize(sdi_720pn_1080p_i, reg_data_out'length));
             when x"64"  => reg_data_out <= std_logic_vector(resize(sdi_pause_resetn_i, reg_data_out'length));
-            
-            when x"68"  => reg_data_out <= std_logic_vector(resize(video_config_i.ehdri_index, reg_data_out'length));
-            when x"6C"  => reg_data_out <= std_logic_vector(resize(video_config_i.fw_position, reg_data_out'length));
-            when x"70"  => reg_data_out <= std_logic_vector(resize(video_config_i.selector, reg_data_out'length));
-            when x"74"  => reg_data_out <= std_logic_vector(resize(video_config_i.freeze_cmd, reg_data_out'length));
+           
+            when x"68"  => reg_data_out <= std_logic_vector(resize(decimator_cfg_i.input_width, reg_data_out'length));
+            when x"6C"  => reg_data_out <= std_logic_vector(resize(decimator_cfg_i.enable, reg_data_out'length));
+            when x"70"  => reg_data_out <= std_logic_vector(resize(decimator_cfg_i.valid, reg_data_out'length));
+
+            when x"74"  => reg_data_out <= std_logic_vector(resize(video_config_i.ehdri_index, reg_data_out'length));
+            when x"78"  => reg_data_out <= std_logic_vector(resize(video_config_i.fw_position, reg_data_out'length));
+            when x"7C"  => reg_data_out <= std_logic_vector(resize(video_config_i.selector, reg_data_out'length));
+            when x"80"  => reg_data_out <= std_logic_vector(resize(video_config_i.freeze_cmd, reg_data_out'length));
             
             when x"E4"  => reg_data_out <= resize(WRITE_FR_STAT.frame_rate_min, reg_data_out'length);
             when x"E8"  => reg_data_out <= resize(WRITE_FR_STAT.frame_rate, reg_data_out'length);

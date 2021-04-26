@@ -44,11 +44,14 @@ struct s_SdiIntf
    uint32_t SDI_720pN_1080p;
 
    uint32_t SDI_PauseResetN;
+   uint32_t DecimatorInputWidth;
+   uint32_t DecimatorEnable;
+   uint32_t DecimatorValid;
 };
 
 typedef struct s_SdiIntf t_SdiIntf;
 
-#define SDIIntf_Ctor(baseadd) {sizeof(t_SdiIntf)/4 - 2, baseadd, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
+#define SDIIntf_Ctor(baseadd) {sizeof(t_SdiIntf)/4 - 2, baseadd, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
 
 #define SDI_NOPAUSE_RESETN_BIT      0x0
 #define SDI_NOPAUSE_NORESETN_BIT    0x1
@@ -138,17 +141,18 @@ typedef struct s_SdiStatus t_SdiStatus;
 //sdi system reset
 #define SDI_PAUSE_RESET_N_OFFSET    0x64
 #define SDI_FB_CONFIG_VALID_OFFSET  0x24
+#define SDI_DECIMATOR_CONFIG_VALID_OFFSET  0x70
 #define SDI_720PN_1080P_OFFSET      0x60
 
-//#define ZOOM_RESET_US               33000   // 2 frames at 60Hz
+//#define ZOOM_RESET_US             33000   // 2 frames at 60Hz
 #define ZOOM_RESET_US               250000  // 3 frames at 30Hz
 
 //video data handler configuration
 // Ctrl Video
-#define AW_VIDEO_EHDRIINDEX         0x68
-#define AW_VIDEO_FWPOSITION         0x6C
-#define AW_VIDEO_SELECTOR_ENABLE    0x70
-#define AW_VIDEO_FREEZE             0x74
+#define AW_VIDEO_EHDRIINDEX         0x74
+#define AW_VIDEO_FWPOSITION         0x78
+#define AW_VIDEO_SELECTOR_ENABLE    0x7C
+#define AW_VIDEO_FREEZE             0x80
 
 #define VIDEO_EHDRI_INDEX_DEFAULT   0x5   // Valeur pour EHDRI desactiver
 // CONTROLE du video selector(ehdri_index ou fwposition)
@@ -165,6 +169,13 @@ typedef struct s_SdiStatus t_SdiStatus;
 #define SDI_AR_ERR_LATCH            0xFC
 #define SDI_AW_RESET_ERR            0xFC
 
+#define DECIMATOR_THRESHOLD             640*512
+#define DECIMATOR_INPUT_WIDTH_MIN       64
+#define DECIMATOR_INPUT_HEIGHT_MIN      4
+#define DECIMATOR_DESACTIVATED_MASK     0x00000000
+#define DECIMATOR_ROW_MASK              0x00000001
+#define DECIMATOR_COLUMN_MASK           0x00000002
+#define DECIMATOR_ACTIVATED_MASK        0x00000003
 
 //Fonction definition
 void SDIIntf_GetStatus(const t_SdiIntf *pSdiIntf, t_SdiStatus *pStat);
@@ -185,6 +196,7 @@ void SDIIntf_ConfigureOutput(t_SdiIntf *pSdiIntf);
 void SDIIntf_UpdateVideoOutput(t_SdiIntf *pSdiIntf, const gcRegistersData_t *pGCRegs);
 
 void SDIIntf_UpdateVideoDataHandler(t_SdiIntf *pSdiCtrl,  const gcRegistersData_t *pGCRegs);
+void SDIIntf_ComputeInputWidowSize(t_SdiIntf *pSdiCtrl, const gcRegistersData_t *pGCRegs);
 
 
 

@@ -52,20 +52,30 @@ architecture sdi_row_decimator of sdi_row_decimator is
          );
    end component;   
    
+   component double_sync is
+      port(
+         D : in STD_LOGIC;
+         Q : out STD_LOGIC;
+         RESET : in STD_LOGIC;
+         CLK : in STD_LOGIC
+         );
+   end component double_sync;
+   
    signal areset_i         : std_logic; 
    signal sreset           : std_logic; 
-   signal gate             : std_logic;
+   signal config_valid_s   : std_logic;
+   
    signal cfg_i            : sdi_decimator_cfg_type := sdi_decimator_cfg_default;
    signal pix_cnt          : unsigned(10 downto 0); 
    signal discard_row      : std_logic;
-   
+   signal rx_mosi_pipe     : t_axi4_stream_mosi64; 
    
 begin  
    
    -- I/O Connections assignments
-   areset_i            <= not ARESETN;  
-   cfg_i               <= CFG;   
-   gate                <= discard_row and cfg_i.enable(0);    
+   areset_i            <= not ARESETN;       
+            
+   U1 : double_sync  port map(D => CFG.valid, Q=> config_valid_s, RESET => sreset, CLK => CLK);
    
    U2: sync_reset
    port map(
@@ -73,23 +83,59 @@ begin
       CLK    => CLK,
       SRESET => sreset
    ); 
+  
+   U3 : process(CLK)      
+   begin  
+      if rising_edge(CLK) then
+         if sreset = '1' or config_valid_s = '0' then
+            cfg_i.valid <= '0';
+         else
+            cfg_i <= CFG;
+         end if;
+      end if;
+   end process;
 
-   AXIS_RX_DATA_MISO.TREADY  <= AXIS_TX_DATA_MISO.TREADY when gate = '0' else '1';
-   AXIS_TX_DATA_MOSI.TDATA   <= AXIS_RX_DATA_MOSI.TDATA;    
-   AXIS_TX_DATA_MOSI.TLAST   <= AXIS_RX_DATA_MOSI.TLAST;  
-   AXIS_TX_DATA_MOSI.TID     <= AXIS_RX_DATA_MOSI.TID;    
-   AXIS_TX_DATA_MOSI.TVALID <=  AXIS_RX_DATA_MOSI.TVALID when gate = '0' else '0';   
-   
-   U1: process (CLK)
+  
+    
+   AXIS_RX_DATA_MISO.TREADY  <= '1' when (discard_row = '1' and cfg_i.enable(0) = '1') else AXIS_TX_DATA_MISO.TREADY ; 
+
+   U4: process (CLK)
    begin
       if rising_edge(CLK) then 
-         if sreset = '1' then
-            pix_cnt                  <= (others => '0');   
-            discard_row <= '1'; -- On discarte les lignes paires pour que le TLAST arrive sur une ligne valide.
-         else
-            if AXIS_RX_DATA_MOSI.tvalid = '1' and AXIS_TX_DATA_MISO.TREADY = '1' then
+         if sreset = '1' then 
+            
+            pix_cnt     <= (others => '0');   
+            discard_row <= '1'; -- On discarte les lignes paires pour que le TLAST arrive sur une ligne valide.   
+            AXIS_TX_DATA_MOSI.TDATA  <= (others => '0');
+            AXIS_TX_DATA_MOSI.TLAST  <= '0'; 
+            AXIS_TX_DATA_MOSI.TID    <= (others => '0');
+            AXIS_TX_DATA_MOSI.TVALID <= '0';
+            AXIS_TX_DATA_MOSI.TKEEP <= (others => '1');
+            AXIS_TX_DATA_MOSI.TSTRB <= (others => '1');
+            AXIS_TX_DATA_MOSI.TDEST <= (others => '0'); -- non géré
+            AXIS_TX_DATA_MOSI.TUSER <= (others => '0'); -- non géré  
+            
+         else     
+            
+            rx_mosi_pipe              <= AXIS_RX_DATA_MOSI;     
+
+            AXIS_TX_DATA_MOSI.TDATA   <= rx_mosi_pipe.TDATA;    
+            AXIS_TX_DATA_MOSI.TLAST   <= rx_mosi_pipe.TLAST; 
+            AXIS_TX_DATA_MOSI.TID     <= rx_mosi_pipe.TID;
+            AXIS_TX_DATA_MOSI.TKEEP   <= (others => '1');
+            AXIS_TX_DATA_MOSI.TSTRB   <= (others => '1');
+            AXIS_TX_DATA_MOSI.TDEST   <= (others => '0'); -- non géré
+            AXIS_TX_DATA_MOSI.TUSER   <= (others => '0'); -- non géré
+            
+            if discard_row = '1' and cfg_i.enable(0) = '1' then
+               AXIS_TX_DATA_MOSI.TVALID  <= '0'; 
+            else
+               AXIS_TX_DATA_MOSI.TVALID  <= rx_mosi_pipe.TVALID;
+            end if;
+
+            if rx_mosi_pipe.tvalid = '1' and AXIS_TX_DATA_MISO.TREADY = '1' then
                pix_cnt <= pix_cnt + 4;
-               if pix_cnt = (unsigned(cfg_i.row_width) - 4) then
+               if pix_cnt = (unsigned(cfg_i.input_width) - 4) then
                   discard_row <= not discard_row;
                   pix_cnt <= (others => '0');
                end if;

@@ -84,6 +84,7 @@ add_files [concat \
    [glob -nocomplain $src_dir/SDI/colormap/*.coe] \
    [glob -nocomplain $src_dir/SDI/dru/*.vhd] \
    [glob -nocomplain $src_dir/SDI/dru/*.ngc] \
+   [glob -nocomplain $src_dir/SDI/decimator/HDL/*.vhd] \
    [glob -nocomplain $src_dir/SDI/Video_Package/*.vhd] \
    [glob -nocomplain $src_dir/SDI/VideoTimingGenerator/*.vhd] \
    [glob -nocomplain $src_dir/SDI/GTX_wrapper/*.vhd] \

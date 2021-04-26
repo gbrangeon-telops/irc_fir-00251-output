@@ -54,7 +54,7 @@ constant CLK100_PERIOD : time := 10 ns;
 
 --IMAGE PARAM
 constant FRAME_WIDTH : unsigned := to_unsigned(64,32);
-constant FRAME_HEIGHT : unsigned := to_unsigned(8,32);
+constant FRAME_HEIGHT : unsigned := to_unsigned(6,32);
 constant FRAME_SIZE : unsigned := FRAME_HEIGHT * FRAME_WIDTH;
 constant IMG_DLY : unsigned := to_unsigned(16,32);
 constant HDR_DLY : unsigned := to_unsigned(16,32);
@@ -120,7 +120,8 @@ begin
             AXIS_MOSI.TKEEP <= (others => '1');
             AXIS_MOSI.TDEST <= (others => '0');
             AXIS_MOSI.TUSER   <= (others => '0');
-            AXIS_MOSI.TID     <= "0";
+            AXIS_MOSI.TID     <= "0"; 
+            AXIS_MOSI.TSTRB     <= (others => '1');
                      
          else   
             
@@ -134,7 +135,7 @@ begin
                      AXIS_MOSI.TDEST <= (others => '0');
                      AXIS_MOSI.TUSER   <= (others => '0');
                      AXIS_MOSI.TID     <= (others => '1');
-                     
+                     AXIS_MOSI.TSTRB     <= (others => '1');
                      pixel_index <= (others => '0');
                      
                      if transmit = '1' then 
@@ -197,10 +198,12 @@ begin
                      end if;   
                         
                   when hdr_delay_st => 
-                     AXIS_MOSI.TLAST <= '0';
-                     AXIS_MOSI.TDATA <= (others => '0');
-                     AXIS_MOSI.TVALID  <= '0'; 
-                     AXIS_MOSI.TID     <= (others => '0');
+                     if AXIS_MISO.TREADY = '1' then
+                        AXIS_MOSI.TLAST <= '0';
+                        AXIS_MOSI.TDATA <= (others => '0');
+                        AXIS_MOSI.TVALID  <= '0'; 
+                        AXIS_MOSI.TID     <= (others => '0');
+                     end if;    
                      
                      if cnt > HDR_DLY then
                         frame_gen_state <= transmit_img;
@@ -229,13 +232,18 @@ begin
                         end if; 
                      end if; 
                         
-                  when img_delay_st =>
+                  when img_delay_st =>   
+                  
+                     if AXIS_MISO.TREADY = '1' then 
+                        AXIS_MOSI.TLAST <= '0';
+                        AXIS_MOSI.TDATA <= (others => '0');
+                        AXIS_MOSI.TVALID  <= '0'; 
+                        AXIS_MOSI.TID     <= (others => '1');   
+                     end if;
+                  
                      pixel_index <= (others => '0');
                   
-                     AXIS_MOSI.TLAST <= '0';
-                     AXIS_MOSI.TDATA <= (others => '0');
-                     AXIS_MOSI.TVALID  <= '0'; 
-                     AXIS_MOSI.TID     <= (others => '1');
+
                      if cnt > IMG_DLY then
                         if transmit = '1' then 
                            frame_gen_state <= transmit_hdr;
@@ -286,17 +294,23 @@ sim: process is
       rst_n <= '1';
       wait for 150 ns; 
       
-      write_axi_lite(clk_mb_o, std_logic_vector(to_unsigned(104, 32)), SDI_VIDEO_EHDRIINDEX, MB_MISO,  MB_MOSI);
+           
+      write_axi_lite(clk_mb_o, std_logic_vector(to_unsigned(112, 32)), std_logic_vector(resize('1',32)), MB_MISO,  MB_MOSI);
       wait for 30 ns;
-      write_axi_lite(clk_mb_o, std_logic_vector(to_unsigned(108, 32)), VIDEO_FWPOSITION, MB_MISO,  MB_MOSI);
+      write_axi_lite(clk_mb_o, std_logic_vector(to_unsigned(116, 32)), SDI_VIDEO_EHDRIINDEX, MB_MISO,  MB_MOSI);
       wait for 30 ns;
-      write_axi_lite(clk_mb_o, std_logic_vector(to_unsigned(112, 32)), VIDEO_SELECTOR_ENABLE, MB_MISO,  MB_MOSI);
+      write_axi_lite(clk_mb_o, std_logic_vector(to_unsigned(120, 32)), VIDEO_FWPOSITION, MB_MISO,  MB_MOSI);
       wait for 30 ns;
-      write_axi_lite(clk_mb_o, std_logic_vector(to_unsigned(116, 32)), VIDEO_FREEZE, MB_MISO,  MB_MOSI);
+      write_axi_lite(clk_mb_o, std_logic_vector(to_unsigned(124, 32)), VIDEO_SELECTOR_ENABLE, MB_MISO,  MB_MOSI);
       wait for 30 ns;
-      write_axi_lite(clk_mb_o, std_logic_vector(to_unsigned(120, 32)), std_logic_vector(frame_width_i), MB_MISO,  MB_MOSI);
+      write_axi_lite(clk_mb_o, std_logic_vector(to_unsigned(128, 32)), VIDEO_FREEZE, MB_MISO,  MB_MOSI);
       wait for 30 ns;
-      write_axi_lite(clk_mb_o, std_logic_vector(to_unsigned(124, 32)), std_logic_vector(resize("10",32)), MB_MISO,  MB_MOSI);
+      write_axi_lite(clk_mb_o, std_logic_vector(to_unsigned(104, 32)), std_logic_vector(frame_width_i), MB_MISO,  MB_MOSI);
+      wait for 30 ns;
+      write_axi_lite(clk_mb_o, std_logic_vector(to_unsigned(108, 32)), std_logic_vector(resize("11",32)), MB_MISO,  MB_MOSI);
+      wait for 30 ns;
+      write_axi_lite(clk_mb_o, std_logic_vector(to_unsigned(112, 32)), std_logic_vector(resize('1',32)), MB_MISO,  MB_MOSI);
+
 
 
       wait for 30 ns;

@@ -18,6 +18,9 @@ static uint32_t gScalerImgHeight;
 static uint32_t gOutputImgWidth;
 static uint32_t gOutputImgHeight;
 
+static uint32_t gInputImgWidth;
+static uint32_t gInputImgHeight;
+
 // les differents modes d'operation du controleur
 static SDIIntf_ZoomState_t gZoomCurrentState = ZOOM_IDLE;
 static SDIIntf_FlipXState_t gFlipxCurrentState = FLIPX_IDLE;
@@ -89,16 +92,17 @@ void SDIIntf_Init(t_SdiIntf *pSdiCtrl, const gcRegistersData_t *pGCRegs)
 
    if(pGCRegs->Width != 0 && pGCRegs->Height != 0)
    {
-      pSdiCtrl->FB_ImgWidth = pGCRegs->Width;
-      pSdiCtrl->FB_ImgHeight = pGCRegs->Height;
+      SDIIntf_ComputeInputWidowSize(pSdiCtrl, pGCRegs);
+      pSdiCtrl->FB_ImgWidth = gInputImgWidth;
+      pSdiCtrl->FB_ImgHeight = gInputImgHeight;
 
-      pSdiCtrl->ScalerImgWidth = pGCRegs->Width;
-      gScalerImgHeight = pGCRegs->Height;
+      pSdiCtrl->ScalerImgWidth = gInputImgWidth;
+      gScalerImgHeight = gInputImgHeight;
 
       pSdiCtrl->FB_ReadStartPix = 0;
-      pSdiCtrl->FB_ReadWidth = pGCRegs->Width;
+      pSdiCtrl->FB_ReadWidth = gInputImgWidth;
       pSdiCtrl->FB_ReadStartLine = 1;
-      pSdiCtrl->FB_ReadStopLine = pGCRegs->Height;
+      pSdiCtrl->FB_ReadStopLine = gInputImgHeight;
    }
 
    pSdiCtrl->FB_ImgSize = pSdiCtrl->FB_ImgWidth * pSdiCtrl->FB_ImgHeight;
@@ -116,6 +120,7 @@ void SDIIntf_Init(t_SdiIntf *pSdiCtrl, const gcRegistersData_t *pGCRegs)
 
    pSdiCtrl->SDI_PauseResetN = SDI_NOPAUSE_RESETN_BIT;
    pSdiCtrl->FB_ConfigValid = 0;
+   pSdiCtrl->DecimatorValid = 0;
 
    WriteStruct(pSdiCtrl);
 
@@ -124,10 +129,12 @@ void SDIIntf_Init(t_SdiIntf *pSdiCtrl, const gcRegistersData_t *pGCRegs)
 
    pSdiCtrl->SDI_PauseResetN = SDI_NOPAUSE_NORESETN_BIT;
    pSdiCtrl->FB_ConfigValid = 1;
+   pSdiCtrl->DecimatorValid = 1;
 
    //Activate the sdi interface
    AXI4L_write32( pSdiCtrl->SDI_PauseResetN , pSdiCtrl->ADD + SDI_PAUSE_RESET_N_OFFSET );
    AXI4L_write32( pSdiCtrl->FB_ConfigValid, pSdiCtrl->ADD + SDI_FB_CONFIG_VALID_OFFSET );
+   AXI4L_write32( pSdiCtrl->DecimatorValid, pSdiCtrl->ADD + SDI_DECIMATOR_CONFIG_VALID_OFFSET );
 
    ///// Video data handler initialization
    AXI4L_write32(VIDEO_EHDRI_INDEX_DEFAULT, pSdiCtrl->ADD + AW_VIDEO_EHDRIINDEX );
@@ -587,7 +594,7 @@ void SDIIntf_ChangeInputWindowSM(t_SdiIntf *pSdiCtrl, gcRegistersData_t *pGCRegs
             gChangeInputWindowCurrentState = CHANGEINPUTWINDOW_ENABLE;
 
             pSdiCtrl->FB_ConfigValid = 0;
-
+            pSdiCtrl->DecimatorValid = 0;
             if (pGCRegs->VideoReverseX == 0)
                pSdiCtrl->XFlip = 0;
             else
@@ -595,8 +602,9 @@ void SDIIntf_ChangeInputWindowSM(t_SdiIntf *pSdiCtrl, gcRegistersData_t *pGCRegs
 
             if(pGCRegs->Width != 0 && pGCRegs->Height != 0)
             {
-               imageWidth = pGCRegs->Width;
-               imageHeight = pGCRegs->Height;
+               SDIIntf_ComputeInputWidowSize(pSdiCtrl, &gcRegsData);
+               imageWidth = gInputImgWidth;
+               imageHeight = gInputImgHeight;
 
                pSdiCtrl->FB_ImgWidth = imageWidth;
                pSdiCtrl->FB_ImgHeight = imageHeight;
@@ -632,8 +640,10 @@ void SDIIntf_ChangeInputWindowSM(t_SdiIntf *pSdiCtrl, gcRegistersData_t *pGCRegs
          gChangeInputWindowCurrentState = CHANGEINPUTWINDOW_IDLE;
          pSdiCtrl->SDI_PauseResetN = SDI_NOPAUSE_NORESETN_BIT;
          pSdiCtrl->FB_ConfigValid = 1;
+         pSdiCtrl->DecimatorValid = 1;
          AXI4L_write32( pSdiCtrl->SDI_PauseResetN , pSdiCtrl->ADD + SDI_PAUSE_RESET_N_OFFSET );
          AXI4L_write32( pSdiCtrl->FB_ConfigValid, pSdiCtrl->ADD + SDI_FB_CONFIG_VALID_OFFSET );
+         AXI4L_write32( pSdiCtrl->DecimatorValid, pSdiCtrl->ADD + SDI_DECIMATOR_CONFIG_VALID_OFFSET );
          break;
 
       default:
@@ -655,9 +665,12 @@ void SDIIntf_calculateZoom(t_SdiIntf *pSdiCtrl, gcRegistersData_t *pGCRegs)
 {
    uint32_t currentZoomFactor = ZOOM_x1;
    uint32_t possibleZoom;
+   uint32_t imageWidth;
+   uint32_t imageHeight;;
 
-   uint32_t imageWidth = pGCRegs->Width;
-   uint32_t imageHeight = pGCRegs->Height;
+   SDIIntf_ComputeInputWidowSize(pSdiCtrl, &gcRegsData);
+   imageWidth = gInputImgWidth;
+   imageHeight = gInputImgHeight;
 
    if (pSdiCtrl->SDI_720pN_1080p == SDI_720p)
    {
@@ -903,3 +916,30 @@ void SDIIntf_UpdateVideoOutput(t_SdiIntf *pSdiCtrl, const gcRegistersData_t *pGC
    AXI4L_write32(pSdiCtrl->SDI_720pN_1080p, pSdiCtrl->ADD + SDI_720PN_1080P_OFFSET);
 }
 
+/**
+ * Compute input video size
+ * Over a certain threshold (nb pixels) a decimator is activated to limit
+ * the frame buffer throughput with the DDR.
+ * The decimator can discard one out of two line and/or one out of two column
+ *
+ * @param pGCRegs Pointer to the Genicam registers.
+ * @param pSdiCtrl Pointer to the SDI controller instance.
+ *
+ * @return void.
+ */
+void SDIIntf_ComputeInputWidowSize(t_SdiIntf *pSdiCtrl, const gcRegistersData_t *pGCRegs)
+{
+   pSdiCtrl->DecimatorInputWidth = pGCRegs->Width;
+   gInputImgWidth  = pSdiCtrl->DecimatorInputWidth;
+   gInputImgHeight = pGCRegs->Height;
+   pSdiCtrl->DecimatorEnable &= DECIMATOR_DESACTIVATED_MASK;
+
+   if(pGCRegs->Width*pGCRegs->Height > (uint32_t)DECIMATOR_THRESHOLD &&
+      pGCRegs->Height > 2*DECIMATOR_INPUT_HEIGHT_MIN &&
+      pGCRegs->Width > 2*DECIMATOR_INPUT_WIDTH_MIN)
+   {
+      gInputImgHeight  = pGCRegs->Height >> 1;  //decimate one out of two rows
+      gInputImgWidth  = pGCRegs->Width >> 1;  //decimate one out of two columns
+      pSdiCtrl->DecimatorEnable |= (uint32_t)DECIMATOR_ACTIVATED_MASK;
+   }
+}

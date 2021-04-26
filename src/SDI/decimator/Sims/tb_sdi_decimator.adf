@@ -56,7 +56,7 @@ work=.
 WindowVisible=0
 
 [HierarchyViewer]
-HierarchyInformation=top|Top|0
+HierarchyInformation=top|Top|0 
 ShowHide=ShowTopLevel
 Selected=
 
@@ -157,28 +157,22 @@ LimitBranchCoverage=0
 .\..\..\..\..\..\FIR-00251-Common\VHDL\FrameBuffer\FB_define.vhd=VHDL Source Code
 .\..\..\..\..\..\FIR-00251-Common\VHDL\Fifo\t_axi4_stream_wr32_rd64_fifo.vhd=VHDL Source Code
 .\..\Hdl\sdi_decimator_define.vhd=VHDL Source Code
-.\compile\video_freeze.vhd=VHDL Source Code
-.\compile\video_ehdri_selector.vhd=VHDL Source Code
-.\compile\video_fwposition_selector.vhd=VHDL Source Code
-.\compile\video_data_handler.vhd=VHDL Source Code
-.\compile\sdi_decimator.vhd=VHDL Source Code
-.\compile\Top.vhd=VHDL Source Code
 
+[file_out:/Top.bde]
+/..\compile\Top.vhd=-1
 
+[file_out:/..\..\Hdl\sdi_decimator.bde]
+/..\compile\sdi_decimator.vhd=-1
 
-
-
-
+[file_out:/..\..\..\HDL\video_fwposition_selector.bde]
+/..\compile\video_fwposition_selector.vhd=-1
 
 [file_out:/..\..\..\HDL\video_freeze.bde]
 /..\compile\video_freeze.vhd=-1
+
 [file_out:/..\..\..\HDL\video_ehdri_selector.bde]
 /..\compile\video_ehdri_selector.vhd=-1
-[file_out:/..\..\..\HDL\video_fwposition_selector.bde]
-/..\compile\video_fwposition_selector.vhd=-1
+
 [file_out:/..\..\..\HDL\video_data_handler.bde]
 /..\compile\video_data_handler.vhd=-1
-[file_out:/..\..\Hdl\sdi_decimator.bde]
-/..\compile\sdi_decimator.vhd=-1
-[file_out:/Top.bde]
-/..\compile\Top.vhd=-1
+

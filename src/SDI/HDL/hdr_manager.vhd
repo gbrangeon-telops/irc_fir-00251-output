@@ -30,7 +30,7 @@ entity hdr_manager is
       TX_MOSI  : out  t_axi4_stream_mosi64;
       TX_MISO  : in t_axi4_stream_miso;
       
-      GEN_TID : out std_logic;
+      GEN_TID  : out std_logic;
       ARESETN  : in  std_logic;
       CLK      : in  std_logic     
    );  

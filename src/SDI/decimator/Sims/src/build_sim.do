@@ -18,7 +18,7 @@ acom "$COMMON\VHDL\Buffering\BufferingDefine.vhd"
 acom "$COMMON\VHDL\img_header_define.vhd"
 acom "$COMMON\VHDL\FrameBuffer\FB_define.vhd"						  
 						  
-acom "$OUTPUT\IP\160\t_axi4_stream64_sfifo_d16384\t_axi4_stream64_sfifo_d16384_funcsim.vhdl"						  
+acom "D:\Telops\FIR-00251-Output\IP\160\t_axi4_stream64_sfifo_d16384\t_axi4_stream64_sfifo_d16384_sim_netlist.vhdl"				  
 acom "$COMMON\VHDL\Utilities\axis64_throughput_ctrl.vhd"	
 
 acom -relax "$COMMON\VHDL\hdr_extractor\axis64_hder_extractor.vhd"
@@ -38,6 +38,10 @@ acom "$SDI_INTF\HDL\video_fwposition_selector.bde"
 acom "$SDI_INTF\HDL\video_data_handler.bde"
 
 acom "$OUTPUT\src\SDI\HDL\SDI_ctrl.vhd"
+ 
+acom "D:\Telops\FIR-00251-Output\IP\160\t_axi4_stream64_sfifo_d128\t_axi4_stream64_sfifo_d128_sim_netlist.vhdl"
+acom "D:\Telops\FIR-00251-Common\VHDL\Fifo\t_axi4_stream64_fifo.vhd"
+
 
 acom "D:\Telops\FIR-00251-Output\IP\160\fwft_sfifo_wr34_rd68_d32\fwft_sfifo_wr34_rd68_d32_sim_netlist.vhdl" 
 acom "D:\Telops\FIR-00251-Common\VHDL\Fifo\t_axi4_stream_wr32_rd64_fifo.vhd"

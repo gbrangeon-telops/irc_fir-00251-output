@@ -11,7 +11,7 @@ acom  "$COMMON\VHDL\FrameBuffer\FB_define.vhd"
 acom "$COMMON\VHDL\Calibration\calib_define.vhd"
 acom "$COMMON\VHDL\img_header_define.vhd"  
 acom -relax "$COMMON\VHDL\hdr_extractor\axis64_hder_extractor.vhd" 	
- 
+acom "D:\Telops\FIR-00251-Output\src\SDI\decimator\Hdl\sdi_decimator_define.vhd" 
 
 
 #colormap
@@ -72,6 +72,10 @@ acom "$SDI_INTF\HDL\video_ehdri_SM.vhd"
 acom "$SDI_INTF\HDL\video_ehdri_selector.bde"
 acom "$SDI_INTF\HDL\video_fwposition_selector.bde"
 acom "$SDI_INTF\HDL\video_data_handler.bde"
+
+#Decimator
+do "$SDI_INTF\decimator\Hdl\build_sdi_decimator.do"
+
 #AGC
 do "$SDI_INTF\AGC\HDL\build_AGC_intf.do"
 
