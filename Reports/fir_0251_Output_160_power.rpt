@@ -1,7 +1,7 @@
 Copyright 1986-2016 Xilinx, Inc. All Rights Reserved.
 -----------------------------------------------------------------------------------------------------------------
 | Tool Version     : Vivado v.2016.3 (win64) Build 1682563 Mon Oct 10 19:07:27 MDT 2016
-| Date             : Thu Apr 01 11:12:29 2021
+| Date             : Fri Jun 11 14:59:42 2021
 | Host             : TELOPS212 running 64-bit major release  (build 9200)
 | Command          : report_power -file d:/Telops/FIR-00251-Output/Reports/fir_0251_Output_160_power.rpt
 | Design           : fir_251_output_top_160
@@ -30,8 +30,8 @@ Table of Contents
 ----------
 
 +--------------------------+-------+
-| Total On-Chip Power (W)  | 3.056 |
-| Dynamic (W)              | 2.908 |
+| Total On-Chip Power (W)  | 3.064 |
+| Dynamic (W)              | 2.916 |
 | Device Static (W)        | 0.148 |
 | Total Off-Chip Power (W) | 0.309 |
 | Effective TJA (C/W)      | 1.9   |
@@ -50,17 +50,17 @@ Table of Contents
 +--------------------------+-----------+----------+-----------+-----------------+
 | On-Chip                  | Power (W) | Used     | Available | Utilization (%) |
 +--------------------------+-----------+----------+-----------+-----------------+
-| Clocks                   |     0.172 |       54 |       --- |             --- |
-| Slice Logic              |     0.059 |    71040 |       --- |             --- |
-|   LUT as Logic           |     0.049 |    25104 |    101400 |           24.76 |
-|   Register               |     0.004 |    31537 |    202800 |           15.55 |
-|   CARRY4                 |     0.004 |     1649 |     25350 |            6.50 |
+| Clocks                   |     0.178 |       54 |       --- |             --- |
+| Slice Logic              |     0.059 |    71311 |       --- |             --- |
+|   LUT as Logic           |     0.049 |    25202 |    101400 |           24.85 |
+|   Register               |     0.004 |    31710 |    202800 |           15.64 |
+|   CARRY4                 |     0.004 |     1650 |     25350 |            6.51 |
 |   LUT as Distributed RAM |    <0.001 |     1096 |     35000 |            3.13 |
-|   LUT as Shift Register  |    <0.001 |     1192 |     35000 |            3.41 |
-|   F7/F8 Muxes            |    <0.001 |      212 |    101400 |            0.21 |
-|   Others                 |    <0.001 |     3944 |       --- |             --- |
-| Signals                  |     0.077 |    54455 |       --- |             --- |
-| Block RAM                |     0.085 |      203 |       325 |           62.46 |
+|   LUT as Shift Register  |    <0.001 |     1175 |     35000 |            3.36 |
+|   F7/F8 Muxes            |    <0.001 |      201 |    101400 |            0.20 |
+|   Others                 |    <0.001 |     3963 |       --- |             --- |
+| Signals                  |     0.077 |    54741 |       --- |             --- |
+| Block RAM                |     0.086 |      204 |       325 |           62.77 |
 | MMCM                     |     0.535 |        5 |         8 |           62.50 |
 | PLL                      |     0.092 |        1 |         8 |           12.50 |
 | DSPs                     |     0.012 |       20 |       600 |            3.33 |
@@ -69,7 +69,7 @@ Table of Contents
 | PHASER                   |     0.205 |       18 |       --- |             --- |
 | XADC                     |     0.002 |        1 |       --- |             --- |
 | Static Power             |     0.148 |          |           |                 |
-| Total                    |     3.056 |          |           |                 |
+| Total                    |     3.064 |          |           |                 |
 +--------------------------+-----------+----------+-----------+-----------------+
 
 
@@ -79,7 +79,7 @@ Table of Contents
 +-----------+-------------+-----------+-------------+------------+
 | Source    | Voltage (V) | Total (A) | Dynamic (A) | Static (A) |
 +-----------+-------------+-----------+-------------+------------+
-| Vccint    |       1.000 |     0.592 |       0.538 |      0.054 |
+| Vccint    |       1.000 |     0.600 |       0.546 |      0.054 |
 | Vccaux    |       1.800 |     0.517 |       0.499 |      0.019 |
 | Vcco33    |       3.300 |     0.007 |       0.006 |      0.001 |
 | Vcco25    |       2.500 |     0.236 |       0.235 |      0.001 |
@@ -196,8 +196,8 @@ Table of Contents
 +-------------------------------------------------------------------------------------------------------------------------------------------+-----------+
 | Name                                                                                                                                      | Power (W) |
 +-------------------------------------------------------------------------------------------------------------------------------------------+-----------+
-| fir_251_output_top_160                                                                                                                    |     2.908 |
-|   U1                                                                                                                                      |     2.862 |
+| fir_251_output_top_160                                                                                                                    |     2.916 |
+|   U1                                                                                                                                      |     2.870 |
 |     CLINK                                                                                                                                 |     0.668 |
 |       CH0                                                                                                                                 |     0.181 |
 |         U0                                                                                                                                |     0.181 |
@@ -235,8 +235,8 @@ Table of Contents
 |                           valid.cstr                                                                                                      |     0.001 |
 |                             ramloop[0].ram.r                                                                                              |    <0.001 |
 |                               prim_noinit.ram                                                                                             |    <0.001 |
-|                             ramloop[1].ram.r                                                                                              |    <0.001 |
-|                               prim_noinit.ram                                                                                             |    <0.001 |
+|                             ramloop[1].ram.r                                                                                              |     0.001 |
+|                               prim_noinit.ram                                                                                             |     0.001 |
 |                   rstblk                                                                                                                  |    <0.001 |
 |                     ngwrdrst.grst.g7serrst.gsckt_wrst.garst_sync[1].arst_sync_inst                                                        |    <0.001 |
 |                     ngwrdrst.grst.g7serrst.gsckt_wrst.garst_sync[2].arst_sync_inst                                                        |    <0.001 |
@@ -315,7 +315,7 @@ Table of Contents
 |         sync_cfg_valid                                                                                                                    |    <0.001 |
 |       clink_mmcm                                                                                                                          |     0.119 |
 |         inst                                                                                                                              |     0.119 |
-|     GIGE_FB                                                                                                                               |     0.012 |
+|     GIGE_FB                                                                                                                               |     0.014 |
 |       CTRL                                                                                                                                |    <0.001 |
 |         U0A                                                                                                                               |    <0.001 |
 |       DM                                                                                                                                  |     0.008 |
@@ -466,16 +466,144 @@ Table of Contents
 |         U1                                                                                                                                |    <0.001 |
 |       WRITE_FR                                                                                                                            |    <0.001 |
 |         reset                                                                                                                             |    <0.001 |
-|     MB                                                                                                                                    |     1.097 |
-|       core_wrapper_i                                                                                                                      |     1.097 |
-|         core_i                                                                                                                            |     1.096 |
+|       g1.U2                                                                                                                               |     0.002 |
+|         U1                                                                                                                                |    <0.001 |
+|         sgen_d16384.t_axi4_stream64_sfifo_d16384_inst                                                                                     |     0.001 |
+|           U0                                                                                                                              |     0.001 |
+|             inst_fifo_gen                                                                                                                 |     0.001 |
+|               gaxis_fifo.gaxisf.axisf                                                                                                     |     0.001 |
+|                 grf.rf                                                                                                                    |     0.001 |
+|                   gntv_or_sync_fifo.gl0.rd                                                                                                |    <0.001 |
+|                     gr1.gdcf.dc                                                                                                           |    <0.001 |
+|                       dc                                                                                                                  |    <0.001 |
+|                     gr1.gr1_int.rfwft                                                                                                     |    <0.001 |
+|                     grss.rsts                                                                                                             |    <0.001 |
+|                       c1                                                                                                                  |    <0.001 |
+|                       c2                                                                                                                  |    <0.001 |
+|                     rpntr                                                                                                                 |    <0.001 |
+|                   gntv_or_sync_fifo.gl0.wr                                                                                                |    <0.001 |
+|                     gwss.wsts                                                                                                             |    <0.001 |
+|                       c0                                                                                                                  |    <0.001 |
+|                       c1                                                                                                                  |    <0.001 |
+|                     wpntr                                                                                                                 |    <0.001 |
+|                   gntv_or_sync_fifo.mem                                                                                                   |    <0.001 |
+|                     gbm.gbmg.gbmgb.ngecc.bmg                                                                                              |    <0.001 |
+|                       inst_blk_mem_gen                                                                                                    |    <0.001 |
+|                         gnbram.gnativebmg.native_blk_mem_gen                                                                              |    <0.001 |
+|                           valid.cstr                                                                                                      |    <0.001 |
+|                             has_mux_b.B                                                                                                   |    <0.001 |
+|                             ramloop[0].ram.r                                                                                              |    <0.001 |
+|                               prim_noinit.ram                                                                                             |    <0.001 |
+|                             ramloop[10].ram.r                                                                                             |    <0.001 |
+|                               prim_noinit.ram                                                                                             |    <0.001 |
+|                             ramloop[11].ram.r                                                                                             |    <0.001 |
+|                               prim_noinit.ram                                                                                             |    <0.001 |
+|                             ramloop[12].ram.r                                                                                             |    <0.001 |
+|                               prim_noinit.ram                                                                                             |    <0.001 |
+|                             ramloop[13].ram.r                                                                                             |    <0.001 |
+|                               prim_noinit.ram                                                                                             |    <0.001 |
+|                             ramloop[14].ram.r                                                                                             |    <0.001 |
+|                               prim_noinit.ram                                                                                             |    <0.001 |
+|                             ramloop[15].ram.r                                                                                             |    <0.001 |
+|                               prim_noinit.ram                                                                                             |    <0.001 |
+|                             ramloop[16].ram.r                                                                                             |    <0.001 |
+|                               prim_noinit.ram                                                                                             |    <0.001 |
+|                             ramloop[17].ram.r                                                                                             |    <0.001 |
+|                               prim_noinit.ram                                                                                             |    <0.001 |
+|                             ramloop[18].ram.r                                                                                             |    <0.001 |
+|                               prim_noinit.ram                                                                                             |    <0.001 |
+|                             ramloop[19].ram.r                                                                                             |    <0.001 |
+|                               prim_noinit.ram                                                                                             |    <0.001 |
+|                             ramloop[1].ram.r                                                                                              |    <0.001 |
+|                               prim_noinit.ram                                                                                             |    <0.001 |
+|                             ramloop[20].ram.r                                                                                             |    <0.001 |
+|                               prim_noinit.ram                                                                                             |    <0.001 |
+|                             ramloop[21].ram.r                                                                                             |    <0.001 |
+|                               prim_noinit.ram                                                                                             |    <0.001 |
+|                             ramloop[22].ram.r                                                                                             |    <0.001 |
+|                               prim_noinit.ram                                                                                             |    <0.001 |
+|                             ramloop[23].ram.r                                                                                             |    <0.001 |
+|                               prim_noinit.ram                                                                                             |    <0.001 |
+|                             ramloop[24].ram.r                                                                                             |    <0.001 |
+|                               prim_noinit.ram                                                                                             |    <0.001 |
+|                             ramloop[25].ram.r                                                                                             |    <0.001 |
+|                               prim_noinit.ram                                                                                             |    <0.001 |
+|                             ramloop[26].ram.r                                                                                             |    <0.001 |
+|                               prim_noinit.ram                                                                                             |    <0.001 |
+|                             ramloop[27].ram.r                                                                                             |    <0.001 |
+|                               prim_noinit.ram                                                                                             |    <0.001 |
+|                             ramloop[28].ram.r                                                                                             |    <0.001 |
+|                               prim_noinit.ram                                                                                             |    <0.001 |
+|                             ramloop[29].ram.r                                                                                             |    <0.001 |
+|                               prim_noinit.ram                                                                                             |    <0.001 |
+|                             ramloop[2].ram.r                                                                                              |    <0.001 |
+|                               prim_noinit.ram                                                                                             |    <0.001 |
+|                             ramloop[30].ram.r                                                                                             |    <0.001 |
+|                               prim_noinit.ram                                                                                             |    <0.001 |
+|                             ramloop[31].ram.r                                                                                             |    <0.001 |
+|                               prim_noinit.ram                                                                                             |    <0.001 |
+|                             ramloop[32].ram.r                                                                                             |    <0.001 |
+|                               prim_noinit.ram                                                                                             |    <0.001 |
+|                             ramloop[33].ram.r                                                                                             |    <0.001 |
+|                               prim_noinit.ram                                                                                             |    <0.001 |
+|                             ramloop[34].ram.r                                                                                             |    <0.001 |
+|                               prim_noinit.ram                                                                                             |    <0.001 |
+|                             ramloop[35].ram.r                                                                                             |    <0.001 |
+|                               prim_noinit.ram                                                                                             |    <0.001 |
+|                             ramloop[36].ram.r                                                                                             |    <0.001 |
+|                               prim_noinit.ram                                                                                             |    <0.001 |
+|                             ramloop[37].ram.r                                                                                             |    <0.001 |
+|                               prim_noinit.ram                                                                                             |    <0.001 |
+|                             ramloop[38].ram.r                                                                                             |    <0.001 |
+|                               prim_noinit.ram                                                                                             |    <0.001 |
+|                             ramloop[39].ram.r                                                                                             |    <0.001 |
+|                               prim_noinit.ram                                                                                             |    <0.001 |
+|                             ramloop[3].ram.r                                                                                              |    <0.001 |
+|                               prim_noinit.ram                                                                                             |    <0.001 |
+|                             ramloop[40].ram.r                                                                                             |    <0.001 |
+|                               prim_noinit.ram                                                                                             |    <0.001 |
+|                             ramloop[41].ram.r                                                                                             |    <0.001 |
+|                               prim_noinit.ram                                                                                             |    <0.001 |
+|                             ramloop[42].ram.r                                                                                             |    <0.001 |
+|                               prim_noinit.ram                                                                                             |    <0.001 |
+|                             ramloop[43].ram.r                                                                                             |    <0.001 |
+|                               prim_noinit.ram                                                                                             |    <0.001 |
+|                             ramloop[44].ram.r                                                                                             |    <0.001 |
+|                               prim_noinit.ram                                                                                             |    <0.001 |
+|                             ramloop[4].ram.r                                                                                              |    <0.001 |
+|                               prim_noinit.ram                                                                                             |    <0.001 |
+|                             ramloop[5].ram.r                                                                                              |    <0.001 |
+|                               prim_noinit.ram                                                                                             |    <0.001 |
+|                             ramloop[6].ram.r                                                                                              |    <0.001 |
+|                               prim_noinit.ram                                                                                             |    <0.001 |
+|                             ramloop[7].ram.r                                                                                              |    <0.001 |
+|                               prim_noinit.ram                                                                                             |    <0.001 |
+|                             ramloop[8].ram.r                                                                                              |    <0.001 |
+|                               prim_noinit.ram                                                                                             |    <0.001 |
+|                             ramloop[9].ram.r                                                                                              |    <0.001 |
+|                               prim_noinit.ram                                                                                             |    <0.001 |
+|                   rstblk                                                                                                                  |    <0.001 |
+|                     ngwrdrst.grst.g7serrst.gsckt_wrst.garst_sync[1].arst_sync_inst                                                        |    <0.001 |
+|                     ngwrdrst.grst.g7serrst.gsckt_wrst.garst_sync[2].arst_sync_inst                                                        |    <0.001 |
+|                     ngwrdrst.grst.g7serrst.gsckt_wrst.garst_sync[3].arst_sync_inst                                                        |    <0.001 |
+|                     ngwrdrst.grst.g7serrst.gsckt_wrst.gcc_rst.garst_sync_cc[1].rd_rst_wr_inst                                             |    <0.001 |
+|                     ngwrdrst.grst.g7serrst.gsckt_wrst.gcc_rst.garst_sync_cc[2].rd_rst_wr_inst                                             |    <0.001 |
+|                     ngwrdrst.grst.g7serrst.gwrrd_rst_sync_stage[1].rrst_inst                                                              |    <0.001 |
+|                     ngwrdrst.grst.g7serrst.gwrrd_rst_sync_stage[1].wrst_inst                                                              |    <0.001 |
+|                     ngwrdrst.grst.g7serrst.gwrrd_rst_sync_stage[2].rrst_inst                                                              |    <0.001 |
+|                     ngwrdrst.grst.g7serrst.gwrrd_rst_sync_stage[2].wrst_inst                                                              |    <0.001 |
+|                     ngwrdrst.grst.g7serrst.gwrrd_rst_sync_stage[3].rrst_inst                                                              |    <0.001 |
+|                     ngwrdrst.grst.g7serrst.gwrrd_rst_sync_stage[3].wrst_inst                                                              |    <0.001 |
+|     MB                                                                                                                                    |     1.099 |
+|       core_wrapper_i                                                                                                                      |     1.099 |
+|         core_i                                                                                                                            |     1.098 |
 |           FB_MEMORY                                                                                                                       |     0.809 |
-|             axi_interconnect_0                                                                                                            |     0.051 |
+|             axi_interconnect_0                                                                                                            |     0.050 |
 |               s00_couplers                                                                                                                |     0.012 |
 |                 auto_us_cc_df                                                                                                             |     0.012 |
 |                   inst                                                                                                                    |     0.012 |
 |                     gen_upsizer.gen_full_upsizer.axi_upsizer_inst                                                                         |     0.012 |
-|                       USE_READ.gen_pktfifo_r_upsizer.pktfifo_read_data_inst                                                               |     0.012 |
+|                       USE_READ.gen_pktfifo_r_upsizer.pktfifo_read_data_inst                                                               |     0.011 |
 |                         dw_fifogen_ar                                                                                                     |     0.001 |
 |                           inst_fifo_gen                                                                                                   |     0.001 |
 |                             gaxi_full_lite.gread_ch.grach2.axi_rach                                                                       |     0.001 |
@@ -694,7 +822,7 @@ Table of Contents
 |                 auto_us_cc_df                                                                                                             |     0.010 |
 |                   inst                                                                                                                    |     0.010 |
 |                     gen_upsizer.gen_full_upsizer.axi_upsizer_inst                                                                         |     0.010 |
-|                       USE_READ.gen_pktfifo_r_upsizer.pktfifo_read_data_inst                                                               |     0.010 |
+|                       USE_READ.gen_pktfifo_r_upsizer.pktfifo_read_data_inst                                                               |     0.009 |
 |                         dw_fifogen_ar                                                                                                     |     0.001 |
 |                           inst_fifo_gen                                                                                                   |     0.001 |
 |                             gaxi_full_lite.gread_ch.grach2.axi_rach                                                                       |     0.001 |
@@ -1129,15 +1257,15 @@ Table of Contents
 |               ddr_byte_lane_D.ddr_byte_lane_D/of_pre_fifo_gen.u_ddr_of_pre_fifo/mem_reg_0_15_48_53                                        |    <0.001 |
 |               ddr_byte_lane_D.ddr_byte_lane_D/of_pre_fifo_gen.u_ddr_of_pre_fifo/mem_reg_0_15_54_59                                        |    <0.001 |
 |               ddr_byte_lane_D.ddr_byte_lane_D/of_pre_fifo_gen.u_ddr_of_pre_fifo/mem_reg_0_15_6_11                                         |    <0.001 |
-|               u_core_mig_7series_0_0_mig                                                                                                  |     0.756 |
+|               u_core_mig_7series_0_0_mig                                                                                                  |     0.757 |
 |                 temp_mon_enabled.u_tempmon                                                                                                |    <0.001 |
 |                 u_ddr3_clk_ibuf                                                                                                           |     0.007 |
 |                 u_ddr3_infrastructure                                                                                                     |     0.188 |
 |                 u_iodelay_ctrl                                                                                                            |     0.002 |
 |                 u_memc_ui_top_axi                                                                                                         |     0.559 |
 |                   mem_intfc0                                                                                                              |     0.551 |
-|                     ddr_phy_top0                                                                                                          |     0.546 |
-|                       u_ddr_calib_top                                                                                                     |     0.024 |
+|                     ddr_phy_top0                                                                                                          |     0.547 |
+|                       u_ddr_calib_top                                                                                                     |     0.025 |
 |                         ddr_phy_prbs_rdlvl_gen.u_ddr_phy_prbs_rdlvl                                                                       |     0.005 |
 |                         ddr_phy_rdlvl_gen.u_ddr_phy_rdlvl                                                                                 |     0.005 |
 |                         ddr_phy_tempmon_0                                                                                                 |     0.001 |
@@ -1331,7 +1459,7 @@ Table of Contents
 |                       write_buffer.wr_buffer_ram[7].RAM32M0                                                                               |    <0.001 |
 |                       write_buffer.wr_buffer_ram[8].RAM32M0                                                                               |    <0.001 |
 |                       write_buffer.wr_buffer_ram[9].RAM32M0                                                                               |    <0.001 |
-|           MCU                                                                                                                             |     0.064 |
+|           MCU                                                                                                                             |     0.065 |
 |             mdm_1                                                                                                                         |    <0.001 |
 |               U0                                                                                                                          |    <0.001 |
 |                 MDM_Core_I1                                                                                                               |    <0.001 |
@@ -1383,10 +1511,10 @@ Table of Contents
 |                       MEM_DECODE_GEN[0].PER_CE_GEN[0].MULTIPLE_CES_THIS_CS_GEN.CE_I                                                       |    <0.001 |
 |                       MEM_DECODE_GEN[0].PER_CE_GEN[2].MULTIPLE_CES_THIS_CS_GEN.CE_I                                                       |    <0.001 |
 |                 Use_E2.BSCAN_I                                                                                                            |    <0.001 |
-|             microblaze_0                                                                                                                  |     0.032 |
-|               U0                                                                                                                          |     0.032 |
-|                 MicroBlaze_Core_I                                                                                                         |     0.032 |
-|                   Performance.Core                                                                                                        |     0.032 |
+|             microblaze_0                                                                                                                  |     0.033 |
+|               U0                                                                                                                          |     0.033 |
+|                 MicroBlaze_Core_I                                                                                                         |     0.033 |
+|                   Performance.Core                                                                                                        |     0.033 |
 |                     Data_Flow_I                                                                                                           |     0.024 |
 |                       ALU_I                                                                                                               |     0.004 |
 |                         Using_FPGA.ALL_Bits[0].ALU_Bit_I1                                                                                 |    <0.001 |
@@ -2197,7 +2325,7 @@ Table of Contents
 |                         MUXCY_I                                                                                                           |    <0.001 |
 |                     Use_DBUS.DAXI_Interface_I1                                                                                            |    <0.001 |
 |                     Use_DLMB.Using_Latch_AS_Logic.AND2B1L_I1                                                                              |    <0.001 |
-|                     Use_Debug_Logic.Master_Core.Debug_Perf                                                                                |     0.001 |
+|                     Use_Debug_Logic.Master_Core.Debug_Perf                                                                                |     0.002 |
 |                       Serial_Dbg_Intf.SRL16E_1                                                                                            |    <0.001 |
 |                       Serial_Dbg_Intf.SRL16E_2                                                                                            |    <0.001 |
 |                       Serial_Dbg_Intf.SRL16E_3                                                                                            |    <0.001 |
@@ -2668,12 +2796,12 @@ Table of Contents
 |                 ACTIVE_LOW_EXT.ACT_LO_EXT                                                                                                 |    <0.001 |
 |               SEQ                                                                                                                         |    <0.001 |
 |                 SEQ_COUNTER                                                                                                               |    <0.001 |
-|           xadc_wiz_0                                                                                                                      |     0.004 |
-|             U0                                                                                                                            |     0.004 |
+|           xadc_wiz_0                                                                                                                      |     0.005 |
+|             U0                                                                                                                            |     0.005 |
 |               AXI_LITE_IPIF_I                                                                                                             |    <0.001 |
 |                 I_SLAVE_ATTACHMENT                                                                                                        |    <0.001 |
 |                   I_DECODER                                                                                                               |    <0.001 |
-|               AXI_XADC_CORE_I                                                                                                             |     0.003 |
+|               AXI_XADC_CORE_I                                                                                                             |     0.004 |
 |                 Inst_drp_arbiter                                                                                                          |    <0.001 |
 |                 temperature_update_inst                                                                                                   |    <0.001 |
 |               INTR_CTRLR_GEN_I.INTERRUPT_CONTROL_I                                                                                        |    <0.001 |
@@ -2683,8 +2811,8 @@ Table of Contents
 |         qspi_prom_io2_iobuf                                                                                                               |    <0.001 |
 |         qspi_prom_io3_iobuf                                                                                                               |    <0.001 |
 |         qspi_prom_ss_iobuf_0                                                                                                              |     0.000 |
-|     MGT                                                                                                                                   |     0.704 |
-|       MGTS                                                                                                                                |     0.701 |
+|     MGT                                                                                                                                   |     0.708 |
+|       MGTS                                                                                                                                |     0.704 |
 |         DATA                                                                                                                              |     0.321 |
 |           inst                                                                                                                            |     0.321 |
 |             aurora_lane_0_i                                                                                                               |     0.001 |
@@ -2699,7 +2827,7 @@ Table of Contents
 |               u_rst_done_sync                                                                                                             |    <0.001 |
 |             data_mgt_wrapper_i                                                                                                            |     0.318 |
 |               block_sync_sm_gtx0_i                                                                                                        |    <0.001 |
-|               cbcc_gtx0_i                                                                                                                 |     0.004 |
+|               cbcc_gtx0_i                                                                                                                 |     0.003 |
 |                 u_cdc_rxlossofsync_in                                                                                                     |    <0.001 |
 |                 u_cdc_wr_err_rd_clk                                                                                                       |    <0.001 |
 |                 u_rst_sync_btf_sync                                                                                                       |    <0.001 |
@@ -2772,8 +2900,8 @@ Table of Contents
 |           sync_resetn_inst                                                                                                                |    <0.001 |
 |           video_loopback_sync                                                                                                             |    <0.001 |
 |           video_pwrdown_sync                                                                                                              |    <0.001 |
-|         gen_mgt_2ch.VIDEO                                                                                                                 |     0.260 |
-|           inst                                                                                                                            |     0.260 |
+|         gen_mgt_2ch.VIDEO                                                                                                                 |     0.263 |
+|           inst                                                                                                                            |     0.263 |
 |             aurora_lane_0_i                                                                                                               |     0.001 |
 |               err_detect_i                                                                                                                |    <0.001 |
 |               lane_init_sm_i                                                                                                              |    <0.001 |
@@ -2797,9 +2925,9 @@ Table of Contents
 |             tx_ll_i                                                                                                                       |    <0.001 |
 |               tx_ll_control_sm_i                                                                                                          |    <0.001 |
 |               tx_ll_datapath_i                                                                                                            |    <0.001 |
-|             video_mgt_wrapper_i                                                                                                           |     0.257 |
+|             video_mgt_wrapper_i                                                                                                           |     0.260 |
 |               block_sync_sm_gtx0_i                                                                                                        |    <0.001 |
-|               cbcc_gtx0_i                                                                                                                 |     0.002 |
+|               cbcc_gtx0_i                                                                                                                 |     0.003 |
 |                 u_cdc_rxlossofsync_in                                                                                                     |    <0.001 |
 |                 u_cdc_wr_err_rd_clk                                                                                                       |    <0.001 |
 |                 u_rst_sync_btf_sync                                                                                                       |    <0.001 |
@@ -2815,8 +2943,8 @@ Table of Contents
 |                 u_rst_sync_reset_to_fifo_wr_clk                                                                                           |    <0.001 |
 |                 u_rst_sync_reset_wr_clk                                                                                                   |    <0.001 |
 |                 u_rst_sync_rst_cbcc_rd_clk                                                                                                |    <0.001 |
-|               descrambler_64b66b_gtx0_i                                                                                                   |    <0.001 |
-|               rxresetfsm_i                                                                                                                |    <0.001 |
+|               descrambler_64b66b_gtx0_i                                                                                                   |     0.001 |
+|               rxresetfsm_i                                                                                                                |     0.001 |
 |                 u_rst_sync_mmcm_lock                                                                                                      |    <0.001 |
 |                 u_rst_sync_plllock                                                                                                        |    <0.001 |
 |                 u_rst_sync_run_phase_align                                                                                                |    <0.001 |
@@ -2826,7 +2954,7 @@ Table of Contents
 |                 u_rst_sync_system_reset                                                                                                   |    <0.001 |
 |                 u_rst_sync_time_out_wait_bypass                                                                                           |    <0.001 |
 |               scrambler_64b66b_gtx0_i                                                                                                     |     0.003 |
-|               txresetfsm_i                                                                                                                |     0.001 |
+|               txresetfsm_i                                                                                                                |     0.002 |
 |                 u_rst_sync_plllock                                                                                                        |    <0.001 |
 |                 u_rst_sync_run_phase_align                                                                                                |    <0.001 |
 |                 u_rst_sync_time_out_wait_bypass                                                                                           |    <0.001 |
@@ -2962,7 +3090,7 @@ Table of Contents
 |         U0                                                                                                                                |    <0.001 |
 |         sync_RESET_GIGE                                                                                                                   |    <0.001 |
 |       SYNC                                                                                                                                |    <0.001 |
-|     SDI                                                                                                                                   |     0.326 |
+|     SDI                                                                                                                                   |     0.332 |
 |       AGC_inst                                                                                                                            |     0.007 |
 |         U1                                                                                                                                |    <0.001 |
 |           U0                                                                                                                              |    <0.001 |
@@ -3061,7 +3189,7 @@ Table of Contents
 |                     partial_one.last_srl17e                                                                                               |    <0.001 |
 |       BF_SYNC                                                                                                                             |    <0.001 |
 |         reset                                                                                                                             |    <0.001 |
-|       CMAP                                                                                                                                |     0.044 |
+|       CMAP                                                                                                                                |     0.043 |
 |         U1                                                                                                                                |     0.002 |
 |           U2                                                                                                                              |    <0.001 |
 |             U1                                                                                                                            |    <0.001 |
@@ -3327,7 +3455,7 @@ Table of Contents
 |             U1                                                                                                                            |     0.024 |
 |               U0                                                                                                                          |     0.024 |
 |                 i_synth                                                                                                                   |     0.024 |
-|                   DIV_OP.SPD.OP                                                                                                           |     0.023 |
+|                   DIV_OP.SPD.OP                                                                                                           |     0.022 |
 |                     EXP                                                                                                                   |    <0.001 |
 |                       COND_DET_A                                                                                                          |    <0.001 |
 |                         EXP_DET_LUT.EXP_ALL_ONE_DEL                                                                                       |    <0.001 |
@@ -3780,7 +3908,7 @@ Table of Contents
 |                     ngwrdrst.grst.g7serrst.gwrrd_rst_sync_stage[3].wrst_inst                                                              |    <0.001 |
 |                     ngwrdrst.grst.g7serrst.gwrrd_rst_sync_stage[4].rrst_inst                                                              |    <0.001 |
 |                     ngwrdrst.grst.g7serrst.gwrrd_rst_sync_stage[4].wrst_inst                                                              |    <0.001 |
-|       OUTPUT_GEN                                                                                                                          |     0.027 |
+|       OUTPUT_GEN                                                                                                                          |     0.026 |
 |         SDI                                                                                                                               |     0.022 |
 |           GTX_CTRL                                                                                                                        |     0.012 |
 |             DRUBSHIFT                                                                                                                     |     0.001 |
@@ -3801,7 +3929,7 @@ Table of Contents
 |             inst                                                                                                                          |     0.010 |
 |               RSTMOD0                                                                                                                     |    <0.001 |
 |               RSTMOD1                                                                                                                     |    <0.001 |
-|               SDIRXTOP                                                                                                                    |     0.006 |
+|               SDIRXTOP                                                                                                                    |     0.005 |
 |                 AUTORATE                                                                                                                  |    <0.001 |
 |                 BDMUX                                                                                                                     |    <0.001 |
 |                 DEC                                                                                                                       |    <0.001 |
@@ -3817,8 +3945,8 @@ Table of Contents
 |                 SCRAM                                                                                                                     |     0.002 |
 |                   C_scram                                                                                                                 |    <0.001 |
 |                   Y_scram                                                                                                                 |     0.001 |
-|               VPIDINS                                                                                                                     |     0.001 |
-|                 VPIDINS1                                                                                                                  |     0.001 |
+|               VPIDINS                                                                                                                     |    <0.001 |
+|                 VPIDINS1                                                                                                                  |    <0.001 |
 |                 VPIDINS2                                                                                                                  |     0.000 |
 |         VIDGEN                                                                                                                            |     0.005 |
 |           HORZ                                                                                                                            |    <0.001 |
@@ -3835,10 +3963,10 @@ Table of Contents
 |           VERT                                                                                                                            |     0.001 |
 |       READ_FR                                                                                                                             |    <0.001 |
 |         reset                                                                                                                             |    <0.001 |
-|       SCALER                                                                                                                              |     0.050 |
-|         U1                                                                                                                                |     0.050 |
-|           U0                                                                                                                              |     0.050 |
-|             obsf1aqaweiwd                                                                                                                 |     0.042 |
+|       SCALER                                                                                                                              |     0.053 |
+|         U1                                                                                                                                |     0.053 |
+|           U0                                                                                                                              |     0.053 |
+|             obsf1aqaweiwd                                                                                                                 |     0.044 |
 |               obsf1aqawei5wxpm5cbvet5rb1mcacyrd4leia405cbvet5rb0pske3gzjzpyq2mcddp4ehkqq0eiqcmjhhfcpkeaa3eqrje2t4egtaqz4ira1205g1521rptrl |    <0.001 |
 |               obsf1aqawei5wxpm5cbvet5rb1mcacyrd4leia405cbvet5rb0pske3gzjzpyq2mcddp4ehkqq0eiqcmjhhfcpkeaa3eqrje2t4egtaqz4ira1205g153a5g1d  |    <0.001 |
 |               obsi1aqawei5wxpm5cbvet5rb1mcacyrd4leia405cbvet5rb0pske3gzjzpyq2mcddp4ehkqq0eiqcmjhhfcpkeaa3eqrje2t4egtaqz4ira1205g15205hd   |    <0.001 |
@@ -3906,268 +4034,167 @@ Table of Contents
 |                     ngwrdrst.grst.g7serrst.gwrrd_rst_sync_stage[1].wrst_inst                                                              |    <0.001 |
 |                     ngwrdrst.grst.g7serrst.gwrrd_rst_sync_stage[2].rrst_inst                                                              |    <0.001 |
 |                     ngwrdrst.grst.g7serrst.gwrrd_rst_sync_stage[2].wrst_inst                                                              |    <0.001 |
+|       U8                                                                                                                                  |     0.003 |
+|         U1                                                                                                                                |    <0.001 |
+|           U1                                                                                                                              |    <0.001 |
+|           U2                                                                                                                              |    <0.001 |
+|         U3                                                                                                                                |     0.002 |
+|           U1                                                                                                                              |    <0.001 |
+|           U2                                                                                                                              |    <0.001 |
+|           U5                                                                                                                              |     0.002 |
+|             sgen_wr32_rd64_d32_sync.fwft_sfifo_wr34_rd68_d32_inst                                                                         |     0.002 |
+|               U0                                                                                                                          |     0.002 |
+|                 inst_fifo_gen                                                                                                             |     0.002 |
+|                   gconvfifo.rf                                                                                                            |     0.002 |
+|                     grf.rf                                                                                                                |     0.002 |
+|                       gntv_or_sync_fifo.gl0.rd                                                                                            |    <0.001 |
+|                         gr1.gr1_int.rfwft                                                                                                 |    <0.001 |
+|                         grss.rsts                                                                                                         |    <0.001 |
+|                         rpntr                                                                                                             |    <0.001 |
+|                       gntv_or_sync_fifo.gl0.wr                                                                                            |    <0.001 |
+|                         gwss.wsts                                                                                                         |    <0.001 |
+|                         wpntr                                                                                                             |    <0.001 |
+|                       gntv_or_sync_fifo.mem                                                                                               |     0.001 |
+|                         gbm.gbmg.gbmgb.ngecc.bmg                                                                                          |     0.001 |
+|                           inst_blk_mem_gen                                                                                                |     0.001 |
+|                             gnbram.gnativebmg.native_blk_mem_gen                                                                          |     0.001 |
+|                               valid.cstr                                                                                                  |     0.001 |
+|                                 ramloop[0].ram.r                                                                                          |     0.001 |
+|                                   prim_noinit.ram                                                                                         |     0.001 |
 |       WRITE_FR                                                                                                                            |    <0.001 |
 |         reset                                                                                                                             |    <0.001 |
+|       g1.U7                                                                                                                               |     0.002 |
+|         U1                                                                                                                                |    <0.001 |
+|         sgen_d16384.t_axi4_stream64_sfifo_d16384_inst                                                                                     |     0.001 |
+|           U0                                                                                                                              |     0.001 |
+|             inst_fifo_gen                                                                                                                 |     0.001 |
+|               gaxis_fifo.gaxisf.axisf                                                                                                     |     0.001 |
+|                 grf.rf                                                                                                                    |     0.001 |
+|                   gntv_or_sync_fifo.gl0.rd                                                                                                |    <0.001 |
+|                     gr1.gdcf.dc                                                                                                           |    <0.001 |
+|                       dc                                                                                                                  |    <0.001 |
+|                     gr1.gr1_int.rfwft                                                                                                     |    <0.001 |
+|                     grss.rsts                                                                                                             |    <0.001 |
+|                       c1                                                                                                                  |    <0.001 |
+|                       c2                                                                                                                  |    <0.001 |
+|                     rpntr                                                                                                                 |    <0.001 |
+|                   gntv_or_sync_fifo.gl0.wr                                                                                                |    <0.001 |
+|                     gwss.wsts                                                                                                             |    <0.001 |
+|                       c0                                                                                                                  |    <0.001 |
+|                       c1                                                                                                                  |    <0.001 |
+|                     wpntr                                                                                                                 |    <0.001 |
+|                   gntv_or_sync_fifo.mem                                                                                                   |    <0.001 |
+|                     gbm.gbmg.gbmgb.ngecc.bmg                                                                                              |    <0.001 |
+|                       inst_blk_mem_gen                                                                                                    |    <0.001 |
+|                         gnbram.gnativebmg.native_blk_mem_gen                                                                              |    <0.001 |
+|                           valid.cstr                                                                                                      |    <0.001 |
+|                             has_mux_b.B                                                                                                   |    <0.001 |
+|                             ramloop[0].ram.r                                                                                              |    <0.001 |
+|                               prim_noinit.ram                                                                                             |    <0.001 |
+|                             ramloop[10].ram.r                                                                                             |    <0.001 |
+|                               prim_noinit.ram                                                                                             |    <0.001 |
+|                             ramloop[11].ram.r                                                                                             |    <0.001 |
+|                               prim_noinit.ram                                                                                             |    <0.001 |
+|                             ramloop[12].ram.r                                                                                             |    <0.001 |
+|                               prim_noinit.ram                                                                                             |    <0.001 |
+|                             ramloop[13].ram.r                                                                                             |    <0.001 |
+|                               prim_noinit.ram                                                                                             |    <0.001 |
+|                             ramloop[14].ram.r                                                                                             |    <0.001 |
+|                               prim_noinit.ram                                                                                             |    <0.001 |
+|                             ramloop[15].ram.r                                                                                             |    <0.001 |
+|                               prim_noinit.ram                                                                                             |    <0.001 |
+|                             ramloop[16].ram.r                                                                                             |    <0.001 |
+|                               prim_noinit.ram                                                                                             |    <0.001 |
+|                             ramloop[17].ram.r                                                                                             |    <0.001 |
+|                               prim_noinit.ram                                                                                             |    <0.001 |
+|                             ramloop[18].ram.r                                                                                             |    <0.001 |
+|                               prim_noinit.ram                                                                                             |    <0.001 |
+|                             ramloop[19].ram.r                                                                                             |    <0.001 |
+|                               prim_noinit.ram                                                                                             |    <0.001 |
+|                             ramloop[1].ram.r                                                                                              |    <0.001 |
+|                               prim_noinit.ram                                                                                             |    <0.001 |
+|                             ramloop[20].ram.r                                                                                             |    <0.001 |
+|                               prim_noinit.ram                                                                                             |    <0.001 |
+|                             ramloop[21].ram.r                                                                                             |    <0.001 |
+|                               prim_noinit.ram                                                                                             |    <0.001 |
+|                             ramloop[22].ram.r                                                                                             |    <0.001 |
+|                               prim_noinit.ram                                                                                             |    <0.001 |
+|                             ramloop[23].ram.r                                                                                             |    <0.001 |
+|                               prim_noinit.ram                                                                                             |    <0.001 |
+|                             ramloop[24].ram.r                                                                                             |    <0.001 |
+|                               prim_noinit.ram                                                                                             |    <0.001 |
+|                             ramloop[25].ram.r                                                                                             |    <0.001 |
+|                               prim_noinit.ram                                                                                             |    <0.001 |
+|                             ramloop[26].ram.r                                                                                             |    <0.001 |
+|                               prim_noinit.ram                                                                                             |    <0.001 |
+|                             ramloop[27].ram.r                                                                                             |    <0.001 |
+|                               prim_noinit.ram                                                                                             |    <0.001 |
+|                             ramloop[28].ram.r                                                                                             |    <0.001 |
+|                               prim_noinit.ram                                                                                             |    <0.001 |
+|                             ramloop[29].ram.r                                                                                             |    <0.001 |
+|                               prim_noinit.ram                                                                                             |    <0.001 |
+|                             ramloop[2].ram.r                                                                                              |    <0.001 |
+|                               prim_noinit.ram                                                                                             |    <0.001 |
+|                             ramloop[30].ram.r                                                                                             |    <0.001 |
+|                               prim_noinit.ram                                                                                             |    <0.001 |
+|                             ramloop[31].ram.r                                                                                             |    <0.001 |
+|                               prim_noinit.ram                                                                                             |    <0.001 |
+|                             ramloop[32].ram.r                                                                                             |    <0.001 |
+|                               prim_noinit.ram                                                                                             |    <0.001 |
+|                             ramloop[33].ram.r                                                                                             |    <0.001 |
+|                               prim_noinit.ram                                                                                             |    <0.001 |
+|                             ramloop[34].ram.r                                                                                             |    <0.001 |
+|                               prim_noinit.ram                                                                                             |    <0.001 |
+|                             ramloop[35].ram.r                                                                                             |    <0.001 |
+|                               prim_noinit.ram                                                                                             |    <0.001 |
+|                             ramloop[36].ram.r                                                                                             |    <0.001 |
+|                               prim_noinit.ram                                                                                             |    <0.001 |
+|                             ramloop[37].ram.r                                                                                             |    <0.001 |
+|                               prim_noinit.ram                                                                                             |    <0.001 |
+|                             ramloop[38].ram.r                                                                                             |    <0.001 |
+|                               prim_noinit.ram                                                                                             |    <0.001 |
+|                             ramloop[39].ram.r                                                                                             |    <0.001 |
+|                               prim_noinit.ram                                                                                             |    <0.001 |
+|                             ramloop[3].ram.r                                                                                              |    <0.001 |
+|                               prim_noinit.ram                                                                                             |    <0.001 |
+|                             ramloop[40].ram.r                                                                                             |    <0.001 |
+|                               prim_noinit.ram                                                                                             |    <0.001 |
+|                             ramloop[41].ram.r                                                                                             |    <0.001 |
+|                               prim_noinit.ram                                                                                             |    <0.001 |
+|                             ramloop[42].ram.r                                                                                             |    <0.001 |
+|                               prim_noinit.ram                                                                                             |    <0.001 |
+|                             ramloop[43].ram.r                                                                                             |    <0.001 |
+|                               prim_noinit.ram                                                                                             |    <0.001 |
+|                             ramloop[44].ram.r                                                                                             |    <0.001 |
+|                               prim_noinit.ram                                                                                             |    <0.001 |
+|                             ramloop[4].ram.r                                                                                              |    <0.001 |
+|                               prim_noinit.ram                                                                                             |    <0.001 |
+|                             ramloop[5].ram.r                                                                                              |    <0.001 |
+|                               prim_noinit.ram                                                                                             |    <0.001 |
+|                             ramloop[6].ram.r                                                                                              |    <0.001 |
+|                               prim_noinit.ram                                                                                             |    <0.001 |
+|                             ramloop[7].ram.r                                                                                              |    <0.001 |
+|                               prim_noinit.ram                                                                                             |    <0.001 |
+|                             ramloop[8].ram.r                                                                                              |    <0.001 |
+|                               prim_noinit.ram                                                                                             |    <0.001 |
+|                             ramloop[9].ram.r                                                                                              |    <0.001 |
+|                               prim_noinit.ram                                                                                             |    <0.001 |
+|                   rstblk                                                                                                                  |    <0.001 |
+|                     ngwrdrst.grst.g7serrst.gsckt_wrst.garst_sync[1].arst_sync_inst                                                        |    <0.001 |
+|                     ngwrdrst.grst.g7serrst.gsckt_wrst.garst_sync[2].arst_sync_inst                                                        |    <0.001 |
+|                     ngwrdrst.grst.g7serrst.gsckt_wrst.garst_sync[3].arst_sync_inst                                                        |    <0.001 |
+|                     ngwrdrst.grst.g7serrst.gsckt_wrst.gcc_rst.garst_sync_cc[1].rd_rst_wr_inst                                             |    <0.001 |
+|                     ngwrdrst.grst.g7serrst.gsckt_wrst.gcc_rst.garst_sync_cc[2].rd_rst_wr_inst                                             |    <0.001 |
+|                     ngwrdrst.grst.g7serrst.gwrrd_rst_sync_stage[1].rrst_inst                                                              |    <0.001 |
+|                     ngwrdrst.grst.g7serrst.gwrrd_rst_sync_stage[1].wrst_inst                                                              |    <0.001 |
+|                     ngwrdrst.grst.g7serrst.gwrrd_rst_sync_stage[2].rrst_inst                                                              |    <0.001 |
+|                     ngwrdrst.grst.g7serrst.gwrrd_rst_sync_stage[2].wrst_inst                                                              |    <0.001 |
+|                     ngwrdrst.grst.g7serrst.gwrrd_rst_sync_stage[3].rrst_inst                                                              |    <0.001 |
+|                     ngwrdrst.grst.g7serrst.gwrrd_rst_sync_stage[3].wrst_inst                                                              |    <0.001 |
 |     U1                                                                                                                                    |    <0.001 |
 |       U1                                                                                                                                  |    <0.001 |
 |         inst                                                                                                                              |    <0.001 |
 |           broadcaster_core                                                                                                                |    <0.001 |
-|     g0.U2                                                                                                                                 |     0.002 |
-|       U1                                                                                                                                  |    <0.001 |
-|       sgen_d16384.t_axi4_stream64_sfifo_d16384_inst                                                                                       |     0.001 |
-|         U0                                                                                                                                |     0.001 |
-|           inst_fifo_gen                                                                                                                   |     0.001 |
-|             gaxis_fifo.gaxisf.axisf                                                                                                       |     0.001 |
-|               grf.rf                                                                                                                      |     0.001 |
-|                 gntv_or_sync_fifo.gl0.rd                                                                                                  |    <0.001 |
-|                   gr1.gdcf.dc                                                                                                             |    <0.001 |
-|                     dc                                                                                                                    |    <0.001 |
-|                   gr1.gr1_int.rfwft                                                                                                       |    <0.001 |
-|                   grss.rsts                                                                                                               |    <0.001 |
-|                     c1                                                                                                                    |    <0.001 |
-|                     c2                                                                                                                    |    <0.001 |
-|                   rpntr                                                                                                                   |    <0.001 |
-|                 gntv_or_sync_fifo.gl0.wr                                                                                                  |    <0.001 |
-|                   gwss.wsts                                                                                                               |    <0.001 |
-|                     c0                                                                                                                    |    <0.001 |
-|                     c1                                                                                                                    |    <0.001 |
-|                   wpntr                                                                                                                   |    <0.001 |
-|                 gntv_or_sync_fifo.mem                                                                                                     |    <0.001 |
-|                   gbm.gbmg.gbmgb.ngecc.bmg                                                                                                |    <0.001 |
-|                     inst_blk_mem_gen                                                                                                      |    <0.001 |
-|                       gnbram.gnativebmg.native_blk_mem_gen                                                                                |    <0.001 |
-|                         valid.cstr                                                                                                        |    <0.001 |
-|                           has_mux_b.B                                                                                                     |    <0.001 |
-|                           ramloop[0].ram.r                                                                                                |    <0.001 |
-|                             prim_noinit.ram                                                                                               |    <0.001 |
-|                           ramloop[10].ram.r                                                                                               |    <0.001 |
-|                             prim_noinit.ram                                                                                               |    <0.001 |
-|                           ramloop[11].ram.r                                                                                               |    <0.001 |
-|                             prim_noinit.ram                                                                                               |    <0.001 |
-|                           ramloop[12].ram.r                                                                                               |    <0.001 |
-|                             prim_noinit.ram                                                                                               |    <0.001 |
-|                           ramloop[13].ram.r                                                                                               |    <0.001 |
-|                             prim_noinit.ram                                                                                               |    <0.001 |
-|                           ramloop[14].ram.r                                                                                               |    <0.001 |
-|                             prim_noinit.ram                                                                                               |    <0.001 |
-|                           ramloop[15].ram.r                                                                                               |    <0.001 |
-|                             prim_noinit.ram                                                                                               |    <0.001 |
-|                           ramloop[16].ram.r                                                                                               |    <0.001 |
-|                             prim_noinit.ram                                                                                               |    <0.001 |
-|                           ramloop[17].ram.r                                                                                               |    <0.001 |
-|                             prim_noinit.ram                                                                                               |    <0.001 |
-|                           ramloop[18].ram.r                                                                                               |    <0.001 |
-|                             prim_noinit.ram                                                                                               |    <0.001 |
-|                           ramloop[19].ram.r                                                                                               |    <0.001 |
-|                             prim_noinit.ram                                                                                               |    <0.001 |
-|                           ramloop[1].ram.r                                                                                                |    <0.001 |
-|                             prim_noinit.ram                                                                                               |    <0.001 |
-|                           ramloop[20].ram.r                                                                                               |    <0.001 |
-|                             prim_noinit.ram                                                                                               |    <0.001 |
-|                           ramloop[21].ram.r                                                                                               |    <0.001 |
-|                             prim_noinit.ram                                                                                               |    <0.001 |
-|                           ramloop[22].ram.r                                                                                               |    <0.001 |
-|                             prim_noinit.ram                                                                                               |    <0.001 |
-|                           ramloop[23].ram.r                                                                                               |    <0.001 |
-|                             prim_noinit.ram                                                                                               |    <0.001 |
-|                           ramloop[24].ram.r                                                                                               |    <0.001 |
-|                             prim_noinit.ram                                                                                               |    <0.001 |
-|                           ramloop[25].ram.r                                                                                               |    <0.001 |
-|                             prim_noinit.ram                                                                                               |    <0.001 |
-|                           ramloop[26].ram.r                                                                                               |    <0.001 |
-|                             prim_noinit.ram                                                                                               |    <0.001 |
-|                           ramloop[27].ram.r                                                                                               |    <0.001 |
-|                             prim_noinit.ram                                                                                               |    <0.001 |
-|                           ramloop[28].ram.r                                                                                               |    <0.001 |
-|                             prim_noinit.ram                                                                                               |    <0.001 |
-|                           ramloop[29].ram.r                                                                                               |    <0.001 |
-|                             prim_noinit.ram                                                                                               |    <0.001 |
-|                           ramloop[2].ram.r                                                                                                |    <0.001 |
-|                             prim_noinit.ram                                                                                               |    <0.001 |
-|                           ramloop[30].ram.r                                                                                               |    <0.001 |
-|                             prim_noinit.ram                                                                                               |    <0.001 |
-|                           ramloop[31].ram.r                                                                                               |    <0.001 |
-|                             prim_noinit.ram                                                                                               |    <0.001 |
-|                           ramloop[32].ram.r                                                                                               |    <0.001 |
-|                             prim_noinit.ram                                                                                               |    <0.001 |
-|                           ramloop[33].ram.r                                                                                               |    <0.001 |
-|                             prim_noinit.ram                                                                                               |    <0.001 |
-|                           ramloop[34].ram.r                                                                                               |    <0.001 |
-|                             prim_noinit.ram                                                                                               |    <0.001 |
-|                           ramloop[35].ram.r                                                                                               |    <0.001 |
-|                             prim_noinit.ram                                                                                               |    <0.001 |
-|                           ramloop[36].ram.r                                                                                               |    <0.001 |
-|                             prim_noinit.ram                                                                                               |    <0.001 |
-|                           ramloop[37].ram.r                                                                                               |    <0.001 |
-|                             prim_noinit.ram                                                                                               |    <0.001 |
-|                           ramloop[38].ram.r                                                                                               |    <0.001 |
-|                             prim_noinit.ram                                                                                               |    <0.001 |
-|                           ramloop[39].ram.r                                                                                               |    <0.001 |
-|                             prim_noinit.ram                                                                                               |    <0.001 |
-|                           ramloop[3].ram.r                                                                                                |    <0.001 |
-|                             prim_noinit.ram                                                                                               |    <0.001 |
-|                           ramloop[40].ram.r                                                                                               |    <0.001 |
-|                             prim_noinit.ram                                                                                               |    <0.001 |
-|                           ramloop[41].ram.r                                                                                               |    <0.001 |
-|                             prim_noinit.ram                                                                                               |    <0.001 |
-|                           ramloop[42].ram.r                                                                                               |    <0.001 |
-|                             prim_noinit.ram                                                                                               |    <0.001 |
-|                           ramloop[43].ram.r                                                                                               |    <0.001 |
-|                             prim_noinit.ram                                                                                               |    <0.001 |
-|                           ramloop[44].ram.r                                                                                               |    <0.001 |
-|                             prim_noinit.ram                                                                                               |    <0.001 |
-|                           ramloop[4].ram.r                                                                                                |    <0.001 |
-|                             prim_noinit.ram                                                                                               |    <0.001 |
-|                           ramloop[5].ram.r                                                                                                |    <0.001 |
-|                             prim_noinit.ram                                                                                               |    <0.001 |
-|                           ramloop[6].ram.r                                                                                                |    <0.001 |
-|                             prim_noinit.ram                                                                                               |    <0.001 |
-|                           ramloop[7].ram.r                                                                                                |    <0.001 |
-|                             prim_noinit.ram                                                                                               |    <0.001 |
-|                           ramloop[8].ram.r                                                                                                |    <0.001 |
-|                             prim_noinit.ram                                                                                               |    <0.001 |
-|                           ramloop[9].ram.r                                                                                                |    <0.001 |
-|                             prim_noinit.ram                                                                                               |    <0.001 |
-|                 rstblk                                                                                                                    |    <0.001 |
-|                   ngwrdrst.grst.g7serrst.gsckt_wrst.garst_sync[1].arst_sync_inst                                                          |    <0.001 |
-|                   ngwrdrst.grst.g7serrst.gsckt_wrst.garst_sync[2].arst_sync_inst                                                          |    <0.001 |
-|                   ngwrdrst.grst.g7serrst.gsckt_wrst.garst_sync[3].arst_sync_inst                                                          |    <0.001 |
-|                   ngwrdrst.grst.g7serrst.gsckt_wrst.gcc_rst.garst_sync_cc[1].rd_rst_wr_inst                                               |    <0.001 |
-|                   ngwrdrst.grst.g7serrst.gsckt_wrst.gcc_rst.garst_sync_cc[2].rd_rst_wr_inst                                               |    <0.001 |
-|                   ngwrdrst.grst.g7serrst.gwrrd_rst_sync_stage[1].rrst_inst                                                                |    <0.001 |
-|                   ngwrdrst.grst.g7serrst.gwrrd_rst_sync_stage[1].wrst_inst                                                                |    <0.001 |
-|                   ngwrdrst.grst.g7serrst.gwrrd_rst_sync_stage[2].rrst_inst                                                                |    <0.001 |
-|                   ngwrdrst.grst.g7serrst.gwrrd_rst_sync_stage[2].wrst_inst                                                                |    <0.001 |
-|                   ngwrdrst.grst.g7serrst.gwrrd_rst_sync_stage[3].rrst_inst                                                                |    <0.001 |
-|                   ngwrdrst.grst.g7serrst.gwrrd_rst_sync_stage[3].wrst_inst                                                                |    <0.001 |
-|     g0.U5                                                                                                                                 |     0.003 |
-|       U1                                                                                                                                  |    <0.001 |
-|       sgen_d16384.t_axi4_stream64_sfifo_d16384_inst                                                                                       |     0.001 |
-|         U0                                                                                                                                |     0.001 |
-|           inst_fifo_gen                                                                                                                   |     0.001 |
-|             gaxis_fifo.gaxisf.axisf                                                                                                       |     0.001 |
-|               grf.rf                                                                                                                      |     0.001 |
-|                 gntv_or_sync_fifo.gl0.rd                                                                                                  |    <0.001 |
-|                   gr1.gdcf.dc                                                                                                             |    <0.001 |
-|                     dc                                                                                                                    |    <0.001 |
-|                   gr1.gr1_int.rfwft                                                                                                       |    <0.001 |
-|                   grss.rsts                                                                                                               |    <0.001 |
-|                     c1                                                                                                                    |    <0.001 |
-|                     c2                                                                                                                    |    <0.001 |
-|                   rpntr                                                                                                                   |    <0.001 |
-|                 gntv_or_sync_fifo.gl0.wr                                                                                                  |    <0.001 |
-|                   gwss.wsts                                                                                                               |    <0.001 |
-|                     c0                                                                                                                    |    <0.001 |
-|                     c1                                                                                                                    |    <0.001 |
-|                   wpntr                                                                                                                   |    <0.001 |
-|                 gntv_or_sync_fifo.mem                                                                                                     |    <0.001 |
-|                   gbm.gbmg.gbmgb.ngecc.bmg                                                                                                |    <0.001 |
-|                     inst_blk_mem_gen                                                                                                      |    <0.001 |
-|                       gnbram.gnativebmg.native_blk_mem_gen                                                                                |    <0.001 |
-|                         valid.cstr                                                                                                        |    <0.001 |
-|                           has_mux_b.B                                                                                                     |    <0.001 |
-|                           ramloop[0].ram.r                                                                                                |    <0.001 |
-|                             prim_noinit.ram                                                                                               |    <0.001 |
-|                           ramloop[10].ram.r                                                                                               |    <0.001 |
-|                             prim_noinit.ram                                                                                               |    <0.001 |
-|                           ramloop[11].ram.r                                                                                               |    <0.001 |
-|                             prim_noinit.ram                                                                                               |    <0.001 |
-|                           ramloop[12].ram.r                                                                                               |    <0.001 |
-|                             prim_noinit.ram                                                                                               |    <0.001 |
-|                           ramloop[13].ram.r                                                                                               |    <0.001 |
-|                             prim_noinit.ram                                                                                               |    <0.001 |
-|                           ramloop[14].ram.r                                                                                               |    <0.001 |
-|                             prim_noinit.ram                                                                                               |    <0.001 |
-|                           ramloop[15].ram.r                                                                                               |    <0.001 |
-|                             prim_noinit.ram                                                                                               |    <0.001 |
-|                           ramloop[16].ram.r                                                                                               |    <0.001 |
-|                             prim_noinit.ram                                                                                               |    <0.001 |
-|                           ramloop[17].ram.r                                                                                               |    <0.001 |
-|                             prim_noinit.ram                                                                                               |    <0.001 |
-|                           ramloop[18].ram.r                                                                                               |    <0.001 |
-|                             prim_noinit.ram                                                                                               |    <0.001 |
-|                           ramloop[19].ram.r                                                                                               |    <0.001 |
-|                             prim_noinit.ram                                                                                               |    <0.001 |
-|                           ramloop[1].ram.r                                                                                                |    <0.001 |
-|                             prim_noinit.ram                                                                                               |    <0.001 |
-|                           ramloop[20].ram.r                                                                                               |    <0.001 |
-|                             prim_noinit.ram                                                                                               |    <0.001 |
-|                           ramloop[21].ram.r                                                                                               |    <0.001 |
-|                             prim_noinit.ram                                                                                               |    <0.001 |
-|                           ramloop[22].ram.r                                                                                               |    <0.001 |
-|                             prim_noinit.ram                                                                                               |    <0.001 |
-|                           ramloop[23].ram.r                                                                                               |    <0.001 |
-|                             prim_noinit.ram                                                                                               |    <0.001 |
-|                           ramloop[24].ram.r                                                                                               |    <0.001 |
-|                             prim_noinit.ram                                                                                               |    <0.001 |
-|                           ramloop[25].ram.r                                                                                               |    <0.001 |
-|                             prim_noinit.ram                                                                                               |    <0.001 |
-|                           ramloop[26].ram.r                                                                                               |    <0.001 |
-|                             prim_noinit.ram                                                                                               |    <0.001 |
-|                           ramloop[27].ram.r                                                                                               |    <0.001 |
-|                             prim_noinit.ram                                                                                               |    <0.001 |
-|                           ramloop[28].ram.r                                                                                               |    <0.001 |
-|                             prim_noinit.ram                                                                                               |    <0.001 |
-|                           ramloop[29].ram.r                                                                                               |    <0.001 |
-|                             prim_noinit.ram                                                                                               |    <0.001 |
-|                           ramloop[2].ram.r                                                                                                |    <0.001 |
-|                             prim_noinit.ram                                                                                               |    <0.001 |
-|                           ramloop[30].ram.r                                                                                               |    <0.001 |
-|                             prim_noinit.ram                                                                                               |    <0.001 |
-|                           ramloop[31].ram.r                                                                                               |    <0.001 |
-|                             prim_noinit.ram                                                                                               |    <0.001 |
-|                           ramloop[32].ram.r                                                                                               |    <0.001 |
-|                             prim_noinit.ram                                                                                               |    <0.001 |
-|                           ramloop[33].ram.r                                                                                               |    <0.001 |
-|                             prim_noinit.ram                                                                                               |    <0.001 |
-|                           ramloop[34].ram.r                                                                                               |    <0.001 |
-|                             prim_noinit.ram                                                                                               |    <0.001 |
-|                           ramloop[35].ram.r                                                                                               |    <0.001 |
-|                             prim_noinit.ram                                                                                               |    <0.001 |
-|                           ramloop[36].ram.r                                                                                               |    <0.001 |
-|                             prim_noinit.ram                                                                                               |    <0.001 |
-|                           ramloop[37].ram.r                                                                                               |    <0.001 |
-|                             prim_noinit.ram                                                                                               |    <0.001 |
-|                           ramloop[38].ram.r                                                                                               |    <0.001 |
-|                             prim_noinit.ram                                                                                               |    <0.001 |
-|                           ramloop[39].ram.r                                                                                               |    <0.001 |
-|                             prim_noinit.ram                                                                                               |    <0.001 |
-|                           ramloop[3].ram.r                                                                                                |    <0.001 |
-|                             prim_noinit.ram                                                                                               |    <0.001 |
-|                           ramloop[40].ram.r                                                                                               |    <0.001 |
-|                             prim_noinit.ram                                                                                               |    <0.001 |
-|                           ramloop[41].ram.r                                                                                               |    <0.001 |
-|                             prim_noinit.ram                                                                                               |    <0.001 |
-|                           ramloop[42].ram.r                                                                                               |    <0.001 |
-|                             prim_noinit.ram                                                                                               |    <0.001 |
-|                           ramloop[43].ram.r                                                                                               |    <0.001 |
-|                             prim_noinit.ram                                                                                               |    <0.001 |
-|                           ramloop[44].ram.r                                                                                               |    <0.001 |
-|                             prim_noinit.ram                                                                                               |    <0.001 |
-|                           ramloop[4].ram.r                                                                                                |    <0.001 |
-|                             prim_noinit.ram                                                                                               |    <0.001 |
-|                           ramloop[5].ram.r                                                                                                |    <0.001 |
-|                             prim_noinit.ram                                                                                               |    <0.001 |
-|                           ramloop[6].ram.r                                                                                                |    <0.001 |
-|                             prim_noinit.ram                                                                                               |    <0.001 |
-|                           ramloop[7].ram.r                                                                                                |    <0.001 |
-|                             prim_noinit.ram                                                                                               |    <0.001 |
-|                           ramloop[8].ram.r                                                                                                |    <0.001 |
-|                             prim_noinit.ram                                                                                               |    <0.001 |
-|                           ramloop[9].ram.r                                                                                                |    <0.001 |
-|                             prim_noinit.ram                                                                                               |    <0.001 |
-|                 rstblk                                                                                                                    |    <0.001 |
-|                   ngwrdrst.grst.g7serrst.gsckt_wrst.garst_sync[1].arst_sync_inst                                                          |    <0.001 |
-|                   ngwrdrst.grst.g7serrst.gsckt_wrst.garst_sync[2].arst_sync_inst                                                          |    <0.001 |
-|                   ngwrdrst.grst.g7serrst.gsckt_wrst.garst_sync[3].arst_sync_inst                                                          |    <0.001 |
-|                   ngwrdrst.grst.g7serrst.gsckt_wrst.gcc_rst.garst_sync_cc[1].rd_rst_wr_inst                                               |    <0.001 |
-|                   ngwrdrst.grst.g7serrst.gsckt_wrst.gcc_rst.garst_sync_cc[2].rd_rst_wr_inst                                               |    <0.001 |
-|                   ngwrdrst.grst.g7serrst.gwrrd_rst_sync_stage[1].rrst_inst                                                                |    <0.001 |
-|                   ngwrdrst.grst.g7serrst.gwrrd_rst_sync_stage[1].wrst_inst                                                                |    <0.001 |
-|                   ngwrdrst.grst.g7serrst.gwrrd_rst_sync_stage[2].rrst_inst                                                                |    <0.001 |
-|                   ngwrdrst.grst.g7serrst.gwrrd_rst_sync_stage[2].wrst_inst                                                                |    <0.001 |
-|                   ngwrdrst.grst.g7serrst.gwrrd_rst_sync_stage[3].rrst_inst                                                                |    <0.001 |
-|                   ngwrdrst.grst.g7serrst.gwrrd_rst_sync_stage[3].wrst_inst                                                                |    <0.001 |
 +-------------------------------------------------------------------------------------------------------------------------------------------+-----------+
 
 
