@@ -91,11 +91,11 @@ bool gVerbose = true;
    BuiltInTest_Execute(BITID_NetworkInterfaceInitialization);
    BuiltInTest_Execute(BITID_DebugTerminalInitialization);
    BuiltInTest_Execute(BITID_GenICamManagerInitialization);
-   BuiltInTest_Execute(BITID_QSPIFlashInerfaceInitialization);
-   BuiltInTest_Execute(BITID_FirmwareUpdaterInitialization);
    BuiltInTest_Execute(BITID_AGCControllerInitialization);
    BuiltInTest_Execute(BITID_ADCControllerInitialization);
    BuiltInTest_Execute(BITID_InterruptControllerStartup);
+   BuiltInTest_Execute(BITID_QSPIFlashInerfaceInitialization);
+   BuiltInTest_Execute(BITID_FirmwareUpdaterInitialization);
    BuiltInTest_Execute(BITID_CLinkInterfaceInitialization);
    BuiltInTest_Execute(BITID_SDIInterfaceInitialization);
 
