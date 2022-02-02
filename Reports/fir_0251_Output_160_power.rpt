@@ -1,7 +1,7 @@
 Copyright 1986-2016 Xilinx, Inc. All Rights Reserved.
 -----------------------------------------------------------------------------------------------------------------
 | Tool Version     : Vivado v.2016.3 (win64) Build 1682563 Mon Oct 10 19:07:27 MDT 2016
-| Date             : Fri Jun 11 14:59:42 2021
+| Date             : Wed Feb 02 12:44:46 2022
 | Host             : TELOPS212 running 64-bit major release  (build 9200)
 | Command          : report_power -file d:/Telops/FIR-00251-Output/Reports/fir_0251_Output_160_power.rpt
 | Design           : fir_251_output_top_160
@@ -30,8 +30,8 @@ Table of Contents
 ----------
 
 +--------------------------+-------+
-| Total On-Chip Power (W)  | 3.064 |
-| Dynamic (W)              | 2.916 |
+| Total On-Chip Power (W)  | 3.066 |
+| Dynamic (W)              | 2.918 |
 | Device Static (W)        | 0.148 |
 | Total Off-Chip Power (W) | 0.309 |
 | Effective TJA (C/W)      | 1.9   |
@@ -50,16 +50,16 @@ Table of Contents
 +--------------------------+-----------+----------+-----------+-----------------+
 | On-Chip                  | Power (W) | Used     | Available | Utilization (%) |
 +--------------------------+-----------+----------+-----------+-----------------+
-| Clocks                   |     0.178 |       54 |       --- |             --- |
-| Slice Logic              |     0.059 |    71311 |       --- |             --- |
-|   LUT as Logic           |     0.049 |    25202 |    101400 |           24.85 |
+| Clocks                   |     0.179 |       54 |       --- |             --- |
+| Slice Logic              |     0.059 |    71310 |       --- |             --- |
+|   LUT as Logic           |     0.049 |    25186 |    101400 |           24.84 |
 |   Register               |     0.004 |    31710 |    202800 |           15.64 |
 |   CARRY4                 |     0.004 |     1650 |     25350 |            6.51 |
 |   LUT as Distributed RAM |    <0.001 |     1096 |     35000 |            3.13 |
-|   LUT as Shift Register  |    <0.001 |     1175 |     35000 |            3.36 |
+|   LUT as Shift Register  |    <0.001 |     1171 |     35000 |            3.35 |
 |   F7/F8 Muxes            |    <0.001 |      201 |    101400 |            0.20 |
 |   Others                 |    <0.001 |     3963 |       --- |             --- |
-| Signals                  |     0.077 |    54741 |       --- |             --- |
+| Signals                  |     0.078 |    54739 |       --- |             --- |
 | Block RAM                |     0.086 |      204 |       325 |           62.77 |
 | MMCM                     |     0.535 |        5 |         8 |           62.50 |
 | PLL                      |     0.092 |        1 |         8 |           12.50 |
@@ -69,7 +69,7 @@ Table of Contents
 | PHASER                   |     0.205 |       18 |       --- |             --- |
 | XADC                     |     0.002 |        1 |       --- |             --- |
 | Static Power             |     0.148 |          |           |                 |
-| Total                    |     3.064 |          |           |                 |
+| Total                    |     3.066 |          |           |                 |
 +--------------------------+-----------+----------+-----------+-----------------+
 
 
@@ -79,7 +79,7 @@ Table of Contents
 +-----------+-------------+-----------+-------------+------------+
 | Source    | Voltage (V) | Total (A) | Dynamic (A) | Static (A) |
 +-----------+-------------+-----------+-------------+------------+
-| Vccint    |       1.000 |     0.600 |       0.546 |      0.054 |
+| Vccint    |       1.000 |     0.602 |       0.548 |      0.054 |
 | Vccaux    |       1.800 |     0.517 |       0.499 |      0.019 |
 | Vcco33    |       3.300 |     0.007 |       0.006 |      0.001 |
 | Vcco25    |       2.500 |     0.236 |       0.235 |      0.001 |
@@ -196,8 +196,8 @@ Table of Contents
 +-------------------------------------------------------------------------------------------------------------------------------------------+-----------+
 | Name                                                                                                                                      | Power (W) |
 +-------------------------------------------------------------------------------------------------------------------------------------------+-----------+
-| fir_251_output_top_160                                                                                                                    |     2.916 |
-|   U1                                                                                                                                      |     2.870 |
+| fir_251_output_top_160                                                                                                                    |     2.918 |
+|   U1                                                                                                                                      |     2.872 |
 |     CLINK                                                                                                                                 |     0.668 |
 |       CH0                                                                                                                                 |     0.181 |
 |         U0                                                                                                                                |     0.181 |
@@ -235,8 +235,8 @@ Table of Contents
 |                           valid.cstr                                                                                                      |     0.001 |
 |                             ramloop[0].ram.r                                                                                              |    <0.001 |
 |                               prim_noinit.ram                                                                                             |    <0.001 |
-|                             ramloop[1].ram.r                                                                                              |     0.001 |
-|                               prim_noinit.ram                                                                                             |     0.001 |
+|                             ramloop[1].ram.r                                                                                              |    <0.001 |
+|                               prim_noinit.ram                                                                                             |    <0.001 |
 |                   rstblk                                                                                                                  |    <0.001 |
 |                     ngwrdrst.grst.g7serrst.gsckt_wrst.garst_sync[1].arst_sync_inst                                                        |    <0.001 |
 |                     ngwrdrst.grst.g7serrst.gsckt_wrst.garst_sync[2].arst_sync_inst                                                        |    <0.001 |
@@ -822,7 +822,7 @@ Table of Contents
 |                 auto_us_cc_df                                                                                                             |     0.010 |
 |                   inst                                                                                                                    |     0.010 |
 |                     gen_upsizer.gen_full_upsizer.axi_upsizer_inst                                                                         |     0.010 |
-|                       USE_READ.gen_pktfifo_r_upsizer.pktfifo_read_data_inst                                                               |     0.009 |
+|                       USE_READ.gen_pktfifo_r_upsizer.pktfifo_read_data_inst                                                               |     0.010 |
 |                         dw_fifogen_ar                                                                                                     |     0.001 |
 |                           inst_fifo_gen                                                                                                   |     0.001 |
 |                             gaxi_full_lite.gread_ch.grach2.axi_rach                                                                       |     0.001 |
@@ -1460,8 +1460,8 @@ Table of Contents
 |                       write_buffer.wr_buffer_ram[8].RAM32M0                                                                               |    <0.001 |
 |                       write_buffer.wr_buffer_ram[9].RAM32M0                                                                               |    <0.001 |
 |           MCU                                                                                                                             |     0.065 |
-|             mdm_1                                                                                                                         |    <0.001 |
-|               U0                                                                                                                          |    <0.001 |
+|             mdm_1                                                                                                                         |     0.001 |
+|               U0                                                                                                                          |     0.001 |
 |                 MDM_Core_I1                                                                                                               |    <0.001 |
 |                   JTAG_CONTROL_I                                                                                                          |    <0.001 |
 |                     FDC_I                                                                                                                 |    <0.001 |
@@ -1714,13 +1714,13 @@ Table of Contents
 |                         Gen_Bits[8].MEM_EX_Result_Inst                                                                                    |    <0.001 |
 |                         Gen_Bits[9].MEM_EX_Result_Inst                                                                                    |    <0.001 |
 |                       FPU_I                                                                                                               |     0.008 |
-|                         Use_FPU.FPU_ADDSUB_I                                                                                              |     0.003 |
+|                         Use_FPU.FPU_ADDSUB_I                                                                                              |     0.004 |
 |                         Use_FPU.FPU_DIV_I                                                                                                 |    <0.001 |
 |                         Use_FPU.FPU_MUL_I                                                                                                 |     0.002 |
 |                           Use_DSP48E1.dsp_module_lower                                                                                    |    <0.001 |
 |                             Using_DSP48E1.DSP48E1_I1                                                                                      |    <0.001 |
-|                           Use_DSP48E1.dsp_module_upper                                                                                    |     0.001 |
-|                             Using_DSP48E1.DSP48E1_I1                                                                                      |     0.001 |
+|                           Use_DSP48E1.dsp_module_upper                                                                                    |     0.002 |
+|                             Using_DSP48E1.DSP48E1_I1                                                                                      |     0.002 |
 |                         Use_FPU.Stage3_Add_Sub_With_Const.AddSub_Pass[10].AddSub_MULT_AND                                                 |    <0.001 |
 |                         Use_FPU.Stage3_Add_Sub_With_Const.AddSub_Pass[10].I_ALU_LUT                                                       |    <0.001 |
 |                         Use_FPU.Stage3_Add_Sub_With_Const.AddSub_Pass[10].MUXCY_XOR_I                                                     |    <0.001 |
@@ -2063,7 +2063,7 @@ Table of Contents
 |                         OF_EX_MSR_Bits[29].Using_FDR.MSR_ex_I                                                                             |    <0.001 |
 |                         OF_EX_MSR_Bits[30].Using_FDR.MSR_ex_I                                                                             |    <0.001 |
 |                         OF_EX_MSR_Bits[30].Using_FDR.MSR_of_I                                                                             |    <0.001 |
-|                     Decode_I                                                                                                              |     0.006 |
+|                     Decode_I                                                                                                              |     0.007 |
 |                       PC_Module_I                                                                                                         |    <0.001 |
 |                         Instruction_Prefetch_Mux[0].Gen_Instr_DFF                                                                         |    <0.001 |
 |                         Instruction_Prefetch_Mux[0].PC_Mux_MUXF7                                                                          |    <0.001 |
@@ -2811,10 +2811,10 @@ Table of Contents
 |         qspi_prom_io2_iobuf                                                                                                               |    <0.001 |
 |         qspi_prom_io3_iobuf                                                                                                               |    <0.001 |
 |         qspi_prom_ss_iobuf_0                                                                                                              |     0.000 |
-|     MGT                                                                                                                                   |     0.708 |
+|     MGT                                                                                                                                   |     0.707 |
 |       MGTS                                                                                                                                |     0.704 |
-|         DATA                                                                                                                              |     0.321 |
-|           inst                                                                                                                            |     0.321 |
+|         DATA                                                                                                                              |     0.322 |
+|           inst                                                                                                                            |     0.322 |
 |             aurora_lane_0_i                                                                                                               |     0.001 |
 |               err_detect_i                                                                                                                |    <0.001 |
 |               lane_init_sm_i                                                                                                              |    <0.001 |
@@ -2825,9 +2825,9 @@ Table of Contents
 |               u_link_rst_sync                                                                                                             |    <0.001 |
 |               u_pd_sync                                                                                                                   |    <0.001 |
 |               u_rst_done_sync                                                                                                             |    <0.001 |
-|             data_mgt_wrapper_i                                                                                                            |     0.318 |
+|             data_mgt_wrapper_i                                                                                                            |     0.319 |
 |               block_sync_sm_gtx0_i                                                                                                        |    <0.001 |
-|               cbcc_gtx0_i                                                                                                                 |     0.003 |
+|               cbcc_gtx0_i                                                                                                                 |     0.004 |
 |                 u_cdc_rxlossofsync_in                                                                                                     |    <0.001 |
 |                 u_cdc_wr_err_rd_clk                                                                                                       |    <0.001 |
 |                 u_rst_sync_btf_sync                                                                                                       |    <0.001 |
@@ -2843,8 +2843,8 @@ Table of Contents
 |                 u_rst_sync_reset_to_fifo_wr_clk                                                                                           |    <0.001 |
 |                 u_rst_sync_reset_wr_clk                                                                                                   |    <0.001 |
 |                 u_rst_sync_rst_cbcc_rd_clk                                                                                                |    <0.001 |
-|               data_mgt_multi_gt_i                                                                                                         |     0.304 |
-|                 data_mgt_gtx_inst                                                                                                         |     0.304 |
+|               data_mgt_multi_gt_i                                                                                                         |     0.303 |
+|                 data_mgt_gtx_inst                                                                                                         |     0.303 |
 |               descrambler_64b66b_gtx0_i                                                                                                   |     0.001 |
 |               rxresetfsm_i                                                                                                                |     0.001 |
 |                 u_rst_sync_mmcm_lock                                                                                                      |    <0.001 |
@@ -2900,8 +2900,8 @@ Table of Contents
 |           sync_resetn_inst                                                                                                                |    <0.001 |
 |           video_loopback_sync                                                                                                             |    <0.001 |
 |           video_pwrdown_sync                                                                                                              |    <0.001 |
-|         gen_mgt_2ch.VIDEO                                                                                                                 |     0.263 |
-|           inst                                                                                                                            |     0.263 |
+|         gen_mgt_2ch.VIDEO                                                                                                                 |     0.262 |
+|           inst                                                                                                                            |     0.262 |
 |             aurora_lane_0_i                                                                                                               |     0.001 |
 |               err_detect_i                                                                                                                |    <0.001 |
 |               lane_init_sm_i                                                                                                              |    <0.001 |
@@ -2925,7 +2925,7 @@ Table of Contents
 |             tx_ll_i                                                                                                                       |    <0.001 |
 |               tx_ll_control_sm_i                                                                                                          |    <0.001 |
 |               tx_ll_datapath_i                                                                                                            |    <0.001 |
-|             video_mgt_wrapper_i                                                                                                           |     0.260 |
+|             video_mgt_wrapper_i                                                                                                           |     0.259 |
 |               block_sync_sm_gtx0_i                                                                                                        |    <0.001 |
 |               cbcc_gtx0_i                                                                                                                 |     0.003 |
 |                 u_cdc_rxlossofsync_in                                                                                                     |    <0.001 |
@@ -3090,7 +3090,7 @@ Table of Contents
 |         U0                                                                                                                                |    <0.001 |
 |         sync_RESET_GIGE                                                                                                                   |    <0.001 |
 |       SYNC                                                                                                                                |    <0.001 |
-|     SDI                                                                                                                                   |     0.332 |
+|     SDI                                                                                                                                   |     0.334 |
 |       AGC_inst                                                                                                                            |     0.007 |
 |         U1                                                                                                                                |    <0.001 |
 |           U0                                                                                                                              |    <0.001 |
@@ -3189,7 +3189,7 @@ Table of Contents
 |                     partial_one.last_srl17e                                                                                               |    <0.001 |
 |       BF_SYNC                                                                                                                             |    <0.001 |
 |         reset                                                                                                                             |    <0.001 |
-|       CMAP                                                                                                                                |     0.043 |
+|       CMAP                                                                                                                                |     0.044 |
 |         U1                                                                                                                                |     0.002 |
 |           U2                                                                                                                              |    <0.001 |
 |             U1                                                                                                                            |    <0.001 |
@@ -3455,7 +3455,7 @@ Table of Contents
 |             U1                                                                                                                            |     0.024 |
 |               U0                                                                                                                          |     0.024 |
 |                 i_synth                                                                                                                   |     0.024 |
-|                   DIV_OP.SPD.OP                                                                                                           |     0.022 |
+|                   DIV_OP.SPD.OP                                                                                                           |     0.023 |
 |                     EXP                                                                                                                   |    <0.001 |
 |                       COND_DET_A                                                                                                          |    <0.001 |
 |                         EXP_DET_LUT.EXP_ALL_ONE_DEL                                                                                       |    <0.001 |
@@ -3736,7 +3736,7 @@ Table of Contents
 |                     fifo0                                                                                                                 |    <0.001 |
 |                   i_nd_to_rdy                                                                                                             |    <0.001 |
 |                   need_combiner.use_2to1.skid_buffer_combiner                                                                             |    <0.001 |
-|       CTRL                                                                                                                                |     0.002 |
+|       CTRL                                                                                                                                |     0.003 |
 |         inst_sync_reset                                                                                                                   |    <0.001 |
 |         sync_mb_cfg                                                                                                                       |    <0.001 |
 |       DM                                                                                                                                  |     0.006 |
@@ -3880,8 +3880,8 @@ Table of Contents
 |                               prim_noinit.ram                                                                                             |     0.001 |
 |                             ramloop[2].ram.r                                                                                              |     0.001 |
 |                               prim_noinit.ram                                                                                             |     0.001 |
-|                             ramloop[3].ram.r                                                                                              |     0.002 |
-|                               prim_noinit.ram                                                                                             |     0.002 |
+|                             ramloop[3].ram.r                                                                                              |     0.001 |
+|                               prim_noinit.ram                                                                                             |     0.001 |
 |                             ramloop[4].ram.r                                                                                              |     0.001 |
 |                               prim_noinit.ram                                                                                             |     0.001 |
 |                   rstblk                                                                                                                  |    <0.001 |
@@ -3908,7 +3908,7 @@ Table of Contents
 |                     ngwrdrst.grst.g7serrst.gwrrd_rst_sync_stage[3].wrst_inst                                                              |    <0.001 |
 |                     ngwrdrst.grst.g7serrst.gwrrd_rst_sync_stage[4].rrst_inst                                                              |    <0.001 |
 |                     ngwrdrst.grst.g7serrst.gwrrd_rst_sync_stage[4].wrst_inst                                                              |    <0.001 |
-|       OUTPUT_GEN                                                                                                                          |     0.026 |
+|       OUTPUT_GEN                                                                                                                          |     0.027 |
 |         SDI                                                                                                                               |     0.022 |
 |           GTX_CTRL                                                                                                                        |     0.012 |
 |             DRUBSHIFT                                                                                                                     |     0.001 |
@@ -3929,7 +3929,7 @@ Table of Contents
 |             inst                                                                                                                          |     0.010 |
 |               RSTMOD0                                                                                                                     |    <0.001 |
 |               RSTMOD1                                                                                                                     |    <0.001 |
-|               SDIRXTOP                                                                                                                    |     0.005 |
+|               SDIRXTOP                                                                                                                    |     0.006 |
 |                 AUTORATE                                                                                                                  |    <0.001 |
 |                 BDMUX                                                                                                                     |    <0.001 |
 |                 DEC                                                                                                                       |    <0.001 |
@@ -3963,9 +3963,9 @@ Table of Contents
 |           VERT                                                                                                                            |     0.001 |
 |       READ_FR                                                                                                                             |    <0.001 |
 |         reset                                                                                                                             |    <0.001 |
-|       SCALER                                                                                                                              |     0.053 |
-|         U1                                                                                                                                |     0.053 |
-|           U0                                                                                                                              |     0.053 |
+|       SCALER                                                                                                                              |     0.052 |
+|         U1                                                                                                                                |     0.052 |
+|           U0                                                                                                                              |     0.052 |
 |             obsf1aqaweiwd                                                                                                                 |     0.044 |
 |               obsf1aqawei5wxpm5cbvet5rb1mcacyrd4leia405cbvet5rb0pske3gzjzpyq2mcddp4ehkqq0eiqcmjhhfcpkeaa3eqrje2t4egtaqz4ira1205g1521rptrl |    <0.001 |
 |               obsf1aqawei5wxpm5cbvet5rb1mcacyrd4leia405cbvet5rb0pske3gzjzpyq2mcddp4ehkqq0eiqcmjhhfcpkeaa3eqrje2t4egtaqz4ira1205g153a5g1d  |    <0.001 |
