@@ -94,15 +94,18 @@ add_files [concat \
 ]
 
 #Add constraint files
-add_files -fileset constrs_1 $constr_dir
+add_files -fileset constrs_1 [concat \
+   $constr_dir/fir_00251_output_Physical_common.xdc \
+   $constr_dir/fir_00251_output_Physical_$FPGA_SIZE.xdc \
+   $constr_dir/fir_00251_output_Timing.xdc \
+   $constr_dir/fir_00251_output_Target.xdc \
+]
+
+# make sure the files are in correct precedence order (as per UG903 recommendation)
+#files are already added in the right order
+
+#Set top level constraint
 set_property target_constrs_file $constr_dir/fir_00251_output_Target.xdc [current_fileset -constrset]
-reorder_files -fileset constrs_1 -before $constr_dir/fir_00251_output_Timing.xdc $constr_dir/fir_00251_output_Physical_common.xdc
-if {$FPGA_SIZE == 70} {
-	reorder_files -fileset constrs_1 -before $constr_dir/fir_00251_output_Timing.xdc $constr_dir/fir_00251_output_Physical_70.xdc
-} elseif {$FPGA_SIZE == 160} {
-	reorder_files -fileset constrs_1 -before $constr_dir/fir_00251_output_Timing.xdc $constr_dir/fir_00251_output_Physical_160.xdc
-}
-reorder_files -fileset constrs_1 -before $constr_dir/fir_00251_output_Target.xdc $constr_dir/fir_00251_output_Timing.xdc
 
 #Create Block design
 source $script_dir/gen_bd_core_$FPGA_SIZE.tcl
