@@ -1,8 +1,8 @@
 Copyright 1986-2016 Xilinx, Inc. All Rights Reserved.
 -----------------------------------------------------------------------------------------------------------------
 | Tool Version     : Vivado v.2016.3 (win64) Build 1682563 Mon Oct 10 19:07:27 MDT 2016
-| Date             : Wed Feb 02 12:44:46 2022
-| Host             : TELOPS212 running 64-bit major release  (build 9200)
+| Date             : Fri Feb 18 14:30:48 2022
+| Host             : TELOPS258 running 64-bit major release  (build 9200)
 | Command          : report_power -file d:/Telops/FIR-00251-Output/Reports/fir_0251_Output_160_power.rpt
 | Design           : fir_251_output_top_160
 | Device           : xc7k160tfbg676-1
@@ -30,13 +30,13 @@ Table of Contents
 ----------
 
 +--------------------------+-------+
-| Total On-Chip Power (W)  | 3.066 |
-| Dynamic (W)              | 2.918 |
+| Total On-Chip Power (W)  | 3.124 |
+| Dynamic (W)              | 2.976 |
 | Device Static (W)        | 0.148 |
 | Total Off-Chip Power (W) | 0.309 |
 | Effective TJA (C/W)      | 1.9   |
-| Max Ambient (C)          | 94.3  |
-| Junction Temperature (C) | 30.7  |
+| Max Ambient (C)          | 94.1  |
+| Junction Temperature (C) | 30.9  |
 | Confidence Level         | Low   |
 | Setting File             | ---   |
 | Simulation Activity File | ---   |
@@ -52,24 +52,24 @@ Table of Contents
 +--------------------------+-----------+----------+-----------+-----------------+
 | Clocks                   |     0.179 |       54 |       --- |             --- |
 | Slice Logic              |     0.059 |    71310 |       --- |             --- |
-|   LUT as Logic           |     0.049 |    25186 |    101400 |           24.84 |
-|   Register               |     0.004 |    31710 |    202800 |           15.64 |
+|   LUT as Logic           |     0.049 |    27339 |    101400 |           26.96 |
+|   Register               |     0.004 |    31733 |    202800 |           15.65 |
 |   CARRY4                 |     0.004 |     1650 |     25350 |            6.51 |
-|   LUT as Distributed RAM |    <0.001 |     1096 |     35000 |            3.13 |
-|   LUT as Shift Register  |    <0.001 |     1171 |     35000 |            3.35 |
+|   LUT as Distributed RAM |    <0.001 |     1128 |     35000 |            3.22 |
+|   LUT as Shift Register  |    <0.001 |     1809 |     35000 |            5.17 |
 |   F7/F8 Muxes            |    <0.001 |      201 |    101400 |            0.20 |
 |   Others                 |    <0.001 |     3963 |       --- |             --- |
-| Signals                  |     0.078 |    54739 |       --- |             --- |
+| Signals                  |     0.078 |    54740 |       --- |             --- |
 | Block RAM                |     0.086 |      204 |       325 |           62.77 |
 | MMCM                     |     0.535 |        5 |         8 |           62.50 |
 | PLL                      |     0.092 |        1 |         8 |           12.50 |
 | DSPs                     |     0.012 |       20 |       600 |            3.33 |
 | I/O                      |     0.947 |      144 |       400 |           36.00 |
-| GTX                      |     0.722 |        3 |         8 |           37.50 |
+| GTX                      |     0.780 |        3 |         8 |           37.50 |
 | PHASER                   |     0.205 |       18 |       --- |             --- |
 | XADC                     |     0.002 |        1 |       --- |             --- |
 | Static Power             |     0.148 |          |           |                 |
-| Total                    |     3.066 |          |           |                 |
+| Total                    |     3.124 |          |           |                 |
 +--------------------------+-----------+----------+-----------+-----------------+
 
 
@@ -88,9 +88,9 @@ Table of Contents
 | Vcco135   |       1.350 |     0.000 |       0.000 |      0.000 |
 | Vcco12    |       1.200 |     0.000 |       0.000 |      0.000 |
 | Vccaux_io |       1.800 |     0.000 |       0.000 |      0.000 |
-| Vccbram   |       1.000 |     0.011 |       0.006 |      0.005 |
-| MGTAVcc   |       1.000 |     0.378 |       0.373 |      0.005 |
-| MGTAVtt   |       1.200 |     0.226 |       0.221 |      0.005 |
+| Vccbram   |       1.000 |     0.011 |       0.006 |      0.006 |
+| MGTAVcc   |       1.000 |     0.426 |       0.421 |      0.005 |
+| MGTAVtt   |       1.200 |     0.234 |       0.229 |      0.005 |
 | MGTVccaux |       1.800 |     0.008 |       0.008 |      0.000 |
 | Vccadc    |       1.800 |     0.021 |       0.001 |      0.020 |
 +-----------+-------------+-----------+-------------+------------+
@@ -196,8 +196,8 @@ Table of Contents
 +-------------------------------------------------------------------------------------------------------------------------------------------+-----------+
 | Name                                                                                                                                      | Power (W) |
 +-------------------------------------------------------------------------------------------------------------------------------------------+-----------+
-| fir_251_output_top_160                                                                                                                    |     2.918 |
-|   U1                                                                                                                                      |     2.872 |
+| fir_251_output_top_160                                                                                                                    |     2.976 |
+|   U1                                                                                                                                      |     2.930 |
 |     CLINK                                                                                                                                 |     0.668 |
 |       CH0                                                                                                                                 |     0.181 |
 |         U0                                                                                                                                |     0.181 |
@@ -2811,8 +2811,8 @@ Table of Contents
 |         qspi_prom_io2_iobuf                                                                                                               |    <0.001 |
 |         qspi_prom_io3_iobuf                                                                                                               |    <0.001 |
 |         qspi_prom_ss_iobuf_0                                                                                                              |     0.000 |
-|     MGT                                                                                                                                   |     0.707 |
-|       MGTS                                                                                                                                |     0.704 |
+|     MGT                                                                                                                                   |     0.765 |
+|       MGTS                                                                                                                                |     0.762 |
 |         DATA                                                                                                                              |     0.322 |
 |           inst                                                                                                                            |     0.322 |
 |             aurora_lane_0_i                                                                                                               |     0.001 |
@@ -2900,8 +2900,8 @@ Table of Contents
 |           sync_resetn_inst                                                                                                                |    <0.001 |
 |           video_loopback_sync                                                                                                             |    <0.001 |
 |           video_pwrdown_sync                                                                                                              |    <0.001 |
-|         gen_mgt_2ch.VIDEO                                                                                                                 |     0.262 |
-|           inst                                                                                                                            |     0.262 |
+|         gen_mgt_2ch.VIDEO                                                                                                                 |     0.320 |
+|           inst                                                                                                                            |     0.320 |
 |             aurora_lane_0_i                                                                                                               |     0.001 |
 |               err_detect_i                                                                                                                |    <0.001 |
 |               lane_init_sm_i                                                                                                              |    <0.001 |
@@ -2925,7 +2925,7 @@ Table of Contents
 |             tx_ll_i                                                                                                                       |    <0.001 |
 |               tx_ll_control_sm_i                                                                                                          |    <0.001 |
 |               tx_ll_datapath_i                                                                                                            |    <0.001 |
-|             video_mgt_wrapper_i                                                                                                           |     0.259 |
+|             video_mgt_wrapper_i                                                                                                           |     0.317 |
 |               block_sync_sm_gtx0_i                                                                                                        |    <0.001 |
 |               cbcc_gtx0_i                                                                                                                 |     0.003 |
 |                 u_cdc_rxlossofsync_in                                                                                                     |    <0.001 |
@@ -2970,8 +2970,8 @@ Table of Contents
 |               u_rst_sync_gtx_reset_comb                                                                                                   |    <0.001 |
 |               u_rst_sync_reset_initclk                                                                                                    |    <0.001 |
 |               u_rst_sync_txusrclk_gtx_reset_comb                                                                                          |    <0.001 |
-|               video_mgt_multi_gt_i                                                                                                        |     0.246 |
-|                 video_mgt_gtx_inst                                                                                                        |     0.246 |
+|               video_mgt_multi_gt_i                                                                                                        |     0.304 |
+|                 video_mgt_gtx_inst                                                                                                        |     0.304 |
 |       U5                                                                                                                                  |    <0.001 |
 |       gen_mgt_2ch.MGT_DATAOUT_64_FIFO                                                                                                     |     0.002 |
 |         agen_d512.t_axi4_stream64_afifo_d512_inst                                                                                         |     0.002 |

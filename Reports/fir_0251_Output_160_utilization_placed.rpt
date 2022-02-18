@@ -1,8 +1,8 @@
 Copyright 1986-2016 Xilinx, Inc. All Rights Reserved.
 ------------------------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2016.3 (win64) Build 1682563 Mon Oct 10 19:07:27 MDT 2016
-| Date         : Wed Feb 02 12:44:54 2022
-| Host         : TELOPS212 running 64-bit major release  (build 9200)
+| Date         : Fri Feb 18 14:30:56 2022
+| Host         : TELOPS258 running 64-bit major release  (build 9200)
 | Command      : report_utilization -file d:/Telops/FIR-00251-Output/Reports/fir_0251_Output_160_utilization_placed.rpt
 | Design       : fir_251_output_top_160
 | Device       : 7k160tfbg676-1
@@ -133,7 +133,7 @@ Table of Contents
 |   IOB Slave Pads            |   69 |       |           |        |
 |   IOB Flip Flops            |   23 |    23 |           |        |
 | Bonded IPADs                |   10 |    10 |        26 |  38.46 |
-| Bonded OPADs                |    4 |     4 |        16 |  25.00 |
+| Bonded OPADs                |    6 |     6 |        16 |  37.50 |
 | PHY_CONTROL                 |    2 |     2 |         8 |  25.00 |
 | PHASER_REF                  |    2 |     2 |         8 |  25.00 |
 | OUT_FIFO                    |    5 |     5 |        32 |  15.63 |
@@ -218,7 +218,7 @@ Table of Contents
 | SRLC32E                |   213 |  Distributed Memory |
 | MUXF7                  |   197 |               MuxFx |
 | RAMB36E1               |   189 |        Block Memory |
-| OBUF                   |    78 |                  IO |
+| OBUF                   |    80 |                  IO |
 | RAMD64E                |    64 |  Distributed Memory |
 | OSERDESE2              |    59 |                  IO |
 | SRLC16E                |    37 |  Distributed Memory |
