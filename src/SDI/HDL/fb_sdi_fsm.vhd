@@ -203,7 +203,7 @@ begin
             
             case write_state is
                when STANDBY_WR =>
-                  if(config.fb_mode = FBMODE_SDI_STD_c) then --Mode Gige standard
+                  if(config.fb_mode = FBMODE_SDI_STD_c) then --Mode SDI standard
                      if (sof_i = '1') then
                         sof_i <= '0';
                         --change state
