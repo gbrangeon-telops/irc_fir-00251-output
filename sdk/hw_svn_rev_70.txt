@@ -1,11 +1,11 @@
 * indicates local modifications
 
-D:\Telops\FIR-00251-Output 27172*
-D:\Telops\FIR-00251-Output\IP\70\axi_fb_datamover\axi_fb_datamover.xci 26374
-D:\Telops\FIR-00251-Output\IP\70\axi_sdi_fb_datamover\axi_sdi_fb_datamover.xci 26374
-D:\Telops\FIR-00251-Output\IP\70\blk_mem_gen_0\blk_mem_gen_0.xci 23723
+D:\Telops\FIR-00251-Output 27243*
+D:\Telops\FIR-00251-Output\IP\70\axi_fb_datamover\axi_fb_datamover.xci 27243
+D:\Telops\FIR-00251-Output\IP\70\axi_sdi_fb_datamover\axi_sdi_fb_datamover.xci 27243
+D:\Telops\FIR-00251-Output\IP\70\blk_mem_gen_0\blk_mem_gen_0.xci 23723*
 D:\Telops\FIR-00251-Output\IP\70\blk_mem_gen_1\blk_mem_gen_1.xci 23723
-D:\Telops\FIR-00251-Output\IP\70\clink_clk_wiz\clink_clk_wiz.xci 23723
+D:\Telops\FIR-00251-Output\IP\70\clink_clk_wiz\clink_clk_wiz.xci 23723*
 D:\Telops\FIR-00251-Output\IP\70\data_mgt\data_mgt.xci 25675
 D:\Telops\FIR-00251-Output\IP\70\fwft_afifo_wr34_rd68_d512\fwft_afifo_wr34_rd68_d512.xci 23723
 D:\Telops\FIR-00251-Output\IP\70\fwft_afifo_wr36_rd18_d256\fwft_afifo_wr36_rd18_d256.xci 25874
@@ -31,8 +31,8 @@ D:\Telops\FIR-00251-Output\IP\70\t_axi4_stream64_sfifo_d16384\t_axi4_stream64_sf
 D:\Telops\FIR-00251-Output\IP\70\video_mgt\video_mgt.xci 25675
 D:\Telops\FIR-00251-Output\scripts\Build_all_output.tcl 26319
 D:\Telops\FIR-00251-Output\scripts\create_build_output.tcl 26319
-D:\Telops\FIR-00251-Output\scripts\gen_bd_core_160.tcl 26374
-D:\Telops\FIR-00251-Output\scripts\gen_bd_core_70.tcl 26374
+D:\Telops\FIR-00251-Output\scripts\gen_bd_core_160.tcl 27243
+D:\Telops\FIR-00251-Output\scripts\gen_bd_core_70.tcl 27243
 D:\Telops\FIR-00251-Output\scripts\gen_managed_project.tcl 26319
 D:\Telops\FIR-00251-Output\scripts\gen_managed_project_160.tcl 26319
 D:\Telops\FIR-00251-Output\scripts\gen_managed_project_160_2013.tcl 26319
@@ -210,13 +210,13 @@ D:\Telops\FIR-00251-Output\src\SDI\GTX_wrapper\x7gtx_sdi_drp_control.vhd 14811
 D:\Telops\FIR-00251-Output\src\SDI\GTX_wrapper\x7gtx_sdi_rxtx_wrapper.vhd 14811
 D:\Telops\FIR-00251-Output\src\SDI\HDL\BadFrameResync.vhd 23414
 D:\Telops\FIR-00251-Output\src\SDI\HDL\data32_2_1_switch.vhd 14811
-D:\Telops\FIR-00251-Output\src\SDI\HDL\fb_sdi_fsm.vhd 23414
+D:\Telops\FIR-00251-Output\src\SDI\HDL\fb_sdi_fsm.vhd 27214
 D:\Telops\FIR-00251-Output\src\SDI\HDL\gtx_reset_process.vhd 14811
 D:\Telops\FIR-00251-Output\src\SDI\HDL\hdr_manager.vhd 26404
 D:\Telops\FIR-00251-Output\src\SDI\HDL\pattern_generator.vhd 18936
 D:\Telops\FIR-00251-Output\src\SDI\HDL\SDI_ctrl.vhd 26404
 D:\Telops\FIR-00251-Output\src\SDI\HDL\sdi_datamover_wrapper.vhd 26374
-D:\Telops\FIR-00251-Output\src\SDI\HDL\sdi_output.bde 26404
+D:\Telops\FIR-00251-Output\src\SDI\HDL\sdi_output.bde 27230
 D:\Telops\FIR-00251-Output\src\SDI\HDL\tlast_generator.vhd 18936
 D:\Telops\FIR-00251-Output\src\SDI\HDL\tlast_generator_stimulator.vhd 14811
 D:\Telops\FIR-00251-Output\src\SDI\HDL\video_data_handler.bde 23414
@@ -258,7 +258,7 @@ D:\Telops\FIR-00251-Output\src\SDI\VideoTimingGenerator\vidgen_pal.vhd 14811
 D:\Telops\FIR-00251-Output\src\SDI\Video_Package\anc_edh_pkg.vhd 14811
 D:\Telops\FIR-00251-Output\src\SDI\Video_Package\hdsdi_pkg.vhd 14811
 D:\Telops\FIR-00251-Output\src\SDI\Video_Package\multigenHD_pkg.vhd 14811
-D:\Telops\FIR-00251-Common 27156
+D:\Telops\FIR-00251-Common 27156*
 D:\Telops\FIR-00251-Common\VHDL\axis16_frame_pix_cnt.vhd 23412
 D:\Telops\FIR-00251-Common\VHDL\axis16_frame_rate.vhd 26331
 D:\Telops\FIR-00251-Common\VHDL\axis16_lite_frame_rate.vhd 26331
@@ -449,7 +449,7 @@ D:\Telops\FIR-00251-Common\VHDL\Utilities\axis64_RandomMiso.vhd 23412
 D:\Telops\FIR-00251-Common\VHDL\Utilities\axis64_reg.vhd 19463
 D:\Telops\FIR-00251-Common\VHDL\Utilities\axis64_sw_1_2.vhd 23412
 D:\Telops\FIR-00251-Common\VHDL\Utilities\axis64_sw_2_1.vhd 23412
-D:\Telops\FIR-00251-Common\VHDL\Utilities\axis64_throughput_ctrl.vhd 23412
+D:\Telops\FIR-00251-Common\VHDL\Utilities\axis64_throughput_ctrl.vhd 23412*
 D:\Telops\FIR-00251-Common\VHDL\Utilities\axis64_tid_gen.vhd 19463
 D:\Telops\FIR-00251-Common\VHDL\Utilities\axis8_fanout2.vhd 15516
 D:\Telops\FIR-00251-Common\VHDL\Utilities\axis_128_to_64_wrap.vhd 23412
@@ -470,7 +470,7 @@ D:\Telops\FIR-00251-Common\VHDL\Utilities\native_to_axis32.vhd 17671
 D:\Telops\FIR-00251-Common\VHDL\Utilities\native_to_axis8.vhd 14181
 D:\Telops\FIR-00251-Common\VHDL\Utilities\pixel_bad_repl.vhd 23412
 D:\Telops\FIR-00251-Common\VHDL\Utilities\shift_registers_x.vhd 14971
-D:\Telops\Common_HDL 27055
+D:\Telops\Common_HDL 27055*
 D:\Telops\Common_HDL\Common_Projects\TEL2000\FPA_common\src\ad5648_driver.vhd 17388
 D:\Telops\Common_HDL\Common_Projects\TEL2000\FPA_common\src\adc_brd_define.vhd 16667
 D:\Telops\Common_HDL\Common_Projects\TEL2000\FPA_common\src\adc_brd_id_reader.vhd 23549
@@ -484,7 +484,7 @@ D:\Telops\Common_HDL\Common_Projects\TEL2000\FPA_common\src\afpa_data_ctrl_16chn
 D:\Telops\Common_HDL\Common_Projects\TEL2000\FPA_common\src\afpa_data_ctrl_16chn_v2.bde 27055
 D:\Telops\Common_HDL\Common_Projects\TEL2000\FPA_common\src\afpa_data_ctrl_map.vhd 21829
 D:\Telops\Common_HDL\Common_Projects\TEL2000\FPA_common\src\afpa_data_ctrl_v2.bde 27055
-D:\Telops\Common_HDL\Common_Projects\TEL2000\FPA_common\src\afpa_data_dispatcher.vhd 26627
+D:\Telops\Common_HDL\Common_Projects\TEL2000\FPA_common\src\afpa_data_dispatcher.vhd 26627*
 D:\Telops\Common_HDL\Common_Projects\TEL2000\FPA_common\src\afpa_data_mux.vhd 25719
 D:\Telops\Common_HDL\Common_Projects\TEL2000\FPA_common\src\afpa_diag_data_gen.vhd 26570
 D:\Telops\Common_HDL\Common_Projects\TEL2000\FPA_common\src\afpa_dval_gen.bde 25923
@@ -555,9 +555,9 @@ D:\Telops\Common_HDL\Common_Projects\TEL2000\FPA_common\src\fpa_pixel_rate_modul
 D:\Telops\Common_HDL\Common_Projects\TEL2000\FPA_common\src\fpa_progr_clk_div.vhd 25887
 D:\Telops\Common_HDL\Common_Projects\TEL2000\FPA_common\src\fpa_signal_length_min_max.bde 26806
 D:\Telops\Common_HDL\Common_Projects\TEL2000\FPA_common\src\fpa_status_gen.vhd 26423
-D:\Telops\Common_HDL\Common_Projects\TEL2000\FPA_common\src\fpa_trig_controller.vhd 26235
+D:\Telops\Common_HDL\Common_Projects\TEL2000\FPA_common\src\fpa_trig_controller.vhd 26235*
 D:\Telops\Common_HDL\Common_Projects\TEL2000\FPA_common\src\fpa_watchdog.vhd 23388
-D:\Telops\Common_HDL\Common_Projects\TEL2000\FPA_common\src\fpa_watchdog_module.bde 24996
+D:\Telops\Common_HDL\Common_Projects\TEL2000\FPA_common\src\fpa_watchdog_module.bde 24996*
 D:\Telops\Common_HDL\Common_Projects\TEL2000\FPA_common\src\frm_in_progress_gen.vhd 22385
 D:\Telops\Common_HDL\Common_Projects\TEL2000\FPA_common\src\LL8_ext_fifo8.vhd 24791
 D:\Telops\Common_HDL\Common_Projects\TEL2000\FPA_common\src\LL8_ext_to_spi_tx.vhd 25667
