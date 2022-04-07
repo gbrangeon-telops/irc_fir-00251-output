@@ -16,7 +16,7 @@ use ieee.numeric_std.all;
 use work.tel2000.all;
 use work.FB_Define.all;
 use work.calib_define.all;
-use work.sdi_decimator_define.all;
+use work.decimator_define.all;
 
 entity SDI_ctrl is
    port (
@@ -56,7 +56,7 @@ entity SDI_ctrl is
       
       FB_CONF           : out FB_Config;
       
-      DECIMATOR_CFG     : out sdi_decimator_cfg_type;
+      DECIMATOR_CFG     : out decimator_cfg_type;
       
       VIDEO_CONFIG      : out video_config_type
       
@@ -95,7 +95,7 @@ architecture implementation of SDI_ctrl is
 
    --! User Output Register Declarations
    signal fb_cfg          : FB_Config;
-   signal decimator_cfg_i : sdi_decimator_cfg_type;
+   signal decimator_cfg_i : decimator_cfg_type;
    
    -- AXI4LITE signals
    signal axi_awaddr	  : std_logic_vector(C_S_AXI_ADDR_WIDTH-1 downto 0);

@@ -27,7 +27,7 @@ REFRESH_FLOW=1
 FAMILY=
 IMPL_TOOL=
 SYNTH_TOOL=
-fileopenfolder=D:\Telops\FIR-00251-Output\src\SDI\decimator\Hdl
+fileopenfolder=D:\Telops\FIR-00251-Common\VHDL\decimator\Hdl
 
 [LocalVerilogSets]
 EnableSLP=1
@@ -158,11 +158,11 @@ SDI\Colormap/..\..\..\..\src\SDI\colormap\HDL\colormap_top.bde=-1
 SDI\Colormap/..\..\..\..\src\SDI\colormap\HDL\color_map_mem.bde=-1
 SDI\Colormap/..\..\..\..\src\SDI\colormap\HDL\colormap_mem_wrap.vhd=-1
 SDI\Colormap/..\..\..\..\src\SDI\colormap\HDL\x_to_add.bde=-1
-SDI\Decimator/..\..\..\..\src\SDI\decimator\Hdl\build_sdi_decimator.do=-1
-SDI\Decimator/..\..\..\..\src\SDI\decimator\Hdl\sdi_column_decimator.vhd=-1
-SDI\Decimator/..\..\..\..\src\SDI\decimator\Hdl\sdi_decimator.bde=-1
-SDI\Decimator/..\..\..\..\src\SDI\decimator\Hdl\sdi_decimator_define.vhd=-1
-SDI\Decimator/..\..\..\..\src\SDI\decimator\Hdl\sdi_row_decimator.vhd=-1
+SDI\Decimator/..\..\..\..\..\FIR-00251-Common\VHDL\decimator\Hdl\build_decimator.do=-1
+SDI\Decimator/..\..\..\..\..\FIR-00251-Common\VHDL\decimator\Hdl\column_decimator.vhd=-1
+SDI\Decimator/..\..\..\..\..\FIR-00251-Common\VHDL\decimator\Hdl\decimator.bde=-1
+SDI\Decimator/..\..\..\..\..\FIR-00251-Common\VHDL\decimator\Hdl\decimator_define.vhd=-1
+SDI\Decimator/..\..\..\..\..\FIR-00251-Common\VHDL\decimator\Hdl\row_decimator.vhd=-1
 
 [Files.Data]
 .\..\src\fir_251_output_top.bde=Block Diagram
@@ -227,11 +227,21 @@ SDI\Decimator/..\..\..\..\src\SDI\decimator\Hdl\sdi_row_decimator.vhd=-1
 .\..\src\SDI\colormap\HDL\color_map_mem.bde=Block Diagram
 .\..\src\SDI\colormap\HDL\colormap_mem_wrap.vhd=VHDL Source Code
 .\..\src\SDI\colormap\HDL\x_to_add.bde=Block Diagram
-.\..\src\SDI\decimator\Hdl\build_sdi_decimator.do=Macro
-.\..\src\SDI\decimator\Hdl\sdi_column_decimator.vhd=VHDL Source Code
-.\..\src\SDI\decimator\Hdl\sdi_decimator.bde=Block Diagram
-.\..\src\SDI\decimator\Hdl\sdi_decimator_define.vhd=VHDL Source Code
-.\..\src\SDI\decimator\Hdl\sdi_row_decimator.vhd=VHDL Source Code
+.\..\..\FIR-00251-Common\VHDL\decimator\Hdl\build_decimator.do=Macro
+.\..\..\FIR-00251-Common\VHDL\decimator\Hdl\column_decimator.vhd=VHDL Source Code
+.\..\..\FIR-00251-Common\VHDL\decimator\Hdl\decimator.bde=Block Diagram
+.\..\..\FIR-00251-Common\VHDL\decimator\Hdl\decimator_define.vhd=VHDL Source Code
+.\..\..\FIR-00251-Common\VHDL\decimator\Hdl\row_decimator.vhd=VHDL Source Code
+.\compile\x_to_add.vhd=VHDL Source Code
+.\compile\color_map_mem.vhd=VHDL Source Code
+.\compile\colormap_top.vhd=VHDL Source Code
+.\compile\video_freeze.vhd=VHDL Source Code
+.\compile\video_ehdri_selector.vhd=VHDL Source Code
+.\compile\video_fwposition_selector.vhd=VHDL Source Code
+.\compile\video_data_handler.vhd=VHDL Source Code
+.\compile\decimator.vhd=VHDL Source Code
+.\compile\AGC.vhd=VHDL Source Code
+.\compile\sdi_output.vhd=VHDL Source Code
 
 [file_out:/..\..\src\fir_251_output_top.bde]
 /..\compile\fir_251_output_top.vhd=-1
@@ -257,33 +267,31 @@ MGT/..\..\compile\mgt_block_data_video.vhd=-1
 [file_out:Pleora/..\..\..\src\pleora_intf\HDL\pleora_intf.bde]
 Pleora/..\..\compile\pleora_intf.vhd=-1
 
-[file_out:SDI/..\..\..\src\SDI\HDL\sdi_output.bde]
-SDI/..\..\compile\sdi_output.vhd=-1
 
-[file_out:SDI/..\..\..\src\SDI\HDL\video_data_handler.bde]
-SDI/..\..\compile\video_data_handler.vhd=-1
 
-[file_out:SDI/..\..\..\src\SDI\HDL\video_ehdri_selector.bde]
-SDI/..\..\compile\video_ehdri_selector.vhd=-1
 
-[file_out:SDI/..\..\..\src\SDI\HDL\video_freeze.bde]
-SDI/..\..\compile\video_freeze.vhd=-1
 
-[file_out:SDI/..\..\..\src\SDI\HDL\video_fwposition_selector.bde]
-SDI/..\..\compile\video_fwposition_selector.vhd=-1
 
-[file_out:SDI\AGC/..\..\..\..\src\SDI\AGC\HDL\AGC.bde]
-SDI\AGC/..\..\..\compile\AGC.vhd=-1
 
-[file_out:SDI\Colormap/..\..\..\..\src\SDI\colormap\HDL\colormap_top.bde]
-SDI\Colormap/..\..\..\compile\colormap_top.vhd=-1
 
-[file_out:SDI\Colormap/..\..\..\..\src\SDI\colormap\HDL\color_map_mem.bde]
-SDI\Colormap/..\..\..\compile\color_map_mem.vhd=-1
 
 [file_out:SDI\Colormap/..\..\..\..\src\SDI\colormap\HDL\x_to_add.bde]
 SDI\Colormap/..\..\..\compile\x_to_add.vhd=-1
-
-[file_out:SDI\Decimator/..\..\..\..\src\SDI\decimator\Hdl\sdi_decimator.bde]
-SDI\Decimator/..\..\..\compile\sdi_decimator.vhd=-1
-
+[file_out:SDI\Colormap/..\..\..\..\src\SDI\colormap\HDL\color_map_mem.bde]
+SDI\Colormap/..\..\..\compile\color_map_mem.vhd=-1
+[file_out:SDI\Colormap/..\..\..\..\src\SDI\colormap\HDL\colormap_top.bde]
+SDI\Colormap/..\..\..\compile\colormap_top.vhd=-1
+[file_out:SDI/..\..\..\src\SDI\HDL\video_freeze.bde]
+SDI/..\..\compile\video_freeze.vhd=-1
+[file_out:SDI/..\..\..\src\SDI\HDL\video_ehdri_selector.bde]
+SDI/..\..\compile\video_ehdri_selector.vhd=-1
+[file_out:SDI/..\..\..\src\SDI\HDL\video_fwposition_selector.bde]
+SDI/..\..\compile\video_fwposition_selector.vhd=-1
+[file_out:SDI/..\..\..\src\SDI\HDL\video_data_handler.bde]
+SDI/..\..\compile\video_data_handler.vhd=-1
+[file_out:SDI\Decimator/..\..\..\..\..\FIR-00251-Common\VHDL\decimator\Hdl\decimator.bde]
+SDI\Decimator/..\..\..\compile\decimator.vhd=-1
+[file_out:SDI\AGC/..\..\..\..\src\SDI\AGC\HDL\AGC.bde]
+SDI\AGC/..\..\..\compile\AGC.vhd=-1
+[file_out:SDI/..\..\..\src\SDI\HDL\sdi_output.bde]
+SDI/..\..\compile\sdi_output.vhd=-1
