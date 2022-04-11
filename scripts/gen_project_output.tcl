@@ -28,7 +28,7 @@ set_property "target_language" "VHDL" $obj
 add_files [concat \
    [glob -nocomplain $common_dir/*.vhd] \
    [glob -nocomplain $common_dir/Buffering/*.vhd] \
-   [glob -nocomplain $common_dir/decimator/*.vhd] \
+   [glob -nocomplain $common_dir/decimator/Hdl/*.vhd] \
    [glob -nocomplain $common_dir/Calibration/*.vhd] \
    [glob -nocomplain $common_dir/Fifo/*.vhd] \
    [glob -nocomplain $common_dir/FrameBuffer/*.vhd] \
