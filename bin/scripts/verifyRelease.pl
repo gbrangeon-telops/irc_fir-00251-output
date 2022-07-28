@@ -26,7 +26,7 @@ my $error = 0;
 
 # Parse output build info file
 my $outputBuildInfoFileStr = read_file($outputBuildInfoFile);
-my $outputBuildInfoFileSubstr = substr($outputBuildInfoFileStr, index($outputBuildInfoFileStr, $outputFpgaSize));
+my $outputBuildInfoFileSubstr = substr($outputBuildInfoFileStr, index($outputBuildInfoFileStr, "ARCH_FPGA_${outputFpgaSize}"));
 my $outputBuildInfoHardware;
 my $outputBuildInfoSoftware;
 my $outputBuildInfoBootLoader;
