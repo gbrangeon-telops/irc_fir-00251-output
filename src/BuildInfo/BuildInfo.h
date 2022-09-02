@@ -4,7 +4,7 @@
 #ifdef ARCH_FPGA_70
 
 #define SVN_HARDWARE_REV      27784
-#define SVN_SOFTWARE_REV      27844
+#define SVN_SOFTWARE_REV      27845
 #define SVN_BOOTLOADER_REV    0 
 #define SVN_COMMON_REV        27839
 
@@ -23,7 +23,7 @@
 #elif defined(ARCH_FPGA_160)
 
 #define SVN_HARDWARE_REV      27784
-#define SVN_SOFTWARE_REV      27844
+#define SVN_SOFTWARE_REV      27845
 #define SVN_BOOTLOADER_REV    0 
 #define SVN_COMMON_REV        27839
 
