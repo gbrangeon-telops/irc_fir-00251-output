@@ -298,23 +298,25 @@ void GC_UpdateLockedFlag()
  */
 void GC_UpdateCameraLink()
 {
+   uint32_t frameImageCount;
    uint32_t frameImageCountAFR = 1;
    uint32_t frameImageCountPC = 1;
-   uint32_t frameImageCount;
 
    // reconfiguration is disabled for now during acquisition
    if (GC_AcquisitionStarted)
       return;
 
-   // Do not use jumbo frames in Memory Buffer Download
-   if ((gcRegsData.MemoryBufferMode == MBM_Off || gcRegsData.MemoryBufferSequenceDownloadMode == MBSDM_Off))
+   if ((gcRegsData.MemoryBufferMode == MBM_On && gcRegsData.MemoryBufferSequenceDownloadMode == MBSDM_Sequence) && IsActiveFlagsTst(BufferClinkDownloadIsActiveMask) && TDCFlags2Tst(BufferClinkDownloadIsImplementedMask))
    {
-      // Determine whether jumbo frames are necessary
+      frameImageCount = MAX(gcRegsData.MemoryBufferSequenceDownloadFrameImageCount, 1);
+   }
+   else
+   {
       frameImageCountAFR = (uint32_t) ceilf(gcRegsData.AcquisitionFrameRate / gcRegsData.AcquisitionFrameRateMaxFG);
       frameImageCountPC = (uint32_t) ceilf((float) gcRegsData.PayloadSizeMinFG / (float) (gcRegsData.Width * (gcRegsData.Height + 2) * 2));
+      frameImageCount = MAX(MAX(frameImageCountAFR, frameImageCountPC), 1);
    }
 
-   frameImageCount = MAX(MAX(frameImageCountAFR, frameImageCountPC), 1);
    GC_SetFValSize((gcRegsData.Height + 2) * frameImageCount);
    gcRegsData.PayloadSize = gcRegsData.FValSize * gcRegsData.Width * 2;
 

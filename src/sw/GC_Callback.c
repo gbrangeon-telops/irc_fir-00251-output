@@ -217,6 +217,8 @@ void GC_AcquisitionStartCallback(gcCallbackPhase_t phase, gcCallbackAccess_t acc
  */
 void GC_AcquisitionStopCallback(gcCallbackPhase_t phase, gcCallbackAccess_t access)
 {
+   extern t_ClinkConfig gClinkCtrl;
+
    if ((phase == GCCP_AFTER) && (access == GCCA_WRITE))
    {
       if (gcRegsData.AcquisitionStop)

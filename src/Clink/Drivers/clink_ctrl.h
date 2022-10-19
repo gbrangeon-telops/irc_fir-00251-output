@@ -30,11 +30,6 @@
 #define CLK_50MHZ 0x0
 #define CLK_85MHZ 0x1
 
-
-#define CL_LVAL_PAUSE_SLOW          4
-#define CL_LVAL_PAUSE_FAST          1
-#define CL_FVAL_PAUSE_SLOW          3
-#define CL_FVAL_PAUSE_FAST          3
 #define CL_FG_INTERRUPT_RATE_MAX    1200.0F	// Frame grabber maximum interrupts per sec
 #define CL_PIXEL_COUNT_MIN          (192 * (128 + 2))
 

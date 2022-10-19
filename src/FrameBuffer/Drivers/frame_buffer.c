@@ -35,7 +35,7 @@
 //----------------------------------------------------------------
 void FrameBuffer_SendConfigGC(t_FrameBuffer *a, const gcRegistersData_t *pGCRegs)
 {
-   if (pGCRegs->MemoryBufferSequenceDownloadMode == MBSDM_Off)
+   if (pGCRegs->MemoryBufferSequenceDownloadMode == MBSDM_Off || (IsActiveFlagsTst(BufferClinkDownloadIsActiveMask) && TDCFlags2Tst(BufferClinkDownloadIsImplementedMask)))
    {
       a->FB_mode = (uint32_t)FBM_GIGE;
    }
