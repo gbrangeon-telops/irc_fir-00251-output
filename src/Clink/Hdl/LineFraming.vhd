@@ -110,7 +110,7 @@ begin
    
    
    if (rising_edge(CLK)) then
-      if (sresetn = '0' or cfg_valid_s = '1') then
+      if (sresetn = '0' or cfg_valid_s = '0') then
          pixel_cnt <= (others => '0');
          line_cnt  <= (others => '0');
       else
