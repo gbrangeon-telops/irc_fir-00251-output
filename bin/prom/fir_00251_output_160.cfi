@@ -2,10 +2,10 @@
 # Copyright (c) 1995-2013 Xilinx, Inc.  All rights reserved.
 
 SOFTWARE_VERSION P.20131013
-DATE            09/02/2022 - 13:33
+DATE            10/28/2022 - 12:16
 SOURCE          D:\Telops\FIR-00251-Output\bin\prom\fir_00251_output_160.mcs
 DEVICE          16384K
 DATA_WIDTH      4
 FILL_DATA       0xFF
-SIGNATURE       0x9E464984
+SIGNATURE       0x9E3D3CC8
 START_ADDRESS   0x00000000 END_ADDRESS 0x00661EDB DIRECTION_UP   "D:/Telops/FIR-00251-Output/bin/download_160.bit" 7k160tfbg676
