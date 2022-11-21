@@ -3,24 +3,10 @@
 
 #ifdef ARCH_FPGA_70
 
-<<<<<<< .mine
-#define SVN_HARDWARE_REV      -27784
-#define SVN_SOFTWARE_REV      27846
-||||||| .r28001
-#define SVN_HARDWARE_REV      27784
-#define SVN_SOFTWARE_REV      27845
-=======
 #define SVN_HARDWARE_REV      28033
 #define SVN_SOFTWARE_REV      28076
->>>>>>> .r28124
 #define SVN_BOOTLOADER_REV    0 
-<<<<<<< .mine
-#define SVN_COMMON_REV        -27999
-||||||| .r28001
-#define SVN_COMMON_REV        27839
-=======
 #define SVN_COMMON_REV        28051
->>>>>>> .r28124
 
 #define SVN_UNCOMMITTED_CHANGES  ((SVN_HARDWARE_REV < 0) || (SVN_SOFTWARE_REV < 0) || (SVN_BOOTLOADER_REV < 0) || (SVN_COMMON_REV < 0))
 
@@ -36,24 +22,10 @@
 
 #elif defined(ARCH_FPGA_160)
 
-<<<<<<< .mine
-#define SVN_HARDWARE_REV      -27784
-#define SVN_SOFTWARE_REV      27846
-||||||| .r28001
-#define SVN_HARDWARE_REV      27784
-#define SVN_SOFTWARE_REV      27845
-=======
 #define SVN_HARDWARE_REV      28033
 #define SVN_SOFTWARE_REV      28076
->>>>>>> .r28124
 #define SVN_BOOTLOADER_REV    0 
-<<<<<<< .mine
-#define SVN_COMMON_REV        -27999
-||||||| .r28001
-#define SVN_COMMON_REV        27839
-=======
 #define SVN_COMMON_REV        28051
->>>>>>> .r28124
 
 #define SVN_UNCOMMITTED_CHANGES  ((SVN_HARDWARE_REV < 0) || (SVN_SOFTWARE_REV < 0) || (SVN_BOOTLOADER_REV < 0) || (SVN_COMMON_REV < 0))
 
