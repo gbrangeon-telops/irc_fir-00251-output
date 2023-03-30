@@ -35,7 +35,7 @@ void PleoraIntf_SendConfigGC(t_PleoraIntf *a, const gcRegistersData_t *pGCRegs)
    a->Frame_height = pGCRegs->Height+2;
    a->hdr_size = pGCRegs->Width * 2;
    a->hdr_version     = 1;   //not used
-   if ((gcRegsData.MemoryBufferMode == MBM_On && gcRegsData.MemoryBufferSequenceDownloadMode == MBSDM_Sequence) && IsActiveFlagsTst(BufferClinkDownloadIsActiveMask) && TDCFlags2Tst(BufferClinkDownloadIsImplementedMask))
+   if ((gcRegsData.MemoryBufferMode == MBM_On && gcRegsData.MemoryBufferSequenceDownloadMode == MBSDM_Sequence) && IsActiveFlagsTst(MemoryBufferClinkDownloadIsActiveMask) && TDCFlags2Tst(MemoryBufferClinkDownloadIsImplementedMask))
    {
       a->FrameImageCount = 1;
    }

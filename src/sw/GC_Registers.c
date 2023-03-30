@@ -306,7 +306,7 @@ void GC_UpdateCameraLink()
    if (GC_AcquisitionStarted)
       return;
 
-   if ((gcRegsData.MemoryBufferMode == MBM_On && gcRegsData.MemoryBufferSequenceDownloadMode == MBSDM_Sequence) && IsActiveFlagsTst(BufferClinkDownloadIsActiveMask) && TDCFlags2Tst(BufferClinkDownloadIsImplementedMask))
+   if ((gcRegsData.MemoryBufferMode == MBM_On && gcRegsData.MemoryBufferSequenceDownloadMode == MBSDM_Sequence) && IsActiveFlagsTst(MemoryBufferClinkDownloadIsActiveMask) && TDCFlags2Tst(MemoryBufferClinkDownloadIsImplementedMask))
    {
       frameImageCount = MAX(gcRegsData.MemoryBufferSequenceDownloadFrameImageCount, 1);
    }
