@@ -31,6 +31,7 @@ void GC_AcquisitionFrameRateMaxFGCallback(gcCallbackPhase_t phase, gcCallbackAcc
 void GC_AcquisitionFrameRateModeCallback(gcCallbackPhase_t phase, gcCallbackAccess_t access);
 void GC_AcquisitionStartCallback(gcCallbackPhase_t phase, gcCallbackAccess_t access);
 void GC_AcquisitionStopCallback(gcCallbackPhase_t phase, gcCallbackAccess_t access);
+void GC_BadPixelReplacementCallback(gcCallbackPhase_t phase, gcCallbackAccess_t access);
 void GC_CalibrationModeCallback(gcCallbackPhase_t phase, gcCallbackAccess_t access);
 void GC_ClConfigurationCallback(gcCallbackPhase_t phase, gcCallbackAccess_t access);
 void GC_DeviceBuiltInTestsResults5Callback(gcCallbackPhase_t phase, gcCallbackAccess_t access);
@@ -62,6 +63,8 @@ void GC_MemoryBufferLegacyModeCallback(gcCallbackPhase_t phase, gcCallbackAccess
 void GC_MemoryBufferMOIActivationCallback(gcCallbackPhase_t phase, gcCallbackAccess_t access);
 void GC_MemoryBufferMOISourceCallback(gcCallbackPhase_t phase, gcCallbackAccess_t access);
 void GC_MemoryBufferModeCallback(gcCallbackPhase_t phase, gcCallbackAccess_t access);
+void GC_MemoryBufferSequenceBadPixelReplacementCallback(gcCallbackPhase_t phase, gcCallbackAccess_t access);
+void GC_MemoryBufferSequenceCalibrationModeCallback(gcCallbackPhase_t phase, gcCallbackAccess_t access);
 void GC_MemoryBufferSequenceCountCallback(gcCallbackPhase_t phase, gcCallbackAccess_t access);
 void GC_MemoryBufferSequenceDownloadFrameCountCallback(gcCallbackPhase_t phase, gcCallbackAccess_t access);
 void GC_MemoryBufferSequenceDownloadFrameImageCountCallback(gcCallbackPhase_t phase, gcCallbackAccess_t access);

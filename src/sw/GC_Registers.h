@@ -53,6 +53,7 @@ struct gcRegistersDataStruct {
    uint32_t AcquisitionFrameRateMode;
    uint32_t AcquisitionStart;
    uint32_t AcquisitionStop;
+   uint32_t BadPixelReplacement;
    uint32_t CalibrationMode;
    uint32_t ClConfiguration;
    uint32_t DeviceBuiltInTestsResults5;
@@ -80,6 +81,8 @@ struct gcRegistersDataStruct {
    uint32_t MemoryBufferMOIActivation;
    uint32_t MemoryBufferMOISource;
    uint32_t MemoryBufferMode;
+   uint32_t MemoryBufferSequenceBadPixelReplacement;
+   uint32_t MemoryBufferSequenceCalibrationMode;
    uint32_t MemoryBufferSequenceCount;
    uint32_t MemoryBufferSequenceDownloadFrameCount;
    uint32_t MemoryBufferSequenceDownloadFrameImageCount;

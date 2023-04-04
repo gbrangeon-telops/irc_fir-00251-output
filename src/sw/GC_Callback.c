@@ -50,6 +50,7 @@ void GC_Callback_Init()
    gcRegsDef[AcquisitionFrameRateModeIdx].callback =                             &GC_AcquisitionFrameRateModeCallback;
    gcRegsDef[AcquisitionStartIdx].callback =                                     &GC_AcquisitionStartCallback;
    gcRegsDef[AcquisitionStopIdx].callback =                                      &GC_AcquisitionStopCallback;
+   gcRegsDef[BadPixelReplacementIdx].callback =                                  &GC_BadPixelReplacementCallback;
    gcRegsDef[CalibrationModeIdx].callback =                                      &GC_CalibrationModeCallback;
    gcRegsDef[ClConfigurationIdx].callback =                                      &GC_ClConfigurationCallback;
    gcRegsDef[DeviceBuiltInTestsResults5Idx].callback =                           &GC_DeviceBuiltInTestsResults5Callback;
@@ -81,6 +82,8 @@ void GC_Callback_Init()
    gcRegsDef[MemoryBufferMOIActivationIdx].callback =                            &GC_MemoryBufferMOIActivationCallback;
    gcRegsDef[MemoryBufferMOISourceIdx].callback =                                &GC_MemoryBufferMOISourceCallback;
    gcRegsDef[MemoryBufferModeIdx].callback =                                     &GC_MemoryBufferModeCallback;
+   gcRegsDef[MemoryBufferSequenceBadPixelReplacementIdx].callback =              &GC_MemoryBufferSequenceBadPixelReplacementCallback;
+   gcRegsDef[MemoryBufferSequenceCalibrationModeIdx].callback =                  &GC_MemoryBufferSequenceCalibrationModeCallback;
    gcRegsDef[MemoryBufferSequenceCountIdx].callback =                            &GC_MemoryBufferSequenceCountCallback;
    gcRegsDef[MemoryBufferSequenceDownloadFrameCountIdx].callback =               &GC_MemoryBufferSequenceDownloadFrameCountCallback;
    gcRegsDef[MemoryBufferSequenceDownloadFrameImageCountIdx].callback =          &GC_MemoryBufferSequenceDownloadFrameImageCountCallback;
@@ -225,6 +228,17 @@ void GC_AcquisitionStopCallback(gcCallbackPhase_t phase, gcCallbackAccess_t acce
          GC_UpdateCameraLink();
       }
    }
+}
+
+/**
+ * BadPixelReplacement GenICam register callback function.
+ * 
+ * @param phase indicates whether the function is called before or
+ *    after the read or write operation.
+ * @param access indicates whether the operation is read or write.
+ */
+void GC_BadPixelReplacementCallback(gcCallbackPhase_t phase, gcCallbackAccess_t access)
+{
 }
 
 /**
@@ -688,6 +702,28 @@ void GC_MemoryBufferModeCallback(gcCallbackPhase_t phase, gcCallbackAccess_t acc
       GC_UpdateCameraLink();
       SDIIntf_UpdateVideoDataHandler(&gSdiIntfCtrl, &gcRegsData);
    }
+}
+
+/**
+ * MemoryBufferSequenceBadPixelReplacement GenICam register callback function.
+ * 
+ * @param phase indicates whether the function is called before or
+ *    after the read or write operation.
+ * @param access indicates whether the operation is read or write.
+ */
+void GC_MemoryBufferSequenceBadPixelReplacementCallback(gcCallbackPhase_t phase, gcCallbackAccess_t access)
+{
+}
+
+/**
+ * MemoryBufferSequenceCalibrationMode GenICam register callback function.
+ * 
+ * @param phase indicates whether the function is called before or
+ *    after the read or write operation.
+ * @param access indicates whether the operation is read or write.
+ */
+void GC_MemoryBufferSequenceCalibrationModeCallback(gcCallbackPhase_t phase, gcCallbackAccess_t access)
+{
 }
 
 /**
