@@ -46,7 +46,9 @@ set_clock_groups -asynchronous -group [get_clocks -include_generated_clocks clk_
 ## Timing Exceptions Section
 
 # False Paths
-set_false_path -from [get_cells *reset*_reg* -hierarchical -filter {NAME =~ *proc_sys_reset_1*}]
+#set_false_path -from [get_cells *reset*_reg* -hierarchical -filter {NAME =~ *proc_sys_reset_1*}]
+# Since 2018.3, *reset*_reg* are replaced by : FDRE_BSR*,FDRE_PER*
+set_false_path -from [get_cells *FDRE_* -hierarchical -filter {NAME =~ *proc_sys_reset_1*}]
 
 # Max Delay / Min Delay
 # Multicycle Paths

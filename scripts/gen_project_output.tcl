@@ -84,7 +84,7 @@ add_files [concat \
    [glob -nocomplain $src_dir/SDI/colormap/HDL/*.vhd] \
    [glob -nocomplain $src_dir/SDI/colormap/*.coe] \
    [glob -nocomplain $src_dir/SDI/dru/*.vhd] \
-   [glob -nocomplain $src_dir/SDI/dru/*.ngc] \
+   [glob -nocomplain $src_dir/SDI/dru/*.edif] \
    [glob -nocomplain $src_dir/SDI/decimator/HDL/*.vhd] \
    [glob -nocomplain $src_dir/SDI/Video_Package/*.vhd] \
    [glob -nocomplain $src_dir/SDI/VideoTimingGenerator/*.vhd] \
@@ -93,6 +93,16 @@ add_files [concat \
    [glob -nocomplain $src_dir/BD/*.vhd] \
    [glob -nocomplain $aldec_dir/*.vhd] \
 ]
+
+# Create 'sources_1' fileset (if not found)
+if {[string equal [get_filesets sources_1] ""]} {
+  create_fileset -srcset sources_1
+}
+
+# Set 'sources_1' fileset properties
+set obj [get_filesets sources_1]
+set_property "edif_extra_search_paths" "[file normalize "$src_dir/SDI/dru"]" $obj
+
 
 #Add constraint files
 add_files -fileset constrs_1 [concat \

@@ -64,7 +64,7 @@ IRC_Status_t AGC_Init(XIntc *pInterruptController, gcRegistersData_t *pGCRegs, t
 
     // Register interrupt and start intc process
     status = XIntc_Connect(pInterruptController,
-                           XPAR_MCU_MICROBLAZE_0_AXI_INTC_SYSTEM_AGC_INTR_INTR,
+                            XPAR_MCU_MICROBLAZE_0_AXI_INTC_SYSTEM_AGC_INTR_INTR,
                            (XInterruptHandler)XAGC_InterruptHandler,
                            pInterruptController);
 

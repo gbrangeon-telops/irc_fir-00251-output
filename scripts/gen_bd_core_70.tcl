@@ -20,7 +20,7 @@ set script_folder [_tcl::get_script_folder]
 ################################################################
 # Check if script is running in correct Vivado version.
 ################################################################
-set scripts_vivado_version 2016.3
+set scripts_vivado_version 2018.3
 set current_vivado_version [version -short]
 
 if { [string first $scripts_vivado_version $current_vivado_version] == -1 } {
@@ -48,6 +48,7 @@ if { $list_projs eq "" } {
 
 
 # CHANGE DESIGN NAME HERE
+variable design_name
 set design_name core
 
 # If you do not already have an existing IP Integrator design open,
@@ -115,6 +116,53 @@ if { $nRet != 0 } {
    return $nRet
 }
 
+set bCheckIPsPassed 1
+##################################################################
+# CHECK IPs
+##################################################################
+set bCheckIPs 1
+if { $bCheckIPs == 1 } {
+   set list_check_ips "\ 
+xilinx.com:ip:axi_gpio:2.0\
+xilinx.com:ip:axi_quad_spi:3.2\
+xilinx.com:ip:axi_timer:2.0\
+xilinx.com:ip:axi_uart16550:2.0\
+xilinx.com:ip:clk_wiz:6.0\
+xilinx.com:ip:xlconstant:1.1\
+xilinx.com:ip:xlconcat:2.1\
+xilinx.com:ip:proc_sys_reset:5.0\
+xilinx.com:ip:xadc_wiz:3.3\
+xilinx.com:ip:mig_7series:4.2\
+xilinx.com:ip:mdm:3.2\
+xilinx.com:ip:microblaze:11.0\
+xilinx.com:ip:axi_intc:4.1\
+xilinx.com:ip:lmb_bram_if_cntlr:4.0\
+xilinx.com:ip:lmb_v10:3.0\
+xilinx.com:ip:blk_mem_gen:8.4\
+"
+
+   set list_ips_missing ""
+   common::send_msg_id "BD_TCL-006" "INFO" "Checking if the following IPs exist in the project's IP catalog: $list_check_ips ."
+
+   foreach ip_vlnv $list_check_ips {
+      set ip_obj [get_ipdefs -all $ip_vlnv]
+      if { $ip_obj eq "" } {
+         lappend list_ips_missing $ip_vlnv
+      }
+   }
+
+   if { $list_ips_missing ne "" } {
+      catch {common::send_msg_id "BD_TCL-115" "ERROR" "The following IPs are not found in the IP Catalog:\n  $list_ips_missing\n\nResolution: Please add the repository containing the IP(s) to the project." }
+      set bCheckIPsPassed 0
+   }
+
+}
+
+if { $bCheckIPsPassed != 1 } {
+  common::send_msg_id "BD_TCL-1003" "WARNING" "Will not continue with creation of design due to the error(s) above."
+  return 3
+}
+
 
 ##################################################################
 # MIG PRJ FILE TCL PROCs
@@ -122,6 +170,7 @@ if { $nRet != 0 } {
 
 proc write_mig_file_core_mig_7series_0_0 { str_mig_prj_filepath } {
 
+   file mkdir [ file dirname "$str_mig_prj_filepath" ]
    set mig_prj_file [open $str_mig_prj_filepath  w+]
 
    puts $mig_prj_file {<?xml version='1.0' encoding='UTF-8'?>}
@@ -281,7 +330,7 @@ proc create_hier_cell_microblaze_0_local_memory { parentCell nameHier } {
   variable script_folder
 
   if { $parentCell eq "" || $nameHier eq "" } {
-     catch {common::send_msg_id "BD_TCL-102" "ERROR" create_hier_cell_microblaze_0_local_memory() - Empty argument(s)!"}
+     catch {common::send_msg_id "BD_TCL-102" "ERROR" "create_hier_cell_microblaze_0_local_memory() - Empty argument(s)!"}
      return
   }
 
@@ -320,7 +369,7 @@ proc create_hier_cell_microblaze_0_local_memory { parentCell nameHier } {
   # Create instance: dlmb_bram_if_cntlr, and set properties
   set dlmb_bram_if_cntlr [ create_bd_cell -type ip -vlnv xilinx.com:ip:lmb_bram_if_cntlr:4.0 dlmb_bram_if_cntlr ]
   set_property -dict [ list \
-CONFIG.C_ECC {0} \
+   CONFIG.C_ECC {0} \
  ] $dlmb_bram_if_cntlr
 
   # Create instance: dlmb_v10, and set properties
@@ -329,17 +378,23 @@ CONFIG.C_ECC {0} \
   # Create instance: ilmb_bram_if_cntlr, and set properties
   set ilmb_bram_if_cntlr [ create_bd_cell -type ip -vlnv xilinx.com:ip:lmb_bram_if_cntlr:4.0 ilmb_bram_if_cntlr ]
   set_property -dict [ list \
-CONFIG.C_ECC {0} \
+   CONFIG.C_ECC {0} \
  ] $ilmb_bram_if_cntlr
 
   # Create instance: ilmb_v10, and set properties
   set ilmb_v10 [ create_bd_cell -type ip -vlnv xilinx.com:ip:lmb_v10:3.0 ilmb_v10 ]
 
   # Create instance: lmb_bram, and set properties
-  set lmb_bram [ create_bd_cell -type ip -vlnv xilinx.com:ip:blk_mem_gen:8.3 lmb_bram ]
+  set lmb_bram [ create_bd_cell -type ip -vlnv xilinx.com:ip:blk_mem_gen:8.4 lmb_bram ]
   set_property -dict [ list \
-CONFIG.Memory_Type {True_Dual_Port_RAM} \
-CONFIG.use_bram_block {BRAM_Controller} \
+   CONFIG.EN_SAFETY_CKT {false} \
+   CONFIG.Enable_B {Use_ENB_Pin} \
+   CONFIG.Memory_Type {True_Dual_Port_RAM} \
+   CONFIG.Port_B_Clock {100} \
+   CONFIG.Port_B_Enable_Rate {100} \
+   CONFIG.Port_B_Write_Rate {50} \
+   CONFIG.Use_RSTB_Pin {true} \
+   CONFIG.use_bram_block {BRAM_Controller} \
  ] $lmb_bram
 
   # Create interface connections
@@ -364,7 +419,7 @@ proc create_hier_cell_MCU { parentCell nameHier } {
   variable script_folder
 
   if { $parentCell eq "" || $nameHier eq "" } {
-     catch {common::send_msg_id "BD_TCL-102" "ERROR" create_hier_cell_MCU() - Empty argument(s)!"}
+     catch {common::send_msg_id "BD_TCL-102" "ERROR" "create_hier_cell_MCU() - Empty argument(s)!"}
      return
   }
 
@@ -408,34 +463,36 @@ proc create_hier_cell_MCU { parentCell nameHier } {
   # Create instance: mdm_1, and set properties
   set mdm_1 [ create_bd_cell -type ip -vlnv xilinx.com:ip:mdm:3.2 mdm_1 ]
   set_property -dict [ list \
-CONFIG.C_USE_UART {1} \
+   CONFIG.C_USE_UART {1} \
  ] $mdm_1
 
   # Create instance: microblaze_0, and set properties
-  set microblaze_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:microblaze:10.0 microblaze_0 ]
+  set microblaze_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:microblaze:11.0 microblaze_0 ]
   set_property -dict [ list \
-CONFIG.C_DEBUG_ENABLED {1} \
-CONFIG.C_D_AXI {1} \
-CONFIG.C_D_LMB {1} \
-CONFIG.C_FAULT_TOLERANT {0} \
-CONFIG.C_I_LMB {1} \
-CONFIG.C_NUMBER_OF_RD_ADDR_BRK {1} \
-CONFIG.C_NUMBER_OF_WR_ADDR_BRK {1} \
-CONFIG.C_USE_BARREL {1} \
-CONFIG.C_USE_DIV {0} \
-CONFIG.C_USE_FPU {1} \
-CONFIG.C_USE_HW_MUL {1} \
-CONFIG.C_USE_INTERRUPT {2} \
-CONFIG.C_USE_MSR_INSTR {0} \
-CONFIG.C_USE_PCMP_INSTR {0} \
-CONFIG.C_USE_STACK_PROTECTION {1} \
-CONFIG.G_USE_EXCEPTIONS {0} \
+   CONFIG.C_DEBUG_ENABLED {1} \
+   CONFIG.C_D_AXI {1} \
+   CONFIG.C_D_LMB {1} \
+   CONFIG.C_FAULT_TOLERANT {0} \
+   CONFIG.C_ICACHE_BASEADDR {0x0000000000000000} \
+   CONFIG.C_ICACHE_HIGHADDR {0x000000003FFFFFFF} \
+   CONFIG.C_I_LMB {1} \
+   CONFIG.C_NUMBER_OF_RD_ADDR_BRK {1} \
+   CONFIG.C_NUMBER_OF_WR_ADDR_BRK {1} \
+   CONFIG.C_USE_BARREL {1} \
+   CONFIG.C_USE_DIV {0} \
+   CONFIG.C_USE_FPU {1} \
+   CONFIG.C_USE_HW_MUL {1} \
+   CONFIG.C_USE_INTERRUPT {2} \
+   CONFIG.C_USE_MSR_INSTR {0} \
+   CONFIG.C_USE_PCMP_INSTR {0} \
+   CONFIG.C_USE_STACK_PROTECTION {1} \
+   CONFIG.G_USE_EXCEPTIONS {0} \
  ] $microblaze_0
 
   # Create instance: microblaze_0_axi_intc, and set properties
   set microblaze_0_axi_intc [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_intc:4.1 microblaze_0_axi_intc ]
   set_property -dict [ list \
-CONFIG.C_HAS_FAST {1} \
+   CONFIG.C_HAS_FAST {1} \
  ] $microblaze_0_axi_intc
 
   # Create instance: microblaze_0_local_memory
@@ -468,7 +525,7 @@ proc create_hier_cell_FB_MEMORY { parentCell nameHier } {
   variable script_folder
 
   if { $parentCell eq "" || $nameHier eq "" } {
-     catch {common::send_msg_id "BD_TCL-102" "ERROR" create_hier_cell_FB_MEMORY() - Empty argument(s)!"}
+     catch {common::send_msg_id "BD_TCL-102" "ERROR" "create_hier_cell_FB_MEMORY() - Empty argument(s)!"}
      return
   }
 
@@ -518,20 +575,21 @@ proc create_hier_cell_FB_MEMORY { parentCell nameHier } {
   # Create instance: axi_interconnect_0, and set properties
   set axi_interconnect_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_interconnect:2.1 axi_interconnect_0 ]
   set_property -dict [ list \
-CONFIG.ENABLE_ADVANCED_OPTIONS {1} \
-CONFIG.M00_HAS_DATA_FIFO {0} \
-CONFIG.NUM_MI {1} \
-CONFIG.NUM_SI {5} \
-CONFIG.S00_HAS_DATA_FIFO {2} \
-CONFIG.S01_HAS_DATA_FIFO {2} \
-CONFIG.S02_HAS_DATA_FIFO {2} \
-CONFIG.S03_HAS_DATA_FIFO {2} \
-CONFIG.S04_HAS_DATA_FIFO {2} \
-CONFIG.STRATEGY {2} \
+   CONFIG.ENABLE_ADVANCED_OPTIONS {1} \
+   CONFIG.M00_HAS_DATA_FIFO {0} \
+   CONFIG.NUM_MI {1} \
+   CONFIG.NUM_SI {5} \
+   CONFIG.S00_HAS_DATA_FIFO {2} \
+   CONFIG.S01_HAS_DATA_FIFO {2} \
+   CONFIG.S02_HAS_DATA_FIFO {2} \
+   CONFIG.S03_HAS_DATA_FIFO {2} \
+   CONFIG.S04_HAS_DATA_FIFO {2} \
+   CONFIG.STRATEGY {2} \
+   CONFIG.SYNCHRONIZATION_STAGES {2} \
  ] $axi_interconnect_0
 
   # Create instance: mig_7series_0, and set properties
-  set mig_7series_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:mig_7series:4.0 mig_7series_0 ]
+  set mig_7series_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:mig_7series:4.2 mig_7series_0 ]
 
   # Generate the PRJ File for MIG
   set str_mig_folder [get_property IP_DIR [ get_ips [ get_property CONFIG.Component_Name $mig_7series_0 ] ] ]
@@ -541,8 +599,8 @@ CONFIG.STRATEGY {2} \
   write_mig_file_core_mig_7series_0_0 $str_mig_file_path
 
   set_property -dict [ list \
-CONFIG.RESET_BOARD_INTERFACE {Custom} \
-CONFIG.XML_INPUT_FILE {mig_a.prj} \
+   CONFIG.RESET_BOARD_INTERFACE {Custom} \
+   CONFIG.XML_INPUT_FILE {mig_a.prj} \
  ] $mig_7series_0
 
   # Create interface connections
@@ -575,6 +633,7 @@ CONFIG.XML_INPUT_FILE {mig_a.prj} \
 proc create_root_design { parentCell } {
 
   variable script_folder
+  variable design_name
 
   if { $parentCell eq "" } {
      set parentCell [get_bd_cells /]
@@ -604,164 +663,164 @@ proc create_root_design { parentCell } {
   # Create interface ports
   set AXIL_CLINK [ create_bd_intf_port -mode Master -vlnv xilinx.com:interface:aximm_rtl:1.0 AXIL_CLINK ]
   set_property -dict [ list \
-CONFIG.ADDR_WIDTH {32} \
-CONFIG.DATA_WIDTH {32} \
-CONFIG.PROTOCOL {AXI4LITE} \
- ] $AXIL_CLINK
+   CONFIG.ADDR_WIDTH {32} \
+   CONFIG.DATA_WIDTH {32} \
+   CONFIG.PROTOCOL {AXI4LITE} \
+   ] $AXIL_CLINK
   set AXIL_FB_CTRL [ create_bd_intf_port -mode Master -vlnv xilinx.com:interface:aximm_rtl:1.0 AXIL_FB_CTRL ]
   set_property -dict [ list \
-CONFIG.ADDR_WIDTH {32} \
-CONFIG.DATA_WIDTH {32} \
-CONFIG.PROTOCOL {AXI4LITE} \
- ] $AXIL_FB_CTRL
+   CONFIG.ADDR_WIDTH {32} \
+   CONFIG.DATA_WIDTH {32} \
+   CONFIG.PROTOCOL {AXI4LITE} \
+   ] $AXIL_FB_CTRL
   set AXIL_MGT [ create_bd_intf_port -mode Master -vlnv xilinx.com:interface:aximm_rtl:1.0 AXIL_MGT ]
   set_property -dict [ list \
-CONFIG.ADDR_WIDTH {32} \
-CONFIG.DATA_WIDTH {32} \
-CONFIG.PROTOCOL {AXI4LITE} \
- ] $AXIL_MGT
+   CONFIG.ADDR_WIDTH {32} \
+   CONFIG.DATA_WIDTH {32} \
+   CONFIG.PROTOCOL {AXI4LITE} \
+   ] $AXIL_MGT
   set AXIL_PLEORA_CTRL [ create_bd_intf_port -mode Master -vlnv xilinx.com:interface:aximm_rtl:1.0 AXIL_PLEORA_CTRL ]
   set_property -dict [ list \
-CONFIG.ADDR_WIDTH {32} \
-CONFIG.DATA_WIDTH {32} \
-CONFIG.PROTOCOL {AXI4LITE} \
- ] $AXIL_PLEORA_CTRL
+   CONFIG.ADDR_WIDTH {32} \
+   CONFIG.DATA_WIDTH {32} \
+   CONFIG.PROTOCOL {AXI4LITE} \
+   ] $AXIL_PLEORA_CTRL
   set AXIL_SDI_CTRL [ create_bd_intf_port -mode Master -vlnv xilinx.com:interface:aximm_rtl:1.0 AXIL_SDI_CTRL ]
   set_property -dict [ list \
-CONFIG.ADDR_WIDTH {32} \
-CONFIG.DATA_WIDTH {32} \
-CONFIG.PROTOCOL {AXI4LITE} \
- ] $AXIL_SDI_CTRL
+   CONFIG.ADDR_WIDTH {32} \
+   CONFIG.DATA_WIDTH {32} \
+   CONFIG.PROTOCOL {AXI4LITE} \
+   ] $AXIL_SDI_CTRL
   set FB_DDR3 [ create_bd_intf_port -mode Master -vlnv xilinx.com:interface:ddrx_rtl:1.0 FB_DDR3 ]
   set LED [ create_bd_intf_port -mode Master -vlnv xilinx.com:interface:gpio_rtl:1.0 LED ]
   set QSPI_PROM [ create_bd_intf_port -mode Master -vlnv xilinx.com:interface:spi_rtl:1.0 QSPI_PROM ]
   set SYS_CLK [ create_bd_intf_port -mode Slave -vlnv xilinx.com:interface:diff_clock_rtl:1.0 SYS_CLK ]
   set S_FB_GIGE_MM2S [ create_bd_intf_port -mode Slave -vlnv xilinx.com:interface:aximm_rtl:1.0 S_FB_GIGE_MM2S ]
   set_property -dict [ list \
-CONFIG.ADDR_WIDTH {32} \
-CONFIG.ARUSER_WIDTH {0} \
-CONFIG.AWUSER_WIDTH {0} \
-CONFIG.BUSER_WIDTH {0} \
-CONFIG.DATA_WIDTH {32} \
-CONFIG.HAS_BRESP {1} \
-CONFIG.HAS_BURST {1} \
-CONFIG.HAS_CACHE {1} \
-CONFIG.HAS_LOCK {1} \
-CONFIG.HAS_PROT {1} \
-CONFIG.HAS_QOS {1} \
-CONFIG.HAS_REGION {1} \
-CONFIG.HAS_RRESP {1} \
-CONFIG.HAS_WSTRB {1} \
-CONFIG.ID_WIDTH {1} \
-CONFIG.MAX_BURST_LENGTH {256} \
-CONFIG.NUM_READ_OUTSTANDING {2} \
-CONFIG.NUM_READ_THREADS {1} \
-CONFIG.NUM_WRITE_OUTSTANDING {0} \
-CONFIG.NUM_WRITE_THREADS {1} \
-CONFIG.PROTOCOL {AXI4} \
-CONFIG.READ_WRITE_MODE {READ_ONLY} \
-CONFIG.RUSER_BITS_PER_BYTE {0} \
-CONFIG.RUSER_WIDTH {0} \
-CONFIG.SUPPORTS_NARROW_BURST {0} \
-CONFIG.WUSER_BITS_PER_BYTE {0} \
-CONFIG.WUSER_WIDTH {0} \
- ] $S_FB_GIGE_MM2S
+   CONFIG.ADDR_WIDTH {32} \
+   CONFIG.ARUSER_WIDTH {0} \
+   CONFIG.AWUSER_WIDTH {0} \
+   CONFIG.BUSER_WIDTH {0} \
+   CONFIG.DATA_WIDTH {32} \
+   CONFIG.HAS_BRESP {1} \
+   CONFIG.HAS_BURST {1} \
+   CONFIG.HAS_CACHE {1} \
+   CONFIG.HAS_LOCK {1} \
+   CONFIG.HAS_PROT {1} \
+   CONFIG.HAS_QOS {1} \
+   CONFIG.HAS_REGION {1} \
+   CONFIG.HAS_RRESP {1} \
+   CONFIG.HAS_WSTRB {1} \
+   CONFIG.ID_WIDTH {1} \
+   CONFIG.MAX_BURST_LENGTH {256} \
+   CONFIG.NUM_READ_OUTSTANDING {2} \
+   CONFIG.NUM_READ_THREADS {1} \
+   CONFIG.NUM_WRITE_OUTSTANDING {0} \
+   CONFIG.NUM_WRITE_THREADS {1} \
+   CONFIG.PROTOCOL {AXI4} \
+   CONFIG.READ_WRITE_MODE {READ_ONLY} \
+   CONFIG.RUSER_BITS_PER_BYTE {0} \
+   CONFIG.RUSER_WIDTH {0} \
+   CONFIG.SUPPORTS_NARROW_BURST {0} \
+   CONFIG.WUSER_BITS_PER_BYTE {0} \
+   CONFIG.WUSER_WIDTH {0} \
+   ] $S_FB_GIGE_MM2S
   set S_FB_GIGE_S2MM [ create_bd_intf_port -mode Slave -vlnv xilinx.com:interface:aximm_rtl:1.0 S_FB_GIGE_S2MM ]
   set_property -dict [ list \
-CONFIG.ADDR_WIDTH {32} \
-CONFIG.ARUSER_WIDTH {0} \
-CONFIG.AWUSER_WIDTH {0} \
-CONFIG.BUSER_WIDTH {0} \
-CONFIG.DATA_WIDTH {64} \
-CONFIG.HAS_BRESP {1} \
-CONFIG.HAS_BURST {1} \
-CONFIG.HAS_CACHE {1} \
-CONFIG.HAS_LOCK {1} \
-CONFIG.HAS_PROT {1} \
-CONFIG.HAS_QOS {1} \
-CONFIG.HAS_REGION {1} \
-CONFIG.HAS_RRESP {1} \
-CONFIG.HAS_WSTRB {1} \
-CONFIG.ID_WIDTH {1} \
-CONFIG.MAX_BURST_LENGTH {256} \
-CONFIG.NUM_READ_OUTSTANDING {0} \
-CONFIG.NUM_READ_THREADS {1} \
-CONFIG.NUM_WRITE_OUTSTANDING {2} \
-CONFIG.NUM_WRITE_THREADS {1} \
-CONFIG.PROTOCOL {AXI4} \
-CONFIG.READ_WRITE_MODE {WRITE_ONLY} \
-CONFIG.RUSER_BITS_PER_BYTE {0} \
-CONFIG.RUSER_WIDTH {0} \
-CONFIG.SUPPORTS_NARROW_BURST {0} \
-CONFIG.WUSER_BITS_PER_BYTE {0} \
-CONFIG.WUSER_WIDTH {0} \
- ] $S_FB_GIGE_S2MM
+   CONFIG.ADDR_WIDTH {32} \
+   CONFIG.ARUSER_WIDTH {0} \
+   CONFIG.AWUSER_WIDTH {0} \
+   CONFIG.BUSER_WIDTH {0} \
+   CONFIG.DATA_WIDTH {64} \
+   CONFIG.HAS_BRESP {1} \
+   CONFIG.HAS_BURST {1} \
+   CONFIG.HAS_CACHE {1} \
+   CONFIG.HAS_LOCK {1} \
+   CONFIG.HAS_PROT {1} \
+   CONFIG.HAS_QOS {1} \
+   CONFIG.HAS_REGION {1} \
+   CONFIG.HAS_RRESP {1} \
+   CONFIG.HAS_WSTRB {1} \
+   CONFIG.ID_WIDTH {1} \
+   CONFIG.MAX_BURST_LENGTH {256} \
+   CONFIG.NUM_READ_OUTSTANDING {0} \
+   CONFIG.NUM_READ_THREADS {1} \
+   CONFIG.NUM_WRITE_OUTSTANDING {2} \
+   CONFIG.NUM_WRITE_THREADS {1} \
+   CONFIG.PROTOCOL {AXI4} \
+   CONFIG.READ_WRITE_MODE {WRITE_ONLY} \
+   CONFIG.RUSER_BITS_PER_BYTE {0} \
+   CONFIG.RUSER_WIDTH {0} \
+   CONFIG.SUPPORTS_NARROW_BURST {0} \
+   CONFIG.WUSER_BITS_PER_BYTE {0} \
+   CONFIG.WUSER_WIDTH {0} \
+   ] $S_FB_GIGE_S2MM
   set S_FB_SDI_MM2S [ create_bd_intf_port -mode Slave -vlnv xilinx.com:interface:aximm_rtl:1.0 S_FB_SDI_MM2S ]
   set_property -dict [ list \
-CONFIG.ADDR_WIDTH {32} \
-CONFIG.ARUSER_WIDTH {0} \
-CONFIG.AWUSER_WIDTH {0} \
-CONFIG.BUSER_WIDTH {0} \
-CONFIG.DATA_WIDTH {32} \
-CONFIG.HAS_BRESP {1} \
-CONFIG.HAS_BURST {1} \
-CONFIG.HAS_CACHE {1} \
-CONFIG.HAS_LOCK {1} \
-CONFIG.HAS_PROT {1} \
-CONFIG.HAS_QOS {1} \
-CONFIG.HAS_REGION {1} \
-CONFIG.HAS_RRESP {1} \
-CONFIG.HAS_WSTRB {1} \
-CONFIG.ID_WIDTH {1} \
-CONFIG.MAX_BURST_LENGTH {256} \
-CONFIG.NUM_READ_OUTSTANDING {2} \
-CONFIG.NUM_READ_THREADS {1} \
-CONFIG.NUM_WRITE_OUTSTANDING {0} \
-CONFIG.NUM_WRITE_THREADS {1} \
-CONFIG.PROTOCOL {AXI4} \
-CONFIG.READ_WRITE_MODE {READ_ONLY} \
-CONFIG.RUSER_BITS_PER_BYTE {0} \
-CONFIG.RUSER_WIDTH {0} \
-CONFIG.SUPPORTS_NARROW_BURST {0} \
-CONFIG.WUSER_BITS_PER_BYTE {0} \
-CONFIG.WUSER_WIDTH {0} \
- ] $S_FB_SDI_MM2S
+   CONFIG.ADDR_WIDTH {32} \
+   CONFIG.ARUSER_WIDTH {0} \
+   CONFIG.AWUSER_WIDTH {0} \
+   CONFIG.BUSER_WIDTH {0} \
+   CONFIG.DATA_WIDTH {32} \
+   CONFIG.HAS_BRESP {1} \
+   CONFIG.HAS_BURST {1} \
+   CONFIG.HAS_CACHE {1} \
+   CONFIG.HAS_LOCK {1} \
+   CONFIG.HAS_PROT {1} \
+   CONFIG.HAS_QOS {1} \
+   CONFIG.HAS_REGION {1} \
+   CONFIG.HAS_RRESP {1} \
+   CONFIG.HAS_WSTRB {1} \
+   CONFIG.ID_WIDTH {1} \
+   CONFIG.MAX_BURST_LENGTH {256} \
+   CONFIG.NUM_READ_OUTSTANDING {2} \
+   CONFIG.NUM_READ_THREADS {1} \
+   CONFIG.NUM_WRITE_OUTSTANDING {0} \
+   CONFIG.NUM_WRITE_THREADS {1} \
+   CONFIG.PROTOCOL {AXI4} \
+   CONFIG.READ_WRITE_MODE {READ_ONLY} \
+   CONFIG.RUSER_BITS_PER_BYTE {0} \
+   CONFIG.RUSER_WIDTH {0} \
+   CONFIG.SUPPORTS_NARROW_BURST {0} \
+   CONFIG.WUSER_BITS_PER_BYTE {0} \
+   CONFIG.WUSER_WIDTH {0} \
+   ] $S_FB_SDI_MM2S
   set S_FB_SDI_S2MM [ create_bd_intf_port -mode Slave -vlnv xilinx.com:interface:aximm_rtl:1.0 S_FB_SDI_S2MM ]
   set_property -dict [ list \
-CONFIG.ADDR_WIDTH {32} \
-CONFIG.ARUSER_WIDTH {0} \
-CONFIG.AWUSER_WIDTH {0} \
-CONFIG.BUSER_WIDTH {0} \
-CONFIG.DATA_WIDTH {64} \
-CONFIG.HAS_BRESP {1} \
-CONFIG.HAS_BURST {1} \
-CONFIG.HAS_CACHE {1} \
-CONFIG.HAS_LOCK {1} \
-CONFIG.HAS_PROT {1} \
-CONFIG.HAS_QOS {1} \
-CONFIG.HAS_REGION {1} \
-CONFIG.HAS_RRESP {1} \
-CONFIG.HAS_WSTRB {1} \
-CONFIG.ID_WIDTH {1} \
-CONFIG.MAX_BURST_LENGTH {256} \
-CONFIG.NUM_READ_OUTSTANDING {0} \
-CONFIG.NUM_READ_THREADS {1} \
-CONFIG.NUM_WRITE_OUTSTANDING {2} \
-CONFIG.NUM_WRITE_THREADS {1} \
-CONFIG.PROTOCOL {AXI4} \
-CONFIG.READ_WRITE_MODE {WRITE_ONLY} \
-CONFIG.RUSER_BITS_PER_BYTE {0} \
-CONFIG.RUSER_WIDTH {0} \
-CONFIG.SUPPORTS_NARROW_BURST {0} \
-CONFIG.WUSER_BITS_PER_BYTE {0} \
-CONFIG.WUSER_WIDTH {0} \
- ] $S_FB_SDI_S2MM
+   CONFIG.ADDR_WIDTH {32} \
+   CONFIG.ARUSER_WIDTH {0} \
+   CONFIG.AWUSER_WIDTH {0} \
+   CONFIG.BUSER_WIDTH {0} \
+   CONFIG.DATA_WIDTH {64} \
+   CONFIG.HAS_BRESP {1} \
+   CONFIG.HAS_BURST {1} \
+   CONFIG.HAS_CACHE {1} \
+   CONFIG.HAS_LOCK {1} \
+   CONFIG.HAS_PROT {1} \
+   CONFIG.HAS_QOS {1} \
+   CONFIG.HAS_REGION {1} \
+   CONFIG.HAS_RRESP {1} \
+   CONFIG.HAS_WSTRB {1} \
+   CONFIG.ID_WIDTH {1} \
+   CONFIG.MAX_BURST_LENGTH {256} \
+   CONFIG.NUM_READ_OUTSTANDING {0} \
+   CONFIG.NUM_READ_THREADS {1} \
+   CONFIG.NUM_WRITE_OUTSTANDING {2} \
+   CONFIG.NUM_WRITE_THREADS {1} \
+   CONFIG.PROTOCOL {AXI4} \
+   CONFIG.READ_WRITE_MODE {WRITE_ONLY} \
+   CONFIG.RUSER_BITS_PER_BYTE {0} \
+   CONFIG.RUSER_WIDTH {0} \
+   CONFIG.SUPPORTS_NARROW_BURST {0} \
+   CONFIG.WUSER_BITS_PER_BYTE {0} \
+   CONFIG.WUSER_WIDTH {0} \
+   ] $S_FB_SDI_S2MM
 
   # Create ports
   set AGC_INTR [ create_bd_port -dir I -from 0 -to 0 -type intr AGC_INTR ]
   set_property -dict [ list \
-CONFIG.PortWidth {1} \
-CONFIG.SENSITIVITY {EDGE_RISING} \
+   CONFIG.PortWidth {1} \
+   CONFIG.SENSITIVITY {EDGE_RISING} \
  ] $AGC_INTR
   set AXI_ARESETN [ create_bd_port -dir O -from 0 -to 0 -type rst AXI_ARESETN ]
   set UART_PROC_RX [ create_bd_port -dir I UART_PROC_RX ]
@@ -772,12 +831,12 @@ CONFIG.SENSITIVITY {EDGE_RISING} \
   set clk_core_scaler [ create_bd_port -dir O -type clk clk_core_scaler ]
   set clk_data [ create_bd_port -dir O -type clk clk_data ]
   set_property -dict [ list \
-CONFIG.ASSOCIATED_BUSIF {S_FB_GIGE_MM2S:S_FB_GIGE_S2MM:S_FB_SDI_MM2S:S_FB_SDI_S2MM} \
+   CONFIG.ASSOCIATED_BUSIF {S_FB_GIGE_MM2S:S_FB_GIGE_S2MM:S_FB_SDI_MM2S:S_FB_SDI_S2MM} \
  ] $clk_data
   set clk_data_n [ create_bd_port -dir O -type clk clk_data_n ]
   set clk_mb [ create_bd_port -dir O -type clk clk_mb ]
   set_property -dict [ list \
-CONFIG.ASSOCIATED_BUSIF {AXIL_MGT:AXIL_CLINK:AXIL_FB_CTRL:AXIL_PLEORA_CTRL:AXIL_SDI_CTRL} \
+   CONFIG.ASSOCIATED_BUSIF {AXIL_MGT:AXIL_CLINK:AXIL_FB_CTRL:AXIL_PLEORA_CTRL:AXIL_SDI_CTRL} \
  ] $clk_mb
   set vn [ create_bd_port -dir I vn ]
   set vp [ create_bd_port -dir I vp ]
@@ -791,16 +850,17 @@ CONFIG.ASSOCIATED_BUSIF {AXIL_MGT:AXIL_CLINK:AXIL_FB_CTRL:AXIL_PLEORA_CTRL:AXIL_
   # Create instance: axi_gpio_0, and set properties
   set axi_gpio_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_gpio:2.0 axi_gpio_0 ]
   set_property -dict [ list \
-CONFIG.C_ALL_OUTPUTS {1} \
-CONFIG.C_GPIO_WIDTH {1} \
-CONFIG.C_IS_DUAL {0} \
+   CONFIG.C_ALL_OUTPUTS {1} \
+   CONFIG.C_GPIO_WIDTH {1} \
+   CONFIG.C_IS_DUAL {0} \
  ] $axi_gpio_0
 
   # Create instance: axi_quad_spi_0, and set properties
   set axi_quad_spi_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_quad_spi:3.2 axi_quad_spi_0 ]
   set_property -dict [ list \
-CONFIG.C_SPI_MEMORY {2} \
-CONFIG.C_SPI_MODE {2} \
+   CONFIG.C_SCK_RATIO {2} \
+   CONFIG.C_SPI_MEMORY {2} \
+   CONFIG.C_SPI_MODE {2} \
  ] $axi_quad_spi_0
 
   # Create instance: axi_timer_0, and set properties
@@ -813,164 +873,134 @@ CONFIG.C_EXTERNAL_XIN_CLK_HZ {25000000} \
 CONFIG.C_S_AXI_ACLK_FREQ_HZ {100000000} \
  ] $axi_uart_storage
 
-  # Need to retain value_src of defaults
-  set_property -dict [ list \
-CONFIG.C_EXTERNAL_XIN_CLK_HZ.VALUE_SRC {DEFAULT} \
-CONFIG.C_S_AXI_ACLK_FREQ_HZ.VALUE_SRC {DEFAULT} \
- ] $axi_uart_storage
-
   # Create instance: clk_wiz_0, and set properties
-  set clk_wiz_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:clk_wiz:5.3 clk_wiz_0 ]
+  set clk_wiz_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:clk_wiz:6.0 clk_wiz_0 ]
   set_property -dict [ list \
-CONFIG.CLKOUT1_DRIVES {BUFG} \
-CONFIG.CLKOUT1_JITTER {203.457} \
-CONFIG.CLKOUT1_PHASE_ERROR {155.540} \
-CONFIG.CLKOUT1_REQUESTED_OUT_FREQ {50} \
-CONFIG.CLKOUT2_DRIVES {BUFG} \
-CONFIG.CLKOUT2_JITTER {180.731} \
-CONFIG.CLKOUT2_PHASE_ERROR {155.540} \
-CONFIG.CLKOUT2_REQUESTED_OUT_FREQ {85} \
-CONFIG.CLKOUT2_USED {true} \
-CONFIG.CLKOUT3_DRIVES {BUFG} \
-CONFIG.CLKOUT3_JITTER {180.731} \
-CONFIG.CLKOUT3_PHASE_ERROR {155.540} \
-CONFIG.CLKOUT3_REQUESTED_OUT_FREQ {85} \
-CONFIG.CLKOUT3_REQUESTED_PHASE {180} \
-CONFIG.CLKOUT3_USED {true} \
-CONFIG.CLKOUT4_DRIVES {BUFG} \
-CONFIG.CLKOUT4_JITTER {157.127} \
-CONFIG.CLKOUT4_PHASE_ERROR {155.540} \
-CONFIG.CLKOUT4_REQUESTED_OUT_FREQ {100.000} \
-CONFIG.CLKOUT4_USED {false} \
-CONFIG.CLKOUT5_DRIVES {BUFG} \
-CONFIG.CLKOUT5_REQUESTED_OUT_FREQ {100.000} \
-CONFIG.CLKOUT5_REQUESTED_PHASE {0.000} \
-CONFIG.CLKOUT5_USED {false} \
-CONFIG.CLKOUT6_DRIVES {BUFG} \
-CONFIG.CLKOUT6_REQUESTED_OUT_FREQ {100.000} \
-CONFIG.CLKOUT6_REQUESTED_PHASE {0.000} \
-CONFIG.CLKOUT6_USED {false} \
-CONFIG.CLKOUT7_DRIVES {BUFG} \
-CONFIG.MMCM_CLKFBOUT_MULT_F {17.000} \
-CONFIG.MMCM_CLKIN1_PERIOD {10.0} \
-CONFIG.MMCM_CLKIN2_PERIOD {10.0} \
-CONFIG.MMCM_CLKOUT0_DIVIDE_F {17.000} \
-CONFIG.MMCM_CLKOUT1_DIVIDE {10} \
-CONFIG.MMCM_CLKOUT2_DIVIDE {10} \
-CONFIG.MMCM_CLKOUT2_PHASE {180.000} \
-CONFIG.MMCM_CLKOUT3_DIVIDE {1} \
-CONFIG.MMCM_COMPENSATION {ZHOLD} \
-CONFIG.MMCM_DIVCLK_DIVIDE {2} \
-CONFIG.NUM_OUT_CLKS {3} \
-CONFIG.PRIM_SOURCE {No_buffer} \
-CONFIG.RESET_PORT {resetn} \
-CONFIG.RESET_TYPE {ACTIVE_LOW} \
-CONFIG.USE_PHASE_ALIGNMENT {true} \
-CONFIG.USE_POWER_DOWN {false} \
-CONFIG.USE_RESET {true} \
- ] $clk_wiz_0
-
-  # Need to retain value_src of defaults
-  set_property -dict [ list \
-CONFIG.MMCM_CLKIN1_PERIOD.VALUE_SRC {DEFAULT} \
-CONFIG.MMCM_CLKIN2_PERIOD.VALUE_SRC {DEFAULT} \
-CONFIG.MMCM_CLKOUT0_DIVIDE_F.VALUE_SRC {DEFAULT} \
-CONFIG.MMCM_CLKOUT1_DIVIDE.VALUE_SRC {DEFAULT} \
-CONFIG.MMCM_CLKOUT2_DIVIDE.VALUE_SRC {DEFAULT} \
-CONFIG.MMCM_COMPENSATION.VALUE_SRC {DEFAULT} \
-CONFIG.RESET_PORT.VALUE_SRC {DEFAULT} \
+   CONFIG.CLKOUT1_DRIVES {BUFG} \
+   CONFIG.CLKOUT1_JITTER {203.457} \
+   CONFIG.CLKOUT1_PHASE_ERROR {155.540} \
+   CONFIG.CLKOUT1_REQUESTED_OUT_FREQ {50} \
+   CONFIG.CLKOUT2_DRIVES {BUFG} \
+   CONFIG.CLKOUT2_JITTER {180.731} \
+   CONFIG.CLKOUT2_PHASE_ERROR {155.540} \
+   CONFIG.CLKOUT2_REQUESTED_OUT_FREQ {85} \
+   CONFIG.CLKOUT2_USED {true} \
+   CONFIG.CLKOUT3_DRIVES {BUFG} \
+   CONFIG.CLKOUT3_JITTER {180.731} \
+   CONFIG.CLKOUT3_PHASE_ERROR {155.540} \
+   CONFIG.CLKOUT3_REQUESTED_OUT_FREQ {85} \
+   CONFIG.CLKOUT3_REQUESTED_PHASE {180} \
+   CONFIG.CLKOUT3_USED {true} \
+   CONFIG.CLKOUT4_DRIVES {BUFG} \
+   CONFIG.CLKOUT4_JITTER {157.127} \
+   CONFIG.CLKOUT4_PHASE_ERROR {155.540} \
+   CONFIG.CLKOUT4_REQUESTED_OUT_FREQ {100.000} \
+   CONFIG.CLKOUT4_USED {false} \
+   CONFIG.CLKOUT5_DRIVES {BUFG} \
+   CONFIG.CLKOUT5_REQUESTED_OUT_FREQ {100.000} \
+   CONFIG.CLKOUT5_REQUESTED_PHASE {0.000} \
+   CONFIG.CLKOUT5_USED {false} \
+   CONFIG.CLKOUT6_DRIVES {BUFG} \
+   CONFIG.CLKOUT6_REQUESTED_OUT_FREQ {100.000} \
+   CONFIG.CLKOUT6_REQUESTED_PHASE {0.000} \
+   CONFIG.CLKOUT6_USED {false} \
+   CONFIG.CLKOUT7_DRIVES {BUFG} \
+   CONFIG.MMCM_CLKFBOUT_MULT_F {17.0} \
+   CONFIG.MMCM_CLKIN1_PERIOD {10.000} \
+   CONFIG.MMCM_CLKIN2_PERIOD {10.000} \
+   CONFIG.MMCM_CLKOUT0_DIVIDE_F {17.000} \
+   CONFIG.MMCM_CLKOUT1_DIVIDE {10} \
+   CONFIG.MMCM_CLKOUT2_DIVIDE {10} \
+   CONFIG.MMCM_CLKOUT2_PHASE {180.000} \
+   CONFIG.MMCM_CLKOUT3_DIVIDE {1} \
+   CONFIG.MMCM_COMPENSATION {ZHOLD} \
+   CONFIG.MMCM_DIVCLK_DIVIDE {2} \
+   CONFIG.NUM_OUT_CLKS {3} \
+   CONFIG.OVERRIDE_MMCM {true} \
+   CONFIG.PRIM_SOURCE {No_buffer} \
+   CONFIG.RESET_PORT {resetn} \
+   CONFIG.RESET_TYPE {ACTIVE_LOW} \
+   CONFIG.USE_PHASE_ALIGNMENT {true} \
+   CONFIG.USE_POWER_DOWN {false} \
+   CONFIG.USE_RESET {true} \
  ] $clk_wiz_0
 
   # Create instance: clk_wiz_1, and set properties
-  set clk_wiz_1 [ create_bd_cell -type ip -vlnv xilinx.com:ip:clk_wiz:5.3 clk_wiz_1 ]
+  set clk_wiz_1 [ create_bd_cell -type ip -vlnv xilinx.com:ip:clk_wiz:6.0 clk_wiz_1 ]
   set_property -dict [ list \
-CONFIG.CLKIN1_JITTER_PS {200.0} \
-CONFIG.CLKOUT1_DRIVES {BUFG} \
-CONFIG.CLKOUT1_JITTER {136.678} \
-CONFIG.CLKOUT1_PHASE_ERROR {164.344} \
-CONFIG.CLKOUT1_REQUESTED_OUT_FREQ {210} \
-CONFIG.CLKOUT2_DRIVES {BUFG} \
-CONFIG.CLKOUT2_JITTER {180.731} \
-CONFIG.CLKOUT2_PHASE_ERROR {155.540} \
-CONFIG.CLKOUT2_REQUESTED_OUT_FREQ {100.000} \
-CONFIG.CLKOUT2_USED {false} \
-CONFIG.CLKOUT3_DRIVES {BUFG} \
-CONFIG.CLKOUT3_JITTER {180.731} \
-CONFIG.CLKOUT3_PHASE_ERROR {155.540} \
-CONFIG.CLKOUT3_REQUESTED_OUT_FREQ {100.000} \
-CONFIG.CLKOUT3_REQUESTED_PHASE {0.000} \
-CONFIG.CLKOUT3_USED {false} \
-CONFIG.CLKOUT4_DRIVES {BUFG} \
-CONFIG.CLKOUT4_JITTER {157.127} \
-CONFIG.CLKOUT4_PHASE_ERROR {155.540} \
-CONFIG.CLKOUT4_REQUESTED_OUT_FREQ {100.000} \
-CONFIG.CLKOUT4_USED {false} \
-CONFIG.CLKOUT5_DRIVES {BUFG} \
-CONFIG.CLKOUT5_REQUESTED_OUT_FREQ {100.000} \
-CONFIG.CLKOUT5_REQUESTED_PHASE {0.000} \
-CONFIG.CLKOUT5_USED {false} \
-CONFIG.CLKOUT6_DRIVES {BUFG} \
-CONFIG.CLKOUT6_REQUESTED_OUT_FREQ {100.000} \
-CONFIG.CLKOUT6_REQUESTED_PHASE {0.000} \
-CONFIG.CLKOUT6_USED {false} \
-CONFIG.CLKOUT7_DRIVES {BUFG} \
-CONFIG.MMCM_CLKFBOUT_MULT_F {21.000} \
-CONFIG.MMCM_CLKIN1_PERIOD {20.0} \
-CONFIG.MMCM_CLKIN2_PERIOD {10.0} \
-CONFIG.MMCM_CLKOUT0_DIVIDE_F {5.000} \
-CONFIG.MMCM_CLKOUT1_DIVIDE {1} \
-CONFIG.MMCM_CLKOUT2_DIVIDE {1} \
-CONFIG.MMCM_CLKOUT2_PHASE {0.000} \
-CONFIG.MMCM_CLKOUT3_DIVIDE {1} \
-CONFIG.MMCM_COMPENSATION {ZHOLD} \
-CONFIG.MMCM_DIVCLK_DIVIDE {1} \
-CONFIG.NUM_OUT_CLKS {1} \
-CONFIG.PRIM_SOURCE {No_buffer} \
-CONFIG.RESET_PORT {resetn} \
-CONFIG.RESET_TYPE {ACTIVE_LOW} \
-CONFIG.USE_PHASE_ALIGNMENT {true} \
-CONFIG.USE_POWER_DOWN {false} \
-CONFIG.USE_RESET {true} \
- ] $clk_wiz_1
-
-  # Need to retain value_src of defaults
-  set_property -dict [ list \
-CONFIG.CLKIN1_JITTER_PS.VALUE_SRC {DEFAULT} \
-CONFIG.MMCM_CLKIN1_PERIOD.VALUE_SRC {DEFAULT} \
-CONFIG.MMCM_CLKIN2_PERIOD.VALUE_SRC {DEFAULT} \
-CONFIG.MMCM_COMPENSATION.VALUE_SRC {DEFAULT} \
-CONFIG.RESET_PORT.VALUE_SRC {DEFAULT} \
+   CONFIG.CLKIN1_JITTER_PS {200.0} \
+   CONFIG.CLKOUT1_DRIVES {BUFG} \
+   CONFIG.CLKOUT1_JITTER {136.678} \
+   CONFIG.CLKOUT1_PHASE_ERROR {164.344} \
+   CONFIG.CLKOUT1_REQUESTED_OUT_FREQ {210} \
+   CONFIG.CLKOUT2_DRIVES {BUFG} \
+   CONFIG.CLKOUT2_JITTER {180.731} \
+   CONFIG.CLKOUT2_PHASE_ERROR {155.540} \
+   CONFIG.CLKOUT2_REQUESTED_OUT_FREQ {100.000} \
+   CONFIG.CLKOUT2_USED {false} \
+   CONFIG.CLKOUT3_DRIVES {BUFG} \
+   CONFIG.CLKOUT3_JITTER {180.731} \
+   CONFIG.CLKOUT3_PHASE_ERROR {155.540} \
+   CONFIG.CLKOUT3_REQUESTED_OUT_FREQ {100.000} \
+   CONFIG.CLKOUT3_REQUESTED_PHASE {0.000} \
+   CONFIG.CLKOUT3_USED {false} \
+   CONFIG.CLKOUT4_DRIVES {BUFG} \
+   CONFIG.CLKOUT4_JITTER {157.127} \
+   CONFIG.CLKOUT4_PHASE_ERROR {155.540} \
+   CONFIG.CLKOUT4_REQUESTED_OUT_FREQ {100.000} \
+   CONFIG.CLKOUT4_USED {false} \
+   CONFIG.CLKOUT5_DRIVES {BUFG} \
+   CONFIG.CLKOUT5_REQUESTED_OUT_FREQ {100.000} \
+   CONFIG.CLKOUT5_REQUESTED_PHASE {0.000} \
+   CONFIG.CLKOUT5_USED {false} \
+   CONFIG.CLKOUT6_DRIVES {BUFG} \
+   CONFIG.CLKOUT6_REQUESTED_OUT_FREQ {100.000} \
+   CONFIG.CLKOUT6_REQUESTED_PHASE {0.000} \
+   CONFIG.CLKOUT6_USED {false} \
+   CONFIG.CLKOUT7_DRIVES {BUFG} \
+   CONFIG.MMCM_CLKFBOUT_MULT_F {21.000} \
+   CONFIG.MMCM_CLKIN1_PERIOD {20.000} \
+   CONFIG.MMCM_CLKIN2_PERIOD {10.0} \
+   CONFIG.MMCM_CLKOUT0_DIVIDE_F {5.000} \
+   CONFIG.MMCM_CLKOUT1_DIVIDE {1} \
+   CONFIG.MMCM_CLKOUT2_DIVIDE {1} \
+   CONFIG.MMCM_CLKOUT2_PHASE {0.000} \
+   CONFIG.MMCM_CLKOUT3_DIVIDE {1} \
+   CONFIG.MMCM_COMPENSATION {ZHOLD} \
+   CONFIG.MMCM_DIVCLK_DIVIDE {1} \
+   CONFIG.NUM_OUT_CLKS {1} \
+   CONFIG.PRIM_SOURCE {No_buffer} \
+   CONFIG.RESET_PORT {resetn} \
+   CONFIG.RESET_TYPE {ACTIVE_LOW} \
+   CONFIG.USE_PHASE_ALIGNMENT {true} \
+   CONFIG.USE_POWER_DOWN {false} \
+   CONFIG.USE_RESET {true} \
  ] $clk_wiz_1
 
   # Create instance: fpga_comm_uart, and set properties
   set fpga_comm_uart [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_uart16550:2.0 fpga_comm_uart ]
   set_property -dict [ list \
-CONFIG.C_EXTERNAL_XIN_CLK_HZ {25000000} \
-CONFIG.C_S_AXI_ACLK_FREQ_HZ {100000000} \
- ] $fpga_comm_uart
-
-  # Need to retain value_src of defaults
-  set_property -dict [ list \
-CONFIG.C_EXTERNAL_XIN_CLK_HZ.VALUE_SRC {DEFAULT} \
-CONFIG.C_S_AXI_ACLK_FREQ_HZ.VALUE_SRC {DEFAULT} \
+	CONFIG.C_EXTERNAL_XIN_CLK_HZ {25000000} \
+	CONFIG.C_S_AXI_ACLK_FREQ_HZ {100000000} \
  ] $fpga_comm_uart
 
   # Create instance: gnd, and set properties
   set gnd [ create_bd_cell -type ip -vlnv xilinx.com:ip:xlconstant:1.1 gnd ]
   set_property -dict [ list \
-CONFIG.CONST_VAL {0} \
+   CONFIG.CONST_VAL {0} \
  ] $gnd
 
   # Create instance: microblaze_0_axi_periph, and set properties
   set microblaze_0_axi_periph [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_interconnect:2.1 microblaze_0_axi_periph ]
   set_property -dict [ list \
-CONFIG.NUM_MI {14} \
+   CONFIG.NUM_MI {14} \
+   CONFIG.SYNCHRONIZATION_STAGES {2} \
  ] $microblaze_0_axi_periph
 
   # Create instance: microblaze_0_xlconcat, and set properties
   set microblaze_0_xlconcat [ create_bd_cell -type ip -vlnv xilinx.com:ip:xlconcat:2.1 microblaze_0_xlconcat ]
   set_property -dict [ list \
-CONFIG.NUM_PORTS {6} \
+   CONFIG.NUM_PORTS {6} \
  ] $microblaze_0_xlconcat
 
   # Create instance: proc_sys_reset_1, and set properties
@@ -982,29 +1012,21 @@ CONFIG.NUM_PORTS {6} \
   # Create instance: xadc_wiz_0, and set properties
   set xadc_wiz_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:xadc_wiz:3.3 xadc_wiz_0 ]
   set_property -dict [ list \
-CONFIG.ADC_CONVERSION_RATE {1000} \
-CONFIG.CHANNEL_ENABLE_TEMPERATURE {true} \
-CONFIG.CHANNEL_ENABLE_VBRAM {true} \
-CONFIG.CHANNEL_ENABLE_VCCAUX {true} \
-CONFIG.CHANNEL_ENABLE_VCCINT {true} \
-CONFIG.CHANNEL_ENABLE_VREFN {true} \
-CONFIG.CHANNEL_ENABLE_VREFP {true} \
-CONFIG.DCLK_FREQUENCY {100} \
-CONFIG.ENABLE_EXTERNAL_MUX {true} \
-CONFIG.ENABLE_RESET {false} \
-CONFIG.ENABLE_TEMP_BUS {true} \
-CONFIG.INTERFACE_SELECTION {Enable_AXI} \
-CONFIG.SEQUENCER_MODE {Continuous} \
-CONFIG.XADC_STARUP_SELECTION {channel_sequencer} \
- ] $xadc_wiz_0
-
-  # Need to retain value_src of defaults
-  set_property -dict [ list \
-CONFIG.ADC_CONVERSION_RATE.VALUE_SRC {DEFAULT} \
-CONFIG.DCLK_FREQUENCY.VALUE_SRC {DEFAULT} \
-CONFIG.ENABLE_RESET.VALUE_SRC {DEFAULT} \
-CONFIG.INTERFACE_SELECTION.VALUE_SRC {DEFAULT} \
-CONFIG.SEQUENCER_MODE.VALUE_SRC {DEFAULT} \
+   CONFIG.ADC_CONVERSION_RATE {1000} \
+   CONFIG.CHANNEL_ENABLE_TEMPERATURE {true} \
+   CONFIG.CHANNEL_ENABLE_VBRAM {true} \
+   CONFIG.CHANNEL_ENABLE_VCCAUX {true} \
+   CONFIG.CHANNEL_ENABLE_VCCINT {true} \
+   CONFIG.CHANNEL_ENABLE_VP_VN {true} \
+   CONFIG.CHANNEL_ENABLE_VREFN {true} \
+   CONFIG.CHANNEL_ENABLE_VREFP {true} \
+   CONFIG.DCLK_FREQUENCY {100} \
+   CONFIG.ENABLE_EXTERNAL_MUX {true} \
+   CONFIG.ENABLE_RESET {false} \
+   CONFIG.ENABLE_TEMP_BUS {true} \
+   CONFIG.INTERFACE_SELECTION {Enable_AXI} \
+   CONFIG.SEQUENCER_MODE {Continuous} \
+   CONFIG.XADC_STARUP_SELECTION {channel_sequencer} \
  ] $xadc_wiz_0
 
   # Create interface connections
@@ -1089,109 +1111,111 @@ CONFIG.SEQUENCER_MODE.VALUE_SRC {DEFAULT} \
 
   # Perform GUI Layout
   regenerate_bd_layout -layout_string {
-   guistr: "# # String gsaved with Nlview 6.6.5b  2016-09-06 bk=1.3687 VDI=39 GEI=35 GUI=JA:1.6
+   "ExpandedHierarchyInLayout":"",
+   "guistr":"# # String gsaved with Nlview 6.8.11  2018-08-07 bk=1.4403 VDI=40 GEI=35 GUI=JA:9.0 non-TLS
 #  -string -flagsOSRD
-preplace port vn -pg 1 -y 1600 -defaultsOSRD
-preplace port S_FB_SDI_S2MM -pg 1 -y 1180 -defaultsOSRD
-preplace port vp -pg 1 -y 1620 -defaultsOSRD
-preplace port UART_PROC_RX -pg 1 -y 700 -defaultsOSRD
-preplace port S_FB_GIGE_S2MM -pg 1 -y 1140 -defaultsOSRD
-preplace port S_FB_GIGE_MM2S -pg 1 -y 1120 -defaultsOSRD
-preplace port SYS_CLK -pg 1 -y 1220 -defaultsOSRD
-preplace port clk_data -pg 1 -y 1940 -defaultsOSRD
-preplace port clk_core_scaler -pg 1 -y 1430 -defaultsOSRD
-preplace port S_FB_SDI_MM2S -pg 1 -y 1160 -defaultsOSRD
-preplace port clk_data_n -pg 1 -y 1410 -defaultsOSRD
-preplace port FB_DDR3 -pg 1 -y 1210 -defaultsOSRD
-preplace port AXIL_PLEORA_CTRL -pg 1 -y 500 -defaultsOSRD
-preplace port UART_STORAGE_TX -pg 1 -y 1860 -defaultsOSRD
-preplace port clk_50 -pg 1 -y 1960 -defaultsOSRD
+preplace port vn -pg 1 -y 1980 -defaultsOSRD
+preplace port S_FB_SDI_S2MM -pg 1 -y 1250 -defaultsOSRD
+preplace port vp -pg 1 -y 2000 -defaultsOSRD
+preplace port UART_PROC_RX -pg 1 -y 720 -defaultsOSRD
+preplace port S_FB_GIGE_S2MM -pg 1 -y 1210 -defaultsOSRD
+preplace port S_FB_GIGE_MM2S -pg 1 -y 1190 -defaultsOSRD
+preplace port SYS_CLK -pg 1 -y 1430 -defaultsOSRD
+preplace port clk_data -pg 1 -y 1110 -defaultsOSRD
+preplace port clk_core_scaler -pg 1 -y 1540 -defaultsOSRD
+preplace port S_FB_SDI_MM2S -pg 1 -y 1230 -defaultsOSRD
+preplace port clk_data_n -pg 1 -y 1130 -defaultsOSRD
+preplace port FB_DDR3 -pg 1 -y 1280 -defaultsOSRD
+preplace port AXIL_PLEORA_CTRL -pg 1 -y 510 -defaultsOSRD
+preplace port UART_STORAGE_TX -pg 1 -y 1740 -defaultsOSRD
+preplace port clk_50 -pg 1 -y 1480 -defaultsOSRD
 preplace port AXIL_MGT -pg 1 -y 340 -defaultsOSRD
-preplace port QSPI_PROM -pg 1 -y 930 -defaultsOSRD
-preplace port LED -pg 1 -y 420 -defaultsOSRD
-preplace port AXIL_SDI_CTRL -pg 1 -y 520 -defaultsOSRD
+preplace port QSPI_PROM -pg 1 -y 990 -defaultsOSRD
+preplace port LED -pg 1 -y 430 -defaultsOSRD
+preplace port AXIL_SDI_CTRL -pg 1 -y 530 -defaultsOSRD
 preplace port AXIL_CLINK -pg 1 -y 320 -defaultsOSRD
-preplace port clk_mb -pg 1 -y 1230 -defaultsOSRD
-preplace port UART_STORAGE_RX -pg 1 -y 1930 -defaultsOSRD
-preplace port UART_PROC_TX -pg 1 -y 610 -defaultsOSRD
-preplace port AXIL_FB_CTRL -pg 1 -y 480 -defaultsOSRD
-preplace portBus AGC_INTR -pg 1 -y 1050 -defaultsOSRD
-preplace portBus AXI_ARESETN -pg 1 -y 1770 -defaultsOSRD
-preplace inst MCU -pg 1 -lvl 3 -y 930 -defaultsOSRD
-preplace inst vcc -pg 1 -lvl 1 -y 800 -defaultsOSRD
-preplace inst xadc_wiz_0 -pg 1 -lvl 5 -y 1610 -defaultsOSRD
-preplace inst gnd -pg 1 -lvl 4 -y 1290 -defaultsOSRD
-preplace inst fpga_comm_uart -pg 1 -lvl 5 -y 600 -defaultsOSRD
-preplace inst microblaze_0_axi_periph -pg 1 -lvl 4 -y 390 -defaultsOSRD
-preplace inst FB_MEMORY -pg 1 -lvl 5 -y 1230 -defaultsOSRD
-preplace inst microblaze_0_xlconcat -pg 1 -lvl 2 -y 1020 -defaultsOSRD
-preplace inst axi_timer_0 -pg 1 -lvl 5 -y 760 -defaultsOSRD
-preplace inst axi_gpio_0 -pg 1 -lvl 5 -y 420 -defaultsOSRD
-preplace inst proc_sys_reset_1 -pg 1 -lvl 2 -y 800 -defaultsOSRD
-preplace inst clk_wiz_0 -pg 1 -lvl 4 -y 1440 -defaultsOSRD
-preplace inst clk_wiz_1 -pg 1 -lvl 3 -y 1450 -defaultsOSRD -resize 120 140
-preplace inst axi_uart_storage -pg 1 -lvl 5 -y 1850 -defaultsOSRD
-preplace inst axi_quad_spi_0 -pg 1 -lvl 5 -y 950 -defaultsOSRD
+preplace port clk_mb -pg 1 -y 1300 -defaultsOSRD
+preplace port UART_STORAGE_RX -pg 1 -y 1630 -defaultsOSRD
+preplace port UART_PROC_TX -pg 1 -y 630 -defaultsOSRD
+preplace port AXIL_FB_CTRL -pg 1 -y 360 -defaultsOSRD
+preplace portBus AGC_INTR -pg 1 -y 1090 -defaultsOSRD
+preplace portBus AXI_ARESETN -pg 1 -y 2160 -defaultsOSRD
+preplace inst MCU -pg 1 -lvl 3 -y 900 -defaultsOSRD
+preplace inst vcc -pg 1 -lvl 1 -y 830 -defaultsOSRD
+preplace inst xadc_wiz_0 -pg 1 -lvl 5 -y 1990 -defaultsOSRD
+preplace inst gnd -pg 1 -lvl 4 -y 1500 -defaultsOSRD
+preplace inst fpga_comm_uart -pg 1 -lvl 5 -y 620 -defaultsOSRD
+preplace inst microblaze_0_axi_periph -pg 1 -lvl 4 -y 380 -defaultsOSRD
+preplace inst FB_MEMORY -pg 1 -lvl 5 -y 1300 -defaultsOSRD
+preplace inst microblaze_0_xlconcat -pg 1 -lvl 2 -y 1060 -defaultsOSRD
+preplace inst axi_timer_0 -pg 1 -lvl 5 -y 800 -defaultsOSRD
+preplace inst axi_gpio_0 -pg 1 -lvl 5 -y 430 -defaultsOSRD
+preplace inst proc_sys_reset_1 -pg 1 -lvl 2 -y 830 -defaultsOSRD
+preplace inst clk_wiz_0 -pg 1 -lvl 4 -y 1340 -defaultsOSRD
+preplace inst clk_wiz_1 -pg 1 -lvl 5 -y 1550 -defaultsOSRD
+preplace inst axi_uart_storage -pg 1 -lvl 5 -y 1730 -defaultsOSRD
+preplace inst axi_quad_spi_0 -pg 1 -lvl 5 -y 1010 -defaultsOSRD
 preplace netloc axi_quad_spi_0_SPI_0 1 5 1 NJ
-preplace netloc xadc_wiz_0_temp_out 1 4 2 1410 1770 1760
-preplace netloc FB_MEMORY_mmcm_locked 1 3 3 1010 1350 1310J 1390 1760
-preplace netloc microblaze_0_axi_periph_M04_AXI 1 4 2 NJ 340 1790J
-preplace netloc microblaze_0_axi_periph_M08_AXI 1 4 1 1320
-preplace netloc vp_in_1 1 0 5 NJ 1620 NJ 1620 NJ 1620 NJ 1620 NJ
-preplace netloc clk_wiz_0_locked 1 2 3 640J 1240 NJ 1240 1270
-preplace netloc S_FB_SDI_MM2S_1 1 0 5 NJ 1160 NJ 1160 NJ 1160 NJ 1160 NJ
-preplace netloc microblaze_0_axi_periph_M13_AXI 1 4 2 NJ 520 NJ
-preplace netloc vn_in_1 1 0 5 NJ 1600 NJ 1600 NJ 1600 NJ 1600 NJ
-preplace netloc sys_clk_1 1 0 5 NJ 1220 NJ 1220 NJ 1220 NJ 1220 NJ
-preplace netloc microblaze_0_axi_periph_M06_AXI 1 4 1 1400
-preplace netloc microblaze_0_axi_periph_M03_AXI 1 4 1 1410
-preplace netloc xadc_wiz_0_ip2intc_irpt 1 1 5 190 920 580J 790 NJ 790 1280J 870 1780
-preplace netloc proc_sys_reset_1_peripheral_aresetn 1 2 4 550 1860 990 1860 1380 1940 1780J
+preplace netloc xadc_wiz_0_temp_out 1 4 2 1490 1620 1870
+preplace netloc FB_MEMORY_mmcm_locked 1 3 3 1040 1100 NJ 1100 1850
+preplace netloc microblaze_0_axi_periph_M04_AXI 1 4 2 NJ 330 1880J
+preplace netloc microblaze_0_axi_periph_M08_AXI 1 4 1 N
+preplace netloc vp_in_1 1 0 5 NJ 2000 NJ 2000 NJ 2000 NJ 2000 NJ
+preplace netloc clk_wiz_0_locked 1 4 1 1350
+preplace netloc S_FB_SDI_MM2S_1 1 0 5 NJ 1230 NJ 1230 NJ 1230 NJ 1230 NJ
+preplace netloc microblaze_0_axi_periph_M13_AXI 1 4 2 1460J 520 1880J
+preplace netloc vn_in_1 1 0 5 NJ 1980 NJ 1980 NJ 1980 NJ 1980 NJ
+preplace netloc sys_clk_1 1 0 5 20J 1220 NJ 1220 NJ 1220 NJ 1220 1340J
+preplace netloc microblaze_0_axi_periph_M06_AXI 1 4 1 1480
+preplace netloc microblaze_0_axi_periph_M03_AXI 1 4 1 1490
+preplace netloc xadc_wiz_0_ip2intc_irpt 1 1 5 220 1640 NJ 1640 NJ 1640 NJ 1640 1860
+preplace netloc proc_sys_reset_1_peripheral_aresetn 1 2 4 600 1030 1030 830 1400 2160 NJ
 preplace netloc axi_uart16550_0_sout 1 5 1 NJ
-preplace netloc axi_uart16550_0_ip2intc_irpt 1 1 5 190 1150 NJ 1150 NJ 1150 1400J 1060 1770
-preplace netloc UART_PROC_RX_1 1 0 6 NJ 700 NJ 700 NJ 700 960J 860 NJ 860 1780
+preplace netloc axi_uart16550_0_ip2intc_irpt 1 1 5 230 1430 NJ 1430 NJ 1430 1360J 1460 1880
+preplace netloc UART_PROC_RX_1 1 0 6 20J 710 NJ 710 NJ 710 1000J 800 1420J 910 1850
 preplace netloc mig_7series_0_ddr3 1 5 1 NJ
-preplace netloc S04_AXI_1 1 4 1 1270
-preplace netloc microblaze_0_axi_periph_M10_AXI 1 4 1 1320
-preplace netloc proc_sys_reset_1_bus_struct_reset 1 2 1 600
-preplace netloc UART_STORAGE_RX_1 1 0 6 NJ 1930 NJ 1930 NJ 1930 NJ 1930 NJ 1930 1760
-preplace netloc AGC_INTR_1 1 0 2 NJ 1050 NJ
-preplace netloc microblaze_0_axi_periph_M05_AXI 1 4 2 1270J 330 1810J
-preplace netloc xlconstant_0_const 1 4 1 1280J
+preplace netloc microblaze_0_axi_periph_M10_AXI 1 4 1 1380
+preplace netloc S04_AXI_1 1 4 1 1450
+preplace netloc proc_sys_reset_1_bus_struct_reset 1 2 1 620
+preplace netloc UART_STORAGE_RX_1 1 0 6 NJ 1630 NJ 1630 NJ 1630 NJ 1630 NJ 1630 1850
+preplace netloc AGC_INTR_1 1 0 2 NJ 1090 NJ
+preplace netloc microblaze_0_axi_periph_M05_AXI 1 4 2 1360J 340 NJ
+preplace netloc xlconstant_0_const 1 4 1 1480J
 preplace netloc fpga_comm_uart_sout 1 5 1 NJ
-preplace netloc s00_axi_1 1 3 1 950
-preplace netloc microblaze_0_axi_periph_m02_axi 1 4 1 1360
-preplace netloc microblaze_0_axi_periph_m01_axi 1 2 3 640 10 NJ 10 1270
+preplace netloc s00_axi_1 1 3 1 980
+preplace netloc microblaze_0_axi_periph_m02_axi 1 4 1 1410
+preplace netloc microblaze_0_axi_periph_m01_axi 1 2 3 650 770 NJ 770 1340
 preplace netloc proc_sys_reset_1_peripheral_reset 1 2 1 N
-preplace netloc mcu_debug_sys_rst 1 1 3 180 900 590J 810 930
-preplace netloc m00_aresetn_1 1 2 3 550J 110 980 800 1330J
-preplace netloc fpga_comm_uart_ip2intc_irpt 1 1 5 180 910 560J 770 NJ 770 1330J 510 1790
-preplace netloc clk_wiz_1_locked 1 1 3 190 890 570J 800 940
-preplace netloc clk_wiz_1_clk_out1 1 3 3 1000 1360 1300J 1410 1800J
-preplace netloc clk_wiz_0_clk_out1 1 2 4 620 -10 970 -10 1350 -10 1800
-preplace netloc S01_AXI_1 1 0 5 NJ 1140 NJ 1140 NJ 1140 NJ 1140 NJ
-preplace netloc S00_AXI_2 1 0 5 NJ 1120 NJ 1120 NJ 1120 NJ 1120 NJ
+preplace netloc mcu_debug_sys_rst 1 1 3 230 940 590J 1020 990
+preplace netloc m00_aresetn_1 1 2 3 610J 1040 1020 1040 1360J
+preplace netloc fpga_comm_uart_ip2intc_irpt 1 1 5 190 720 NJ 720 990J 790 1370J 320 1870
+preplace netloc clk_wiz_1_locked 1 1 5 210 1440 NJ 1440 NJ 1440 1340J 1470 1850
+preplace netloc clk_wiz_1_clk_out1 1 5 1 NJ
+preplace netloc clk_wiz_0_clk_out1 1 2 4 650 1060 1010 820 1440 1120 1870
+preplace netloc S01_AXI_1 1 0 5 NJ 1210 NJ 1210 NJ 1210 NJ 1210 NJ
+preplace netloc S00_AXI_2 1 0 5 NJ 1190 NJ 1190 NJ 1190 NJ 1190 NJ
 preplace netloc axi_gpio_0_GPIO 1 5 1 NJ
-preplace netloc clk_wiz_1_clk_out2 1 4 2 1400 1430 1790J
-preplace netloc microblaze_0_axi_periph_m00_axi 1 2 3 630 0 NJ 0 1280
-preplace netloc microblaze_0_xlconcat_dout 1 2 1 600
-preplace netloc clk_wiz_0_clk_out3 1 4 2 NJ 1450 1810J
-preplace netloc vcc_const 1 1 1 150
-preplace netloc clk_wiz_0_clk_out4 1 1 5 160 1960 600J 1960 NJ 1960 1290 1960 NJ
-preplace netloc axi_quad_spi_0_ip2intc_irpt 1 1 5 180 1130 NJ 1130 NJ 1130 1370J 1040 1760
-preplace netloc S_FB_SDI_S2MM_1 1 0 5 10J 1170 NJ 1170 NJ 1170 NJ 1170 1340J
-preplace netloc microblaze_0_axi_periph_M11_AXI 1 4 2 1390J 500 NJ
-preplace netloc microblaze_0_axi_periph_M09_AXI 1 4 2 1280J 350 1810J
-preplace netloc microblaze_0_axi_periph_M12_AXI 1 4 1 1370
-preplace netloc proc_sys_reset_1_mb_reset 1 2 1 610
-preplace netloc axi_timer_0_interrupt 1 1 5 170 1180 NJ 1180 NJ 1180 1280J 1030 1770
-levelinfo -pg 1 -10 90 390 790 1140 1600 1830 -top -20 -bot 1980
-",
+preplace netloc clk_wiz_1_clk_out2 1 4 2 1430 1110 NJ
+preplace netloc microblaze_0_axi_periph_m00_axi 1 2 3 640 760 NJ 760 1350
+preplace netloc microblaze_0_xlconcat_dout 1 2 1 630
+preplace netloc clk_wiz_0_clk_out3 1 4 2 1350J 1130 NJ
+preplace netloc vcc_const 1 1 1 180
+preplace netloc clk_wiz_0_clk_out4 1 1 5 220 930 570J 1050 NJ 1050 1420 1480 NJ
+preplace netloc axi_quad_spi_0_ip2intc_irpt 1 1 5 230 950 580J 1010 1040J 920 NJ 920 1850
+preplace netloc S_FB_SDI_S2MM_1 1 0 5 NJ 1250 NJ 1250 NJ 1250 NJ 1250 NJ
+preplace netloc microblaze_0_axi_periph_M11_AXI 1 4 2 1470J 510 NJ
+preplace netloc microblaze_0_axi_periph_M09_AXI 1 4 2 1380J 350 1880J
+preplace netloc microblaze_0_axi_periph_M12_AXI 1 4 1 1430
+preplace netloc proc_sys_reset_1_mb_reset 1 2 1 630
+preplace netloc axi_timer_0_interrupt 1 1 5 200 730 630J 780 NJ 780 1390J 530 1860
+levelinfo -pg 1 0 100 400 820 1190 1670 1900 -top 0 -bot 2180
+"
 }
 
   # Restore current instance
   current_bd_instance $oldCurInst
 
+  validate_bd_design
   save_bd_design
 }
 # End of create_root_design()
