@@ -46,8 +46,9 @@ proc genCore {scriptEnvironment fpgaSize} {
     #%svn_subwcrev% %hwFile% %buildInfoFile% %buildInfoFile%
     set localModif "\$WCMODS?-:\$\$WCREV\$"
     puts $Vfo "#define SVN_HARDWARE_REV ${localModif}"
+    puts $svn_subwcrev
     close $Vfo
-    if {[ catch {[exec "$svn_subwcrev" ${hwFile}  ${buildInfoFile}  ${buildInfoFile}]} ]} {
+    if {[ catch {[exec $svn_subwcrev ${hwFile}  ${buildInfoFile}  ${buildInfoFile}]} ]} {
         set errorsvn 0
         puts "SubWCRev.exe Hw done"
     }
@@ -56,7 +57,7 @@ proc genCore {scriptEnvironment fpgaSize} {
     #%svn_subwcrev% %elfFile% %buildInfoFile% %buildInfoFile%
     puts $Vfo  "#define SVN_SOFTWARE_REV      ${localModif}"
     close $Vfo
-    if {[ catch {[exec "$svn_subwcrev" ${elfFile}  ${buildInfoFile}  ${buildInfoFile}]} ]} {
+    if {[ catch {[exec $svn_subwcrev ${elfFile}  ${buildInfoFile}  ${buildInfoFile}]} ]} {
         set errorsvn 0
         puts "SubWCRev.exe Sw done"
     }
@@ -68,7 +69,7 @@ proc genCore {scriptEnvironment fpgaSize} {
     #%svn_subwcrev% %commonDir% %buildInfoFile% %buildInfoFile%
     puts $Vfo  " #define SVN_COMMON_REV      ${localModif}"
     close $Vfo
-    if {[ catch {[exec "$svn_subwcrev" ${commonDir} ${buildInfoFile}  ${buildInfoFile}]} ]} {
+    if {[ catch {[exec $svn_subwcrev ${commonDir} ${buildInfoFile}  ${buildInfoFile}]} ]} {
        set errorsvn 
        puts "SubWCRev.exe Common done"
     }
