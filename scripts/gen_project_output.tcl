@@ -136,6 +136,9 @@ config_webtalk -user off
 
 update_compile_order -fileset sources_1
 
+#Cleanup of unused sources
+remove_files [get_files -filter {IS_AUTO_DISABLED}]
+
 #Limit max fanout (see UG949 p143 for Fanout Guidelines table)
 set_property STEPS.SYNTH_DESIGN.ARGS.FANOUT_LIMIT 200 [get_runs synth_1]
 
