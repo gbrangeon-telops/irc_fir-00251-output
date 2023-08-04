@@ -364,6 +364,8 @@ set_property PACKAGE_PIN W5 [get_ports UART_TX_TO_STORAGE]
 set_property IOSTANDARD SSTL15 [get_ports UART_TX_TO_STORAGE]
 set_property PACKAGE_PIN W6 [get_ports UART_RX_FROM_STORAGE]
 set_property IOSTANDARD SSTL15 [get_ports UART_RX_FROM_STORAGE]
+# Add pull-up to prevent parasitic coupling when the Storage is not connected 
+set_property PULLUP TRUE [get_ports UART_RX_FROM_STORAGE]
 set_property PACKAGE_PIN U1 [get_ports SEQ_WRITE_DONE_FROM_STORAGE]
 set_property IOSTANDARD SSTL15 [get_ports SEQ_WRITE_DONE_FROM_STORAGE]
 set_property PACKAGE_PIN U2 [get_ports WATERLEVEL_TO_STORAGE]
