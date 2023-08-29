@@ -108,7 +108,8 @@ set_property "edif_extra_search_paths" "[file normalize "$src_dir/SDI/dru"]" $ob
 add_files -fileset constrs_1 [concat \
    $constr_dir/fir_00251_output_Physical_common.xdc \
    $constr_dir/fir_00251_output_Physical_$FPGA_SIZE.xdc \
-   $constr_dir/fir_00251_output_Timing.xdc \
+   $constr_dir/fir_00251_output_Timing_common.xdc \
+   $constr_dir/fir_00251_output_Timing_$FPGA_SIZE.xdc \
    $constr_dir/fir_00251_output_Target.xdc \
 ]
 
@@ -145,3 +146,20 @@ set_property STEPS.SYNTH_DESIGN.ARGS.FANOUT_LIMIT 200 [get_runs synth_1]
 #Enable post-place optimization (see UG904 p87-93 for more details)
 set_property STEPS.PHYS_OPT_DESIGN.IS_ENABLED true [get_runs impl_1]
 set_property STEPS.PHYS_OPT_DESIGN.ARGS.DIRECTIVE Default [get_runs impl_1]
+
+# Cleanup of leftover unused IPs that cause critical warnings during implementation
+synth_design -rtl -name rtl_1
+if {$FPGA_SIZE == 70} {
+	set iplist [get_ips -filter {NAME =~ "*video*" || NAME =~ "*fifo*"}]	
+} else {
+	set iplist [get_ips -filter {NAME =~ "*fifo*"}]	
+}
+foreach ip $iplist {
+	set name [get_property NAME $ip]
+	set cells [get_cells -hierarchical -filter "REF_NAME == $name"]
+	if {[llength $cells] == 0} {
+		set file [get_property IP_FILE $ip]
+		remove_files $file
+	}
+}
+close_design
