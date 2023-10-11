@@ -1,8 +1,8 @@
 -- Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
 -- --------------------------------------------------------------------------------
--- Tool Version: Vivado v.2018.3 (win64) Build 2405991 Thu Dec  6 23:38:27 MST 2018
--- Date        : Thu May 11 11:09:12 2023
--- Host        : LAPTOP-J3K1KOB9 running 64-bit major release  (build 9200)
+-- Tool Version: Vivado v.2018.3_AR71948_AR71898 (win64) Build 2405991 Thu Dec  6 23:38:27 MST 2018
+-- Date        : Tue Oct 10 10:31:47 2023
+-- Host        : Telops330 running 64-bit major release  (build 9200)
 -- Command     : write_vhdl -force -mode funcsim
 --               D:/Telops/FIR-00251-Output/IP/70/t_axi4_stream64_sfifo_d16384_lim/t_axi4_stream64_sfifo_d16384_lim_sim_netlist.vhdl
 -- Design      : t_axi4_stream64_sfifo_d16384_lim
@@ -15970,7 +15970,7 @@ entity t_axi4_stream64_sfifo_d16384_lim is
   attribute downgradeipidentifiedwarnings : string;
   attribute downgradeipidentifiedwarnings of t_axi4_stream64_sfifo_d16384_lim : entity is "yes";
   attribute x_core_info : string;
-  attribute x_core_info of t_axi4_stream64_sfifo_d16384_lim : entity is "fifo_generator_v13_2_3,Vivado 2018.3";
+  attribute x_core_info of t_axi4_stream64_sfifo_d16384_lim : entity is "fifo_generator_v13_2_3,Vivado 2018.3_AR71948_AR71898";
 end t_axi4_stream64_sfifo_d16384_lim;
 
 architecture STRUCTURE of t_axi4_stream64_sfifo_d16384_lim is
