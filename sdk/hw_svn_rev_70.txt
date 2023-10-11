@@ -1,6 +1,6 @@
 * indicates local modifications
 
-D:\Telops\FIR-00251-Output 29022*
+D:\Telops\FIR-00251-Output 29112*
 D:\Telops\FIR-00251-Output\IP\70\axi_fb_datamover\axi_fb_datamover.xci 29022*
 D:\Telops\FIR-00251-Output\IP\70\axi_sdi_fb_datamover\axi_sdi_fb_datamover.xci 29022*
 D:\Telops\FIR-00251-Output\IP\70\blk_mem_gen_0\blk_mem_gen_0.xci 29022*
@@ -39,7 +39,7 @@ D:\Telops\FIR-00251-Output\scripts\gen_managed_project_160_2013.tcl 26319
 D:\Telops\FIR-00251-Output\scripts\gen_managed_project_2013.tcl 26319
 D:\Telops\FIR-00251-Output\scripts\gen_managed_project_70.tcl 26319
 D:\Telops\FIR-00251-Output\scripts\gen_managed_project_70_2013.tcl 26319
-D:\Telops\FIR-00251-Output\scripts\gen_project_output.tcl 29022
+D:\Telops\FIR-00251-Output\scripts\gen_project_output.tcl 29112
 D:\Telops\FIR-00251-Output\scripts\gen_project_output_160.tcl 26319
 D:\Telops\FIR-00251-Output\scripts\gen_project_output_70.tcl 26319
 D:\Telops\FIR-00251-Output\scripts\tel_xparam_extract.tcl 26319
@@ -63,9 +63,11 @@ D:\Telops\FIR-00251-Output\src\Clink\Sims\src\clink_stim.vhd 21856
 D:\Telops\FIR-00251-Output\src\Clink\Sims\src\clink_tb.bde 21841
 D:\Telops\FIR-00251-Output\src\constraint\fir_00251_output_Physical_160.xdc 27172
 D:\Telops\FIR-00251-Output\src\constraint\fir_00251_output_Physical_70.xdc 27172
-D:\Telops\FIR-00251-Output\src\constraint\fir_00251_output_Physical_common.xdc 27172
+D:\Telops\FIR-00251-Output\src\constraint\fir_00251_output_Physical_common.xdc 29060
 D:\Telops\FIR-00251-Output\src\constraint\fir_00251_output_Target.xdc 24032
-D:\Telops\FIR-00251-Output\src\constraint\fir_00251_output_Timing.xdc 29022
+D:\Telops\FIR-00251-Output\src\constraint\fir_00251_output_Timing_160.xdc 29112
+D:\Telops\FIR-00251-Output\src\constraint\fir_00251_output_Timing_70.xdc 29112
+D:\Telops\FIR-00251-Output\src\constraint\fir_00251_output_Timing_Common.xdc 29112
 D:\Telops\FIR-00251-Output\src\FrameBuffer\HDL\datamover_wrapper.vhd 26374
 D:\Telops\FIR-00251-Output\src\FrameBuffer\HDL\fb_ctrl.vhd 26358
 D:\Telops\FIR-00251-Output\src\FrameBuffer\HDL\fb_fsm.vhd 23414
@@ -229,7 +231,7 @@ D:\Telops\FIR-00251-Output\src\SDI\VideoTimingGenerator\vidgen_pal.vhd 14811
 D:\Telops\FIR-00251-Output\src\SDI\Video_Package\anc_edh_pkg.vhd 14811
 D:\Telops\FIR-00251-Output\src\SDI\Video_Package\hdsdi_pkg.vhd 14811
 D:\Telops\FIR-00251-Output\src\SDI\Video_Package\multigenHD_pkg.vhd 14811
-D:\Telops\FIR-00251-Common 29021
+D:\Telops\FIR-00251-Common 29266
 D:\Telops\FIR-00251-Common\VHDL\axis128_frame_rate.vhd 28422
 D:\Telops\FIR-00251-Common\VHDL\axis128_pixel_cnt.vhd 29021
 D:\Telops\FIR-00251-Common\VHDL\axis16_frame_pix_cnt.vhd 23412
@@ -246,7 +248,7 @@ D:\Telops\FIR-00251-Common\VHDL\axis64_pixel_cnt.vhd 19463
 D:\Telops\FIR-00251-Common\VHDL\axis_pixel_cnt.vhd 19463
 D:\Telops\FIR-00251-Common\VHDL\img_header_define.vhd 29021
 D:\Telops\FIR-00251-Common\VHDL\Stream_generator32.vhd 18936
-D:\Telops\FIR-00251-Common\VHDL\tel2000pkg.vhd 29021
+D:\Telops\FIR-00251-Common\VHDL\tel2000pkg.vhd 29080
 D:\Telops\FIR-00251-Common\VHDL\Buffering\axis32_img_eof.vhd 23412
 D:\Telops\FIR-00251-Common\VHDL\Buffering\axis32_img_sof.vhd 23412
 D:\Telops\FIR-00251-Common\VHDL\Buffering\axis64_img_eof.vhd 23412
@@ -256,7 +258,7 @@ D:\Telops\FIR-00251-Common\VHDL\Buffering\BufferingDefine.vhd 29021
 D:\Telops\FIR-00251-Common\VHDL\Buffering\buffering_Ctrl.vhd 29021
 D:\Telops\FIR-00251-Common\VHDL\Buffering\buffering_fsm.vhd 25182
 D:\Telops\FIR-00251-Common\VHDL\Buffering\flow_controller.vhd 29021
-D:\Telops\FIR-00251-Common\VHDL\Calibration\calib_define.vhd 29021
+D:\Telops\FIR-00251-Common\VHDL\Calibration\calib_define.vhd 29064
 D:\Telops\FIR-00251-Common\VHDL\decimator\Hdl\column_decimator.vhd 27308
 D:\Telops\FIR-00251-Common\VHDL\decimator\Hdl\decimator.bde 27313
 D:\Telops\FIR-00251-Common\VHDL\decimator\Hdl\decimator_define.vhd 27308
@@ -291,7 +293,7 @@ D:\Telops\FIR-00251-Common\VHDL\iserdes\idelay_wrapper.vhd 18536
 D:\Telops\FIR-00251-Common\VHDL\iserdes\adc\adc_iserdes_wrapper.vhd 18536
 D:\Telops\FIR-00251-Common\VHDL\iserdes\adc\adc_pattern_validator.vhd 23412
 D:\Telops\FIR-00251-Common\VHDL\iserdes\adc\adc_pattern_validator_ctrler.vhd 23412
-D:\Telops\FIR-00251-Common\VHDL\iserdes\adc\adc_serdes_clk_wrapper.vhd 24431
+D:\Telops\FIR-00251-Common\VHDL\iserdes\adc\adc_serdes_clk_wrapper.vhd 29185
 D:\Telops\FIR-00251-Common\VHDL\iserdes\adc\fpa_serdes_define.vhd 28051
 D:\Telops\FIR-00251-Common\VHDL\iserdes\adc\quad_pattern_validator.bde 23412
 D:\Telops\FIR-00251-Common\VHDL\iserdes\adc\test_pattern_validator.vhd 18536
@@ -307,7 +309,7 @@ D:\Telops\FIR-00251-Common\VHDL\iserdes\clink\fpa_serdes_define.vhd 27914
 D:\Telops\FIR-00251-Common\VHDL\iserdes\clink\high_duration_meas.vhd 22521
 D:\Telops\FIR-00251-Common\VHDL\iserdes\clink\iserdes_wrapper.vhd 25763
 D:\Telops\FIR-00251-Common\VHDL\Lut\axis_lut_core_a32_d32.bde 26535
-D:\Telops\FIR-00251-Common\VHDL\Lut\axis_lut_X_to_ADD.bde 26535
+D:\Telops\FIR-00251-Common\VHDL\Lut\axis_lut_X_to_ADD.bde 29266
 D:\Telops\FIR-00251-Common\VHDL\Lut\lut_axil_absolute_add.vhd 26535
 D:\Telops\FIR-00251-Common\VHDL\Lut\LUT_native_switch.vhd 25600
 D:\Telops\FIR-00251-Common\VHDL\Lut\param_lut_fifo.bde 26535
@@ -320,8 +322,8 @@ D:\Telops\FIR-00251-Common\VHDL\Math\axis_fp32tofi32.vhd 15435
 D:\Telops\FIR-00251-Common\VHDL\Math\axis_fp32tofi32floor.bde 15842
 D:\Telops\FIR-00251-Common\VHDL\Math\axis_fp32tofi32round.vhd 17467
 D:\Telops\FIR-00251-Common\VHDL\Math\fi16_axis_min.vhd 25790
-D:\Telops\FIR-00251-Common\VHDL\Math\fi32_axis_max.vhd 25854
-D:\Telops\FIR-00251-Common\VHDL\Math\fi32_axis_min.vhd 25854
+D:\Telops\FIR-00251-Common\VHDL\Math\fi32_axis_max.vhd 29266
+D:\Telops\FIR-00251-Common\VHDL\Math\fi32_axis_min.vhd 29266
 D:\Telops\FIR-00251-Common\VHDL\Math\fp32_axis_add.vhd 25790
 D:\Telops\FIR-00251-Common\VHDL\Math\fp32_axis_divide.vhd 25790
 D:\Telops\FIR-00251-Common\VHDL\Math\fp32_axis_greaterThan.vhd 25790
@@ -431,7 +433,7 @@ D:\Telops\FIR-00251-Common\VHDL\Utilities\axis64_asynch_clk_div2.vhd 13851
 D:\Telops\FIR-00251-Common\VHDL\Utilities\axis64_auto_sw_1_2.vhd 24561
 D:\Telops\FIR-00251-Common\VHDL\Utilities\axis64_auto_sw_2_1.vhd 23412
 D:\Telops\FIR-00251-Common\VHDL\Utilities\axis64_data_pos.vhd 28995
-D:\Telops\FIR-00251-Common\VHDL\Utilities\axis64_data_sel.vhd 28996
+D:\Telops\FIR-00251-Common\VHDL\Utilities\axis64_data_sel.vhd 29076
 D:\Telops\FIR-00251-Common\VHDL\Utilities\axis64_fanout2.vhd 23412
 D:\Telops\FIR-00251-Common\VHDL\Utilities\axis64_hole.vhd 23412
 D:\Telops\FIR-00251-Common\VHDL\Utilities\axis64_hole_sync.vhd 23412
@@ -443,7 +445,7 @@ D:\Telops\FIR-00251-Common\VHDL\Utilities\axis64_sw_1_2.vhd 23412
 D:\Telops\FIR-00251-Common\VHDL\Utilities\axis64_sw_2_1.vhd 23412
 D:\Telops\FIR-00251-Common\VHDL\Utilities\axis64_throughput_ctrl.vhd 23412
 D:\Telops\FIR-00251-Common\VHDL\Utilities\axis64_tid_gen.vhd 19463
-D:\Telops\FIR-00251-Common\VHDL\Utilities\axis64_xcropping.bde 28996
+D:\Telops\FIR-00251-Common\VHDL\Utilities\axis64_xcropping.bde 29082
 D:\Telops\FIR-00251-Common\VHDL\Utilities\axis8_fanout2.vhd 15516
 D:\Telops\FIR-00251-Common\VHDL\Utilities\axis_128_to_64_wrap.vhd 23412
 D:\Telops\FIR-00251-Common\VHDL\Utilities\axis_32_to_16_lite_wrap.vhd 14014
@@ -464,7 +466,8 @@ D:\Telops\FIR-00251-Common\VHDL\Utilities\native_to_axis8.vhd 14181
 D:\Telops\FIR-00251-Common\VHDL\Utilities\pixel_bad_repl.vhd 23412
 D:\Telops\FIR-00251-Common\VHDL\Utilities\rst_conditioner.vhd 27694
 D:\Telops\FIR-00251-Common\VHDL\Utilities\shift_registers_x.vhd 14971
-D:\Telops\Common_HDL 28761
+D:\Telops\FIR-00251-Common\VHDL\Utilities\xcropping_watchdog.vhd 29080
+D:\Telops\Common_HDL 29211
 D:\Telops\Common_HDL\Common_Projects\TEL2000\FPA_common\src\ad5648_driver.vhd 17388
 D:\Telops\Common_HDL\Common_Projects\TEL2000\FPA_common\src\adc_brd_define.vhd 16667
 D:\Telops\Common_HDL\Common_Projects\TEL2000\FPA_common\src\adc_brd_id_reader.vhd 23549
@@ -473,16 +476,19 @@ D:\Telops\Common_HDL\Common_Projects\TEL2000\FPA_common\src\afpa_analog_chain_co
 D:\Telops\Common_HDL\Common_Projects\TEL2000\FPA_common\src\afpa_chn_diversity_ctrler.vhd 26389
 D:\Telops\Common_HDL\Common_Projects\TEL2000\FPA_common\src\afpa_cropping.bde 27054
 D:\Telops\Common_HDL\Common_Projects\TEL2000\FPA_common\src\afpa_cropping_core.vhd 27054
+D:\Telops\Common_HDL\Common_Projects\TEL2000\FPA_common\src\afpa_data_clipper.vhd 29057
 D:\Telops\Common_HDL\Common_Projects\TEL2000\FPA_common\src\afpa_data_ctrl.bde 27055
 D:\Telops\Common_HDL\Common_Projects\TEL2000\FPA_common\src\afpa_data_ctrl_16chn.bde 27055
-D:\Telops\Common_HDL\Common_Projects\TEL2000\FPA_common\src\afpa_data_ctrl_16chn_v2.bde 27055
+D:\Telops\Common_HDL\Common_Projects\TEL2000\FPA_common\src\afpa_data_ctrl_16chn_v2.bde 29056
 D:\Telops\Common_HDL\Common_Projects\TEL2000\FPA_common\src\afpa_data_ctrl_map.vhd 21829
 D:\Telops\Common_HDL\Common_Projects\TEL2000\FPA_common\src\afpa_data_ctrl_v2.bde 27055
 D:\Telops\Common_HDL\Common_Projects\TEL2000\FPA_common\src\afpa_data_dispatcher.vhd 27575
 D:\Telops\Common_HDL\Common_Projects\TEL2000\FPA_common\src\afpa_data_mux.vhd 25719
-D:\Telops\Common_HDL\Common_Projects\TEL2000\FPA_common\src\afpa_diag_data_gen.vhd 26570
+D:\Telops\Common_HDL\Common_Projects\TEL2000\FPA_common\src\afpa_data_scaler.vhd 29057
+D:\Telops\Common_HDL\Common_Projects\TEL2000\FPA_common\src\afpa_diag_data_gen.vhd 29142
 D:\Telops\Common_HDL\Common_Projects\TEL2000\FPA_common\src\afpa_dval_gen.bde 25923
 D:\Telops\Common_HDL\Common_Projects\TEL2000\FPA_common\src\afpa_dval_gen_v2.bde 26627
+D:\Telops\Common_HDL\Common_Projects\TEL2000\FPA_common\src\afpa_dyn_range_ctrl.bde 29105
 D:\Telops\Common_HDL\Common_Projects\TEL2000\FPA_common\src\afpa_elec_ref_calc.vhd 28364
 D:\Telops\Common_HDL\Common_Projects\TEL2000\FPA_common\src\afpa_elec_ref_ctrler.vhd 23472
 D:\Telops\Common_HDL\Common_Projects\TEL2000\FPA_common\src\afpa_elec_ref_proc.bde 21925
@@ -538,11 +544,11 @@ D:\Telops\Common_HDL\Common_Projects\TEL2000\FPA_common\src\fleG_dac_spi_feeder.
 D:\Telops\Common_HDL\Common_Projects\TEL2000\FPA_common\src\fleg_prog_ctler_kernel.vhd 25683
 D:\Telops\Common_HDL\Common_Projects\TEL2000\FPA_common\src\fleG_prog_ctrler.bde 26285
 D:\Telops\Common_HDL\Common_Projects\TEL2000\FPA_common\src\flex_brd_id_reader.vhd 23549
-D:\Telops\Common_HDL\Common_Projects\TEL2000\FPA_common\src\fpa_common_pkg.vhd 27891
+D:\Telops\Common_HDL\Common_Projects\TEL2000\FPA_common\src\fpa_common_pkg.vhd 29153
 D:\Telops\Common_HDL\Common_Projects\TEL2000\FPA_common\src\fpa_data_cnt.vhd 26664
 D:\Telops\Common_HDL\Common_Projects\TEL2000\FPA_common\src\fpa_data_cnt_min_max.bde 23388
-D:\Telops\Common_HDL\Common_Projects\TEL2000\FPA_common\src\fpa_diag_line_gen.vhd 26120
-D:\Telops\Common_HDL\Common_Projects\TEL2000\FPA_common\src\fpa_intf_sequencer.vhd 26841
+D:\Telops\Common_HDL\Common_Projects\TEL2000\FPA_common\src\fpa_diag_line_gen.vhd 29142
+D:\Telops\Common_HDL\Common_Projects\TEL2000\FPA_common\src\fpa_intf_sequencer.vhd 29211
 D:\Telops\Common_HDL\Common_Projects\TEL2000\FPA_common\src\fpa_min_max_ctrl.vhd 23388
 D:\Telops\Common_HDL\Common_Projects\TEL2000\FPA_common\src\fpa_pixel_rate_ctrler.vhd 21717
 D:\Telops\Common_HDL\Common_Projects\TEL2000\FPA_common\src\fpa_pixel_rate_module.bde 21829
