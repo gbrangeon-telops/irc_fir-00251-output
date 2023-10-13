@@ -1,17 +1,14 @@
-PROMGEN: Xilinx Prom Generator P.20131013
-Copyright (c) 1995-2013 Xilinx, Inc.  All rights reserved.
+===================================
+Configuration Memory information
+===================================
+File Format        MCS
+Interface          SPIX4
+Size               16M
+Start Address      0x00000000
+End Address        0x00FFFFFF
+Checksum           0x9E331F4F
+Fill Value         0xFF
 
-promgen -w -p mcs -spi -c FF -o D:\Telops\FIR-00251-Output\bin\prom\fir_00251_output_160.mcs -s 16384 -u 0 D:\Telops\FIR-00251-Output\bin\download_160.bit 
-
-PROM D:\Telops\FIR-00251-Output\bin\prom\fir_00251_output_160.prm map: Thu May 04 13:15:57 2023
-
-Calculating PROM checksum with fill value ff
-
-Format        Mcs86 (32-bit)
-Size          16384K
-PROM start    0000:0000
-PROM end      00ff:ffff
-PROM checksum 9e4844d9
-
-        Addr1        Addr2                     Date File(s)
-    0000:0000    0066:1edb     May 04 13:15:54 2023 D:/Telops/FIR-00251-Output/bin/download_160.bit
+Addr1         Addr2         Date                    File(s)                                            Checksum
+0x00000000    0x00661EDB    Oct 13 13:19:10 2023    D:/Telops/FIR-00251-Output/bin/download_160.bit    0x04EBDC73
+File Checksum Total                                                                                    0x04EBDC73
