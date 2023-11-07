@@ -104,7 +104,7 @@ echo.>> %FirmwareReleaseLogFile%
 
 REM Commit release
 set releaseMessage=Release %firmwareReleaseVersion%
-svn commit %projectDir% -m "%releaseMessage%"
+REM XXXX svn commit %projectDir% -m "%releaseMessage%"
 svn update %projectDir%
 echo *****************************************>> %FirmwareReleaseLogFile%
 echo Release commit done>> %FirmwareReleaseLogFile%
