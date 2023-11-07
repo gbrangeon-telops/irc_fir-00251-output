@@ -8,12 +8,37 @@ cd "d:/Telops/fir-00251-Output/sdk"
 setws -switch "d:/Telops/fir-00251-Output/sdk"
 
 #Create HW projects
-createhw -name hw_platform_70 -hwspec "D:/Telops/FIR-00251-Output/sdk/fir_251_output_top_70.hdf"
-createhw -name hw_platform_160 -hwspec "D:/Telops/FIR-00251-Output/sdk/fir_251_output_top_160.hdf"
+if {[catch {createhw -name hw_platform_70 -hwspec "D:/Telops/FIR-00251-Output/sdk/fir_251_output_top_70.hdf"} errMsg]} {
+    if { $errMsg == "Failed to create Hardware platform project hw_platform_70" } {
+        puts $errMsg
+    } else {
+        error $errMsg
+    }
+}
+if {[catch {createhw -name hw_platform_160 -hwspec "D:/Telops/FIR-00251-Output/sdk/fir_251_output_top_160.hdf"} errMsg]} {
+        if { $errMsg == "Failed to create Hardware platform project hw_platform_160" } {
+        puts $errMsg
+    } else {
+        error $errMsg
+    }
+}
 
-#Create BSP projects
-createbsp -name standalone_bsp_70 -hwproject hw_platform_70 -proc MCU_microblaze_0
-createbsp -name standalone_bsp_160 -hwproject hw_platform_160 -proc MCU_microblaze_0
+#Create BSP projects 
+if {[catch {createbsp -name standalone_bsp_70 -hwproject hw_platform_70 -proc MCU_microblaze_0} errMsg]} {
+    if { $errMsg == "Failed to create BSP project standalone_bsp_70" } {
+        puts $errMsg
+    } else {
+        error $errMsg
+    }
+}
+if {[catch {createbsp -name standalone_bsp_160 -hwproject hw_platform_160 -proc MCU_microblaze_0} errMsg]} {
+    if { $errMsg == "Failed to create BSP project standalone_bsp_160" } {
+        puts $errMsg
+    } else {
+        error $errMsg
+    }
+}
+
 
 #Import projects
 importprojects "D:/Telops/FIR-00251-Output/sdk"
