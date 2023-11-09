@@ -16,19 +16,19 @@ proc setEnvironmentVariable {fpgaSize} {
     upvar 1 tortoiseSVNDir tortoiseSVNDir
     upvar 1 svn_subwcrev svn_subwcrev
     upvar 1 xDir xDir
-    upvar 1 objcopy objcopy
+    upvar 1 x_mb-objcopy x_mb-objcopy
     upvar 1 x_xsct x_xsct
 
     set baseName "fir_00251_output_$fpgaSize"
     set commonDir "D:/Telops/FIR-00251-Common"
     set projectDir "D:/Telops/FIR-00251-Output"
-    set sdkDir "$projectDir/sdk/$baseName"
+    set sdkDir "$projectDir/sdk"
     set srcDir "$projectDir/src"
-    set binDir "$projectDir/bin/$baseName"
+    set binDir "$projectDir/bin"
     set scriptsDir "$projectDir/bin/scripts"
 
-    set elfFile "$binDir/${baseName}_$fpgaSize.elf"
-    set hwFile "$sdkDir/${baseName}_$fpgaSize.hdf"
+    set elfFile "$binDir/${baseName}.elf"
+    set hwFile "$sdkDir/fir_251_output_top_$fpgaSize.hdf"
     set buildInfoFile "$srcDir/BuildInfo/BuildInfo.h"
     set revFile "$binDir/svnrevs_$fpgaSize.tcl"
     set tortoiseSVNDir "C:/Program Files/TortoiseSVN"
