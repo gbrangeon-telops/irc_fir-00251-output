@@ -77,11 +77,22 @@ call %scriptsDir%\updateReleaseSvnRevsFile.bat
 echo updateReleaseSvnRevsFile (%fpgaSize%) done>> %FirmwareReleaseLogFile%
 
 REM Verify release files
-call %scriptsDir%\verifyRelease.bat
+call %x_xsct%  %scriptsDir%\verifyRelease.tcl^
+   -obf %buildInfoFile% -of %revFile% -osize %fpgaSize%
+if errorlevel 1 (
+	echo verifyRelease generation failed!
+	pause
+   exit
+)
 echo verifyRelease (%fpgaSize%) done>> %FirmwareReleaseLogFile%
 
 REM Generate prom files
-call %scriptsDir%\generatePromFile.bat
+call %xDir%\Vivado\2018.3\bin\vivado -mode batch -source %scriptsDir%\generatePromFile.tcl -notrace -tclargs %fpgaSize% 
+if errorlevel 1 (
+	echo PROM file generation failed!
+	pause
+   exit
+)
 echo generatePromFile (%fpgaSize%) done>> %FirmwareReleaseLogFile%
 
 REM Set environment variables
@@ -92,11 +103,22 @@ call %scriptsDir%\updateReleaseSvnRevsFile.bat
 echo updateReleaseSvnRevsFile (%fpgaSize%) done>> %FirmwareReleaseLogFile%
 
 REM Verify release files
-call %scriptsDir%\verifyRelease.bat
+call %x_xsct%  %scriptsDir%\verifyRelease.tcl^
+   -obf %buildInfoFile% -of %revFile% -osize %fpgaSize%
+if errorlevel 1 (
+	echo verifyRelease generation failed!
+	pause
+   exit
+)
 echo verifyRelease (%fpgaSize%) done>> %FirmwareReleaseLogFile%
 
 REM Generate prom files
-call %scriptsDir%\generatePromFile.bat
+call %xDir%\Vivado\2018.3\bin\vivado -mode batch -source %scriptsDir%\generatePromFile.tcl -notrace -tclargs %fpgaSize% 
+if errorlevel 1 (
+	echo PROM file generation failed!
+	pause
+   exit
+)
 echo generatePromFile (%fpgaSize%) done>> %FirmwareReleaseLogFile%
 
 echo END Release compile>> %FirmwareReleaseLogFile%
