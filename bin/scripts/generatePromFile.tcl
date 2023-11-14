@@ -21,6 +21,7 @@ file delete -force "${bin_dir}/_promgen_${fpga_size}.log"
 file delete -force "${elf_file}"
 if {[ catch {[file copy "${sdk_dir}/${base_name}/Release/${base_name}.elf" ${elf_file}]} err]} {
     puts $err
+    error "ERROR: Missing elf file"
 } else {
     set bit_file "${sdk_dir}/hw_platform_${fpga_size}/fir_251_output_top_${fpga_size}.bit"
     set mmi_file "${sdk_dir}/hw_platform_${fpga_size}/fir_251_output_top_${fpga_size}.mmi"

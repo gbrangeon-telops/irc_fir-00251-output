@@ -49,6 +49,7 @@ echo.>> %FirmwareReleaseLogFile%
 
 REM Commit pre-release
 set preReleaseMessage=Pre-release %firmwareReleaseVersion%
+timeout /t 3 > nul
 svn commit %projectDir% -m "%preReleaseMessage%"
 svn update %projectDir%
 echo *****************************************>> %FirmwareReleaseLogFile%
@@ -61,6 +62,9 @@ echo BEGIN Release compile>> %FirmwareReleaseLogFile%
 REM Set environment variables
 call %projectDir%\bin\scripts\setEnvironment.bat 70
 
+REM Clear elf
+del %sdkDir%\fir_00251_output_70\Release\fir_00251_output_70.elf
+del %sdkDir%\fir_00251_output_160\Release\fir_00251_output_160.elf
 REM Build main project
 cmd /c %x_xsct% %sdkDir%\build_all_sw.tcl 0
 for %%A in (%sdkDir%\fir_00251_output_70\Release\fir_00251_output_70.elf %sdkDir%\fir_00251_output_160\Release\fir_00251_output_160.elf) do (
@@ -126,6 +130,7 @@ echo.>> %FirmwareReleaseLogFile%
 
 REM Commit release
 set releaseMessage=Release %firmwareReleaseVersion%
+timeout /t 3 > nul
 svn commit %projectDir% -m "%releaseMessage%"
 svn update %projectDir%
 echo *****************************************>> %FirmwareReleaseLogFile%
