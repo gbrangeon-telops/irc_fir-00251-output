@@ -66,6 +66,12 @@ setws -switch "d:/Telops/fir-00251-Output/sdk"
 #Clean projects
 projects -clean
 
+#prebuild
+source "D:/Telops/FIR-00251-Output/bin/scripts/generateBuildInfoFile.tcl"
+set scriptEnvironment "D:/Telops/FIR-00251-Output/bin/scripts/setEnvironment.tcl"
+genCore $scriptEnvironment "70" 
+genCore $scriptEnvironment "160" 
+
 #Build projects
 projects -build -type bsp -name standalone_bsp_70
 projects -build -type app -name fir_00251_output_70
