@@ -10,11 +10,5 @@ if {$create_project == 1} {
    create_output_sw
 }
 
-#prebuild
-source "D:/Telops/FIR-00251-Output/bin/scripts/generateBuildInfoFile.tcl"
-set scriptEnvironment "D:/Telops/FIR-00251-Output/bin/scripts/setEnvironment.tcl"
-genCore $scriptEnvironment "70" 
-genCore $scriptEnvironment "160" 
-
 #Build project
 build_output_sw
