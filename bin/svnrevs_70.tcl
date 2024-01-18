@@ -1,4 +1,4 @@
 set rel_out_hw_rev 29279
-set rel_out_sw_rev 29779
+set rel_out_sw_rev 29612
 set rel_out_boot_rev 0
-set rel_out_common_rev 29734
+set rel_out_common_rev 29542
