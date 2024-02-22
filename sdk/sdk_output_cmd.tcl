@@ -43,6 +43,13 @@ if {[catch {createbsp -name standalone_bsp_160 -hwproject hw_platform_160 -proc 
 #Import projects
 importprojects "D:/Telops/FIR-00251-Output/sdk"
 
+
+#Import makefile
+file delete "D:/Telops/FIR-00251-Output/sdk/fir_00251_output_70/makefile.defs"
+file link "D:/Telops/FIR-00251-Output/sdk/fir_00251_output_70/makefile.defs" "D:/Telops/FIR-00251-Output/sdk/makefile.defs"
+file delete "D:/Telops/FIR-00251-Output/sdk/fir_00251_output_160/makefile.defs"
+file link "D:/Telops/FIR-00251-Output/sdk/fir_00251_output_160/makefile.defs" "D:/Telops/FIR-00251-Output/sdk/makefile.defs"
+
 #Clean projects
 projects -clean
 
@@ -65,12 +72,6 @@ setws -switch "d:/Telops/fir-00251-Output/sdk"
 
 #Clean projects
 projects -clean
-
-#prebuild
-source "D:/Telops/FIR-00251-Output/bin/scripts/generateBuildInfoFile.tcl"
-set scriptEnvironment "D:/Telops/FIR-00251-Output/bin/scripts/setEnvironment.tcl"
-genCore $scriptEnvironment "70" 
-genCore $scriptEnvironment "160" 
 
 #Build projects
 projects -build -type bsp -name standalone_bsp_70
