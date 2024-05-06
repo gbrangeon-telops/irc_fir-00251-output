@@ -905,10 +905,10 @@ void SDIIntf_ConfigureOutput(t_SdiIntf *pSdiIntf)
  */
 void SDIIntf_UpdateVideoOutput(t_SdiIntf *pSdiCtrl, const gcRegistersData_t *pGCRegs)
 {
-   if (pGCRegs->SensorWidth == 0 || pGCRegs->SensorHeight == 0)
+   if (pGCRegs->WidthMax == 0 || pGCRegs->HeightMax == 0)
       return;
 
-   if (pGCRegs->SensorWidth >= 1280 && pGCRegs->SensorHeight >= 1024)
+   if (pGCRegs->WidthMax >= 1280 && pGCRegs->HeightMax >= 1024)
       pSdiCtrl->SDI_720pN_1080p = SDI_1080p;         //Select SDI output mode
    else
       pSdiCtrl->SDI_720pN_1080p = SDI_720p;         //Select SDI output mode

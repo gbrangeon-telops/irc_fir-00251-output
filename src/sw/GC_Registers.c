@@ -31,7 +31,7 @@
 
 /* AUTO-CODE BEGIN */
 // Auto-generated GeniCam library.
-// Generated from XML camera definition file version 13.3.1
+// Generated from XML camera definition file version 13.4.0
 // using generateGenICamCLib.m Matlab script.
 
 // GenICam global variables definition
@@ -78,6 +78,7 @@ gcRegistersData_t gcRegsDataFactory = {
    /* FValSize = */ 0,
    /* FWMode = */ 0,
    /* Height = */ 0,
+   /* HeightMax = */ 0,
    /* IsActiveFlags = */ 0,
    /* LValSize = */ 0,
    /* MemoryBufferLegacyMode = */ 0,
@@ -119,7 +120,8 @@ gcRegistersData_t gcRegsDataFactory = {
    /* VideoFreeze = */ 0,
    /* VideoReverseX = */ 1,
    /* VideoReverseY = */ 1,
-   /* Width = */ 0
+   /* Width = */ 0,
+   /* WidthMax = */ 0
 };
 
 /**
@@ -210,6 +212,7 @@ void GC_Registers_Init()
    gcRegsDef[FValSizeIdx].p_data = &gcRegsData.FValSize;
    gcRegsDef[FWModeIdx].p_data = &gcRegsData.FWMode;
    gcRegsDef[HeightIdx].p_data = &gcRegsData.Height;
+   gcRegsDef[HeightMaxIdx].p_data = &gcRegsData.HeightMax;
    gcRegsDef[IsActiveFlagsIdx].p_data = &gcRegsData.IsActiveFlags;
    gcRegsDef[LValSizeIdx].p_data = &gcRegsData.LValSize;
    gcRegsDef[MemoryBufferLegacyModeIdx].p_data = &gcRegsData.MemoryBufferLegacyMode;
@@ -252,6 +255,7 @@ void GC_Registers_Init()
    gcRegsDef[VideoReverseXIdx].p_data = &gcRegsData.VideoReverseX;
    gcRegsDef[VideoReverseYIdx].p_data = &gcRegsData.VideoReverseY;
    gcRegsDef[WidthIdx].p_data = &gcRegsData.Width;
+   gcRegsDef[WidthMaxIdx].p_data = &gcRegsData.WidthMax;
 }
 
 /**

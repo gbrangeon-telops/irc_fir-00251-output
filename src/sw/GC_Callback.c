@@ -36,7 +36,7 @@ extern t_SdiIntf gSdiIntfCtrl;
 
 /* AUTO-CODE BEGIN */
 // Auto-generated GeniCam registers callback functions definition.
-// Generated from XML camera definition file version 13.3.1
+// Generated from XML camera definition file version 13.4.0
 // using updateGenICamCallback.m Matlab script.
 
 /**
@@ -76,6 +76,7 @@ void GC_Callback_Init()
    gcRegsDef[FValSizeIdx].callback =                                             &GC_FValSizeCallback;
    gcRegsDef[FWModeIdx].callback =                                               &GC_FWModeCallback;
    gcRegsDef[HeightIdx].callback =                                               &GC_HeightCallback;
+   gcRegsDef[HeightMaxIdx].callback =                                            &GC_HeightMaxCallback;
    gcRegsDef[IsActiveFlagsIdx].callback =                                        &GC_IsActiveFlagsCallback;
    gcRegsDef[LValSizeIdx].callback =                                             &GC_LValSizeCallback;
    gcRegsDef[MemoryBufferLegacyModeIdx].callback =                               &GC_MemoryBufferLegacyModeCallback;
@@ -123,6 +124,7 @@ void GC_Callback_Init()
    gcRegsDef[VideoReverseXIdx].callback =                                        &GC_VideoReverseXCallback;
    gcRegsDef[VideoReverseYIdx].callback =                                        &GC_VideoReverseYCallback;
    gcRegsDef[WidthIdx].callback =                                                &GC_WidthCallback;
+   gcRegsDef[WidthMaxIdx].callback =                                             &GC_WidthMaxCallback;
 }
 
 /**
@@ -630,6 +632,26 @@ void GC_HeightCallback(gcCallbackPhase_t phase, gcCallbackAccess_t access)
       GC_UpdateGiGe();
       GC_UpdateVideoConfiguration();
       GC_UpdateVideoAGCImageFraction();
+   }
+}
+
+/**
+ * HeightMax GenICam register callback function.
+ * 
+ * @param phase indicates whether the function is called before or
+ *    after the read or write operation.
+ * @param access indicates whether the operation is read or write.
+ */
+void GC_HeightMaxCallback(gcCallbackPhase_t phase, gcCallbackAccess_t access)
+{
+   if ((phase == GCCP_BEFORE) && (access == GCCA_READ))
+   {
+      
+   }
+
+   if ((phase == GCCP_AFTER) && (access == GCCA_WRITE))
+   {
+      SDIIntf_UpdateVideoOutput(&gSdiIntfCtrl, &gcRegsData);
    }
 }
 
@@ -1255,6 +1277,26 @@ void GC_WidthCallback(gcCallbackPhase_t phase, gcCallbackAccess_t access)
       GC_UpdateGiGe();
       GC_UpdateVideoConfiguration();
       GC_UpdateVideoAGCImageFraction();
+   }
+}
+
+/**
+ * WidthMax GenICam register callback function.
+ * 
+ * @param phase indicates whether the function is called before or
+ *    after the read or write operation.
+ * @param access indicates whether the operation is read or write.
+ */
+void GC_WidthMaxCallback(gcCallbackPhase_t phase, gcCallbackAccess_t access)
+{
+   if ((phase == GCCP_BEFORE) && (access == GCCA_READ))
+   {
+      
+   }
+
+   if ((phase == GCCP_AFTER) && (access == GCCA_WRITE))
+   {
+      SDIIntf_UpdateVideoOutput(&gSdiIntfCtrl, &gcRegsData);
    }
 }
 
