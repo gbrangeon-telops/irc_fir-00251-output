@@ -6,6 +6,9 @@
 # It assume segment have been name in the Adresse editor to start with "TEL_*"
 # This could be done(in adress editor) by clicking on the segment in the cell column
 # and changing the name in the adress segment properties windows
+#get root directory relative to this file
+set current_file_location_absolute_path [file normalize [file dirname [info script]]]
+source $current_file_location_absolute_path/setEnvironment.tcl
 
 open_bd_design [get_files *.bd]
 
@@ -14,7 +17,7 @@ set clkName [get_property NAME [get_bd_ports -filter {TYPE == clk && DIR == O}]]
 set clkFreq [get_property CONFIG.FREQ_HZ [get_bd_ports -filter {TYPE == clk && DIR == O}]]
 
 #open a file to write to
-set filename  "d:/telops/fir-00251-Output/src/sw/tel2000_param.h"
+set filename  "$projectDir/src/sw/tel2000_param.h"
 set fd1 [open $filename "w"]
 
 #Start to write the First line of the header file (DOXYGEN)

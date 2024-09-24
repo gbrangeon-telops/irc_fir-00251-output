@@ -1,6 +1,8 @@
+set current_file_location_absolute_path [file normalize [file dirname [info script]]]
+set parts [file split $current_file_location_absolute_path]
+set root_location_absolute_path [file join {*}[lrange $parts 0 end-2]]
 
-#Import build functions
-source "D:/Telops/FIR-00251-Output/sdk/sdk_output_cmd.tcl"
+source "sdk_output_cmd.tcl"
 
 #Parse arguments
 if {$argc >= 1} {set create_project [lindex $argv 0]} else {set create_project 1}

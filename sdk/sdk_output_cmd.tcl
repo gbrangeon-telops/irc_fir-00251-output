@@ -1,21 +1,22 @@
 proc create_output_sw {} {
 set current_path [exec pwd]
+global sdkDir
 
 #Switch directory
-cd "d:/Telops/fir-00251-Output/sdk"
+cd "$sdkDir"
 
 #Set workspace
-setws -switch "d:/Telops/fir-00251-Output/sdk"
+setws -switch "$sdkDir"
 
 #Create HW projects
-if {[catch {createhw -name hw_platform_70 -hwspec "D:/Telops/FIR-00251-Output/sdk/fir_251_output_top_70.hdf"} errMsg]} {
+if {[catch {createhw -name hw_platform_70 -hwspec "$sdkDir/fir_251_output_top_70.hdf"} errMsg]} {
     if { $errMsg == "Failed to create Hardware platform project hw_platform_70" } {
         puts $errMsg
     } else {
         error $errMsg
     }
 }
-if {[catch {createhw -name hw_platform_160 -hwspec "D:/Telops/FIR-00251-Output/sdk/fir_251_output_top_160.hdf"} errMsg]} {
+if {[catch {createhw -name hw_platform_160 -hwspec "$sdkDir/fir_251_output_top_160.hdf"} errMsg]} {
         if { $errMsg == "Failed to create Hardware platform project hw_platform_160" } {
         puts $errMsg
     } else {
@@ -41,14 +42,14 @@ if {[catch {createbsp -name standalone_bsp_160 -hwproject hw_platform_160 -proc 
 
 
 #Import projects
-importprojects "D:/Telops/FIR-00251-Output/sdk"
+importprojects "$sdkDir"
 
 
 #Import makefile
-file delete "D:/Telops/FIR-00251-Output/sdk/fir_00251_output_70/makefile.defs"
-file link "D:/Telops/FIR-00251-Output/sdk/fir_00251_output_70/makefile.defs" "D:/Telops/FIR-00251-Output/sdk/makefile.defs"
-file delete "D:/Telops/FIR-00251-Output/sdk/fir_00251_output_160/makefile.defs"
-file link "D:/Telops/FIR-00251-Output/sdk/fir_00251_output_160/makefile.defs" "D:/Telops/FIR-00251-Output/sdk/makefile.defs"
+file delete "$sdkDir/fir_00251_output_70/makefile.defs"
+file link "$sdkDir/fir_00251_output_70/makefile.defs" "$sdkDir/makefile.defs"
+file delete "$sdkDir/fir_00251_output_160/makefile.defs"
+file link "$sdkDir/fir_00251_output_160/makefile.defs" "$sdkDir/makefile.defs"
 
 #Clean projects
 projects -clean
@@ -63,12 +64,12 @@ cd $current_path
 
 proc build_output_sw {} {
 set current_path [exec pwd]
-
+global sdkDir
 #Switch directory
-cd "d:/Telops/fir-00251-Output/sdk"
+cd "$sdkDir/"
 
 #Set workspace
-setws -switch "d:/Telops/fir-00251-Output/sdk"
+setws -switch "$sdkDir/"
 
 #Clean projects
 projects -clean

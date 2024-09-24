@@ -10,6 +10,7 @@ compile=work
 [Library]
 fir_00251_output=.\fir_00251_output\fir_00251_output.lib
 work=.\src\work\work.lib
+secureip=c:\aldec\active-hdl 9.3\vlib\xilinx_vivado\verilog\secureip\secureip.lib
 
 [Settings]
 AccessRead=0
@@ -27,7 +28,7 @@ REFRESH_FLOW=1
 FAMILY=
 IMPL_TOOL=
 SYNTH_TOOL=
-fileopenfolder=D:\Telops\FIR-00251-Common\VHDL\decimator\Hdl
+fileopenfolder=D:\Telops\Git\irc_fir-00251-output\src
 
 [LocalVerilogSets]
 EnableSLP=1
@@ -52,6 +53,7 @@ AdditionalOptions=
 fir_00251_output=.
 Active_lib=
 work=.
+secureip=.
 
 [SpecTracer]
 WindowVisible=0
@@ -98,6 +100,7 @@ SDI\Decimator=1
 /..\..\src\fir_00251_output_build.do=-1
 /..\..\src\fir_251_output_top_70.bde=-1
 /..\..\src\fir_251_output_top_160.bde=-1
+/fir_00251_output_build_start.do=-1
 BD/..\..\..\src\BD\bd_wrapper.vhd=-1
 Clink/..\..\..\src\Clink\Hdl\CLINK_define.vhd=-1
 Clink/..\..\..\src\Clink\Hdl\Clink_intf.bde=-1
@@ -106,12 +109,12 @@ Clink/..\..\..\src\Clink\Hdl\Clink_Phy.vhd=-1
 Clink/..\..\..\src\Clink\Hdl\LineFraming.vhd=-1
 Clink/..\..\..\src\Clink\Hdl\Clink_port_mapper.vhd=-1
 Clink/..\..\..\src\Clink\Hdl\build_clink_intf.do=-1
-Common/..\..\..\..\FIR-00251-Common\VHDL\tel2000pkg.vhd=-1
-Common/..\..\..\..\FIR-00251-Common\compile_all_common.do=-1
+Common/..\..\..\..\irc_fir-00251-common\VHDL\tel2000pkg.vhd=-1
+Common/..\..\..\..\irc_fir-00251-common\compile_all_common.do=-1
 Common/..\..\..\src\compil_utilities.do=-1
-FrameBuffer/..\..\..\..\FIR-00251-Common\VHDL\FrameBuffer\FB_define.vhd=-1
+FrameBuffer/..\..\..\..\irc_fir-00251-common\VHDL\FrameBuffer\FB_define.vhd=-1
 FrameBuffer/..\..\..\src\FrameBuffer\HDL\frameBuffer_intf.bde=-1
-FrameBuffer/..\..\..\..\FIR-00251-Common\VHDL\FrameBuffer\axis64_img_sof_output.vhd=-1
+FrameBuffer/..\..\..\..\irc_fir-00251-common\VHDL\FrameBuffer\axis64_img_sof_output.vhd=-1
 FrameBuffer/..\..\..\src\FrameBuffer\HDL\datamover_wrapper.vhd=-1
 FrameBuffer/..\..\..\src\FrameBuffer\HDL\fb_ctrl.vhd=-1
 FrameBuffer/..\..\..\src\FrameBuffer\HDL\fb_fsm.vhd=-1
@@ -119,9 +122,9 @@ FrameBuffer/..\..\..\src\FrameBuffer\HDL\flow_manager.vhd=-1
 FrameBuffer/..\..\..\src\FrameBuffer\HDL\build_FrameBuffer_intf.do=-1
 MGT/..\..\..\src\mgt\Hdl\mgt_wrapper_data_video.bde=-1
 MGT/..\..\..\src\mgt\Hdl\mgt_block_data_video.bde=-1
-MGT/..\..\..\..\FIR-00251-Common\VHDL\MGT\Hdl\mgt_ctrl.vhd=-1
+MGT/..\..\..\..\irc_fir-00251-common\VHDL\MGT\Hdl\mgt_ctrl.vhd=-1
 MGT/..\..\..\src\mgt\Hdl\mgt_stream_unmerger.vhd=-1
-MGT/..\..\..\..\FIR-00251-Common\VHDL\MGT\Hdl\compile_mgt_wrapper.do=-1
+MGT/..\..\..\..\irc_fir-00251-common\VHDL\MGT\Hdl\compile_mgt_wrapper.do=-1
 MGT/..\..\..\src\mgt\Hdl\compil_mgt.do=-1
 Pleora/..\..\..\src\pleora_intf\HDL\GIGE_define.vhd=-1
 Pleora/..\..\..\src\pleora_intf\HDL\pleora_intf.bde=-1
@@ -129,10 +132,10 @@ Pleora/..\..\..\src\pleora_intf\HDL\Gige_Clink_phy.vhd=-1
 Pleora/..\..\..\src\pleora_intf\HDL\Gige_sync_intf.vhd=-1
 Pleora/..\..\..\src\pleora_intf\HDL\pleora_ctrl.vhd=-1
 Pleora/..\..\..\src\pleora_intf\HDL\build_gige_intf.do=-1
-SDI/..\..\..\..\FIR-00251-Common\VHDL\FrameBuffer\FB_define.vhd=-1
+SDI/..\..\..\..\irc_fir-00251-common\VHDL\FrameBuffer\FB_define.vhd=-1
 SDI/..\..\..\src\SDI\HDL\sdi_output.bde=-1
-SDI/..\..\..\..\FIR-00251-Common\VHDL\Utilities\axil32_addr_demux4.vhd=-1
-SDI/..\..\..\..\FIR-00251-Common\VHDL\FrameBuffer\axis64_img_sof_output.vhd=-1
+SDI/..\..\..\..\irc_fir-00251-common\VHDL\Utilities\axil32_addr_demux4.vhd=-1
+SDI/..\..\..\..\irc_fir-00251-common\VHDL\FrameBuffer\axis64_img_sof_output.vhd=-1
 SDI/..\..\..\src\SDI\HDL\BadFrameResync.vhd=-1
 SDI/..\..\..\src\SDI\HDL\fb_sdi_fsm.vhd=-1
 SDI/..\..\..\src\SDI\HDL\gtx_reset_process.vhd=-1
@@ -158,17 +161,18 @@ SDI\Colormap/..\..\..\..\src\SDI\colormap\HDL\colormap_top.bde=-1
 SDI\Colormap/..\..\..\..\src\SDI\colormap\HDL\color_map_mem.bde=-1
 SDI\Colormap/..\..\..\..\src\SDI\colormap\HDL\colormap_mem_wrap.vhd=-1
 SDI\Colormap/..\..\..\..\src\SDI\colormap\HDL\x_to_add.bde=-1
-SDI\Decimator/..\..\..\..\..\FIR-00251-Common\VHDL\decimator\Hdl\build_decimator.do=-1
-SDI\Decimator/..\..\..\..\..\FIR-00251-Common\VHDL\decimator\Hdl\column_decimator.vhd=-1
-SDI\Decimator/..\..\..\..\..\FIR-00251-Common\VHDL\decimator\Hdl\decimator.bde=-1
-SDI\Decimator/..\..\..\..\..\FIR-00251-Common\VHDL\decimator\Hdl\decimator_define.vhd=-1
-SDI\Decimator/..\..\..\..\..\FIR-00251-Common\VHDL\decimator\Hdl\row_decimator.vhd=-1
+SDI\Decimator/..\..\..\..\..\irc_fir-00251-common\VHDL\decimator\Hdl\build_decimator.do=-1
+SDI\Decimator/..\..\..\..\..\irc_fir-00251-common\VHDL\decimator\Hdl\column_decimator.vhd=-1
+SDI\Decimator/..\..\..\..\..\irc_fir-00251-common\VHDL\decimator\Hdl\decimator.bde=-1
+SDI\Decimator/..\..\..\..\..\irc_fir-00251-common\VHDL\decimator\Hdl\decimator_define.vhd=-1
+SDI\Decimator/..\..\..\..\..\irc_fir-00251-common\VHDL\decimator\Hdl\row_decimator.vhd=-1
 
 [Files.Data]
 .\..\src\fir_251_output_top.bde=Block Diagram
 .\..\src\fir_00251_output_build.do=Macro
 .\..\src\fir_251_output_top_70.bde=Block Diagram
 .\..\src\fir_251_output_top_160.bde=Block Diagram
+.\src\fir_00251_output_build_start.do=Macro
 .\..\src\BD\bd_wrapper.vhd=VHDL Source Code
 .\..\src\Clink\Hdl\CLINK_define.vhd=VHDL Source Code
 .\..\src\Clink\Hdl\Clink_intf.bde=Block Diagram
@@ -177,12 +181,12 @@ SDI\Decimator/..\..\..\..\..\FIR-00251-Common\VHDL\decimator\Hdl\row_decimator.v
 .\..\src\Clink\Hdl\LineFraming.vhd=VHDL Source Code
 .\..\src\Clink\Hdl\Clink_port_mapper.vhd=VHDL Source Code
 .\..\src\Clink\Hdl\build_clink_intf.do=Macro
-.\..\..\FIR-00251-Common\VHDL\tel2000pkg.vhd=VHDL Source Code
-.\..\..\FIR-00251-Common\compile_all_common.do=Macro
+.\..\..\irc_fir-00251-common\VHDL\tel2000pkg.vhd=VHDL Source Code
+.\..\..\irc_fir-00251-common\compile_all_common.do=Macro
 .\..\src\compil_utilities.do=Macro
-.\..\..\FIR-00251-Common\VHDL\FrameBuffer\FB_define.vhd=VHDL Source Code
+.\..\..\irc_fir-00251-common\VHDL\FrameBuffer\FB_define.vhd=VHDL Source Code
 .\..\src\FrameBuffer\HDL\frameBuffer_intf.bde=Block Diagram
-.\..\..\FIR-00251-Common\VHDL\FrameBuffer\axis64_img_sof_output.vhd=VHDL Source Code
+.\..\..\irc_fir-00251-common\VHDL\FrameBuffer\axis64_img_sof_output.vhd=VHDL Source Code
 .\..\src\FrameBuffer\HDL\datamover_wrapper.vhd=VHDL Source Code
 .\..\src\FrameBuffer\HDL\fb_ctrl.vhd=VHDL Source Code
 .\..\src\FrameBuffer\HDL\fb_fsm.vhd=VHDL Source Code
@@ -190,9 +194,9 @@ SDI\Decimator/..\..\..\..\..\FIR-00251-Common\VHDL\decimator\Hdl\row_decimator.v
 .\..\src\FrameBuffer\HDL\build_FrameBuffer_intf.do=Macro
 .\..\src\mgt\Hdl\mgt_wrapper_data_video.bde=Block Diagram
 .\..\src\mgt\Hdl\mgt_block_data_video.bde=Block Diagram
-.\..\..\FIR-00251-Common\VHDL\MGT\Hdl\mgt_ctrl.vhd=VHDL Source Code
+.\..\..\irc_fir-00251-common\VHDL\MGT\Hdl\mgt_ctrl.vhd=VHDL Source Code
 .\..\src\mgt\Hdl\mgt_stream_unmerger.vhd=VHDL Source Code
-.\..\..\FIR-00251-Common\VHDL\MGT\Hdl\compile_mgt_wrapper.do=Macro
+.\..\..\irc_fir-00251-common\VHDL\MGT\Hdl\compile_mgt_wrapper.do=Macro
 .\..\src\mgt\Hdl\compil_mgt.do=Macro
 .\..\src\pleora_intf\HDL\GIGE_define.vhd=VHDL Source Code
 .\..\src\pleora_intf\HDL\pleora_intf.bde=Block Diagram
@@ -201,7 +205,7 @@ SDI\Decimator/..\..\..\..\..\FIR-00251-Common\VHDL\decimator\Hdl\row_decimator.v
 .\..\src\pleora_intf\HDL\pleora_ctrl.vhd=VHDL Source Code
 .\..\src\pleora_intf\HDL\build_gige_intf.do=Macro
 .\..\src\SDI\HDL\sdi_output.bde=Block Diagram
-.\..\..\FIR-00251-Common\VHDL\Utilities\axil32_addr_demux4.vhd=VHDL Source Code
+.\..\..\irc_fir-00251-common\VHDL\Utilities\axil32_addr_demux4.vhd=VHDL Source Code
 .\..\src\SDI\HDL\BadFrameResync.vhd=VHDL Source Code
 .\..\src\SDI\HDL\fb_sdi_fsm.vhd=VHDL Source Code
 .\..\src\SDI\HDL\gtx_reset_process.vhd=VHDL Source Code
@@ -227,11 +231,11 @@ SDI\Decimator/..\..\..\..\..\FIR-00251-Common\VHDL\decimator\Hdl\row_decimator.v
 .\..\src\SDI\colormap\HDL\color_map_mem.bde=Block Diagram
 .\..\src\SDI\colormap\HDL\colormap_mem_wrap.vhd=VHDL Source Code
 .\..\src\SDI\colormap\HDL\x_to_add.bde=Block Diagram
-.\..\..\FIR-00251-Common\VHDL\decimator\Hdl\build_decimator.do=Macro
-.\..\..\FIR-00251-Common\VHDL\decimator\Hdl\column_decimator.vhd=VHDL Source Code
-.\..\..\FIR-00251-Common\VHDL\decimator\Hdl\decimator.bde=Block Diagram
-.\..\..\FIR-00251-Common\VHDL\decimator\Hdl\decimator_define.vhd=VHDL Source Code
-.\..\..\FIR-00251-Common\VHDL\decimator\Hdl\row_decimator.vhd=VHDL Source Code
+.\..\..\irc_fir-00251-common\VHDL\decimator\Hdl\build_decimator.do=Macro
+.\..\..\irc_fir-00251-common\VHDL\decimator\Hdl\column_decimator.vhd=VHDL Source Code
+.\..\..\irc_fir-00251-common\VHDL\decimator\Hdl\decimator.bde=Block Diagram
+.\..\..\irc_fir-00251-common\VHDL\decimator\Hdl\decimator_define.vhd=VHDL Source Code
+.\..\..\irc_fir-00251-common\VHDL\decimator\Hdl\row_decimator.vhd=VHDL Source Code
 
 [file_out:/..\..\src\fir_251_output_top.bde]
 /..\compile\fir_251_output_top.vhd=-1
@@ -284,6 +288,6 @@ SDI\Colormap/..\..\..\compile\color_map_mem.vhd=-1
 [file_out:SDI\Colormap/..\..\..\..\src\SDI\colormap\HDL\x_to_add.bde]
 SDI\Colormap/..\..\..\compile\x_to_add.vhd=-1
 
-[file_out:SDI\Decimator/..\..\..\..\..\FIR-00251-Common\VHDL\decimator\Hdl\decimator.bde]
+[file_out:SDI\Decimator/..\..\..\..\..\irc_fir-00251-common\VHDL\decimator\Hdl\decimator.bde]
 SDI\Decimator/..\..\..\compile\decimator.vhd=-1
 

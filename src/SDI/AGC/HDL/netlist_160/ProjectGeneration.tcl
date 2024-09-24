@@ -1,7 +1,9 @@
 # Note: This file is produced automatically, and will be overwritten the next
 # time you press "Generate" in System Generator. 
 #
-
+#get root directory relative to this file
+set current_file_location_absolute_path [file normalize [file dirname [info script]]]
+source $current_file_location_absolute_path/setEnvironment.tcl
 
 namespace eval ::xilinx::dsp::planaheaddriver {
 	set Compilation {HDL Netlist}
@@ -33,7 +35,7 @@ namespace eval ::xilinx::dsp::planaheaddriver {
 	set SimulationTime {212.50000000 ns}
 	set SynthStrategyName {Vivado Synthesis Defaults}
 	set SynthesisTool {Vivado}
-	set TargetDir {D:/Telops/FIR-00251-Output/src/SDI/AGC/HDL/netlist_160}
+	set TargetDir {$root_location_absolute_path/src/SDI/AGC/HDL/netlist_160}
 	set TopLevelModule {histogram_axis_tmi}
 	set TopLevelPortInterface {}
 	dict set TopLevelPortInterface tmi_mosi_rnw Name {tmi_mosi_rnw}

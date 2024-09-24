@@ -1,8 +1,11 @@
 set fpgaSize=%1
 set baseName=fir_00251_output_%fpgaSize%
 
-set commonDir=D:\Telops\FIR-00251-Common
-set projectDir=D:\Telops\FIR-00251-Output
+set currentDir=%~dp0
+set rootDir=%~dp0/../../../
+
+set commonDir=%rootDir%\irc_fir-00251-common
+set projectDir=%rootDir%\irc_fir-00251-output
 set sdkDir=%projectDir%\sdk
 set srcDir=%projectDir%\src
 set binDir=%projectDir%\bin

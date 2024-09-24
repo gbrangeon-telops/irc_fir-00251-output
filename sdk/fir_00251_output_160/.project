@@ -28,122 +28,136 @@
 		<link>
 			<name>src/AGC</name>
 			<type>2</type>
-			<location>D:/Telops/FIR-00251-Output/src/SDI/AGC/Drivers</location>
+			<locationURI>FIR_00251_OUTPUT/src/SDI/AGC/Drivers</locationURI>
 		</link>
 		<link>
 			<name>src/BuildInfo</name>
 			<type>2</type>
-			<locationURI>PARENT-2-PROJECT_LOC/src/BuildInfo</locationURI>
+			<locationURI>FIR_00251_OUTPUT/src/BuildInfo</locationURI>
 		</link>
 		<link>
 			<name>src/BuiltInTestsDef.c</name>
 			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/src/sw/BuiltInTestsDef.c</locationURI>
+			<locationURI>FIR_00251_OUTPUT/src/sw/BuiltInTestsDef.c</locationURI>
 		</link>
 		<link>
 			<name>src/BuiltInTestsDef.h</name>
 			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/src/sw/BuiltInTestsDef.h</locationURI>
+			<locationURI>FIR_00251_OUTPUT/src/sw/BuiltInTestsDef.h</locationURI>
 		</link>
 		<link>
 			<name>src/Clink</name>
 			<type>2</type>
-			<location>D:/Telops/FIR-00251-Output/src/Clink/Drivers</location>
+			<locationURI>FIR_00251_OUTPUT/src/Clink/Drivers</locationURI>
 		</link>
 		<link>
 			<name>src/Common</name>
 			<type>2</type>
-			<location>D:/Telops/FIR-00251-Common/Software</location>
+			<locationURI>FIR_00251_COMMON/Software</locationURI>
 		</link>
 		<link>
 			<name>src/DT_CommandsDef.c</name>
 			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/src/sw/DT_CommandsDef.c</locationURI>
+			<locationURI>FIR_00251_OUTPUT/src/sw/DT_CommandsDef.c</locationURI>
 		</link>
 		<link>
 			<name>src/FrameBuffer</name>
 			<type>2</type>
-			<location>D:/Telops/FIR-00251-Output/src/FrameBuffer/Drivers</location>
+			<locationURI>FIR_00251_OUTPUT/src/FrameBuffer/Drivers</locationURI>
 		</link>
 		<link>
 			<name>src/GC_Callback.c</name>
 			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/src/sw/GC_Callback.c</locationURI>
+			<locationURI>FIR_00251_OUTPUT/src/sw/GC_Callback.c</locationURI>
 		</link>
 		<link>
 			<name>src/GC_Callback.h</name>
 			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/src/sw/GC_Callback.h</locationURI>
+			<locationURI>FIR_00251_OUTPUT/src/sw/GC_Callback.h</locationURI>
 		</link>
 		<link>
 			<name>src/GC_Registers.c</name>
 			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/src/sw/GC_Registers.c</locationURI>
+			<locationURI>FIR_00251_OUTPUT/src/sw/GC_Registers.c</locationURI>
 		</link>
 		<link>
 			<name>src/GC_Registers.h</name>
 			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/src/sw/GC_Registers.h</locationURI>
+			<locationURI>FIR_00251_OUTPUT/src/sw/GC_Registers.h</locationURI>
 		</link>
 		<link>
 			<name>src/Pleora</name>
 			<type>2</type>
-			<locationURI>PARENT-2-PROJECT_LOC/src/pleora_intf/Drivers</locationURI>
+			<locationURI>FIR_00251_OUTPUT/src/pleora_intf/Drivers</locationURI>
 		</link>
 		<link>
 			<name>src/SDI</name>
 			<type>2</type>
-			<locationURI>PARENT-2-PROJECT_LOC/src/SDI/driver</locationURI>
+			<locationURI>FIR_00251_OUTPUT/src/SDI/driver</locationURI>
 		</link>
 		<link>
 			<name>src/XADC_Channels.c</name>
 			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/src/sw/XADC_Channels.c</locationURI>
+			<locationURI>FIR_00251_OUTPUT/src/sw/XADC_Channels.c</locationURI>
 		</link>
 		<link>
 			<name>src/XADC_Channels.h</name>
 			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/src/sw/XADC_Channels.h</locationURI>
+			<locationURI>FIR_00251_OUTPUT/src/sw/XADC_Channels.h</locationURI>
 		</link>
 		<link>
 			<name>src/output_ctrl.c</name>
 			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/src/sw/output_ctrl.c</locationURI>
+			<locationURI>FIR_00251_OUTPUT/src/sw/output_ctrl.c</locationURI>
 		</link>
 		<link>
 			<name>src/output_init.c</name>
 			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/src/sw/output_init.c</locationURI>
+			<locationURI>FIR_00251_OUTPUT/src/sw/output_init.c</locationURI>
 		</link>
 		<link>
 			<name>src/output_init.h</name>
 			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/src/sw/output_init.h</locationURI>
+			<locationURI>FIR_00251_OUTPUT/src/sw/output_init.h</locationURI>
 		</link>
 		<link>
 			<name>src/startup</name>
 			<type>2</type>
-			<locationURI>PARENT-2-PROJECT_LOC/src/startup</locationURI>
+			<locationURI>FIR_00251_OUTPUT/src/startup</locationURI>
 		</link>
 		<link>
 			<name>src/tel2000_param.h</name>
 			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/src/sw/tel2000_param.h</locationURI>
+			<locationURI>FIR_00251_OUTPUT/src/sw/tel2000_param.h</locationURI>
 		</link>
 		<link>
 			<name>src/usart</name>
 			<type>2</type>
-			<locationURI>PARENT-3-PROJECT_LOC/FIR-00251-Common/VHDL/USART/Drivers</locationURI>
+			<locationURI>FIR_00251_COMMON/VHDL/USART/Drivers</locationURI>
 		</link>
 		<link>
 			<name>src/verbose.h</name>
 			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/src/sw/verbose.h</locationURI>
+			<locationURI>FIR_00251_OUTPUT/src/sw/verbose.h</locationURI>
 		</link>
 		<link>
 			<name>src/SDI/colormap</name>
 			<type>2</type>
-			<locationURI>PARENT-2-PROJECT_LOC/src/SDI/colormap/driver</locationURI>
+			<locationURI>FIR_00251_OUTPUT/src/SDI/colormap/driver</locationURI>
 		</link>
 	</linkedResources>
+	<variableList>
+		<variable>
+			<name>FIR_00251_COMMON</name>
+			<value>$%7BROOT_LOC%7D/ircam_fir-00251-common_temp</value>
+		</variable>
+		<variable>
+			<name>FIR_00251_OUTPUT</name>
+			<value>$%7BROOT_LOC%7D/ircam_fir-00251-output_temp</value>
+		</variable>
+		<variable>
+			<name>ROOT_LOC</name>
+			<value>$%7BPARENT-3-PROJECT_LOC%7D</value>
+		</variable>
+	</variableList>
 </projectDescription>

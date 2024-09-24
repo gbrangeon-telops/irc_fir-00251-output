@@ -28,7 +28,7 @@
 		<link>
 			<name>src/AGC</name>
 			<type>2</type>
-			<location>D:/Telops/FIR-00251-Output/src/SDI/AGC/Drivers</location>
+			<locationURI>FIR_00251_OUTPUT/src/SDI/AGC/Drivers</locationURI>
 		</link>
 		<link>
 			<name>src/BuildInfo</name>
@@ -48,12 +48,12 @@
 		<link>
 			<name>src/Clink</name>
 			<type>2</type>
-			<location>D:/Telops/FIR-00251-Output/src/Clink/Drivers</location>
+			<locationURI>FIR_00251_OUTPUT/src/Clink/Drivers</locationURI>
 		</link>
 		<link>
 			<name>src/Common</name>
 			<type>2</type>
-			<location>D:/Telops/FIR-00251-Common/Software</location>
+			<locationURI>FIR_00251_COMMON/Software</locationURI>
 		</link>
 		<link>
 			<name>src/DT_CommandsDef.c</name>
@@ -63,7 +63,7 @@
 		<link>
 			<name>src/FrameBuffer</name>
 			<type>2</type>
-			<location>D:/Telops/FIR-00251-Output/src/FrameBuffer/Drivers</location>
+			<locationURI>FIR_00251_OUTPUT/src/FrameBuffer/Drivers</locationURI>
 		</link>
 		<link>
 			<name>src/GC_Callback.c</name>
@@ -133,7 +133,7 @@
 		<link>
 			<name>src/usart</name>
 			<type>2</type>
-			<locationURI>PARENT-3-PROJECT_LOC/FIR-00251-Common/VHDL/USART/Drivers</locationURI>
+			<locationURI>FIR_00251_COMMON/VHDL/USART/Drivers</locationURI>
 		</link>
 		<link>
 			<name>src/verbose.h</name>
@@ -146,4 +146,18 @@
 			<locationURI>PARENT-2-PROJECT_LOC/src/SDI/colormap/driver</locationURI>
 		</link>
 	</linkedResources>
+	<variableList>
+		<variable>
+			<name>FIR_00251_COMMON</name>
+			<value>$%7BROOT_LOC%7D/ircam_fir-00251-common_temp</value>
+		</variable>
+		<variable>
+			<name>FIR_00251_OUTPUT</name>
+			<value>$%7BROOT_LOC%7D/ircam_fir-00251-output_temp</value>
+		</variable>
+		<variable>
+			<name>ROOT_LOC</name>
+			<value>$%7BPARENT-3-PROJECT_LOC%7D</value>
+		</variable>
+	</variableList>
 </projectDescription>

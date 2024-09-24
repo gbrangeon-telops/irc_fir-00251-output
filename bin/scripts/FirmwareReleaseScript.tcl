@@ -30,25 +30,22 @@ proc updateReleaseSvnRevsFile {fpgaSize} {
         puts "Error: Can't delete $revFile"
     }
     set Vfo [open $revFile w]
-    puts $Vfo "set rel_out_hw_rev \$WCREV\$"
+    set rev [git_get_rev ${hwFile} 1]
+    puts $Vfo "set rel_out_hw_rev \"$rev\""
     close $Vfo
-    if {[ catch {[exec $svn_subwcrev $hwFile $revFile $revFile]} ]} {
-        puts "SubWCRev.exe Hw done"
-    }
+   
     set Vfo [open $revFile a]
-    puts $Vfo "set rel_out_sw_rev \$WCREV\$"
+    set rev [git_get_rev ${elfFile} 1]
+
+    puts $Vfo "set rel_out_sw_rev \"$rev\""
     close $Vfo
-    if {[ catch {[exec $svn_subwcrev $elfFile $revFile $revFile]} ]} {
-        puts "SubWCRev.exe elf done"
-    }
+    
     set Vfo [open $revFile a]
     puts $Vfo "set rel_out_boot_rev 0"
-    puts $Vfo "set rel_out_common_rev \$WCREV\$"
-    close $Vfo
-    if {[ catch {[exec $svn_subwcrev $commonDir $revFile $revFile]} ]} {
-        puts "SubWCRev.exe boot done"
-    }
+    set rev [git_get_rev ${commonDir} 1]
 
+    puts $Vfo "set rel_out_common_rev \"$rev\""
+    close $Vfo
 }
 
 proc read_file {filename} {
@@ -70,23 +67,29 @@ proc verifyRelease {outputBuildInfoFile outputReleaseInfoFile outputFpgaSize} {
     set outputBuildInfoBootLoader ""
     set outputBuildInfoCommon ""
 
-    if {[regexp {SVN_HARDWARE_REV[^\n\r0-9]+(\d+)} $outputBuildInfoFileSubstr match outputBuildInfoHardware]} {
-        set outputBuildInfoHardware $outputBuildInfoHardware
+    if {[regexp {SVN_HARDWARE_REV[^\n\r0-9]+0x([a-fA-F0-9]+)} $outputBuildInfoFileSubstr match outputBuildInfoHardware]} {
+	    set outputBuildInfoHardware $outputBuildInfoHardware
+		puts "outputBuildInfoHardware=$outputBuildInfoHardware"
     } else {
         set error 1
     }
-    if {[regexp {SVN_SOFTWARE_REV[^\n\r0-9]+(\d+)} $outputBuildInfoFileSubstr match outputBuildInfoSoftware]} {
+    if {[regexp {SVN_SOFTWARE_REV[^\n\r0-9]+0x([a-fA-F0-9]+)} $outputBuildInfoFileSubstr match outputBuildInfoSoftware]} {
         set outputBuildInfoSoftware $outputBuildInfoSoftware
+		puts "outputBuildInfoSoftware=$outputBuildInfoSoftware"
     } else {
         set error 1
     }
     if {[regexp {SVN_BOOTLOADER_REV[^\n\r0-9]+(\d+)} $outputBuildInfoFileSubstr match outputBuildInfoBootLoader]} {
         set outputBuildInfoBootLoader $outputBuildInfoBootLoader
+		puts "outputBuildInfoBootLoader=$outputBuildInfoBootLoader"
+
     } else {
         set error 1
     }
-    if {[regexp {SVN_COMMON_REV[^\n\r0-9]+(\d+)} $outputBuildInfoFileSubstr match outputBuildInfoCommon]} {
+    if {[regexp {SVN_COMMON_REV[^\n\r0-9]+0x([a-fA-F0-9]+)} $outputBuildInfoFileSubstr match outputBuildInfoCommon]} {
         set outputBuildInfoCommon $outputBuildInfoCommon
+		puts "outputBuildInfoCommon=$outputBuildInfoCommon"
+
     } else {
         set error 1
     }
@@ -95,7 +98,7 @@ proc verifyRelease {outputBuildInfoFile outputReleaseInfoFile outputFpgaSize} {
         puts "Cannot parse proc build info file"
         exit 1
     }
-
+	
     # Parse output release info file
     set outputReleaseInfoFileStr [read_file $outputReleaseInfoFile]
     set outputReleaseInfoHardware ""
@@ -103,23 +106,28 @@ proc verifyRelease {outputBuildInfoFile outputReleaseInfoFile outputFpgaSize} {
     set outputReleaseInfoBootLoader ""
     set outputReleaseInfoCommon ""
 
-    if {[regexp {rel_out_hw_rev[^\n\r0-9]+(\d+)} $outputReleaseInfoFileStr match outputReleaseInfoHardware]} {
+    if {[regexp {rel_out_hw_rev[^\n\r0-9]+\"([a-zA-Z0-9]+)\"} $outputReleaseInfoFileStr match outputReleaseInfoHardware]} {
         set outputReleaseInfoHardware $outputReleaseInfoHardware
+		puts "outputReleaseInfoHardware $outputReleaseInfoHardware"
     } else {
         set error 1
     }
-    if {[regexp {rel_out_sw_rev[^\n\r0-9]+(\d+)} $outputReleaseInfoFileStr match outputReleaseInfoSoftware]} {
+    if {[regexp {rel_out_sw_rev[^\n\r0-9]+\"([a-zA-Z0-9]+)\"} $outputReleaseInfoFileStr match outputReleaseInfoSoftware]} {
         set outputReleaseInfoSoftware $outputReleaseInfoSoftware
+		puts "outputReleaseInfoSoftware $outputReleaseInfoSoftware"	
     } else {
         set error 1
     }
     if {[regexp {rel_out_boot_rev[^\n\r0-9]+(\d+)} $outputReleaseInfoFileStr match outputReleaseInfoBootLoader]} {
         set outputReleaseInfoBootLoader $outputReleaseInfoBootLoader
+		puts "outputReleaseInfoBootLoader $outputReleaseInfoBootLoader"
     } else {
         set error 1
     }
-    if {[regexp {rel_out_common_rev[^\n\r0-9]+(\d+)} $outputReleaseInfoFileStr match outputReleaseInfoCommon]} {
+    if {[regexp {rel_out_common_rev[^\n\r0-9]+\"([a-zA-Z0-9]+)\"} $outputReleaseInfoFileStr match outputReleaseInfoCommon]} {
         set outputReleaseInfoCommon $outputReleaseInfoCommon
+		puts "outputReleaseInfoCommon $outputReleaseInfoCommon"
+
     } else {
         set error 1
     }
@@ -143,8 +151,9 @@ proc verifyRelease {outputBuildInfoFile outputReleaseInfoFile outputFpgaSize} {
 
 }
 
-global scriptsDir
-set scriptsDir "D:/Telops/FIR-00251-Output/bin/scripts" 
+source setEnvironment.tcl
+#global scriptsDir
+#set scriptsDir "D:/Telops/FIR-00251-Output/bin/scripts" 
 
 set TestMode "None"
 #Argument check
@@ -153,8 +162,8 @@ if { $argc == 1 } {
 	set TestMode [lindex $argv 0 ]
 } 
 
-set projectDir "D:/Telops/FIR-00251-Output"
-set FirmwareReleaseVersionFile "D:/Telops/FIR-00251-Proc/bin/FirmwareReleaseVersion.txt"
+#set projectDir "D:/Telops/FIR-00251-Output"
+set FirmwareReleaseVersionFile "$procDir/bin/FirmwareReleaseVersion.txt"
 set FirmwareReleaseLogFile "$projectDir/bin/scripts/FirmwareRelease.log"
 set svnDir "http://einstein/svn/firmware/"
 set tortoiseSvnBin "C:/Program Files/TortoiseSVN/bin/svn.exe"
@@ -205,8 +214,7 @@ setEnvironmentVariable 70
 
 # Create and build for pre-release
 source  "$projectDir/sdk/sdk_output_cmd.tcl" 
-#base_dir is used in create and build
-set base_dir "d:/Telops/fir-00251-Output/sdk"
+#sdkDir is used in create and build
 if {$TestMode != "SkipOne"} {
     create_output_sw
     build_output_sw
@@ -241,8 +249,8 @@ if {$TestMode == "Debug"} {
 }
 
 set preReleaseMessage "Pre-release $firmwareReleaseVersion"
-exec $tortoiseSvnBin commit $projectDir -m \"$preReleaseMessage\"
-exec $tortoiseSvnBin update $projectDir
+exec git add -u
+exec git commit -m \"$preReleaseMessage\"
 
 puts $fid "*****************************************"
 puts $fid "Pre-release commit done"
@@ -319,8 +327,8 @@ puts $fid "END Release compile"
 puts ""
 
 set releaseMessage "Release $firmwareReleaseVersion"
-exec $tortoiseSvnBin commit $projectDir -m \"$releaseMessage\"
-exec $tortoiseSvnBin update $projectDir
+exec git add -u
+exec git commit -m \"$releaseMessage\"
 
 puts $fid "*****************************************"
 puts $fid "Release commit done"

@@ -120,10 +120,10 @@ add wave -noreg -logic {/fb_intf_tb/DUT/DM/fb_datamover/U0/s_axis_s2mm_tvalid}
 add wave -noreg -logic {/fb_intf_tb/DUT/DM/fb_datamover/U0/s_axis_s2mm_tready}
 add wave -noreg -hexadecimal -literal {/fb_intf_tb/DUT/DM/fb_datamover/U0/s2mm_dbg_sel}
 add wave -noreg -hexadecimal -literal {/fb_intf_tb/DUT/DM/fb_datamover/U0/s2mm_dbg_data}
-add wave -noreg -logic {/fb_intf_tb/DUT/DM/fb_datamover/U0/\<const0>\}
-add wave -noreg -logic {/fb_intf_tb/DUT/DM/fb_datamover/U0/\<const1>\}
-add wave -noreg -hexadecimal -literal {/fb_intf_tb/DUT/DM/fb_datamover/U0/\^s2mm_dbg_data\}
-add wave -noreg -hexadecimal -literal {/fb_intf_tb/DUT/DM/fb_datamover/U0/\^s2mm_wr_len\}
+add wave -noreg -logic {/fb_intf_tb/DUT/DM/fb_datamover/U0//<const0>/}
+add wave -noreg -logic {/fb_intf_tb/DUT/DM/fb_datamover/U0//<const1>/}
+add wave -noreg -hexadecimal -literal {/fb_intf_tb/DUT/DM/fb_datamover/U0//^s2mm_dbg_data/}
+add wave -noreg -hexadecimal -literal {/fb_intf_tb/DUT/DM/fb_datamover/U0//^s2mm_wr_len/}
 add wave -named_row "AXI_INTER"
 add wave -noreg -logic {/fb_intf_tb/U1/interconnect/INTERCONNECT_ACLK}
 add wave -noreg -logic {/fb_intf_tb/U1/interconnect/INTERCONNECT_ARESETN}

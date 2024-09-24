@@ -1,7 +1,10 @@
 proc create_output_project {project_name} {
-	
-	set base_dir "d:/Telops/FIR-00251-Output"
-	
+	global projectDir
+	puts projectDir=$projectDir
+
+	set base_dir "$projectDir"
+	puts projectDir=$projectDir
+
 	#force writable directory
 	file attributes $base_dir/xilinx/ -readonly 0
 	
@@ -10,8 +13,8 @@ proc create_output_project {project_name} {
 }
 
 proc build_output_project {} {
-	
-	set base_dir "d:/Telops/FIR-00251-Output"
+	global projectDir
+	set base_dir "$projectDir"
 	#Get project name
 	set proj_name [get_project]
 	#Get top level file name

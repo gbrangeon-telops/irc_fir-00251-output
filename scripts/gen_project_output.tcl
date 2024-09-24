@@ -1,18 +1,18 @@
+
 set proj_name "fir_0251_Output_$FPGA_SIZE"
-set root_dir "d:/Telops/fir-00251-Output"
-set script_dir $root_dir/scripts
-set proj_dir $root_dir/xilinx
-set src_dir $root_dir/src
-set aldec_dir $root_dir/aldec/compile
-set constr_dir $root_dir/src/constraint
-set ip_dir $root_dir/IP/$FPGA_SIZE
-set ip_2013_dir $root_dir/IP/2013/$FPGA_SIZE
-set common_hdl_dir "d:/Telops/common_hdl"
-set common_dir "d:/Telops/fir-00251-Common/VHDL"
+set script_dir $projectDir/scripts
+set proj_dir $projectDir/xilinx
+set src_dir $projectDir/src
+set aldec_dir $projectDir/aldec/compile
+set constr_dir $projectDir/src/constraint
+set ip_dir $projectDir/IP/$FPGA_SIZE
+set ip_2013_dir $projectDir/IP/2013/$FPGA_SIZE
+set common_hdl_dir "$commonHDLDir"
+set common_dir "$commonDir/VHDL"
 
 
 # Create project
-create_project $proj_name $proj_dir
+create_project $proj_name $proj_dir -force
 
 # Set project properties
 set obj [get_projects $proj_name]

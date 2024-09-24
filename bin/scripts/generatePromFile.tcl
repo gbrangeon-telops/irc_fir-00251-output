@@ -6,7 +6,10 @@ if { $argc == 1 } {
 }
 
 #set variables
-set project_dir "D:/Telops/FIR-00251-Output"
+set current_file_location_absolute_path [file normalize [file dirname [info script]]]
+
+source "$current_file_location_absolute_path/setEnvironment.tcl"
+set project_dir "$projectDir"
 set bin_dir "${project_dir}/bin"
 set sdk_dir "${project_dir}/sdk"
 set base_name "fir_00251_output_${fpga_size}"

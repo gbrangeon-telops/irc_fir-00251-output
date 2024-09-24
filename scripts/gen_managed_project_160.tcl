@@ -1,3 +1,7 @@
 set FPGA_SIZE 160
+#get root directory relative to this file
+set current_file_location_absolute_path [file normalize [file dirname [info script]]]
 
-source d:/Telops/FIR-00251-Output/scripts/gen_managed_project.tcl
+source $current_file_location_absolute_path/setEnvironment.tcl
+
+source $projectDir/scripts/gen_managed_project.tcl

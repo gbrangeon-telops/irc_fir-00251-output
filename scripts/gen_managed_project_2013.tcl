@@ -1,5 +1,5 @@
 set proj_name "managed_ip_project"
-set root_dir "D:/Telops/FIR-00251-Output"
+set root_dir "$root_location_absolute_path"
 set script_dir $root_dir/scripts
 set proj_dir $root_dir/IP/2013/$FPGA_SIZE/managed_ip_project
 set ip_dir $root_dir/IP/2013/$FPGA_SIZE

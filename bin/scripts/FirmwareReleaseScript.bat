@@ -1,3 +1,4 @@
-call D:\Telops\FIR-00251-Output\bin\scripts\setEnvironment.bat
+set currentDir=%~dp0
+call %currentDir%\setEnvironment.bat
 
 call %x_xsct% %scriptsDir%\FirmwareReleaseScript.tcl

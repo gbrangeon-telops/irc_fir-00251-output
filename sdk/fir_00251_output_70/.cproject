@@ -38,16 +38,16 @@
 								</option>
 								<option id="xilinx.gnu.compiler.dircategory.includes.2037104141" name="Include Paths" superClass="xilinx.gnu.compiler.dircategory.includes" valueType="includePath">
 									<listOptionValue builtIn="false" value="../../standalone_bsp_70/MCU_microblaze_0/include"/>
-									<listOptionValue builtIn="false" value="&quot;D:\Telops\FIR-00251-Output\src\SDI\AGC\Drivers&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc}/..\src\SDI\AGC\Drivers&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/SDI/colormap}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;D:\Telops\FIR-00251-Output\src\SDI\driver\tpg_driver&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;D:\Telops\FIR-00251-Output\src\SDI\driver&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;D:\Telops\FIR-00251-Output\src\SDI\driver\vscaler_driver&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc}/..\src\SDI\driver\tpg_driver&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc}/..\src\SDI\driver&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc}/..\src\SDI\driver\vscaler_driver&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;D:\Telops\FIR-00251-Common\Software&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;D:\Telops\FIR-00251-Output\src\sw&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc}/..\src\sw&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/fir_00251_output_70/src/Clink}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;D:\Telops\FIR-00251-Output\src\FrameBuffer\Drivers&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;D:\Telops\FIR-00251-Output\src\pleora_intf\Drivers&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc}/..\src\FrameBuffer\Drivers&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc}/..\src\pleora_intf\Drivers&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/fir_00251_output_70/src/BuildInfo}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/fir_00251_output_70/src/usart}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/fir_00251_output_70/src/startup}&quot;"/>
@@ -76,16 +76,16 @@
 								</option>
 								<option id="xilinx.gnu.compiler.dircategory.includes.1814613708" name="Include Paths" superClass="xilinx.gnu.compiler.dircategory.includes" valueType="includePath">
 									<listOptionValue builtIn="false" value="../../standalone_bsp_70/MCU_microblaze_0/include"/>
-									<listOptionValue builtIn="false" value="&quot;D:\Telops\FIR-00251-Output\src\SDI\AGC\Drivers&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc}/..\src\SDI\AGC\Drivers&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/SDI/colormap}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;D:\Telops\FIR-00251-Output\src\SDI\driver\tpg_driver&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;D:\Telops\FIR-00251-Output\src\SDI\driver&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;D:\Telops\FIR-00251-Output\src\SDI\driver\vscaler_driver&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc}/..\src\SDI\driver\tpg_driver&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc}/..\src\SDI\driver&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc}/..\src\SDI\driver\vscaler_driver&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;D:\Telops\FIR-00251-Common\Software&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;D:\Telops\FIR-00251-Output\src\sw&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc}/..\src\sw&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/fir_00251_output_70/src/Clink}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;D:\Telops\FIR-00251-Output\src\FrameBuffer\Drivers&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;D:\Telops\FIR-00251-Output\src\pleora_intf\Drivers&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc}/..\src\FrameBuffer\Drivers&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc}/..\src\pleora_intf\Drivers&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/fir_00251_output_70/src/BuildInfo}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/fir_00251_output_70/src/usart}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/fir_00251_output_70/src/startup}&quot;"/>
@@ -187,16 +187,16 @@
 								</option>
 								<option id="xilinx.gnu.compiler.dircategory.includes.1976150254" name="Include Paths" superClass="xilinx.gnu.compiler.dircategory.includes" valueType="includePath">
 									<listOptionValue builtIn="false" value="../../standalone_bsp_70/MCU_microblaze_0/include"/>
-									<listOptionValue builtIn="false" value="&quot;D:\Telops\FIR-00251-Output\src\SDI\AGC\Drivers&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc}/..\src\SDI\AGC\Drivers&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/SDI/colormap}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;D:\Telops\FIR-00251-Output\src\SDI\driver\tpg_driver&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;D:\Telops\FIR-00251-Output\src\SDI\driver&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;D:\Telops\FIR-00251-Output\src\SDI\driver\vscaler_driver&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;D:\Telops\FIR-00251-Common\Software&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;D:\Telops\FIR-00251-Output\src\sw&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc}/..\src\SDI\driver\tpg_driver&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc}/..\src\SDI\driver&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc}/..\src\SDI\driver\vscaler_driver&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${COMMON}\Software&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc}/..\src\sw&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/fir_00251_output_70/src/Clink}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;D:\Telops\FIR-00251-Output\src\FrameBuffer\Drivers&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;D:\Telops\FIR-00251-Output\src\pleora_intf\Drivers&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc}/..\src\FrameBuffer\Drivers&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc}/..\src\pleora_intf\Drivers&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/fir_00251_output_70/src/BuildInfo}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/fir_00251_output_70/src/usart}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/fir_00251_output_70/src/startup}&quot;"/>
@@ -219,16 +219,16 @@
 								</option>
 								<option id="xilinx.gnu.compiler.dircategory.includes.1811565750" name="Include Paths" superClass="xilinx.gnu.compiler.dircategory.includes" valueType="includePath">
 									<listOptionValue builtIn="false" value="../../standalone_bsp_70/MCU_microblaze_0/include"/>
-									<listOptionValue builtIn="false" value="&quot;D:\Telops\FIR-00251-Output\src\SDI\AGC\Drivers&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc}/..\src\SDI\AGC\Drivers&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/SDI/colormap}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;D:\Telops\FIR-00251-Output\src\SDI\driver\tpg_driver&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;D:\Telops\FIR-00251-Output\src\SDI\driver&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;D:\Telops\FIR-00251-Output\src\SDI\driver\vscaler_driver&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc}/..\src\SDI\driver\tpg_driver&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc}/..\src\SDI\driver&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc}/..\src\SDI\driver\vscaler_driver&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;D:\Telops\FIR-00251-Common\Software&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;D:\Telops\FIR-00251-Output\src\sw&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc}/..\src\sw&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/fir_00251_output_70/src/Clink}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;D:\Telops\FIR-00251-Output\src\FrameBuffer\Drivers&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;D:\Telops\FIR-00251-Output\src\pleora_intf\Drivers&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc}/..\src\FrameBuffer\Drivers&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc}/..\src\pleora_intf\Drivers&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/fir_00251_output_70/src/BuildInfo}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/fir_00251_output_70/src/usart}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/fir_00251_output_70/src/startup}&quot;"/>
@@ -309,10 +309,10 @@
 		</scannerConfigBuildInfo>
 	</storageModule>
 	<storageModule moduleId="refreshScope" versionNumber="2">
-		<configuration configurationName="Release">
+		<configuration configurationName="Debug">
 			<resource resourceType="PROJECT" workspacePath="/fir_00251_output_70"/>
 		</configuration>
-		<configuration configurationName="Debug">
+		<configuration configurationName="Release">
 			<resource resourceType="PROJECT" workspacePath="/fir_00251_output_70"/>
 		</configuration>
 	</storageModule>

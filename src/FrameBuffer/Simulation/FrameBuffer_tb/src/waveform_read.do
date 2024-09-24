@@ -117,7 +117,7 @@ add wave -noreg -logic {/fb_intf_tb/DUT/DM/fb_datamover/U0/m_axis_mm2s_tvalid}
 add wave -noreg -logic {/fb_intf_tb/DUT/DM/fb_datamover/U0/m_axis_mm2s_tready}
 add wave -noreg -hexadecimal -literal {/fb_intf_tb/DUT/DM/fb_datamover/U0/mm2s_dbg_sel}
 add wave -noreg -hexadecimal -literal {/fb_intf_tb/DUT/DM/fb_datamover/U0/mm2s_dbg_data}
-add wave -noreg -hexadecimal -literal {/fb_intf_tb/DUT/DM/fb_datamover/U0/\^mm2s_dbg_data\}
+add wave -noreg -hexadecimal -literal {/fb_intf_tb/DUT/DM/fb_datamover/U0//^mm2s_dbg_data/}
 add wave -named_row "AXI_INTER"
 add wave -noreg -logic {/fb_intf_tb/U1/interconnect/INTERCONNECT_ACLK}
 add wave -noreg -logic {/fb_intf_tb/U1/interconnect/INTERCONNECT_ARESETN}

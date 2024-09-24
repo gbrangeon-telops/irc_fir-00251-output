@@ -21,7 +21,8 @@ entity Clink_portmap is
       CH_INPUT : in CLinkChannel;
       CH_OUTPUT      : out std_logic_vector(27 downto 0) := (others => '0') 
       );    
-end Clink_port_mapper;
+-- end Clink_port_mapper;
+end Clink_portmap;
 
 architecture RTL of Clink_portmap is
 begin 
