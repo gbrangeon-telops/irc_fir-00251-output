@@ -21,7 +21,7 @@ proc build_output_project {} {
 	set top_lvl [get_property top [current_fileset]]
 	#Get FPGA Size
 	set FPGA_SIZE [string range $proj_name 16 end]
-   
+
 	#generate bitstream
 	launch_runs impl_1 -to_step write_bitstream
 	
@@ -30,8 +30,10 @@ proc build_output_project {} {
 	
 	#Export bitstream
 	file copy -force $base_dir/xilinx/${proj_name}.runs/impl_1/${top_lvl}.sysdef $base_dir/sdk/${top_lvl}.hdf
-	exec $base_dir/scripts/updateHwSvnRev.bat ${FPGA_SIZE}
-	
+	#Build git revision
+	source $base_dir/scripts/updateHwRev.tcl 
+	updateHwSvnRev ${FPGA_SIZE}
+
 	#open implemented design
 	open_run impl_1
 	
