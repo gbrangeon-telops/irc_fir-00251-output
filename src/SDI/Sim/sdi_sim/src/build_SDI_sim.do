@@ -18,8 +18,8 @@ acom "$FIR251COMMON/VHDL/Fifo/t_axi4_stream16_fifo.vhd"
 acom "$FIR251COMMON/VHDL/Utilities/axis32_hole.vhd"
 acom "$FIR251COMMON/VHDL/Utilities/axis32_RandomMiso.vhd"
 
---acom "$FIR251OUT/IP/axis32_rs/axis32_rs_funcsim.vhdl"
---acom "$FIR251COMMON/VHDL/Utilities/axis32_registerSlice_wrap.vhd"
+-- acom "$FIR251OUT/IP/axis32_rs/axis32_rs_funcsim.vhdl"
+-- acom "$FIR251COMMON/VHDL/Utilities/axis32_registerSlice_wrap.vhd"
 
 acom "$COMMON_HDL/Utilities/sync_resetn.vhd"
 acom "$FIR251OUT/src/SDI/HDL/axis32_img_sof.vhd"
